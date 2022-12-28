@@ -1,0 +1,59 @@
+
+BackEnd :
+
+npm init → to enable download new modeling 
+---------------------------------------------------------------------
+npm i mongodb → install mongoDB
+---------------------------------------------------------------------
+npm i mongoose → install mongoose
+---------------------------------------------------------------------
+npm i express → install express in order to create server
+---------------------------------------------------------------------
+npm i body-parser → inoder to get the data from the react
+---------------------------------------------------------------------
+npm i cors → solve the problem of connection
+---------------------------------------------------------------------
+npm i dotenv → use dotenv to set an environment variable
+# after install the doenv , we need to create a .env file
+---------------------------------------------------------------------
+npm i mongoose-encryption
+---------------------------------------------------------------------
+npm install -g nodemon
+---------------------------------------------------------------------
+npm i express-validator → inorder to check the entered field
+---------------------------------------------------------------------
+npm i bcrypt → to protect user password
+---------------------------------------------------------------------
+npm i jsonwebtoken → JWT
+
+
+
+FrontEnd :
+
+npx create-react-app termi-project
+---------------------------------------------------------------------
+How to make a comment
+{/* This is a JSX comment */} 
+---------------------------------------------------------------------
+npm i bootstrap → the right way to install bootstrap
+                → go to node_modules → look for /bootstrap → choose /dist → /css → bootstrap.css
+                → get the path
+                =======> /blackshift/FrontEnd/termi-project/node_modules/bootstrap/dist/css/bootstrap.css
+* go to /src/index.js → import 'bootstrap/dist/css/bootstrap.css';
+---------------------------------------------------------------------
+npm install react-bootstrap → /blackshift/FrontEnd/termi-project/node_modules/bootstrap/dist/css/bootstrap.min.css
+
+import { Button } from 'react-bootstrap';
+---------------------------------------------------------------------
+npm i axios
+import axios from "axios";
+---------------------------------------------------------------------
+npm i short-id
+---------------------------------------------------------------------
+npm install @fortawesome/react-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
+---------------------------------------------------------------------
+npm install validator
+---------------------------------------------------------------------
+npm i react-hook-form
+---------------------------------------------------------------------
+npm i react-spring

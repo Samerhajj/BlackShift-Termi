@@ -1,0 +1,35 @@
+
+How to Install Bootstrap in React JS : https://www.youtube.com/watch?v=WU6xkdGmQ6I&ab_channel=AndreasWaatz
+
+react-bootstrap :   https://react-bootstrap.github.io/components/alerts/
+
+                    https://getbootstrap.com/docs/3.3/components/#btn-groups
+                    
+                    https://react-bootstrap.github.io/getting-started/introduction/
+Front End Link : 
+                http://dir.y2022.kinneret.cc:7024/
+                
+Google Chrome Extention : 
+                ‪Pesticide for Chrome (without hover bar)
+                
+Solving the problem of params + Nested Object :
+                    https://stackoverflow.com/questions/54915316/querying-nested-object-arrays-from-mongodb-nodejs
+                    
+Solving the problem of MongoDB find string containing parentheses:
+                    https://stackoverflow.com/questions/57065548/mongodb-find-string-containing-parentheses
+Adding profile icon in the navbar :
+                    https://fontawesome.com/icons (import 'font-awesome/css/font-awesome.min.css';)
+                    
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+                    https://www.digitalocean.com/community/tutorials/react-font-awesome
+                    
+                    
+https://www.svgbackgrounds.com/
+
+https://fontawesome.com/search?q=profile&o=r&s=duotone%2Csolid
+
+make backgrounds and all
+https://wepik.com/edit/hand-drawn-green-game-console-twitter-header-21695556#utm_source=freepik&utm_medium=referall&utm_campaign=editordetail&utm_content=edit-button&utm_term=edit
+
+to understand axios.defaults.headers.common :
+    https://stackoverflow.com/questions/43051291/attach-authorization-header-for-all-axios-requests
