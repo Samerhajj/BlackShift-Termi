@@ -14,14 +14,20 @@ import {BsStarFill, BsStar} from 'react-icons/bs';
 const TermCard = (props) =>{
     const { t } = useTranslation();
     const [language, setLanguage] = useState(props.initialLanguage);
+    const [isFav, setIsFav] = useState(false);
+    
     const handle_starsClick = async() =>{
         try{
             let emailA = JSON.parse(localStorage.getItem("profileBody"))['email'];
             let personId = JSON.parse(localStorage.getItem("profileBody"))['_id'];
             const update = await axios.put("http://dir.y2022.kinneret.cc:7013/search/send-favorite", {id:props.term._id,email:emailA,person_id:personId});
-            console.log(update);
-            if(update.data){console.log("true")}
-            else {console.log("false")}
+
+            if(update.data){
+                console.log("true");
+                setIsFav(update.data);
+            }else {
+                console.log("false");
+            }
         }
         catch(err){
             console.log("hi from err");
@@ -57,7 +63,13 @@ const TermCard = (props) =>{
                         })
                     }
                     {/*<img className="star" src={stars_1} onClick={handle_starsClick}/>*/}
-                    <BsStar className="star" onClick={()=>{handle_starsClick();}}/>
+                    {
+                        isFav ? (
+                            <BsStarFill className="star-filled" onClick={()=>{handle_starsClick();}}/>
+                        ):(
+                            <BsStar className="star-outline" onClick={()=>{handle_starsClick();}}/>
+                        )
+                    }
                 </div>
                 <div className="definitions-box">
                     <h3 className="trem-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>

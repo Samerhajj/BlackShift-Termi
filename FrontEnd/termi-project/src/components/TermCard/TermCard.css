@@ -99,18 +99,20 @@ body[dir="rtl"] .read-url:hover{
     color: #59F694;
 }
 
-.stars_icon:hover {
-    box-shadow: 0 10px 10px yellow;
-}
-
-.star{
+.star-outline{
+    color: purple;
     height: 30px;
     width: 30px;
     margin-left: auto;
+    cursor: pointer;
 }
 
-.star:hover{
-    color: red;
+.star-filled{
+    color: gold;
+    height: 30px;
+    width: 30px;
+    margin-left: auto;
+    cursor: pointer;
 }
 
 .language-btn{
