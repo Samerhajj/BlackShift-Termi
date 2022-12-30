@@ -4,37 +4,45 @@ import { useTranslation } from 'react-i18next';
 import {coolFontText} from "./BackDefinition.css";
 import play_Icon from "../../images/play_Icon.svg";
 import { Modal, Button } from "react-bootstrap";
+import useInterval from "./useInterval";
 
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 
 export default function App() {
-	const { t, i18n } = useTranslation();
-	const [questions, setQuestions] = useState([]);
-	const [currentQuestion, setCurrentQuestion] = useState(0);
-	const [showScore, setShowScore] = useState(false);
-	const [score, setScore] = useState(0);
-	const [start, setStart] = useState(false);
-	const [message,setMessage]=useState('');
+const { t, i18n } = useTranslation();
+const [questions, setQuestions] = useState([]);
+const [currentQuestion, setCurrentQuestion] = useState(0);
+const [showScore, setShowScore] = useState(false);
+const [score, setScore] = useState(0);
+const [start, setStart] = useState(false);
+const [message,setMessage]=useState('');
 const steps = t('games.backword-definition.step-by-step', { returnObjects: true });
  const [buttonColor, setButtonColor] = useState(null);
 const [disabled, setDisabled] = useState(false);
 // Timer
 const [elapsedTime, setElapsedTime] = useState(0);
 
-// Add this inside the App component
-useEffect(() => {
-  let intervalId = null;
-  if (start && !showScore) {
-    intervalId = setInterval(() => {
+//useInterval
+ useInterval(() => {
+    // Update elapsedTime only if start is true and showScore is false
+    if (start && !showScore) {
       setElapsedTime(elapsedTime + 1);
-    }, 1000);
-  } else {
-    clearInterval(intervalId);
-  }
-  return () => clearInterval(intervalId);
-}, [start, showScore, elapsedTime]);
+    }
+  }, 1000);
+
+// useEffect(() => {
+//   let intervalId = null;
+//   if (start && !showScore) {
+//     intervalId = setInterval(() => {
+//       setElapsedTime(elapsedTime + 1);
+//     }, 1000);
+//   } else {
+//     clearInterval(intervalId);
+//   }
+//   return () => clearInterval(intervalId);
+// }, [start, showScore, elapsedTime]);
 const [timeLeft, setTimeLeft] = useState(30);
 useEffect(() => {
   let timerId = null;
