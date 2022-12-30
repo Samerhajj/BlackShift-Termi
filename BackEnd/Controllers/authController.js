@@ -1,13 +1,10 @@
 const User = require("../Models/userSchema");
-const Suggest = require("../Models/suggestSchema");
 const { validationResult } = require('express-validator');
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// var ObjectID = require('mongodb').ObjectID;
 
 let refreshTokens = [];
 //-------------------------------------------------------------------------------------------------------------------------------------
-const Register = async (req, res) => {
+const register = async (req, res) => {
   // Check if there are validation errors
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -45,7 +42,7 @@ const Register = async (req, res) => {
   return res.json({token});
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
-const Login = async (req, res) => {
+const login = async (req, res) => {
   //const { email, password } = req.body.loginData;
      const { email, password } = req.body;
 
@@ -118,7 +115,7 @@ res.headers['x-refresh-token'] = newRefreshToken;
 }
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
-const Logout = (req, res) => {
+const logout = (req, res) => {
 
   const refreshToken = req.headers['x-refresh-token'];
   const token = req.headers['x-auth-token'];
@@ -154,7 +151,7 @@ const Logout = (req, res) => {
 }
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
-const Private = async(req,res) =>{
+const privateAccess = async(req,res) =>{
   // --> Here we reach the private fields for our customers
     try{
         const resPrivate = await User.findOne({email:req.user});
@@ -167,4 +164,5 @@ const Private = async(req,res) =>{
     }
 }
 //-------------------------------------------------------------------------------------------------------------------------------------
-module.exports = {Register,Login,Logout,tokenG,Private}
+
+module.exports = {register,login,logout,tokenG,privateAccess};

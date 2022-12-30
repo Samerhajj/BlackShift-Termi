@@ -4,20 +4,19 @@ const User = require("../Models/userSchema");
 router.use(express.json());
 
 // imported from other local javaScript files
-const {Register, Login, Logout, tokenG, Private} = require("../Controllers/authController");
+const {register, login, logout, tokenG, privateAccess} = require("../Controllers/authController");
 const authToken = require("../Controllers/UserFolder/Middleware/authenticateToken");
 
 
 // Router Functions
+router.post("/login", login);
 
-router.post("/login",Login);
+router.post("/token", tokenG);
 
-router.post("/token",tokenG);
+router.delete("/logout", logout);
 
-router.delete("/logout",Logout);
+router.post("/register", register);
 
-router.post("/register",Register);
-
-router.get("/private",authToken,Private);
+router.get("/private", authToken, privateAccess);
 
 module.exports = router;

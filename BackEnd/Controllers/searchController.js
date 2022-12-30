@@ -1,6 +1,5 @@
 const Search = require("../Models/searchSchema");
 const User = require("../Models/userSchema");
-var ObjectID = require('mongodb').ObjectID;
 
 const searchTerm = async(req,res)=>{
   try{
@@ -127,21 +126,6 @@ const getRandomConcepts = async(req,res)=>{
   }
 };
 
-const addToFav = async (req,res) =>{
-  try {
-        const id = req.body.person_id;
-        const updateRes = await User.updateOne(
-        { "_id": ObjectID(req.body.person_id)},
-        { $addToSet: { favorite: req.body.id } },
-        );
-        res.send(updateRes.modifiedCount== 1) // --> update done succ
-  }
-  catch(err){
-    console.log("hi from err");
-    console.log(err);
-  }
-}
-
 const getAllTermList = async (req,res) =>{
     let lista = ["6390aeba34aa753e5c961306"];
 
@@ -165,5 +149,5 @@ const suggestTerm = async (req,res) =>{
 module.exports = {autoCompleteTerm,
                   searchTerm,
                   getRandomConcepts,
-                  addToFav,getAllTermList,
+                  getAllTermList,
                   suggestTerm};

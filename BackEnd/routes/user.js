@@ -1,32 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../Models/userSchema");
-const { body } = require("express-validator");
 router.use(express.json());
 
 // imported from other local javaScript files
-const {Register,Login,Logout,tokenG,Private,Favorite,DeleteFavorite,suggestTerm} = require("../Controllers/userController");
-const authToken = require("../Controllers/UserFolder/Middleware/authenticateToken");
-const {createUser} = require("./../validator");
+const { favorites, deleteFavorite, addFavorite, suggestTerm} = require("../Controllers/userController");
 
 
 // Router Functions
 
-router.post("/login",Login);
+router.post("/favorites", favorites);
 
-router.post("/token",tokenG);
+router.put("/delete-favorite", deleteFavorite);
 
-router.delete("/logout",Logout);
+router.put("/add-favorite", addFavorite);
 
-router.post("/register",Register);
+router.post("/suggest-term", suggestTerm);
 
-router.get("/private",authToken,Private);
-
-router.post("/favorite",Favorite);
-
-router.put("/deletefav",DeleteFavorite);
-
-router.post("/suggest-term",suggestTerm);
 
 module.exports = router;
 
