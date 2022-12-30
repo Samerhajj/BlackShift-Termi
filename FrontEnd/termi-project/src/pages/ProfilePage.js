@@ -1,13 +1,12 @@
 import React,{useState,useEffect} from "react";
-import messi from "../images/messi.jpg";
 import Image from "react-bootstrap/Image";
 import { Modal, Button } from "react-bootstrap";
-import AvatarGenerator from "./Logic/AvatarGenerator"
+import AvatarGenerator from "./Logic/AvatarGenerator";
 import { useNavigate} from 'react-router-dom';
 import goldChevron from "../images/Games/Chevron/goldChevron.png";
 import silverChevron from "../images/Games/Chevron/silverChevron.png";
 import brownChevron from "../images/Games/Chevron/brownChevron.png";
-import "./../styles/ProfilePage.css"
+import "./../styles/ProfilePage.css";
 const ProfilePage =  () => {
   let avatarGenerator = new AvatarGenerator();
   let avatarImageUrl = avatarGenerator.generateRandomAvatar('avatar');
