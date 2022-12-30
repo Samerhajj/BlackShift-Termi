@@ -8,6 +8,9 @@ import style from "./TermCard.css";
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
+// --> APIs
+import UserApi from '../../api/UserAPI';
+
 // --> Import Icons
 import {BsStarFill, BsStar} from 'react-icons/bs';
 
@@ -17,21 +20,39 @@ const TermCard = (props) =>{
     const [isFav, setIsFav] = useState(false);
     
     const handle_starsClick = async() =>{
-        try{
-            let emailA = JSON.parse(localStorage.getItem("profileBody"))['email'];
-            let personId = JSON.parse(localStorage.getItem("profileBody"))['_id'];
-            const update = await axios.put("http://dir.y2022.kinneret.cc:7013/search/send-favorite", {id:props.term._id,email:emailA,person_id:personId});
+        // try{
+        //     let emailA = JSON.parse(localStorage.getItem("profileBody"))['email'];
+        //     let personId = JSON.parse(localStorage.getItem("profileBody"))['_id'];
+        //     const update = await axios.put("http://dir.y2022.kinneret.cc:7013/search/send-favorite", {id:props.term._id,email:emailA,person_id:personId});
 
-            if(update.data){
-                console.log("true");
-                setIsFav(update.data);
-            }else {
-                console.log("false");
+        //     if(update.data){
+        //         console.log("true");
+        //         setIsFav(update.data);
+        //     }else {
+        //         console.log("false");
+        //     }
+        // }
+        // catch(err){
+        //     console.log("hi from err");
+        //     console.log(err);
+        // }
+        
+        if(!isFav){
+            const res = await UserApi.addFavorite(props.term._id);
+            console.log(res);
+            if(res.success){
+                setIsFav(res.body);
+            }else{
+                alert(res.message);
             }
-        }
-        catch(err){
-            console.log("hi from err");
-            console.log(err);
+        }else{
+            const res = await UserApi.deleteFavorite1(props.term._id);
+            console.log(res);
+            if(res.success){
+                setIsFav(res.body);
+            }else{
+                alert(res.message);
+            }
         }
     };
     
