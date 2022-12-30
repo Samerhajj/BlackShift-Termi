@@ -3,19 +3,20 @@ import axios from 'axios';
 import FavCard from './FavCard'
 import fav from './fav.css'
 import UserAPI from '../../api/UserAPI';
+
 const Favorite  = ({initialLanguage}) =>{
     const [list,setList] = useState([]);
     const [isOpen,setIsOpen] = useState(false);
     const [language,setLanguage]=useState(initialLanguage);
     //--> functions
     const handle_showMore = async () => {
-    const response = await UserAPI.getFavoriteList();
-    if (response.success) {
-      setList([...response.body]);
-      setIsOpen(!isOpen);
-    } else {
-      alert(response.message);
-    }
+        const response = await UserAPI.favorites();
+        if (response.success) {
+          setList([...response.body]);
+          setIsOpen(!isOpen);
+        } else {
+          alert(response.message);
+        }
   };
 
   const changeLanguage = (newLanguage) => {
