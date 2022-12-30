@@ -112,6 +112,11 @@ const initGame = async () => {
 				allQuestions.push(newQuestion);
 			}
 			setQuestions(allQuestions);
+		    setElapsedTime(0);  // reset elapsed time to 0
+		    setShowScore(false);  // hide the score modal
+		    setCurrentQuestion(0);  // reset the current question to the first question
+			setScore(0);
+			setTimeLeft(30);  // reset the time left
 			setStart(true);
         }else{
         	console.log(res.message);
@@ -119,7 +124,7 @@ const initGame = async () => {
 	};
   
   
-	const handleAnswerOptionClick = (event,isCorrect) => {
+const handleAnswerOptionClick = (event,isCorrect) => {
 		setDisabled(true);
 	
     console.log(event.target);
@@ -160,7 +165,6 @@ const initGame = async () => {
 		setMessage('');
 		},1000);
 	};
-		
 	
 const [showModal, setShowModal] = useState(false);
 
@@ -190,12 +194,9 @@ const seconds = elapsedTime % 60;
 							  <h1>Elapsed time: {minutes}:{seconds}</h1>
 							</p>
 						</div>
-						 <Button variant="primary"  onClick={() => {
-						      setCurrentQuestion(0);
-						      setShowScore(false);
-						    }}
-						     className="restart-button small button"
-						     >
+						 <Button variant="primary"  onClick={() => { initGame() }}
+						    
+						     className="restart-button small button">
 						      Play again
 							 </Button>
 							 </div>
