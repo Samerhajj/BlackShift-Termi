@@ -1,22 +1,19 @@
-import React, { useState ,useRef,useEffect,useContext,createContext ,Fragment} from 'react';
+import React, { useContext ,Fragment} from 'react';
 import { Link ,useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 import LanguageSelector from './LanguageSelector'; // component
 import 'font-awesome/css/font-awesome.min.css';
 import logoImg from '../images/terminewlogo.png';
-import logout_w from '../images/logout_w.png';
-import gamepad_icon from '../images/gamepad_icon.png';
-import search from '../images/iconimg/search.png';
-import searchE from '../images/iconimg/searchE.png';
-import style from './style.css';
+// import logout_w from '../images/logout_w.png';
+// import gamepad_icon from '../images/gamepad_icon.png';
+// import search from '../images/iconimg/search.png';
+// import searchE from '../images/iconimg/searchE.png';
+// import style from './style.css';
+// import santa from '../images/santa_note.png';
 import GoToTop from './backTopPage';
 import PropTypes from "prop-types";
 import HamburgerLogic from './hamburgerLogic'; // component
 import HandleScroll from './handleScroll'; // component
-import santa from '../images/santa_note.png';
 import axios from "axios";
 import {logoutRoute} from '../api/ApiRoutes';
 
