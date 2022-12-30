@@ -5,18 +5,18 @@ const autocompleteRoute = process.env.React_App_BaseURL + "search" + "/" + "auto
 // Games Routes
 const randomRoute = process.env.React_App_BaseURL + "search" + "/" + "random";
 
-// User Routes
-// const loginRoute = process.env.React_App_BaseURL + "login";
-const loginRoute = process.env.React_App_User_Login;
-const privateRoute = process.env.React_App_User_Private;
-const registerRoute = process.env.React_App_User_Register;
-const logoutRoute = process.env.React_App_User_Logout;
-const favoriteRoute = process.env.React_App_User_Favorite;
-const delFavoriteRoute = process.env.React_App_User_DEL_Favorite;
-const favoriteRoute1 = process.env.React_App_User_Favorite_1;
-const displayMytermsRoute1 = process.env.React_App_User_Favorite_DISPLAY_MYTERMS
+// Auth Routes
+const loginRoute = process.env.React_App_BaseURL + "auth" + "/" + "login";
+const privateRoute = process.env.React_App_BaseURL + "auth" + "/" + "private";
+const registerRoute = process.env.React_App_BaseURL + "auth" + "/" + "register";
+const logoutRoute = process.env.React_App_BaseURL + "auth" + "/" + "logout";
 
-// const registerRoute = process.env.React_App_BaseURL + "register";
+// User Routes
+const favoritesRoute = process.env.React_App_BaseURL + "user" + "/" + "favorites";
+const deleteFavoriteRoute = process.env.React_App_BaseURL + "user" + "/" + "delete-favorite";
+const addFavoriteRoute = process.env.React_App_BaseURL + "user" + "/" + "add-favorite";
+
+const displayMytermsRoute1 = process.env.React_App_User_Favorite_DISPLAY_MYTERMS;
 
 export {searchRoute,
         autocompleteRoute,
@@ -25,8 +25,8 @@ export {searchRoute,
         privateRoute,
         registerRoute,
         logoutRoute,
-        favoriteRoute,
-        delFavoriteRoute,
-        favoriteRoute1,
+        favoritesRoute,
+        deleteFavoriteRoute,
+        addFavoriteRoute,
         displayMytermsRoute1
 };

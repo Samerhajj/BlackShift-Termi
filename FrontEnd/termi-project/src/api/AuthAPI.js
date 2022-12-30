@@ -1,5 +1,5 @@
 import axios from "axios";
-import { logoutRoute,loginRoute,registerRoute ,privateRoute} from '../api/ApiRoutes';
+import { logoutRoute, loginRoute, registerRoute, privateRoute} from '../api/ApiRoutes';
 
 
 const login = async (loginData) =>{
@@ -34,10 +34,13 @@ const login = async (loginData) =>{
            return {body: profile_body.data, success: true};
           }
       catch(err){
-         if (err.response.status === 401) {
-             return {success: false, message: "Unauthorized"};
+          if(err.response.status === 401) {
+              return {success: false, message: "Unauthorized"};
+          }else{
+              console.log(err.message);
+              return {success: false, message: err.message};
+          }
     //   console.error('Unauthorized');
-      }
     };
 
     
