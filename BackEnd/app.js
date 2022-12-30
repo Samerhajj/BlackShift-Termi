@@ -20,7 +20,8 @@ app.use(cors({
 }));
 
 app.use("/search", require("./routes/search"));
-app.use("/user", require("./routes/user"))
+app.use("/user", require("./routes/user"));
+app.use("/auth", require("./routes/auth"));
 app.use("/note",require("./routes/note"));
 // Set staic folder
 
