@@ -10,8 +10,7 @@ const getFavoriteList = async ()=>{
             let email = x.email;
             const usr = await axios.post("http://dir.y2022.kinneret.cc:7013/user/favorite", {email:email})//find the user
             // const res1 = await axios.post("http://dir.y2022.kinneret.cc:7013/user/favorite", {personId})
-            const favList =  await axios.post("http://dir.y2022.kinneret.cc:7013/search/display-myterms"
-                                        ,{list:usr.data});// display all the fav
+            const favList =  await axios.post("http://dir.y2022.kinneret.cc:7013/search/display-myterms", {list:usr.data});// display all the fav
             let array = [];
             array = favList.data;
             console.log(array)
@@ -36,4 +35,7 @@ const favoriteCardDel = async (list,card,data) =>{
          return {success: false, message: err.message};
     }
 }
+
+// const favoriteAdd
+
 export default {favoriteCardDel,getFavoriteList};
