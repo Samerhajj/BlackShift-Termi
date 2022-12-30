@@ -23,15 +23,9 @@ const steps = t('games.backword-definition.step-by-step', { returnObjects: true 
 const [disabled, setDisabled] = useState(false);
 // Timer
 const [elapsedTime, setElapsedTime] = useState(0);
+const [timeLeft, setTimeLeft] = useState(30);
 
-//useInterval
- useInterval(() => {
-    // Update elapsedTime only if start is true and showScore is false
-    if (start && !showScore) {
-      setElapsedTime(elapsedTime + 1);
-    }
-  }, 1000);
-
+/*----------------useEffect Old Code
 // useEffect(() => {
 //   let intervalId = null;
 //   if (start && !showScore) {
@@ -43,16 +37,32 @@ const [elapsedTime, setElapsedTime] = useState(0);
 //   }
 //   return () => clearInterval(intervalId);
 // }, [start, showScore, elapsedTime]);
-const [timeLeft, setTimeLeft] = useState(30);
-useEffect(() => {
-  let timerId = null;
-  if(start){
-    timerId = setInterval(() => {
+
+// useEffect(() => {
+//   let timerId = null;
+//   if(start){
+//     timerId = setInterval(() => {
+//       setTimeLeft(timeLeft - 1);
+//     }, 1000);
+//   }
+//   return () => clearInterval(timerId);
+// }, [start, timeLeft]);
+ END OF OLD CODe*/
+ 
+						//useIntervaal
+ useInterval(() => {
+    // Update elapsedTime only if start is true and showScore is false
+    if (start && !showScore) {
+      setElapsedTime(elapsedTime + 1);
+    }
+  }, 1000);
+
+ useInterval(() => {
+    // Update timeLeft only if start is true
+    if (start) {
       setTimeLeft(timeLeft - 1);
-    }, 1000);
-  }
-  return () => clearInterval(timerId);
-}, [start, timeLeft]);
+    }
+  }, 1000);
 
  useEffect(() => {
     if (timeLeft === 0) {
