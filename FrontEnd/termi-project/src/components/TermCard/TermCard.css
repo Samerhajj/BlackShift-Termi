@@ -109,21 +109,8 @@ body[dir="rtl"] .read-url:hover{
     margin-left: auto;
 }
 
-/*body[dir="rtl"] .star{*/
-/*    margin-right: auto;*/
-/*}*/
-
-/*body[dir="ltr"] .star{*/
-/*    margin-left: auto;*/
-/*}*/
-
 .star:hover{
-    background:yellow;
-    border: 2px solid #f00;
-}
-
-.star:active{
-    background:green;
+    color: red;
 }
 
 .language-btn{

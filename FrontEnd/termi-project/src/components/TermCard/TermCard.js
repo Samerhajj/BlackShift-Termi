@@ -8,6 +8,9 @@ import style from "./TermCard.css";
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
+// --> Import Icons
+import {BsStarFill, BsStar} from 'react-icons/bs';
+
 const TermCard = (props) =>{
     const { t } = useTranslation();
     const [language, setLanguage] = useState(props.initialLanguage);
@@ -53,7 +56,8 @@ const TermCard = (props) =>{
                             );
                         })
                     }
-                    <img className="star" src={stars_1} onClick={handle_starsClick}/>
+                    {/*<img className="star" src={stars_1} onClick={handle_starsClick}/>*/}
+                    <BsStar className="star" onClick={()=>{handle_starsClick();}}/>
                 </div>
                 <div className="definitions-box">
                     <h3 className="trem-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
