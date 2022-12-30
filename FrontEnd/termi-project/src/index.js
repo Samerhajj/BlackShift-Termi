@@ -13,7 +13,7 @@ import "./i18nextInit";
 const MyComponent = React.lazy(() => new Promise(resolve => {
     setTimeout(() => {
       resolve(import('./App'));
-    }, 2500);
+    }, 1500);
   }));
 
 function Wrapper() {
