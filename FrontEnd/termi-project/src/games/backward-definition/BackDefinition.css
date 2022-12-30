@@ -1,0 +1,53 @@
+.cool-font-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cool Font', sans-serif;
+  
+  
+}
+.small-button {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-family: 'Bubbly Font';
+  font-size: 36px;
+  color: #333;
+  text-align: center;
+  justify-content: center;
+}
+.styled-text {
+  font-size: 20px;
+  color: blue;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+.circle-button {
+  border-radius: 100%;
+  font-family: 'Cool Font';
+  height: 140px;
+  width: 140px;
+  font-size: 18px;
+}
+.center-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.restart-button {
+  margin: 0 40px;
+  align-items: center;
+  justify-content: center;
+}
+.small-button{
+  font-size:14px;
+  padding:4px 8px;
+  min-width:80px;
+}

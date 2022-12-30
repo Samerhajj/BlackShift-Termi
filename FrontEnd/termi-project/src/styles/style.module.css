@@ -1,0 +1,134 @@
+.st {
+    color:"red";
+}
+/*.SearchBox{*/
+/*    background: #fff;*/
+/*    display:flex;*/
+/*    border:1px solid #dfe1e5;*/
+/*    box-shadow:none;*/
+/*    border-radius:24px;*/
+/*    height:40px;*/
+/*    margin:10px auto;*/
+/*    width:42px;*/
+/*}*/
+/*.SearchBox:hover{*/
+/*    box-shadow:0 1px 6px 0 rgba(32,33,36,0,28);*/
+/*    border-color:rgba(223,225,229,0);*/
+/*}*/
+/*.SearchBox > div{*/
+/*    flex:1;*/
+/*    display:flex;*/
+/*    padding:5px 8px 0 14px;*/
+/*}*/
+
+/*.SearchIcon{*/
+/*    display:flex;*/
+/*    align-items:center;*/
+/*    padding-right:13px;*/
+/*    margin:-2px auto 0;*/
+/*}*/
+
+/*.SearchIcon >span{*/
+/*    color:#9aa0a6;*/
+/*    height:20px;*/
+/*    width:20px;*/
+/*    margin-top:-5px;*/
+/*    display:inline-block;*/
+/*    fill:currentColor;*/
+/*    line-height: 24px;*/
+/*    position: relative;*/
+/*}*/
+/*svg.not(:root){*/
+/*    overflow:hidden;*/
+/*}*/
+
+/*.SearchIcon >span svg{*/
+/*    display:block;*/
+/*    height:100%;*/
+/*    width:100%;*/
+/*}*/
+/*.InputBox{*/
+/*    flex-warp:warp;*/
+/*    background-color: transparent;*/
+/*    border:none;*/
+/*    margin-right:10px;*/
+/*    padding:0;*/
+/*    word-wrap: break-work;*/
+/*    outline:none;*/
+/*    display:flex;*/
+/*    line-height: 32px;*/
+/*    background-size: 20px 20px;*/
+/*    height:20px;*/
+/*    width:27px;*/
+/*    margin-top:0;*/
+/*    color:transparent;*/
+/*    flex:100%;*/
+/*    white-space:pre;*/
+/*}   */
+/*.InputBox > input{*/
+/*    background-color: transparent;*/
+/*    border:none;*/
+/*    margin-top:-35px;*/
+/*    margin-right:10px;*/
+/*    padding:0;*/
+/*    color:rgba(0,0,0,0.87);*/
+/*    word-wrap:break-word;*/
+/*    outline:none;*/
+/*    display:flex;*/
+/*    flex:100%;*/
+    
+/*}*/
+
+/*.MicroBox{*/
+/*    display:flex;*/
+/*    flex-direction:row;*/
+/*    height:20px;*/
+/*    flex:1 0 auto;*/
+/*    cursor:pointer;*/
+/*    align-items:center;*/
+/*    border:0;*/
+/*    outline:none;*/
+/*    padding:5px 8px;*/
+/*    width:24px;*/
+/*    padding: 0px -8px;*/
+/*    background:transparent;*/
+/*    background-size: 20px 20px;*/
+/*}*/
+
+/*.MicroBox >div {*/
+/*    flex:1 0 auto;*/
+/*    display:flex;*/
+/*    cursor:pointer;*/
+/*    align-items:center;*/
+/*    border:0;*/
+/*    background:transparent;*/
+/*    outline:none;*/
+/*    padding:5px 8px;*/
+/*    width:24px;*/
+/*    line-height: 44px;*/
+/*    margin:5px -12px;*/
+/*}*/
+
+/*.MicroBox > span {*/
+/*     background:url("../images/googlemic_color_24dp.png");*/
+/*    height: 24px;*/
+/*    width:24px;*/
+/*    background-size: 24px;*/
+/*    vertical-align: middle;*/
+/*}*/
+
+/*.MicroBox span{*/
+/*    background:url("../images/googlemic_color_24dp.png");*/
+/*    height: 24px;*/
+/*    width:24px;*/
+/*    background-size: 24px;*/
+/*    vertical-align:middle;*/
+/*}*/
+
+/*.minidiv{*/
+/*    line-height: 32px;*/
+/*    background-size:20px 20px;*/
+/*    height:20px;*/
+/*    width:27px;*/
+/*    margin-top:0;*/
+/*}*/

@@ -1,0 +1,216 @@
+/*.game-section{*/
+/*  background-color: #ffffff;*/
+/*  width: 100%;*/
+/*  min-height: 20%;*/
+/*  height: min-content;*/
+/*  border-radius: 15px;*/
+/*  padding: 20px;*/
+/*  box-shadow: 10px 10px 42px 0px rgba(0, 0, 0, 0.75);*/
+/*  display: flex;*/
+/*  justify-content: space-evenly;*/
+/*}*/
+
+/*.score-section {*/
+/*  display: flex;*/
+/*  font-size: 24px;*/
+/*  align-items: center;*/
+/*}*/
+
+/* QUESTION/TIMER/LEFT SECTION */
+/*.question-section {*/
+/*  width: 100%;*/
+/*  position: relative;*/
+/*  align-items: center;*/
+/*}*/
+
+/*.question-count {*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*.question-count span {*/
+/*  font-size: 28px;*/
+/*}*/
+
+/*.question-text {*/
+/*  margin-bottom: 12px;*/
+/*}*/
+
+/*.timer-text {*/
+/*  background: rgb(230, 153, 12);*/
+/*  padding: 15px;*/
+/*  margin-top: 20px;*/
+/*  margin-right: 20px;*/
+/*  border: 5px solid rgb(255, 189, 67);*/
+/*  border-radius: 15px;*/
+/*  text-align: center;*/
+/*}*/
+
+/* ANSWERS/RIGHT SECTION */
+/*.answer-section {*/
+/*  width: 100%;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  justify-content: space-between;*/
+/*}*/
+
+/*button {*/
+/*  width: 100%;*/
+/*  font-size: 16px;*/
+/*  color: #000000;*/
+/*  background-color: #ffffff;*/
+/*  border-radius: 15px;*/
+/*  display: flex;*/
+/*  padding: 5px;*/
+/*  justify-content: flex-start;*/
+/*  align-items: center;*/
+/*  border: 5px solid #ffffff;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*.correct {*/
+/*  background-color: #2f922f;*/
+/*}*/
+
+/*.incorrect {*/
+/*  background-color: #ff3333;*/
+/*}*/
+
+/*button:hover {*/
+/*  background-color: #555e7d;*/
+/*}*/
+
+/*button:focus {*/
+/*  outline: none;*/
+/*}*/
+
+/*button svg {*/
+/*  margin-right: 5px;*/
+/*}*/
+
+/*.Wordle {*/
+/*  text-align: center;*/
+/*  background-color: #121212;*/
+/*  width: 100vw;*/
+/*  height: 100vh;*/
+/*   display: flex; */
+/*  color: white;*/
+/*}*/
+
+/*body {*/
+/*  padding: 0%;*/
+/*  margin: 0;*/
+/*}*/
+
+/*nav {*/
+/*  height: 60px;*/
+/*  width: 100%;*/
+/*  margin: 0;*/
+/*  border-bottom: 1px solid grey;*/
+/*  display: grid;*/
+/*  place-items: center;*/
+/*}*/
+
+/*nav h1 {*/
+/*  margin: 0;*/
+/*  font-family: Helvetica, Arial, sans-serif;*/
+/*  color: white;*/
+/*  font-size: 45px;*/
+/*}*/
+/*.game {*/
+/*  width: 100vw;*/
+/*  height: calc(100vh - 170px);*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  padding-top: 50px;*/
+/*  flex-direction: column;*/
+/*}*/
+
+/*.board {*/
+/*  width: 450px;*/
+/*  height: 550px;*/
+/*  border: 1px solid black;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*}*/
+
+/*.row {*/
+/*  flex: 33%;*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  margin: 5px;*/
+/*}*/
+
+/*.letter {*/
+/*  flex: 33%;*/
+/*  height: 100%;*/
+/*  border: 1px solid grey;*/
+/*  margin: 5px;*/
+/*  display: grid;*/
+/*  place-items: center;*/
+/*  font-size: 30px;*/
+/*  font-weight: bolder;*/
+/*  color: white;*/
+/*  font-family: Arial, Helvetica, sans-serif;*/
+/*}*/
+
+/*#correct {*/
+/*  background-color: #528d4e;*/
+/*}*/
+
+/*#almost {*/
+/*  background-color: #b49f39;*/
+/*}*/
+
+/*#error {*/
+/*  background-color: #3a393c;*/
+/*}*/
+
+/*.keyboard {*/
+/*  width: 700px;*/
+/*  height: 300px;*/
+/*  margin-top: 60px;*/
+/*}*/
+
+/*.line1 {*/
+/*  flex: 33%;*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  margin: 5px;*/
+/*}*/
+/*.line2 {*/
+/*  flex: 33%;*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  justify-content: center;*/
+/*  margin: 5px;*/
+/*}*/
+/*.line3 {*/
+/*  flex: 33%;*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*  justify-content: center;*/
+/*  margin: 5px;*/
+/*}*/
+
+/*.key {*/
+/*  width: 50px;*/
+/*  height: 70px;*/
+/*  margin: 5px;*/
+/*  border-radius: 4px;*/
+/*  display: grid;*/
+/*  place-items: center;*/
+/*  font-size: 20px;*/
+/*  background-color: grey;*/
+/*  color: white;*/
+/*  font-family: Arial, Helvetica, sans-serif;*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*#big {*/
+/*  width: 100px;*/
+/*}*/
+/*#disabled {*/
+/*  background-color: #3a393c;*/
+/*}*/

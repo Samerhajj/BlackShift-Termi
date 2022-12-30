@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+    <defs>
+        <style>.a{fill:#fa2d84;}.b{fill:#fff;}</style>
+    </defs>
+    <g transform="translate(-278 -158)">
+        <rect class="a" width="44" height="44" rx="4" transform="translate(278 158)"/>
+        <path class="b"
+              d="M.794,7.229,12.643.223a1.607,1.607,0,0,1,2.437,1.39V15.621a1.614,1.614,0,0,1-2.437,1.39l-11.849-7a1.614,1.614,0,0,1,0-2.781Z"
+              transform="translate(290.309 170.723)"/>
+    </g>
+</svg>

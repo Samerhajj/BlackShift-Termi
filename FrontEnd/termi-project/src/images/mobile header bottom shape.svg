@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="402" height="69.013"
+     viewBox="0 0 402 69.013">
+    <defs>
+        <filter id="mobile_header_bottom_shape" x="0" y="0" width="402" height="69.013" filterUnits="userSpaceOnUse">
+            <feOffset dy="-12" input="SourceAlpha"/>
+            <feGaussianBlur stdDeviation="7" result="blur"/>
+            <feFlood flood-opacity="0.161"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#mobile_header_bottom_shape)">
+        <path id="mobile_header_bottom_shape-2" data-name="mobile header bottom shape"
+              d="M0,0S89.521,18.019,179.521,18.019,360,0,360,0V27.013H0Z" transform="translate(21 33)" fill="#fafbff"/>
+    </g>
+</svg>

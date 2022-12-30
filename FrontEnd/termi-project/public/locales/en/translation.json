@@ -1,0 +1,107 @@
+{
+    "navbar":{
+        "terms": "Terms",
+        "games": "Games",
+        "register":"Register",
+        "login":"Login",
+        "logout":"Logout"
+    },
+    "login":{
+        "email":"Email",
+        "password":"Password",
+        "login":"Login",
+        "forgot_password":"Forgot Password ?"
+    },
+    "register":{
+        "full_name":"Full Name",
+        "phone":"Phone",
+        "email":"Email",
+        "password":"Password",
+        "select_category":"Select Category",
+        "select_lang":"Language",
+        "option_one":"Programming",
+        "option_two":"Medicine",
+        "option_three":"Human Resources",
+        "lang_en":"English",
+        "lang_ar":"Arabic",
+        "lang_he":"Hebrew",
+        "register":"Register"
+    },
+    "forgot_password":{
+        "forgot_password":"Forgot Password",
+        "text":"Enter your email to reset password.",
+        "email":"Email",
+        "reset_password":"Reset Password"
+    },
+    "search":{
+        "title": "Control Your Search",
+        "search_placeholder": "What's the term you're looking for ?",
+        "suggested_by": "suggested by",
+        "short_definition": "Short Definition",
+        "long_definition": "Long Definition",
+        "read_more": "Read More",
+        "human_resources": "Human Resources"
+    },
+    "home":{
+        "title-1":"Keep your brain highly motivated and engaged",
+        "title-2":"even from home",
+        "subtitle":"Learn To Talk in a incentivized approach, powered by AI.",
+        "hand-title":"Wide Range Of Searches",
+        "hand-content":"Cover all the essential elements for term searching, In Web or on phone",
+        "robot-title":"AI Driven",
+        "robot-content":"All the tools and platform for highly versatile platforms",
+        "game-title":"Games Technology",
+        "game-content":"Identifies and progress through games"
+    },
+    "games":{
+        "backword-definition":{
+            "start-game": "Start Game",
+            "question-info": "Question {{currentQuestion}}",
+            "score": "You scored {{score}} out of {{questionsLength}}",
+              "modalTitle": "Instruction",
+              "title":"BackWord Definitions",
+               "goBack": "Go Back",
+               "description":"Word game where you choose correct word from list given definition and earn points for correct answers",
+                "continueToGame": "Continue To Game",
+             "step-by-step": [
+             	{
+             		"id": "step1",
+             		"text": "Click the \"Start Game\" button to begin the game."
+             	},
+             	{
+             		"id": "step2",
+             		"text": "Read the definition carefully and choose the word that best matches it."
+             	},
+             	{
+             		"id": "step3",
+             		"text": "Click on your selected answer to submit it."
+             	},
+             	{
+             		"id": "step4",
+             		"text": "If your answer is correct, you will receive a point. If it is incorrect, you will not receive a point."
+             	},
+             	{
+             		"id": "step5",
+             		"text": "The game will move on to the next question automatically."
+             	},
+             	{
+             		"id": "step6",
+             		"text": "Repeat steps 2-5 until you have completed all 10 questions."
+             	},
+             	{
+             		"id": "step7",
+             		"text": "At the end of the game, your score will be displayed."
+             	}
+             ]
+        }
+    
+        
+    },
+    "note":{
+        "delete" : "Delete",
+        "goTop" : "Go Top",
+        "myNote" : "MY NOTE",
+        "title":"Note Title",
+        "body": "body"
+    }
+}

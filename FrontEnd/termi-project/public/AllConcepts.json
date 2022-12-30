@@ -1,0 +1,1602 @@
+[
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "כלל ההחלטות, המדיניות והפעולות הקשורות לניהול עובדים",
+      "english": "All the decisions, strategies, and practices related to the management of people",
+      "arabic": "كافة القرارات، السياسات والإجراءات المتعلقة في إدارة الموظفين"
+    },
+    "lastEdited": 1622382985288,
+    "conceptName": {
+      "arabic": "إدارة الموارد البشرية",
+      "hebrew": "ניהול משאבי אנוש",
+      "english": "Human resources (HR) management"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 16:56:25 GMT+0300",
+    "longDefinition": {
+      "english": "All the decisions, policies and actions that are connected to the administration of staff and the advancement of the organization’s objectives. These actions include three groups of activities: joining the organization, staff retention and workers’ departure. Human resource is managed by the HR team together with the line manager.",
+      "hebrew": "כלל ההחלטות, המדיניות והפעולות הקשורות לניהול עובדים ומקדמות את מטרות הארגון. פעולות אלה כוללת שלש קבוצות פרקטיקות: כניסה לארגון, שימור עובדים ופרידה מעובדים. ניהול משאבי אנוש מתבצע על ידי פונקציית משאבי אנוש בשיתוף עם המנהל הישיר",
+      "arabic": "كافة القرارات، السياسات والإجراءات المتعلقة في إدارة الموظفين والنهوض بأهداف المؤسسة. تتضمن هذه الإجراءات ثلاث مجموعات من من الممارسات: الدخول إلى المؤسسة، الاحتفاظ بالموظفين والانفصال عن الموظفين. يتم تنفيذ إدارة الموارد البشرية من قبل وظيفة الموارد البشرية بالتعاون مع المدير المباشر "
+    },
+    "suggestedBy": "osher cohen",
+    "readMore": "https://www.digitalhrtech.com/human-resource-basics/",
+    "firestore_id": "-MaxYwF9vxYYiTg0Isls"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "The function that deals with the management of people employed within the organization.",
+      "arabic": "وظيفة ترتكز على إدارة الموظفين في المؤسسة",
+      "hebrew": "פונקציה הממוקדת בניהול העובדים בארגון"
+    },
+    "lastEdited": 1622386897014,
+    "conceptName": {
+      "english": "Human resources (HR)",
+      "arabic": "الموارد البشرية",
+      "hebrew": "משאבי אנוש"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 18:01:37 GMT+0300",
+    "longDefinition": {
+      "hebrew": "\"פונקציית משאבי אנוש הינה מטה ייעוצי.  הרקע המקצועי הנדרש הוא שילוב של ניהול משאבי אנוש עם מנהל עסקים הפונקציה יכולה לכלול עובד יחיד ועד אגף הכולל עשרות עובדים.  פונקציה זו מדווחת לרוב למנכ\"ל ואף יכולה להיחשב כחבר בהנהלה (סמנכ\"ל)\"",
+      "english": "The function of HR will be in a consultancy headquarter. The professional background required is a combination of HR management and business management. This may contain a single worker, or up to an entire section with dozens of staff members. Usually, this function reports to the CEO, and might be considered a member of the management (VP).",
+      "arabic": "وظيفة الموارد البشرية هي مقر استشاري.  الخلفية المهنية المطلوبة هي دمج من إدارة الموارد البشرية مع مدير الأعمال  يمكن أن تتضمن الوظيفة عامل واحد وحتى قسم يشمل على عشرات الموظفين.  عادة ما يتم الإبلاغ عن هذه الوظيفة إلى المدير العام وحتى يمكن اعتبارها كعضو في الإدارة (نائب المدير العام)"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.lucidchart.com/blog/what-does-hr-do",
+    "firestore_id": "-Maxmqy-WXbJ020WVzyg"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "מפתח אסטרטגיית משאבי אנוש תומכת במטרות הארגון",
+      "arabic": "تطوير الخطة الاستراتيجية لقسم الموارد البشرية لتكون داعمة لاهداف المؤسسة",
+      "english": "Development of an HR strategy that closely supports the overall aims of the organization"
+    },
+    "lastEdited": 1622387018160,
+    "conceptName": {
+      "english": "HR  Business Partner (HRBP)",
+      "arabic": "الموارد البشرية – شريك تجاري",
+      "hebrew": "משאבי אנוש שותף עסקי"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 18:03:38 GMT+0300",
+    "longDefinition": {
+      "arabic": "يتطرق النهج للموظفين كرأسمال بشري وإلى مجال إدارة الموارد البشرية كمساهم وداعم في نجاح الأعمال التجارية.  يتم قياس نشاط الموارد البشرية من الناحية التجارية والمال ية. قد يكون المدير في هذا النهج عضوا في مجلس الإدارة بمنصب نائب المدير العام  ",
+      "hebrew": "\"הגישה מתייחסת העובדים כהון אנושי  ואל תחום ניהול משאבי אנוש כתורם ותומך בהצלחה העיסקית.  פעילות משאבי אנוש נמדדת במונחים עסקיים וכספיים. מנהל בגישה זו עשוי להיות חבר הנהלה בתפקיד סמנכ\"ל\"",
+      "english": "The approach relates to workers as human capital and to the field of HR management as contributing to, and supporting, business success. HR activity is measured in business and financial terms. An executive, with this approach, might be a member of the management with the rank of VP."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://semoscloud.com/blog/hr-business-partner/",
+    "firestore_id": "-MaxnJXurdZeuIqHsvQA"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "התאמת ניהול משאבי אנוש לאסטרטגיה הארגונית",
+      "english": "Alignment of company strategy and human resource management ",
+      "arabic": "ملائمة إدارة الموارد البشرية مع الاستراتيجية التنظيمية للمؤسسة"
+    },
+    "lastEdited": 1622387028238,
+    "conceptName": {
+      "english": "Strategic HR management",
+      "arabic": "الإدارة الإستراتيجية للموارد البشرية",
+      "hebrew": "ניהול אסטרטגי של משאבי אנוש"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 18:03:48 GMT+0300",
+    "longDefinition": {
+      "arabic": "خلق توافق بين استراتيجية الموارد البشرية، السياسات، الإجراءات والنشاطات وبين استراتيجية المؤسسة من أجل تحقيق أهداف المؤسسة. دمج توافق عمودي بين الاستراتيجيات وكذلك توافق أفقي بين ممارسات الموارد البشرية المختلفة   ",
+      "hebrew": "יצירת התאמה של אסטרטגיית משאבי אנוש, המדיניות, התהליכים והפעולות ובין אסטרטגיית הארגון לצורך השגת יעדי הארגון. שילוב התאמה אנכית בין האסטרטגיות וכן התאמה אופקית בין פרקטיקות משאבי אנוש השונות",
+      "english": "Adaptation of the organization’s HR strategy, policy, processes and actions to the need to meet the organization’s objectives. A combination of a vertical adaptation of strategy to a horizontal adaptation of the various HR practices."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.managementstudyguide.com/human-resource-planning.htm",
+    "firestore_id": "-MaxnM-NVd037pY3Itb3"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "تحديد الاحتياجات المستقبلية للقوى العاملة وبناء السبل لتلبية تلك الاحتياجات",
+      "english": "The process of determining future employee needs and developing strategies to achieve those needs",
+      "hebrew": "\"הגדרת צרכי כ\"א בעתיד ובניית דרכים למילוי צרכים אלה\""
+    },
+    "lastEdited": 1622389530382,
+    "conceptName": {
+      "arabic": "تخطيط الموارد البشرية",
+      "english": "HR planning",
+      "hebrew": "תכנון משאבי אנוש"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 18:45:30 GMT+0300",
+    "longDefinition": {
+      "hebrew": "\"תהליך הכולל שני שלבים: השלב הראשון, חיזוי ביקוש כ\"א עתידי לאור תוכניות אסטרטגיות והיצע כ\"א עתידי והשוואה ביניהם. השלב השני, בניית תוכנית ביצועים לסגירת הפערים בין ההיצע והביקוש העתידיים. פעולות לטיפול בפערי מחסור או עודף כמות כ\"א\"",
+      "arabic": "إجراء يشمل مرحلتين: المرحلة الأولى، التنبؤ بطلب القوى العاملة المستقبلي في ضوء الخطط الإستراتيجية وعرض القوى العاملة المستقبلي والمقارنة بينهما. المرحلة الثانية، بناء خطة تنفيذ لسد الفجوات بين العرض والطلب في المستقبل . إجراءات للتعامل مع فجوات النقص أو فائض الكمية بشأن القوى العاملة   ",
+      "english": "A process that contains two stages: the first - forecasting future HR demand in the light of strategic planning and future HR supply and comparing them. The second stage – construction of an operational program to close the gaps between future demand and supply. Action to deal with lack or surplus of HR."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.managementstudyguide.com/human-resource-planning.htm",
+    "firestore_id": "-Maxwtn_uNSvoYxihfie"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "عملية تجنيد تصنيف واستيعاب الموظف ",
+      "hebrew": "תהליך גיוס מיון וקליטת עובד",
+      "english": "The processes of recruiting, selection and onboarding employees "
+    },
+    "lastEdited": 1622445904848,
+    "conceptName": {
+      "english": "Hiring",
+      "arabic": "توظيف",
+      "hebrew": "איוש"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:25:04 GMT+0300",
+    "longDefinition": {
+      "hebrew": "תהליך האיוש משלב מספר שלבים הבאים לוודא כי כמות ואיכות העובדים המתאימים יהיו בתפקידים המתאימים תוך התאמה בין העובד לתפקיד ובין העובד לארגון. שלבי האיוש כוללים: גיוס עובדים מתוך/מחוץ לארגון, מיון באמצעות כלי מיון, בחירת עובד ותהליך קליטה ",
+      "arabic": "تدمج عملية التوظيف عددا من الخطوات التالية لضمان أن كمية ونوعية الموظفين المناسبين ستكون في المناصب المناسبة أثناء الملاءمة بين الموظف للمنصب وبين الموظف للمؤسسة.  تشمل مراحل التوظيف على: تجنيد موظفين من داخل /خارج المؤسسة، تصنيف من خلال أدوات فرز، اختيار موظف وعملية تعيين ",
+      "english": "The Hiring process combines several stages that come to ensure the appropriate quantity and quality of staff will be in the appropriate positions, while matching the employee to the position and the employee to the organization. The manning stages include recruiting employees from inside / outside the organization, selection by means of selection tools, selection of employee and absorption process."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.businessnewsdaily.com/15752-employee-hiring-guide.html",
+    "firestore_id": "-MaxwvgleZ1YQ14d0_vw"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Strategies and policies that encourage employees to stay within the business",
+      "arabic": "سياسات وإجراءات لتشجيع الاحتفاظ بالموظفين في الشركة",
+      "hebrew": "מדיניות ופעולות לעידוד השארות עובדים בחברה"
+    },
+    "lastEdited": 1622389543887,
+    "conceptName": {
+      "english": "Staff retention",
+      "hebrew": "שימור עובדים",
+      "arabic": "الاحتفاظ بالموظفين"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 18:45:43 GMT+0300",
+    "longDefinition": {
+      "hebrew": "דרכים ומדיניות לעידוד השארות עובדים בארגון שלא יחפשו אלטרנטיבות בארגון אחר. השיטות משלבות תגמולים חומריים ובלתי חומריים. השימור נמדד על ידי אחוז נמוך של תחלופה ביזמת העובד",
+      "arabic": "طرق وسياسات لتشجيع الاحتفاظ بالموظفين في المؤسسة بحيث لا يقومون بالبحث عن بدائل في مؤسسة أخرى. الطرق تجمع بين المكافآت المادية والمعنوية. يتم قياس الاحتفاظ من خلال نسبة مئوية منخفضة من معدل الدوران بمبادرة الموظف  ",
+      "english": "Ways and policy for the encouragement of the organization’s staff not to look for alternatives in another organization. The methods combine material and non-material rewards. The retention is measured in the low percentage of turnover at the staff’s initiative."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://connecteam.com/employee-retention-strategies/",
+    "firestore_id": "-Maxwx5aQ_RvIS2VtN4-"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "The sum of all individuals who have applied for a position including both current employees and those outside the organization",
+      "hebrew": "סך המועמדים למשרה מתוך ומחוץ לארגון מתוכם יבחר העובד",
+      "arabic": "العدد الإجمالي للمرشحين للوظيفة من داخل وخارج المؤسسة التي سيتم منها اختيار الموظف"
+    },
+    "lastEdited": 1622389551158,
+    "conceptName": {
+      "hebrew": "מאגר מועמדים",
+      "english": "Pool of candidates",
+      "arabic": "قاعدة بيانات المرشحين"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 18:45:51 GMT+0300",
+    "longDefinition": {
+      "hebrew": "סך המועמדים למשרה שפנו הן ביוזמתם והן ביוזמת המעסיק. הם יעברו תהליך מיון ומתוכם יבחר העובד. נדרש מאגר בכמות ובאיכות מתאימים. גודל המאגר מגדיר את יחס הברירה. (כמות מועמדים פר משרה) גודל המאגר יכתיב את מורכבות עלות ומשך המיון. המאגר מושפע מגורמים חוץ ארגוניים (ביקוש, מוסדות השכלה תחבורה וכד') ותוך ארגוניים (מוניטין, רמת שכר וכד')",
+      "english": "All the candidates for a position who applied, both of their own accord and at the initiative of the employer. They will undergo a selection process, and from them the employee will be selected. A pool is required of appropriate quality and quantity. The size of the pool defines the selection ratio (number of candidates per position). The size of the pool will dictate the complexity, the cost and the length of the selection. The pool is impacted by factors outside the organization (demand, institutes of education, transportation, etc.) and inside the organization (reputation, salary level, etc.).",
+      "arabic": "العدد الإجمالي للمرشحين للوظيفة سواء الذين تقدموا بطلبات بمبادرتهم الخاصة وكذلك بمبادرة صاحب العمل. سيخضعون لعملية تصنيف وسيتم اختيار الموظف منهم. يتطلب قاعدة بيانات بالكمية والجودة المناسبة. يحدد حجم قاعدة البيانات نسبة الاختيار. (عدد المرشحين لكل وظيفة) سيحدد حجم قاعدة البيانات مدى تعقيد تكلفة ومدة التصنيف . تتأثر قاعدة البيانات من عوامل خارج المؤسسة (الطلب، مؤسسات التعليم، وسائل النقل، إلخ) وداخل المؤسسة (السمعة، مستوى الأجور، إلخ)"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://builtin.com/tech-recruiter-resources/improve-the-quality-of-your-candidate-pool",
+    "firestore_id": "-MaxwysCe_C9Cs9NNz0n"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "סימולציות המכוונות ליחיד או לקבוצות להערכת כישורים לצורך החלטות כמו בחירת עובד, פיתוח קריירה וקידום",
+      "arabic": "المحاكاة التي تستهدف الفرد أو المجموعات لتقييم المهارات اللازمة من أجل اتخاذ قرارات مثل اختيار الموظفين والتطوير الوظيفي والترقية",
+      "english": "Multiple assessment methods and simulations directed to individuals or groups to evaluate a wide range of behavior and competencies. The assessment center is used to make a variety of employment decisions such as employee selection, career development, promotion. "
+    },
+    "lastEdited": 1622389559917,
+    "conceptName": {
+      "english": "Assessment center",
+      "hebrew": "מרכז הערכה",
+      "arabic": "مركز التقييم"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 18:45:59 GMT+0300",
+    "longDefinition": {
+      "english": "A method of selection workers and executives that combines a range of tools and focuses on assessing the behavior of the assessee, in physical and psychological conditions, similar to the position, for the purpose of immediate or future hiring. The following are a selection of the tools used: analysis of an assignment for an individual or groups, inbox simulation, etc. The assessors are a combination of expert analysists and the organization’s executives.",
+      "arabic": "أسلوب تصنيف الموظفين والمديرين الذي يدمج بين مجموعة متنوعة من الأدوات وتركز على تقييم سلوك المقييم في المواقف التي تتشابه ماديا ونفسيا مع الوظيفة المستهدفة من أجل التوظيف الفوري أو المستقبلي. يتم استخدام أدوات مثل: تحليل حدث مهمات للفرد أو المجموعات، تمرين بريد وارد والمزيد. المقيمون هم مزيج من خبراء التشخيص ومديرين من المؤسسة. تعتبر الطريقة باهظة الثمن ولكنها تتمتع بقدرة تنبؤية عالية  ",
+      "hebrew": "שיטת מיון  עובדים ומנהלים המשלבת מגוון כלים ומתמקדת בהערכת ההתנהגות של המוערך במצבים הדומים פיסית ופסיכולוגית לתפקיד המטרה לצורך איוש מיידי או עתידי. . נעשה שמוש בכלים כמו: ניתוח אירוע משימות ליחיד או קבוצות, תרגיל דואר נכנס ועוד. המעריכים הם שילוב של מומחי אבחון ומנהלים מן הארגון. השיטה נחשבת יקרה אך בעלת תוקף ניבוי גבוה"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://psychometric-success.com/assessment-centre",
+    "firestore_id": "-Maxx003pvfWAJg8_PHz"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Practices that enable leading organizations to achieve superior performance and results.",
+      "hebrew": "פרקטיקה המיושמת בארגונים מובילים ואפשרת להשיג ביצועים משופרים",
+      "arabic": "الممارسة التي يتم تطبيقها في المؤسسات الرائدة والتي تمكن من الأداء المحسن "
+    },
+    "lastEdited": 1622447785181,
+    "conceptName": {
+      "arabic": "ممارسة رائدة",
+      "hebrew": "פרקטיקה מובילה",
+      "english": "Best practice"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:56:25 GMT+0300",
+    "longDefinition": {
+      "arabic": "هناك ممارسات رائدة في مجموعة متنوعة من مجالات إدارة الموارد البشرية. يتم تحديثها من وقت إلى آخر. من أجل نجاح تطبيق ممارسة رائدة، يجب التطرق إلى السياق المؤسسي المحدد. هناك أيضا نهج نظري من الممارسات الرائدة العالمية للموارد البشرية",
+      "hebrew": "פרקטיקות מובילות קיימות במגוון תחומי ניהול משאבי אנוש. הן מתעדכנות מעת לעת. להצלחת יישום פרקטיקה מובילה יש להתייחס להקשר הארגוני הספציפי. קיימת גם גישה תיאורטית של פרקטיקות מובילות אוניברסליות של משאבי אנוש ",
+      "english": "Best practices exist in a range of HR management fields. They are updated from time to time. The success of the implementation of a leading practice should be addressed within the context of the specific organization. There is also a theoretical approach of leading universal HR practices."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.bamboohr.com/blog/guide-hr-best-practices/",
+    "firestore_id": "-Maxx2_o0VwATtcAB4DR"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "An incentive pay plan which awards employees compensation in addition to their base salary, for achieving individual or group performance ",
+      "arabic": "حافز يقدم بما يتجاوز الراتب كتقدير لإنجاز موظف أو مجموعة ",
+      "hebrew": "תמריץ הניתן מעבר לשכר כהוקרה על השגת ביצוע של עובד או קבוצה "
+    },
+    "lastEdited": 1622392609680,
+    "conceptName": {
+      "english": "Bonus plan",
+      "arabic": "برنامج المكافآت",
+      "hebrew": "תוכנית בונוסים"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:36:49 GMT+0300",
+    "longDefinition": {
+      "english": "The program is based on the principle of attaching a variable remuneration component to the performance of an employee or a team. The aim is to improve performance and productivity by improving the employee’s motivation and satisfaction. Payment is made retroactively, possibly in the following month, quarter or year.",
+      "hebrew": "התוכנית מבוססת על עיקרון של הצמדת מרכיב משתנה של התגמול לביצועים של עובד או של צוות. המטרה היא לשפר את הביצועים והפריון באמצעות שיפור המוטיבציה ושביעות רצון העובד. התשלום ניתן בדיעבד, אפשרי בחודש העוקב, רבעוני או אף שנתי. ",
+      "arabic": "تعتمد الخطة على مبدأ ربط مكون متغيير من المكافآت بأداء الموظف أو الطاقم. الهدف هو تحسين الأداء والإنتاجية من خلال تحسين التحفيز والرضا للموظفين. يتم الدفع بأثر رجعي، من الممكن في الشهر التالي، ربع سنوي أو حتى سنوي.  "
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://cdn2.hubspot.net/hub/193780/file-438875242-pdf/How_to_Create_an_Employee_Bonus_Plan_That_Really_Works.pdf",
+    "firestore_id": "-May7dKUkHOAPdOzTWiK"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "حساب مؤشر النسبة بين الراتب الحالي للموظف في المنصب وبين متوسط الراتب المدفوع لنفس المنصب في السوق ",
+      "hebrew": "חישוב מדד היחס בין שכר נוכחי של העובד בתפקיד ובין שכר החציון המשולם לאותו תפקיד שבשוק",
+      "english": "The employee's current salary divided by the current midpoint market rate as defined by the company's competitive pay policy. "
+    },
+    "lastEdited": 1622392621057,
+    "conceptName": {
+      "arabic": "النسبة - مقارنة",
+      "hebrew": "יחס- השוואה",
+      "english": "Compa-ratio"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:37:01 GMT+0300",
+    "longDefinition": {
+      "hebrew": "מדד זה מבוסס על עיקרון של הוגנות חיצונית ונבחן היחס בין תגמול העובד בארגון ובין חציון התגמול המקובל באותו תפקיד בשוק. יחס 1 מבטא תשלום באותה רמה למקובל בשוק, יחס קטן 1 מבטא מדיניות של תשלום חסר, יחס גדול 1 מבטא מדיניות תשלום יתר",
+      "arabic": "يعتمد هذا المؤشر على مبدأ الإنصاف الخارجي ونفحص النسبة بين مكافآة أو تعويض الموظف في المؤسسة وبين متوسط المكافآة أو التعويض المقبول في نفس المنصب في السوق.  تعبر النسبة 1 عن دفعة في نفس المستوى للمقبول في السوق، تعبر النسبة الأقل من 1 عن سياسة الدفع الناقص، وتعبر النسبة الأكبر من 1 عن سياسة الدفع الزائد ",
+      "english": "This index is based on the principle of external equity and examines the ratio between the employee’s salary in the organization and the mean remuneration acceptable for the same job, outside. A ratio of 1 expresses payment at the same level as is acceptable outside. A ratio of less than 1 expresses a low level of pay, and a ratio that is larger than 1 expresses a policy of over-payment."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.cupahr.org/blog/simple-metrics-how-to-use-compa-ratios-to-guide-compensation-decisions",
+    "firestore_id": "-May7g6FREpTeeK6Nc7H"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "سلسلة من المعرفة، المهارات، القدرات والخصائص الشخصية للموظف التي تمكن من أداء الوظيفة  ",
+      "english": "Set of knowledge, skills, abilities and personal characteristics that enable employees to perform their jobs.",
+      "hebrew": "סדרה של ידע, מיומנויות, יכולות ומאפיינים אישיים של העובד המאפשרים לבצע את התפקיד"
+    },
+    "lastEdited": 1622392626038,
+    "conceptName": {
+      "english": "Competencies",
+      "arabic": "مهارات",
+      "hebrew": "כישורים"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:37:06 GMT+0300",
+    "longDefinition": {
+      "hebrew": "הכישורים הם צרוף ספציפי של KSAO  . הם מאותרים בניתוח התפקיד ומגדירים את דרישות התפקיד . הם בשמוש לצורך גיוס, מיון עובד, בחירת עובד והן בהדרכת ופיתוח העובד. קיימים מודלים של כישורים גנריים לתפקיד מסוים (ניהול, משאבי אנוש ועוד)",
+      "arabic": "المهارات هي مزيج محدد من KSAO. تقع في تحليل الوظيفة وتحدد متطلبات الوظيفة. يمكن استخدامها من أجل تجنيد، تصنيف الموظف، اختيار الموظف وكذلك في إرشاد وتطوير الموظف. هناك نماذج للمهارات العامة لوظيفة معينة (الإدارة، الموارد البشرية والمزيد )",
+      "english": "The competencies are a specific combination of KSAO. They are spotted in the job analysis and define the job requirements. They are used for the purpose of recruitment, employee selection, choice of employee and also in the employee’s training and development. There are models of generic competencies for a specific position (management, HR, etc.)."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.workforce.com/news/31-core-competencies-explained",
+    "firestore_id": "-May7hK4LLV--ioaFaki"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "A system of compensation that recognizes employees for the depth, breadth, and types of the competencies that they obtain and apply in their work. ",
+      "arabic": "نظام أجر يكافئ الموظفين وفقا لعمق ونوع المهارات التي اكتسبوها وطبقوها في العمل  ",
+      "hebrew": "מערכת שכר המתגמלת עובדים בהתאם לעומק וסוג הכישורים שרכשו ומיושמים בעבודה"
+    },
+    "lastEdited": 1622392630813,
+    "conceptName": {
+      "english": "Competency – based pay",
+      "hebrew": "תשלום מבוסס כישורים",
+      "arabic": "دفع على أساس المهارات"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:37:10 GMT+0300",
+    "longDefinition": {
+      "arabic": "تعتمد طريقة المكافأة هذه على الإنصاف الشخصي.  وترفق المكافأة إلى مهارات الموظف ذات الصلة للنجاح في الوظيفة. مستوى التعليم، درجة الخبرة، الاختصاص، الكفاءة في اللغات، البرمجيات وأكثر من ذلك. ",
+      "hebrew": "שיטת תגמול זו מתבססת על הוגנות אישית. ומצמידה את התגמול לכישורי העובד הרלוונטיים להצלחה בתפקיד. רמת ההשכלה, מידת הניסיון, המומחיות, שליטה בשפות בתוכנות ועוד. ",
+      "english": "This system of remuneration is based on individual equity and attaches the remuneration to the employee’s competencies that are relevant to his success in his job. The level of education, experience, expertise, knowledge of languages and software, etc."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.mbaskool.com/business-concepts/human-resources-hr-terms/6719-competency-based-pay.html",
+    "firestore_id": "-May7iUgIQtkglqrADEF"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "אדם המועסק כעצמאי  מייעץ ומסייע לארגון תמורת תשלום",
+      "english": "An individual who works independently to assist and advise client organizations for  a fee on a service basis.",
+      "arabic": "شخص يتم تشغيله كمستقل ويقوم بتقديم المشورة والمساعدة للمؤسسة مقابل دفع "
+    },
+    "lastEdited": 1622392635191,
+    "conceptName": {
+      "arabic": "مستشار",
+      "english": "Consultant",
+      "hebrew": "יועץ"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:37:15 GMT+0300",
+    "longDefinition": {
+      "arabic": "مستشار يتبع للمؤسسة يقود تغيير في المؤسسة. من تغيير طفيف إلى تغيير كبير . يمكن أن تكون الخدمة للموظف /مدير فردي، طاقم وحتى المؤسسة بأكملها. تشمل عملية الاستشارة على: تشخيص – التغذية الراجعة – التدخل والسيطرة ويمكن أن تستمر من عدة أسابيع إلى عدة سنوات. تتنوع مجالات الاستشارة: الاستراتيجية، الأموال، التكنواوجيا، الإدارة، الخدمة، المبيعات والمزيد.",
+      "hebrew": "יועץ ארגוני מוביל שינוי ארגוני. משינוי מינורי ועד שינוי גדול. השירות יכול להיות לעובד/מנהל בודד, צוות ועד כלל הארגון. תהליך הייעוץ כולל אבחון-משוב-התערבות ובקרה ויכול להיות בן מספר שבועות ועד מספר שנים. תחומי היעוץ מגוונים: אסטרטגיה, כספים, טכנולוגיה, ניהול, שירות. מכירות ועוד. ",
+      "english": "An organizational consultant leads organizational change. From a minor change to a major change. The service may be provided for an individual employee or executive, a team or up to an entire organization. The consultancy process includes analysis – feedback – intervention and follow up and can take number of weeks or up to number of years. The fields of consultancy are varied: strategic, financial, technological, management, service, sales, etc."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://work.chron.com/functions-consultant-22424.html",
+    "firestore_id": "-May7jZ51u1fFCVfyLPZ"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "השפעות רגשיות, פסיכולוגיות וגופניות של העובדים שנותרו לאחר צמצומים בחברה",
+      "arabic": "التأثيرات العاطفية، النفسية والجسدية للموظفين الذين بقوا بعد التقليصات في الشركة  ",
+      "english": "The emotional, psychological, and physical effects on employees who remain in the midst of company downsizing"
+    },
+    "lastEdited": 1622392639818,
+    "conceptName": {
+      "english": "Survivors’ syndrome",
+      "arabic": "متلازمة الناجين",
+      "hebrew": "תסמונת השורדים"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:37:19 GMT+0300",
+    "longDefinition": {
+      "arabic": "يعاني الموظفين الذين نجوا من عملية التقليص من مجموعة من الأعراض التي تشمل: القلق، الاكتئاب، الشك، انخفاض الالتزام نحو المؤسسة والرضا، صعوبات التواصل، انخفاض الإبداع والأداء العام جنبا إلى جنب مع الأعراض الجسدية. كل هذا نابع من الخوف من المزيد من التقليصات. يجب على المؤسسة التي تقوم بالتقليص أن تكون على دراية بالمتلازمة والعمل على تخفيفها.  ",
+      "hebrew": "העובדים ששרדו את תהליך הצמצומים חווים שורה של תסמינים הכוללים: חרדה, דכאון, חשדנות, ירידה במחויבות הארגונית ובשביעות הרצון, קשיי תקשורת, ירידה ביצירתיות ובתפקוד הכללי לצד תסמינים גופניים. כל אלה נובעים מן החשש לצמצומים נוספים. על הארגון המצמצם להיות מודע לתסמונת ולפעול להקלה שלה. ",
+      "english": "The employees who have survived the downsizing process experience a series of syndromes including anxiety, depression, suspicion, decreased organizational commitment and satisfaction, difficulties in communication, decreased creativity and general functioning, together with physical syndromes. All these emanate from the fear of further downsizing. The downsizing organization must be aware of these syndromes and act to relieve them."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.impactgrouphr.com/insights/survivor-syndrome",
+    "firestore_id": "-May7kgOmIn344lKzGz3"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "חיפוש מועמד ממקורות שהם מחוץ לארגון",
+      "english": "Seeking applicants from sources which  are outside the organization.",
+      "arabic": "البحث عن مرشح من مصادر خارج المؤسسة "
+    },
+    "lastEdited": 1622401528784,
+    "conceptName": {
+      "hebrew": "גיוס חיצוני",
+      "arabic": "تجنيد خارجي",
+      "english": "External recruitment"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:05:28 GMT+0000",
+    "longDefinition": {
+      "english": "Seeking a candidate from traditional sources outside the organization, such as educational institutes, job centers, manpower companies, references or by modern means such as the social media, the company’s website, digital job advertisements, etc. The advantages of this method include bringing in new blood, decreasing organizational politics, etc.",
+      "hebrew": "חיפוש מועמדים במקורות מסורתיים מחוץ לארגון כמו מוסדות להשכלה לשכות תעסוקה, חברות השמה \"חבר מביא חבר\" או באמצעים חדשניים כמו רשתות חברתיות, אתר חברה ממותג, לוחות דרושים דיגיטליים ועוד. בין יתרונות השיטה \"הזרמת דם חדש\", הפחתת פוליטיקה ארגונית ועוד ",
+      "arabic": "البحث عن مرشحين في المصادر التقليدية من خارج المؤسسة مثل مؤسسات التعليم، مكاتب التوظيف، شركات التوظيف \"صديق يجلب صديق \"أو وسائل مبتكرة مثل الشبكات الاجتماعية، موقع ويب للشركة ذات العلامة التجارية، لوحات وظائف رقمية وأكثر من ذلك. من بين مزايا الطريقة \"تدفق الدم الجديد\"، تقليل السياسة التنظيمية وأكثر من ذلك  "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.careeraddict.com/external-recruitment-methods",
+    "firestore_id": "-MayefOTpGqNbp3X8rHf"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "عملية منهجية لجمع وتفسير المعلومات المتعلقة بالمهام التي تحدد المنصب ",
+      "hebrew": "תהליך שיטתי של איסוף ופרשנות של מידע בנוגע למטלות המגדירות את התפקיד",
+      "english": "A systematic process of gathering and interpreting data regarding the specific tasks of which a job is comprised. "
+    },
+    "lastEdited": 1622401889669,
+    "conceptName": {
+      "english": "Job analysis",
+      "hebrew": "ניתוח עיסוק",
+      "arabic": "التحليل المهني"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:11:29 GMT+0000",
+    "longDefinition": {
+      "arabic": "عملية تتضمن جمع المعلومات التي تسعى جاهدة لتحقيق الدقة، التكلفة ومشاركة الاشخاص الذين يشغلون المنصب من خلال الاستبيانات و / أو مقابلات مع من يشغلون المنصب، توقعات أو تصوير.    يتم أداؤها من أجل مناصب الهدف أو جميع المناصب في المؤسسة.  يتطلب تحديث المعلومات من وقت لآخر. المنتج هو وصف المنصب.  ",
+      "english": "A process that includes the collection of accurate information, cost and involvement of holders of the position through questionnaires and/or interviews with holders of the position, observation or filming. The process is carried out for key positions or for all the jobs in the organization. Updating the information is required from time to time. The result is the job description.",
+      "hebrew": "תהליך הכולל איסוף מידע השואף לדיוק, עלות ושיתוף ממלאי התפקיד באמצעות שאלונים ו/ או ראיונות עם ממלאי התפקיד, תצפיות או צילום.  מתבצע עבור תפקידי מטרה או כלל התפקידים בארגון. נדרש עידכון המידע לעת לעת. התוצר הוא תיאור תפקיד. "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.shrm.org/ResourcesAndTools/tools-and-samples/toolkits/Pages/performingjobanalysis.aspx",
+    "firestore_id": "-Mayg2V8T1g-iHGK7J38"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "تحليل محتوى المنصب وفقا لخمسة أبعاد: مجموعة متنوعة من المهارات، هوية المهمة، معنى المهمة، الاستقلالية والتغذية الراجعة ",
+      "english": "Analyzing job content along five dimensions: skill, variety, task identity, task significance, autonomy, and feedback.",
+      "hebrew": "ניתוח תכולת התפקיד לפי חמישה מימדים: מגוון כישורים, זהות המטלה, משמעות המטלה, אוטונומיה ומשוב"
+    },
+    "lastEdited": 1622402100349,
+    "conceptName": {
+      "hebrew": "מאפייני עושר העיסוק",
+      "english": "Characteristics of job enrichment",
+      "arabic": "خصائص الثروة المهنية"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:15:00 GMT+0000",
+    "longDefinition": {
+      "english": "Based on Hackman & Oldham’s theory (1980), five indices were defined, range of skills, identity of assignment, significance of the assignment, autonomy and feedback. They define the enrichment of the job. This enrichment impacts the employee’s readiness to invest effort over a length of time. These dimensions can be detected in any job, with the improvement of the low components.",
+      "arabic": "على أساس نظرية Hackman & Oldham (1980) تم تحديد 5 أبعاد من مجموعة متنوعة من المهارات، هوية المهمة، معنى المهمة، الاستقلالية والتغذية الراجعة، فهي تحدد ثروة المنصب.  تؤثر هذه الثروة على استعداد المظف لبذل جهود طويلة الأجل للأداء.  من الممكن تشخيص هذه الأبعاد في أي منصب وتشكيل المنصب مع تحسين المكونات المنخفضة. ",
+      "hebrew": "על בסיס התיאוריה של Hackman & Oldham (1980) הוגדרו 5 מימדים מגוון כישורים, זהות המטלה, משמעות המטלה, אוטונומיה ומשוב , הם מגדירים את עושר התפקיד. עושר זה משפיע על הנכונות של העובד להשקיע מאמצים לאורך זמן לביצוע. ניתן לאבחן קיום מימדים אלה בכל תפקיד ולעצב את התפקיד תוך שיפור מרכיבים נמוכים. "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://peakon.com/blog/employee-success/hackman-oldham-job-characteristics-model",
+    "firestore_id": "-Maygqw-_k3f-OGKZA5w"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "وصف مكتوب لمعلومات عامة حول المهنة ذات مجالات المسؤولية، والسياق المادي والاجتماعي والذي يتم تنفيذه فيه.  ",
+      "hebrew": "תיאור כתוב  של מידע כללי על העיסוק תחומי האחריות, וההקשר הפיזי החברתי בו הוא מבוצע.",
+      "english": "A written description which includes general information regarding the responsibilities and duties that the job entails "
+    },
+    "lastEdited": 1622402365647,
+    "conceptName": {
+      "english": "Job description",
+      "arabic": "وصف المنصب",
+      "hebrew": "תיאור תפקיד"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:19:25 GMT+0000",
+    "longDefinition": {
+      "arabic": "منتج تحليل المهنة حيث يتم عرض المعلومات حول محتوى المنصب المهام ومجالات المسؤولية مثل تواترها أيضا، سياق ظروف بيئة العمل، الواجهات مع العوامل داخل وخارج المؤسسة، ساعات العمل وأحيانا مقدار المكافأة المالية المقترح للمنصب. يتم من وصف المنصب اشتقاق متطلبات المنصب  ",
+      "hebrew": "התוצר של ניתוח העיסוק בו מוצג מידע לגבי תכולת התפקיד המשימות המטלות  ותחומי האחריות כמו גם התדירות שלהם, ההקשר של תנאי סביבת העבודה, ממשקים עם גורמים בתוך ומחוץ לארגון, שעות עבודה ולעיתים גובה התגמול הכספי המוצע לתפקיד. מתיאור התפקיד נגזרות דרישות התפקיד",
+      "english": "The result of job analysis in which information is presented on the content of the job, the assignments, the tasks, and the areas of responsibility as well as their frequency, the context of work environment conditions, interfaces with bodies inside and outside the organization, working hours and, sometimes, the financial remuneration offered for the job. The job requirements are derived from the job description."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.indeed.com/recruitment/how-to-write-a-job-description",
+    "firestore_id": "-MayhrhH_8EwxSnjejWt"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "إضافة مهام جديدة للموظف في المنصب الحالي  ",
+      "english": "Adding new tasks to an employee’s current job ",
+      "hebrew": "הוספת משימות חדשות  לעובד בתפקיד הקיים "
+    },
+    "lastEdited": 1622402536849,
+    "conceptName": {
+      "hebrew": "הרחבת עיסוק",
+      "arabic": "توسع المهنة",
+      "english": "Job enlargement"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:22:16 GMT+0000",
+    "longDefinition": {
+      "english": "The addition of assignments to the job, out of a desire to answer the organization’s needs for efficiency (job division) together with employee motivation by variation and identity of the job. The assignments are, usually, the same level and the same complexity as the existing position.",
+      "hebrew": "תוספת משימות לתפקיד מתוך רצון לענות על צרכי הארגון להתייעלות (חלוקת תפקיד) לצד הנעת העובד על ידי גיוון, וזהות התפקיד. המשימות הן לרוב אותו דרג ומורכבות של התפקיד הקיים",
+      "arabic": "إضافة مهام إلى المنصب من منطلق الرغبة في تلبية احتياجات المؤسسة من الكفاءة (تقاسم المناصب) إلى جانب تحفيز الموظف من خلال التنوع، وهوية المنصب.  عادة ما تكون المهام بنفس مستوى وتعقيد المنصب الحالي  "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.digitalhrtech.com/job-enlargement/",
+    "firestore_id": "-MayiWVJEIAnJC6Qu3Sb"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Adding tasks to a job as a means of increasing employee complexity, control, autonomy or responsibility. ",
+      "hebrew": "הוספת משימות לתפקיד של מורכבות, שליטה, אוטונומיה או אחריות",
+      "arabic": "إضافة مهام للمنصب من التعقيد، السيطرة، الاستقلالية أو المسؤولية  "
+    },
+    "lastEdited": 1622402849177,
+    "conceptName": {
+      "arabic": "إثراء المهنة",
+      "english": "Job enrichment",
+      "hebrew": "העשרת העיסוק"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:27:29 GMT+0000",
+    "longDefinition": {
+      "hebrew": "תוספת משימות לתפקיד אשר תורמות להנעת העובד באמצעות תוספת אוטונומיה, סמכות, אחריות ופיתוח כישורים נוספים. העשרת העיסוק מהווה לעיתים תחליף זמני לקידום היררכי",
+      "english": "Adding assignments to the job, which contribute to motivate the employee by adding autonomy, authority, responsibility and the development of further skills. Enrichment of the profession sometimes constitutes a temporary replacement for hierarchical promotion.",
+      "arabic": "إضافة مهام للمنصب حيث تساهم في تحفيز الموظف من خلال إضافة استقلالية، السلطة، المسؤولية وتطوير مهارات إضافية. تشكل عملية إثراء المهنة أحيانا بديلا مؤقتا للترقية الهرمية  "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.digitalhrtech.com/job-enrichment/",
+    "firestore_id": "-MayjhkSHOBHKc599xwc"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "תהליך הגדרת גובה תשלום לתפקיד תוך השוואתו לתפקידים אחרים באותו ארגון",
+      "english": "A process based on internal equity to determine an appropriate pay rate for a job, by comparing the job with other jobs in an organization ",
+      "arabic": "عملية تحديد مبلغ الأجر لمنصب ما مع مقارنته للمناصب الأخرى في نفس المؤسسة "
+    },
+    "lastEdited": 1622402991892,
+    "conceptName": {
+      "hebrew": "הערכת עיסוקים",
+      "english": "Job evaluation",
+      "arabic": "التقييم المهني"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:29:51 GMT+0000",
+    "longDefinition": {
+      "english": "A process to set the remuneration attached to the position and is based on internal fairness.",
+      "hebrew": "תהליך לקביעת גובה שכר המוצמד לתפקיד ומבוסס על הוגנות פנימית. התהליך כולל מגוון שיטות כמו: דרוג, תפקידי מפתח, והשוואת גורמים",
+      "arabic": "عملية لتحديد مبلغ الأجر المرتبط بالمنصب ويعتمد على الإنصاف الداخلي. تتضمن العملية مجموعة متنوعة من الأساليب مثل: تدريج، المناصب الرئيسية، ومقارنة العوامل  "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.shrm.org/ResourcesAndTools/tools-and-samples/toolkits/Pages/performingjobevaluations.aspx",
+    "firestore_id": "-MaykFaUP83IfsJTXvnx"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "طريقة يتقاسم فيها اثنين أو أكثر من الموظفين مهام المنصب ",
+      "english": "The practice of two or more different employees performing the tasks of one full-time position.",
+      "hebrew": "שיטה בה שניים או יותר עובדים חולקים את המשימות של תפקיד "
+    },
+    "lastEdited": 1622403124384,
+    "conceptName": {
+      "arabic": "تقاسم المنصب",
+      "hebrew": "חלוקת תפקיד",
+      "english": "Job sharing"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:32:04 GMT+0000",
+    "longDefinition": {
+      "arabic": "تعبر هذه الطريقة عن المرونة الوظيفية وتستخدم على حد سواء استجابة لاحتيجات الموظف أو استجابة لاحتياجات الشركة في حالة فائض القوى العاملة أو تقليصات. يمكن أن يكون تقاسم المنصب بين الموظفين في ساعات متوازية أو تقاسم المحطة في ساعات تكميلية باستخدام طريقة \"المقعد الساخن\"",
+      "english": "This system expresses functional flexibility and serves both as a response to the employee’s needs and those of the company in a situation of surplus manpower or cost reductions. A job could be shared by workers in parallel hours, or the post could be shared in shifts. ",
+      "hebrew": "שיטה זו מבטאת גמישות תפקידית ומשמשת הן במענה לצרכי העובד או במענה לצרכי החברה במצב של עודף כח אדם או צמצומים. חלוקת התפקיד יכולה להיות בין עובדים בשעות מקבילות או בחלוקת העמדה בשעות משלימות בשיטת ה\"כסא החם\""
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://hr.uw.edu/coronavirus/employee-flexibility-supports/job-share-considerations-and-guide/",
+    "firestore_id": "-MaykkwZqQkQvW0nGFCW"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "الراتب على أساس تعويض الموظف على أساس التعليم، الخبرة، المهارات أو الاختصاص ",
+      "hebrew": "שכר המבוסס על פיצוי העובד על בסיס השכלה, נסיון, מיומנויות או מומחיות",
+      "english": "A pay system which bases compensation on an individual’s education, experience, knowledge, skills or specialized training. "
+    },
+    "lastEdited": 1622403251137,
+    "conceptName": {
+      "hebrew": "תגמול מבוסס כישורים",
+      "arabic": "مكافأة على أساس المهارات",
+      "english": "Skill based pay"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:34:11 GMT+0000",
+    "longDefinition": {
+      "hebrew": "השיטה מבוססת על גישת הוגנות האישית הטוענת כי יש להצמיד את התגמול גם למאפייני העובד כמו השכלה, נסיון מומחיות ועוד. במקרה זה עובדים המבצעים תפקידים דומים יזכו לרמת שכר שונה בהתאם למאפייניהם האישיים ",
+      "arabic": "تعتمد الطريقة على نهج الإنصاف الشخصي الذي يدعي أن المكافأة يجب أن ترتبط أيضا بخصائص الموظف مثل التعليم، الخبرة، الاختصاص وأكثر من ذلك. في هذه الحالة، سيحصل الموظفون الذين يؤدون وظائف مماثلة على مستوى مختلف من الراتب اعتمادا على خصائصهم الشخصية  ",
+      "english": "The method is based on an approach of individual equity which claims that the remuneration must be matched to the employee’s characteristics, such as education, experience, skills, etc. In this case employees who hold similar positions will have different salary levels, according to their individual characteristics"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.researchgate.net/profile/Mohan-Thite/publication/29456621_Strategic_positioning_of_HRM_in_knowledge-based_organizations/links/0c96053c76e017ca62000000",
+    "firestore_id": "-MaylEt3YVGrlmyHHZ39"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Proactively identifying, contacting, and engaging qualified passive candidates for an organization.",
+      "hebrew": "יוזמת הארגון לאיתור, יצירת קשר וחיבור של מועמד פסיבי ",
+      "arabic": "مبادرة المؤسسة للعثور على، إجراء اتصال وتواصل مع المرشح السلبي"
+    },
+    "lastEdited": 1622403475469,
+    "conceptName": {
+      "english": "Sourcing",
+      "arabic": "البحث",
+      "hebrew": "חיפוש"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:37:55 GMT+0000",
+    "longDefinition": {
+      "hebrew": "שיטת החיפוש היזום מתקשרת לגיוס ומשיכת טאלנטים. נעשה שמוש ברשתות חברתיות כמו לינקדאין, פייסבוק וכן גוגל ובלוגים לאיתור מועמדים אשר לא מחפשים עבודה באופן פעיל. שיטה זו מקובלת כיום במגוון רחב של תחומי עיסוק ",
+      "arabic": "سلوب البحث المبادر له يتعلق في تجنيد وجذب المواهب. يتم استخدام الشبكات الاجتماعية مثل لينكداين، فيسبوك وكذلك جوجل والمدونات للعثور على المرشحين الذين لا يبحثون عن عمل بشكل فعال. هذه الطريقة مقبولة حاليا في مجموعة متنوعة واسعة من مجالات الممارسة ",
+      "english": "The initiated sourcing method is ties to the recruitment and attraction of talent; it uses social media such as LinkedIn, Facebook, and also google and blogs to locate candidates who are not actively looking for a job. This method is common today in a wide range of occupations."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://harver.com/blog/sourcing-strategy-in-recruitment/",
+    "firestore_id": "-Maym5eGgIvINPKSp32F"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "The process of estimating the future quantity and quality of people required.",
+      "arabic": "عملية التنبؤ بنوعية وكمية القوى العاملة المطلوبة ",
+      "hebrew": "תהליך חיזוי האיכות והכמות של כח האדם הנדרש "
+    },
+    "lastEdited": 1622403617220,
+    "conceptName": {
+      "arabic": "طلب الموارد البشرية",
+      "hebrew": "ביקוש משאבי אנוש",
+      "english": "HR demand"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:40:17 GMT+0000",
+    "longDefinition": {
+      "hebrew": "אחד ממרכיבי חיזוי כח אדם בתהליך התכנון. מתייחס לדרישות עתידיות של כמות איכות מיקום ותזמון של משאבי אנוש לצורך עמידה ביעדים הארגוניים. הביקוש מחושב בשיטות  סובייקטיביות או ממתמטיות על בסיס נתוני עבר, בגישת    top-down  (מלמעלה למטה) או  bottom-up(מלמטה למעלה)",
+      "english": "One of the HR forecasting components in the planning process. It relates to future requirements of the quality, location and timing of HR for the purpose of meeting organizational targets. The demand is calculated by subjective or mathematical methods, based on past data, with the top – down or bottom – up approach.",
+      "arabic": "أحد مكونات تنبؤ القوى العاملة في عملية التخطيط. يتطرق إلى المتطلبات المستقبلية من ناحية الكمية، الجودة، الموقع وتوافر الموارد البشرية من أجل تحقيق الأهداف المؤسساتية. يتم حساب الطلب باستخدام طرق ذاتية أو رياضية بناء على البيانات السابقة، بأسلوب    top-down  (من أعلى إلى أسفل) أو  bottom-up(من أسفل إلى أعلى)"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.managementstudyhq.com/demand-forecasting-in-human-resource.html",
+    "firestore_id": "-MaymdG7mev77Dw8x_DS"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "חיזוי הזמינות של משאבי אנוש ",
+      "english": "The process of estimating availability of human resource following demand forecasting",
+      "arabic": "التنبؤ بتوافر الموارد البشرية "
+    },
+    "lastEdited": 1622403745818,
+    "conceptName": {
+      "hebrew": "היצע משאבי אנוש",
+      "english": "HR supply",
+      "arabic": "عرض الموارد البشرية"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:42:25 GMT+0000",
+    "longDefinition": {
+      "hebrew": "אחד ממרכיבי חיזוי כח אדם בתהליך התכנון. מתייחס להיצע פנימי וחיצוני של כמות ואיכות כח האדם אשר יהיה זמין בעתיד. ההיצע הפנימי מחושב על סמך מאגר יכולות, מטריצת מרקוב וכד' ",
+      "arabic": "أحد مكونات تنبؤ القوى العاملة في عملية التخطيط. يتطرق إلى العرض الداخلي والخارجي لكمية وجودة القوى العاملة التي ستكون متاحة في المستقبل. يتم حساب العرض الداخلي بناء على قاعدة بيانات القدرات، مصوفة ماركوف وما إلى ذلك.  ",
+      "english": "One of the HR forecasting components in the planning process. It relates to the internal and external supply of the quantity and quality of manpower, that will be available in the future. The internal supply is calculated based on a pool of ability, Markov matrix, etc."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://hr.nih.gov/workforce/workforce-planning/supply-analysis",
+    "firestore_id": "-Mayn7eSVHLpTGPo1nOs"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "The introduction meeting that introduces new employees to their jobs, their coworkers and the organization, by providing them with information regarding such topics as policies, procedures, company history, goals, culture, and work rules.",
+      "hebrew": "מפגש המציג לעובדים החדשים את התפקיד, עמיתים לעבודה והארגון ",
+      "arabic": "لقاء يعرض على الموظفين الجدد المنصب، زملاء العمل والمؤسسة  "
+    },
+    "lastEdited": 1622403886241,
+    "conceptName": {
+      "arabic": "توجيه (اورينتاسيه)",
+      "english": "Orientation",
+      "hebrew": "הכוונה (אוריינטציה)"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:44:46 GMT+0000",
+    "longDefinition": {
+      "hebrew": "מפגש אוריינטציה הינו אירוע חד פעמי כחלק מתוכנית ההצטרפות של העובד.  במפגש מוצגים בעלי תפקידים, מידע בנוגע לתפקיד ולארגון, להיסטוריה ולמוצרים/שירותים כמו גם נהלים וכללי התנהגות. לרוב מתקיים לקבוצה לפני מועד תחילת העבודה או בתקופת העבודה הראשונה. ",
+      "arabic": "لقاء توجيهي هو حدث لمرة واحدة كجزء من خطة انضمام الموظف.  يتم في الاجتماع عرض أصحاب المناصب، المعلومات المتعلقة بالمنصب والمؤسسة، التاريخ والمنتجات /الخدمات وكذلك الإجراءات وقواعد السلوك.  عادة ما يتم ذلك للمجموعة قبل موعد بدء العمل أو خلال فترة العمل الأولى.",
+      "english": "The orientation meeting is a one-time event which is part of the employee’s onboarding process. At the meeting, executives are presented, together with information on the job and the organization, the history the products, and/or the services such as procedures and rules of behavior. It is usually held for a group prior to starting work, or in their initial period of work."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.talentlms.com/blog/guide-new-employee-orientation/",
+    "firestore_id": "-MaynewZ-kRmXHNHeVSC"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "A benefit service offered by the employer to displaced employees which may consist of such services as job counseling, training, and job-finding assistance.",
+      "hebrew": "שירות המוצע על ידי במעסיק לעובד שפוטר או הוחלף הכולל יעוץ, הדרכה ועזרה בחיפוש עבודה",
+      "arabic": "خدمة يتم عرضها من قبل صاحب العمل للموظف الذي تم فصله أو استبداله، والتي تشمل المشورة، الإرشاد والمساعدة في العثور على عمل "
+    },
+    "lastEdited": 1622404008510,
+    "conceptName": {
+      "hebrew": "השמה חיצונית",
+      "english": "Outplacement",
+      "arabic": "التنسيب الخارجي"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:46:48 GMT+0000",
+    "longDefinition": {
+      "english": "A service offered to those dismissed, by the organization in order to advance their integration in the job market. The service might include professional assistance in writing resumes, preparation for interviews, building a profile on social media together with the use of the organization’s contacts and its vendors to find work for the person dismissed.",
+      "arabic": "خدمة يتم اقتراحها للأشخاص الذين تم فصلهم من قبل المؤسسة من أجل تعزيز اندماجهم في سوق العمل. يمكن أن تشمل الخدمة مرافقة مهنية في كتابة السيرة الذاتية، التحضير للمقابلة، بناء ملف تعريف على وسائل التواصل الاجتماعي، جنبا إلى جنب مع استخدام   علاقات المؤسسة ومورديها من أجل العثور على وظيفة للشخص الذي تم فصله. ",
+      "hebrew": "שירות המוצע למפוטרים על ידי הארגון כדי לקדם השתלבותם בשוק העבודה. השירות יכול לכלול לווי מקצועי בכתיבת קורות חיים, בהכנה לראיון, בבניית פרופיל במדיה החברתית לצד שימוש בקשרי הארגון וספקיו למציאת משרה למפוטר"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://getfive.com/blog/what-is-outplacement/",
+    "firestore_id": "-Mayo7n6I_zuo4_jxbEu"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "الدفع المتغير للموظف على أساس الأداء والمساهمة الشخصية أو الجماعية  ",
+      "hebrew": "תשלום משתנה לעובד המבוסס על הביצוע והתרומה האישית או הצוותית",
+      "english": "A variable pay strategy that pays employees based on their individual or group performance and contributions"
+    },
+    "lastEdited": 1622404337802,
+    "conceptName": {
+      "english": "Performance-based pay",
+      "hebrew": "תשלום מבוסס ביצוע",
+      "arabic": "الدفع على أساس الأداء"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:52:17 GMT+0000",
+    "longDefinition": {
+      "hebrew": "אמצעי להעלאת הפריון מתוך שיפור ההנעה של העובד מתוך אינטרס משותף של העובד והארגון. התגמול מבוסס על שיפור בביצוע האישי או הקבוצתי מכונה גם P4P",
+      "english": "A means to increase productivity by improving the employee’s motivation, from the organization and the employee’s shared interest. The remuneration is based on improving individual or group performance and is also known as P4P.",
+      "arabic": "وسيلة لرفع الإنتاجية من خلال تحسين الدافعية للموظف من منطلق المصلحة المشتركة للموظف والمؤسسة. تعتمد المكافأة على التحسن في الأداء الشخصي أو الجماعي المعروف أيضا باسم P4P"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://apspayroll.com/blog/does-performance-based-pay-make-sense-your-company/",
+    "firestore_id": "-MaypOBDkPnKdWNcXy6N"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "تشخيص وجذب موظفين محتملين (مرشحين) لملء وظيفة شاغرة أو جديدة ",
+      "english": "The practice of identifying and attracting potential employees (candidates) to fill recently vacated or newly created positions using a variety of methods ",
+      "hebrew": "זיהוי ומשיכת עובדים פוטנציאליים (מועמדים) למלא משרה פנויה או חדשה "
+    },
+    "lastEdited": 1622404484604,
+    "conceptName": {
+      "hebrew": "גיוס",
+      "english": "Recruitment",
+      "arabic": "تجنيد"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:54:44 GMT+0000",
+    "longDefinition": {
+      "english": "The use of a range of tools for locating candidates out of the existing manpower supply or from outside of the organization, with the aim of creating a pool of candidates with the relevant quantity and quality to man the position. This pool is used in the selection process, and from the pool the appropriate employees will be selected. They may be recruited directly by the organization or through agents, such as manpower companies, job centers or the staff’s personal contacts.",
+      "arabic": "استخدام مجموعة متنوعة من الأدوات للبحث عن مرشحين من خلال عرض القوى العاملة الحالية أو من خارج المؤسسة من أجل إنشاء قاعدة بيانات مرشحين بالكمية والنوعية ذات الصلة بتوظيف منصب.  تستخدم قاعدة البيانات هذه من أجل عملية التصنيف التي سيتم من خلالها اختيار الموظفين المناسبين. يمكن أن يتم التجنيد مباشرة من قبل المؤسسة أو من خلال وكلاء مثل شركات التنسيب، مكاتب التوظيف \"الباحثين عن الكفاءات\"، الموظفين زأكثر من ذلك",
+      "hebrew": "שימוש במגוון כלים לאיתור מועמדים מתוך היצע כח האדם הקיים או מחוץ לארגון במטרה ליצור מאגר מועמדים בכמות ואיכות רלוונטית לאיוש משרה. מאגר זה משמש לתהליך המיון מתוכו יבחרו העובדים המתאימים. הגיוס יכול להיעשות ישירות על ידי הארגון או באמצעות סוכנים כמו חברות השמה, לשכות תעסוקה \"ציידים ראשים\", העובדים ועוד"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://recruitment.com/process/recruitment-sources",
+    "firestore_id": "-Maypx0zuCqXmkM01ay9"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "תהליך של אימות מידע שסופק על ידי המועמד",
+      "arabic": "عملية للتحقق من المعلومات التي تم تزويدها من قبل المرشح ",
+      "english": "The process of verifying information supplied by applicants "
+    },
+    "lastEdited": 1622404614622,
+    "conceptName": {
+      "english": "Reference checking",
+      "arabic": "فحص التوصيات",
+      "hebrew": "בדיקת המלצות"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 19:56:54 GMT+0000",
+    "longDefinition": {
+      "hebrew": "תהליך לתיקוף המידע שנמסר על ידי המועמד בתהליך המיון מול גורמים רלוונטיים. מומלץ לקחת המלצה מגורם מקצועי שהכיר את העובד בתפקיד/ים לאורך זמן, בתקופות האחרונות. כממליץ  יכול לשמש ממונה ישיר, עקיף, משאבי אנוש, עמיתים, כפיפים, לקוחות, ספקים ועוד. רצוי לקחת המלצה ממספר גורמים והאתגר העיקרי הוא השגת פתיחות וכנות ",
+      "arabic": "عملية التحقق من صحة المعلومات التي تم تقديمها من قبل المرشح في عملية التصنيف مقابل الأطراف ذات الصلة.  من المفضل أخذ توصية من طرف مهني الذي عرف الموظف في المنصب /الوظائف لفترة طويلة، في الآونة الأخيرة. كموصي، يمكن أن يكون المفوض المباشر، غير المباشر، الموارد البشرية، زملاء، المرؤوسين، زبائن، موردين وأكثر من ذلك. من المستحسن أخذ توصية من عدد من الجهات والتحدي الرئيسي هو تحقيق الانفتاح والصدق  ",
+      "english": "A process of validating the information given by a candidate during the selection process, with the relevant parties. It is recommended to take a recommendation from a professional who has known the employee over a period of time, recently. A referee could be his immediate superior, indirect superior, HR, colleagues, subordinates, customers, vendors, etc. It is desirable to take recommendations from a number of parties and the main challenge is to obtain openness and honesty."
+    },
+    "suggestedBy": "Niran Zakay",
+    "readMore": "https://www.thebalancecareers.com/what-is-a-reference-check-2062974",
+    "firestore_id": "-MayqRlW2SDWWcnYWQmc"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "مدى الاتساق للمؤشر وخلوه من خطأ عرضي ",
+      "english": "The degree of consistency of a measure and its freedom from random error",
+      "hebrew": "מידת העקביות של המדד והחופש שלו מטעות מקרית"
+    },
+    "lastEdited": 1622405458367,
+    "conceptName": {
+      "hebrew": "מהימנות",
+      "english": "Reliability",
+      "arabic": "الموثوقية"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:10:58 GMT+0300",
+    "longDefinition": {
+      "arabic": "الاتساق أو ثبات الدرجات التي يتم الحصول عليها يتم التحقق منها عندما يتم اختبارها مرة أخرى في نفس الاختبار، اختبار إعادة، نسخة موازية أو من قبل مقييمن مختلفين. يتم حساب قيم الموثوقية من خلال المحول وتتراوح بين 0-1 ",
+      "hebrew": "עקביות או יציבות הציונים שמקבלים אותם נבדקים כאשר הם נבחנים שוב באותו מבחן, במבחן חוזר, בגרסה מקבילה או על ידי מעריכים שונים. ערכי המהימנות מחושבים על ידי מתאם ונעים בין 0-1 ",
+      "english": "Consistency or stability of the grades received are checked, checked again in the same test, and in a repeat test, in a parallel version or by different assessors. The reliability values are calculated by correlation and range from 0 – 1."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.guru99.com/reliability-testing.html",
+    "firestore_id": "-Maytdatqr6y-2TMbYtt"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "The degree to which a test measures what it claims, or purports, to be measuring. ",
+      "arabic": "المدى التي تقيس فيها أداة القياس   لما كان من المفترض قياسه ",
+      "hebrew": "המידה שבה  כלי המדידה מודד את מה שהתכוונן למדוד"
+    },
+    "lastEdited": 1622405613186,
+    "conceptName": {
+      "english": "Validity ",
+      "arabic": "صلاحية (سارية المفعول)",
+      "hebrew": "תוקף (תקיפות)"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:13:33 GMT+0300",
+    "longDefinition": {
+      "arabic": "يمكن أن تتطرق الصلاحية إلى صحة المحتوى، صحة المبنى أو صحة التنبؤ التي تتعلق بمدى العلاقة بين مستوى الأداء الذي تم الحصول عليه من قبل أداة القياس وبين الحقائق الأخرى (المعيار).  على سبيل المثال، النجاح في المنصب. يتم حساب قيم الصلاحية من قبل المحول وتتراوح بين 0-1",
+      "hebrew": "תוקף יכול להתייחס לתוקף תוכן, תוקף מבנה או תוקף ניבוי הנוגע למידת הקשר בין רמת הביצוע המתקבלת על ידי כלי המדידה ובין עובדות אחרות (קריטריון).  לדוגמא הצלחה בתפקיד. ערכי התוקף מחושבים על ידי מתאם ונעים בין 0-1",
+      "english": "Validity can refer to content validity, construct validity, face validity or the criterion validity. the last referring to the connection between the performance level received by the measuring tools and other facts (criteria), for example success in a job. The validity values are calculated by correlation and range from 0 – 1."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.scribbr.com/methodology/types-of-validity/",
+    "firestore_id": "-MayuEOVFZkZHX6tQdp-"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "A written document outlining an individual’s work experience, skills, educational background, accomplishments and other related information supporting their career goal.",
+      "hebrew": "מסמך כתוב המתאר את הניסיון, המיומנויות ההשכלה, ומידע נוסף הבא לתמוך במטרת הקריירה של האדם",
+      "arabic": "وثيقة مكتوبة تصف الخبرة، المهارات التعليمية، ومعلومات إضافية من أجل دعم الهدف الوظيفي للشخص "
+    },
+    "lastEdited": 1622405794161,
+    "conceptName": {
+      "english": "Resume",
+      "hebrew": "קורות חיים",
+      "arabic": "السيرة الذاتية"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:16:34 GMT+0300",
+    "longDefinition": {
+      "hebrew": "מסמך הנכתב על ידי האדם בו הוא מציג באופן מובנה ותמציתי את פרטיו האישיים, השכלתו, ניסיונו התעסוקתי, (מההווה לעבר) השליטה בשפה, כישורים והישגים נוספים. השמוש העיקרי הוא לצורך הצגת מועמדות למשרה. עבור הארגון זוהי נקודת המפגש הראשונה עם המועמד בתהליך המיון",
+      "arabic": "وثيقة كتبت من قبل الشخص حيث يعرض فيها بطريقة منظمة ومختصرة تفاصيله الشخصية، تعليمه، خبراته العملية (من الحاضر إلأى الماضي) إتقان اللغة، المهارات والإنجازات الإضافية. الاستخدام الرئيسي هو من أجل عرض المناصب الوظيفية. بالنسبة للمؤسسة، هذه هي نقطة الالتقاء الأولى مع المرشح في عملية الفرز ",
+      "english": "A document written by a person in which he/she presents, in a structured and concentrated form, his/her personal particulars, education, work experience (from the present to the past) knowledge of languages, skills and other achievements. The main use is for applying for a job. For the organization this is the first meeting with the candidate, in the selection process."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.template.net/business/checklist-templates/resume-screening-checklist/",
+    "firestore_id": "-Mayuv_CrHCtKB8VJXWF"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Usually, the first step taken during the selection process, involving reviewing prospective candidate applications / resumes and verifying information supplied by the candidate.",
+      "hebrew": "החלק הראשון של תהליך המיון הכולל ראיון לגבי קורות החיים ואימות מידע שסופק על ידי המועמד",
+      "arabic": "يشمل الجزء الأول من عملية الفرز مقابلة بخصوص السيرة الذاتية والتحقق من المعلومات التي تم تقديمها من قبل المرشح "
+    },
+    "lastEdited": 1622405911060,
+    "conceptName": {
+      "arabic": "استعراض مبكر",
+      "hebrew": "סקירה מוקדמת",
+      "english": "Screening"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:18:31 GMT+0300",
+    "longDefinition": {
+      "arabic": "العملية الأولية لفرز المرشحين من أجل تقليص قاعدة بيانات المرشحين. معد لتوضيح السيرة الذاتية، وجهات النظر حول الراتب، توافر وإلخ.  عادة ما يتم ذلك عن طريق الهاتف  ",
+      "hebrew": "תהליך ראשוני של מיון מועמדים לצורך צמצום מאגר המועמדים. נועד להבהרת קורות חיים, צפיות שכר, זמינות וכד'. לרוב מתבצע טלפונית  ",
+      "english": "An initial process in the selection of candidates for the purpose of reducing the number of candidates. Meant for clarification of the resume, salary expectations, availability, etc. Usually conducted by telephone."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://jobsearchandinterviewcoach.com/good-questions-to-ask-in-hr-screening-interview/",
+    "firestore_id": "-MayvN6ldyILdIZbaRFv"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "القدرة على أداء النشاط العقلي أو البدني الذي يساهم في الأداء الفعال للمنصب ",
+      "english": "Ability to perform a mental or motor activity that contributes to the effective performance of a job assignment.",
+      "hebrew": "יכולת לבצע פעילות שכלית או פיזית שתורמת לביצוע יעיל של התפקיד"
+    },
+    "lastEdited": 1622406034035,
+    "conceptName": {
+      "english": "Skills",
+      "arabic": "المهارة",
+      "hebrew": "מיומנות"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:20:34 GMT+0300",
+    "longDefinition": {
+      "english": "This is the behavioral component of KSAO that is usually included in the job requirements. The skills are divided into “soft skills” that concern mental or inter-personal skills and “hard skills” that concern physical skills.",
+      "hebrew": "זהו המרכיב התנהגותי של KSAO  הנכלל לרוב בדרישות התפקיד. המיומנויות נחלקות ל\"מיומנויות רכות\" הנוגעות למיומנויות שכליות או בינאישיות ול\"מיומנויות קשות\" הנוגעות למיומנויות פיזיות. ",
+      "arabic": "هذا هو المكون السلوكي ل KSAO  الذي يتم تضمينه غالبا في متطلبات المنصب . تنقسم المهارات إلى \"مهارات خفيفة\" التي تتعلق بالمهارات العقلية أو الشخصية و\"مهارات صعبة\" التي تتعلق بالمهارات الجسدية. "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.onetonline.org/skills/",
+    "firestore_id": "-Mayvq8FplRdRAqiS1tu"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "مجموعة من المعلومات العملية أو الإجراءات التي يمكن استخدامها والمساهمة في الأداء الفعال للمنصب ",
+      "hebrew": "גוף של מידע עובדתי או תהליכי שניתן להשתמש בו ולתרום לביצוע יעיל של התפקיד",
+      "english": "The body of applicable, factual or procedural information that and contributes to the effective performance of a job assignment."
+    },
+    "lastEdited": 1622406144408,
+    "conceptName": {
+      "arabic": "المعرفة",
+      "english": "Knowledge",
+      "hebrew": "ידע "
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:22:24 GMT+0300",
+    "longDefinition": {
+      "english": "A cognitive component that concerns information kept in a person’s memory, and is used in performance, and is also used as the foundation for learning other things. For example, vocabulary in a language, a mathematical formula, etc.",
+      "arabic": "المكون المعرفي الذي يتعلق بالمعلومات المخزنة في ذاكرة الشخص ويتم استخدامه عند الأداء وكذلك كأساس لتعلم أمور أخرى. على سبيل المثال: كنز الكلمات في اللغة، صيغة رياضية وأكثر من ذلك  ",
+      "hebrew": "מרכיב הקוגניטיבי הנוגע למידע הנשמר בזיכרונו של האדם ומשמש בעת ביצוע וכן כבסיס ללמוד דברים אחרים. לדוגמא: אוצר מילים בשפה, נוסחה מתמטית ועוד "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "http://www.nickmilton.com/2019/09/the-3-different-types-of-knowledge-and.html",
+    "firestore_id": "-MaywG4pqfGqI9CgKyDG"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Stable characteristics that can include cognitive, sensory and physical abilities that contribute to the effective performance of a job assignment.",
+      "arabic": "خاصية شخصية مستقرة تشمل على القدرة العقلية، الحسية والجسدية التي تساهم في الأداء الفعال للمنصب  ",
+      "hebrew": "מאפיין אישי יציב הכולל יכולת שכלית, חושית ופיזית התורמים לביצוע יעיל של התפקיד"
+    },
+    "lastEdited": 1622406255849,
+    "conceptName": {
+      "english": "Ability",
+      "hebrew": "יכולת",
+      "arabic": "القدرة"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:24:15 GMT+0300",
+    "longDefinition": {
+      "arabic": "خاصية شخصية مستقرة تدمج بين المواقف، القدرات العقلية والعاطفية المتنوعة وتأتي من التعبير السلوكي. على سبيل المثال: التواصل بين الأشخاص، إدارة الوقت، تفكير نقدي، التعاطف مع العمل الجماعي   ",
+      "english": "A stable personal characteristic that combines attitude, varied mental and emotional abilities and is expressed through behavior. For example, inter-personal communications, time management, critical thinking, empathy, teamwork.",
+      "hebrew": "מאפיין אישי יציב המשלב עמדות, יכולות שכליות ורגשיות מגוונות ובא ידי ביטוי התנהגותי. לדוגמא: תקשורת בינאישית, ניהול זמן, חשיבה ביקורתי, אמפתיה עובדת צוות "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.universalclass.com/articles/self-help/emotional-intelligence/emotional-intelligence-the-ability-model.htm",
+    "firestore_id": "-MaywgI44Gy0rZypDNoE"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "A process that involves several steps and test measurements aimed to evaluate a candidate’s KSAOs ",
+      "arabic": "عملية تتضمن عددا من الخطوات ومجموعة متنوعة من الأدوات المعدة لتقييم مهارات المرشح ",
+      "hebrew": "תהליך המערב מספר שלבים ומגוון כלים המיועדים להעריך את כישורי המועמד"
+    },
+    "lastEdited": 1622406386259,
+    "conceptName": {
+      "arabic": "فرز أو تصنيف",
+      "hebrew": "מיון",
+      "english": "Selection"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:26:26 GMT+0300",
+    "longDefinition": {
+      "arabic": "تأتي هذه العملية بعد التجنيد وتدمج 3 مراحل: ما قبل الترشح (قراءة السيرة الذاتية، مقابلة هاتفية أولية)،  مرحلة الترشح (مقابلة، اختبارات، مركز التقييم، إلخ) ومرحلة التحقق (أخذ توصيات وشهادات)، يتم مع نهاية العملية عرض اقتراح عمل لمرشح واحد أو أكثر  ",
+      "english": "This process comes after the recruitment and involves three stages, pre-candidacy (reading resumes, preliminary telephone interview) candidacy (interview, tests, assessment center, etc.) and the verification stage (taking recommendations and certificates); at the end of the process one or more candidates are given a job offer.",
+      "hebrew": "תהליך זה בא לאחר הגיוס ומערב 3 שלבים: טרום מועמדות (קריאת קורות חיים, ראיון טלפוני מקדים)  שלב מועמדות (ראיון, מבחנים, מרכז הערכה וכד) ושלב אימות (לקיחת המלצות ותעודות,) בסיום התהליך מוצע למועמד אחד או יותר הצעת עבודה"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "http://www.explorehr.org/articles/Selection_+_Recruitment/Types_of_Selection_Methods.html",
+    "firestore_id": "-MayxB7jIWbJlJRMtAUb"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Work related material rewards that refer to an employee’s physical or economic needs such as salary, bonus, gain sharing etc.",
+      "arabic": "مكافآت مادية التي تتعلق بالعمل وتتطرق إلى الاحتياجات المادية والاقتصادية ",
+      "hebrew": "תגמולים חומריים הקשורים בעבודה ומתייחסים לצרכים פיסיים וכלכליים "
+    },
+    "lastEdited": 1622406516588,
+    "conceptName": {
+      "hebrew": "תגמול מוחשי",
+      "arabic": "مكافأة ملموسة",
+      "english": "Tangible reward"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:28:36 GMT+0300",
+    "longDefinition": {
+      "arabic": "مكافأة مادية تقدم كمبادلة بين الموظف وصاحب العمل. يمكن أن تكون هناك مكافأة مباشرة مقابل العمل – الأجر، ساعات إضافية، مكافأة، تقاسم الأرباح أو مكافأة غير مباشرة التي تتعلق بالمزايا مثل دفع مقابل إجازة، مرض، تأمين صحي، هدية العيد وما إلى ذلك ",
+      "english": "Tangible remuneration that is given in exchange between employee and employer. It may be a direct remuneration in return for work – salary overtime pay, bonus, division of profits or an indirect remuneration with benefits such as paying for a vacation, sick pay, health insurance, gifts for festivals, etc.",
+      "hebrew": "תגמול חומרי הניתן כחליפין בין העובד למעסיק . יכול להיות תגמול ישיר בתמורה לעבודה – שכר, שעות נוספות, בונוס, חלוקת רווחים או תגמול עקיף הנוגע להטבות כמו תשלום חופשה, מחלה, ביטוח בריאות, מתנת חג וכד'"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.1338tryon.com/best-tangible-rewards-for-employee-incentives/",
+    "firestore_id": "-Mayxfx8NKY2kW8ed65-"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "الانفصال عن صاحب العمل لأسباب المغادرة الطوعية، الفصل أو التقاعد ",
+      "english": "Separation from employment due to  voluntary resignation, layoff, retirement or dismissal.",
+      "hebrew": "היפרדות מן המעסיק מסיבות של עזיבה רצונית, פיטורין או פרישה"
+    },
+    "lastEdited": 1622406627894,
+    "conceptName": {
+      "hebrew": "סיום העסקה",
+      "arabic": "إنهاء العمل",
+      "english": "Termination "
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:30:27 GMT+0300",
+    "longDefinition": {
+      "hebrew": "מועד סיום התקשרות בן העובד והמעסיק. הסיום נגרם מעזיבה רצונית של העובד או יזומה על ידי המעסיק. לסיום ההעסקה מקדימה תקופת התראה כפי שהוגדרה בחוזה ההעסקה",
+      "arabic": "موعد انتهاء التعاقد بين الموظف وصاحب العمل، يحدث الانهاء بسبب المغادة الطوعية للموظف أو بمبادرة من قبل صاحب العمل.   عند نهاية العمل، يسبقها فترة إخطار على النحو المحدد في عقد العمل  ",
+      "english": "The date of the termination of ties between the employee and the employer. The termination is caused by the employee leaving voluntarily or at the instigation of the employer. Prior to the termination there is a period of prior notice, as defined in the employment contract."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.mom.gov.sg/employment-practices/termination-of-employment/what-is-termination",
+    "firestore_id": "-Mayy67Id3ao3tqzDg0u"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Describes changes in the work force resulting from voluntary or involuntary resignations.",
+      "arabic": "مؤشر يصف التغييرات في نطاق القوى العاملة في المؤسسة الناتجة عن التقاعد الطوعي للموظف أو بمبادرة من قبل المؤسسة",
+      "hebrew": "מדד המתאר שינויים בהיקף כח העבודה בארגון הנובע מפרישה רצונית של העובד או יזומה על ידי הארגון"
+    },
+    "lastEdited": 1622406755993,
+    "conceptName": {
+      "hebrew": "תחלופה",
+      "english": "Turnover index",
+      "arabic": "دوران أو تناوب"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:32:35 GMT+0300",
+    "longDefinition": {
+      "hebrew": "מדד התחלופה מושפע הן מגורמים תוך ארגוניים כמו איכות הניהול, רמת התגמול, ההכשרה וכד' וכן מגורמים חוץ ארגוניים כמו הזדמנויות תעסוקה באזור, יוקר מחייה , תחבורה ועוד.  מדד תחלופה נמוך מעיד על יכול שימור עובדים. ",
+      "english": "The turnover index is impacted both by factors within the organization such as the quality of management, the level of remuneration, the training, etc. and also by factors outside the organization, such as local employment opportunities, cost of living, transportation, etc. A low turnover index attests to the ability to retain staff.",
+      "arabic": "يتأثر مؤشر الدوران من عوامل داخل المؤسسة مثل جودة الإدارة، مستوى المكافأة، التدريب وما إلى ذلك، وكذلك من عوامل خارج المؤسسة مثل فرص العمل في المنطقة، غلاء المعيشة، وسائل النقل وأكثر من ذلك.  يشير مؤشر الدوران المنخفض إلى القدرة على الاحتفاظ بالموظفين.  "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.iedunote.com/employee-turnover",
+    "firestore_id": "-MayyaOqzLqAvVrbpJvz"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Costs associated with a severance of employment including items such as unemployment compensation, conducting exit interviews, replacing an employee; also, advertising, pre-employment testing, new hire orientation, training and lost productivity.",
+      "arabic": "التكاليف المباشرة وغير المباشرة المرتبطة بإنهاء العمل ",
+      "hebrew": "עלויות ישירות ועקיפות הקשורות בסיום העסקה "
+    },
+    "lastEdited": 1622406878298,
+    "conceptName": {
+      "hebrew": "עלות תחלופה",
+      "arabic": "تكلفة الدوران",
+      "english": "Turnover cost"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:34:38 GMT+0300",
+    "longDefinition": {
+      "arabic": "يشمل انفصال عن الموظف سلسلة من التكاليف المباشرة مثل: دفع تعويض أو العمل خلال فترة الإشعار، البحث عن موظف أي التجنيد، إجراء مقابلات اختبار وكذلك برنامج تدريبي لموظف جديد.  بالإضافة إلى ذلك، يتم تضمين تكاليف غير مباشرة مثل: مقابلة انفصال، تعويض للموظفين خلال الفترة الانتقالية، تغييرات في رسوم الراتب، الإضرار بسمعة المؤسسة وأكثر من ذلك ",
+      "english": "Severance from an employee includes a series of direct costs, such as severance pay or work during the period of prior notice, search for an employee to be recruited, interviews, tests and also training programs for the new employee. In addition, there are indirect costs such as a farewell interview, remuneration for staff during the change-over period, changes in salary rates, damage to the organization’s reputation, etc.",
+      "hebrew": "היפרדות מן עובד כוללת שורה של עלויות ישירות כמו: תשלום פיצויים או עבודה בתקופת ההתראה, חיפוש עובד גיוס, ראיונות מבחנים וכן תוכנית הכשרה לעובד חדש. בנוסף נכללות עלויות עקיפות כמו: ראיון פרידה, תגמול לעובדים בתקופת המעבר, שינויים בתעריפי השכר, פגיעה במוניטין הארגון ועוד"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://saylordotorg.github.io/text_human-resource-management/s11-01-the-costs-of-turnover.html",
+    "firestore_id": "-Mayz3FqT2SQ4YXOgxbP"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "(מספר העוזבים / ממוצע מספר העובדים בארגון) X 100",
+      "english": "(Number of voluntary resignations / Average number of total staff) x 100",
+      "arabic": "(عدد الذين تركوا العمل / متوسط عدد الموظفين في المؤسسة) X 100"
+    },
+    "lastEdited": 1622406987714,
+    "conceptName": {
+      "english": "turnover index",
+      "arabic": "مؤشر النسبة المئوية للدوران",
+      "hebrew": "מדד אחוז תחלופה"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:36:27 GMT+0300",
+    "longDefinition": {
+      "arabic": "يتم حساب هذا المؤشر بطريقة مماثلة في جميع المؤسسات وتشكل عامل للمقارنة بين المؤسسات في فرع مماثل في منطقة مماثلة.   يتم حساب المؤشر بمعدل تكرار شهري / ربع سنة أو سنة. هناك أولئك الذين يفصلون بين دوران طوعي والمبادرة. للدوران أهمية اقتصادية كبيرة جدا",
+      "hebrew": "מדד זה מחושב באופן זהה בכל הארגונים ומהווה גורם להשוואה בין ארגונים בענף דומה באזור דומה. המדד מחושב בתדירות של חודש/ רבעון או שנה. יש המפרידים בין תחלופה רצונית וליזומה. לתחלופה משמעות כלכלית כבדת משקל ",
+      "english": "This index is calculated identically in all organizations and constitutes a factor for comparison between organizations in a similar branch in a similar area. The index is calculated monthly, quarterly or annually. There are those who separate between voluntary and instigated turnover. Turnover has a very significant economic weight."
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://builtin.com/recruiting/turnover-rate",
+    "firestore_id": "-MayzTyWz1A-8BviK1dX"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "מידת ההתאמה של העובד לדרישות המוגדרות להצלחה בתפקיד מסוים",
+      "arabic": "مدى ملاءمة الموظف مع المتطلبات المحددة للنجاح في منصب معين ",
+      "english": "The candidate's suitability for tasks required to succeed in a specific job."
+    },
+    "lastEdited": 1622407156936,
+    "conceptName": {
+      "english": "Person-Job fit",
+      "hebrew": "התאמת עובד- תפקיד",
+      "arabic": "ملاءمة موظف - منصب"
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:39:16 GMT+0300",
+    "longDefinition": {
+      "english": "Employee –Job fit refers to the level of suitability of the employee’s professional skills to the requirements of the job. This fit must be tested during the selection process. Good fit contributes to high functioning and mutual satisfaction. There is a possibility of over qualification or under qualification.",
+      "arabic": "تتطرق ملاءمة موظف - منصب إلى مدى مهارات الموظف المهني لمتطلبات المنصب. يجب اختيار هذه الملاءمة في عملية التصنيف. تساهم الملاءمة الجيدة في الأداء العالي والرضا المتبادل. هناك احتمال لمهارات مفرطة للموظف (qualified over) أو نقص مهارات (under qualified)",
+      "hebrew": "התאמת עובד-תפקיד מתייחסת למידת התאמה של כשורי העובד המקצועיים לדרישות התפקיד. יש לבחון התאמה זו בתהליך המיון. התאמה טובה תורמת לתפקוד גבוה ושביעות רצון הדדית. קיימת אפשרות של כישורי יתר של העובד over) (qualified  או כישורי חסר under qualified"
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://www.retorio.com/blog/personality-hiring-for-job-fit",
+    "firestore_id": "-Maz-7IfpNmn3W6TVZV1"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "مدى الملاءمة بين الثقافة والقيم الأساسية للمؤسسة وبين المعتقدات والقيم للشخص  ",
+      "hebrew": "מידת ההתאמה בין התרבות וערכי הליבה של הארגון ובין האמונות והערכים של האדם",
+      "english": "The match between an organization's core values and culture and an individual's beliefs and values"
+    },
+    "lastEdited": 1622407287366,
+    "conceptName": {
+      "english": "Person-Organization fit",
+      "hebrew": "התאמת עובד- ארגון ",
+      "arabic": "ملاءمة موظف - مؤسسة "
+    },
+    "lastEditedDisplayable": "Sun May 30 2021 23:41:27 GMT+0300",
+    "longDefinition": {
+      "hebrew": "התאמת עובד ארגון מתייחסת למידת ההתאמה של ערכי הארגון והאקלים הארגוני לערכי ואמונות העובד. בתהליך המיון נדרש לאבחן את ערכי הארגון ולבחון מולם את ערכי העובד. אי התאמה יכולה לגרום לסיום העסקה הן ביוזמת העובד והן ביוזמת המעסיק",
+      "english": "Employee – Organization fit refers to the level of suitability of the organization’s values and its organizational climate, to the values and beliefs of the employee. In the selection process the organization’s values should be examined and compared to the employee’s values. Lack of fit can cause termination of employment either at the instigation of the employee or at the instigation of the employee.",
+      "arabic": "تتطرق ملاءمة موظف – مؤسسة إلى مدى الملاءمة لقيم المؤسسة والمناخ المؤسساتي للقيم ومعتقدات الموظف. في عملية التصنيف، يتطلب فحص قيم المؤسسة وفحص قيم الموظف مقابلها. يمكن أن يؤدي عدم الملاءمة إلى إنهاء العمل سواء بمبادرة الموظف أو بمبادرة من صاحب العمل  "
+    },
+    "suggestedBy": "niran zakay",
+    "readMore": "https://harver.com/blogperson-organization-fi",
+    "firestore_id": "-Maz-c8FZd-8QKcx6No6"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "The planned process of reduced the employer’s workforce through elimination designed to enhance the organization’s effectiveness",
+      "arabic": "عملية مخطط لها لتخفيض القوى العاملة من أجل كفاءة المؤسسة",
+      "hebrew": "תהליך מתוכנן להפחתת כח העבודה לצורך התייעלות הארגון"
+    },
+    "lastEdited": 1622446208070,
+    "conceptName": {
+      "hebrew": "צמצומים ",
+      "english": "Downsizing",
+      "arabic": "تقليصات "
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:30:08 GMT+0300",
+    "longDefinition": {
+      "arabic": "التقليصات هي استراتيجية من أجل تحقيق الكفاءة.  عمليا، يمكن إجراء التقليص بثلاثة طرق: تقليص الوظائف، تقليص النفقات وتقليص الموظفين. يمكن القيام بذلك بالتوازي أو على مراحل، في أجزاء من المؤسسة أو عبر المؤسسة  ",
+      "hebrew": "צמצומים הינם אסטרטגיה לצורך יעילות. באופן מעשי הצמצום יכול להיעשות בשלושה דרכים: צמצום תפקידים, צמצום הוצאות וצמצום עובדים. יכולים להתבצע במקביל או בשלבים, בחלקים מהארגון או חוצי ארגון",
+      "english": "Downsizing is a strategy for the purpose of efficiency. In practical terms, downsizing can be achieved in 3 ways, cutting positions, cutting expenses and cutting staff. They can be performed in parallel or in stages, in parts of the organization or in its entirety."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.thebalancecareers.com/what-happens-when-a-company-downsizes-2061972",
+    "firestore_id": "-Mb0K6WhDVa9P_4c9Pex"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "A benefit plan offered by an organization providing incentives geared toward encouraging employees who are approaching retirement age, to retire voluntarily prior to their normal retirement age.",
+      "hebrew": "תוכנית המציעה לעובדים לקראת גיל פרישה לפרוש מרצונם תמורת תמריץ",
+      "arabic": "خطة التي تقترح على الموظفين نحو سن التقاعد بالتقاعد طوعا مقابل حافز  "
+    },
+    "lastEdited": 1622446216660,
+    "conceptName": {
+      "hebrew": "תוכנית לפרישה מוקדמת",
+      "english": "Early retirement program",
+      "arabic": "خطة للتقاعد المبكر"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:30:16 GMT+0300",
+    "longDefinition": {
+      "arabic": "تأتي خطة التقاعد المبكر لتحقيق التوازن في الفائض المتوقع للقوى العاملة بين الطلب المستقبلي والعرض المستقبلي. نقص التوازن الكمي في عدد الموظفية و /أو نقص التوازن النوعي في مهارات الموظفين المطلوبين للمؤسسة في المستقبل. تقدم الخطة عادة للأشخاص الذين يخروجون للتقاعد المبكر ظروف تقاعد محسنة من أجل تشجيعهم على التقاعد ",
+      "hebrew": "תוכנית פרישה מוקדמת באה לאזן במצב עודף כח אדם צפוי בין הביקוש העתידי להיצע העתידי. חוסר איזון כמותי במספר העובדים ו/או חוסר איזון איכותי בכישורי העובדים. הנדרשים לארגון בעתיד. התוכנית לרוב מציעה לפורשים מוקדם תנאיי פרישה משופרים במטרה לעודד אותם לפרוש",
+      "english": "An early retirement program comes to balance a forecast surplus of manpower. A quantitative imbalance in the number of employees, and/or a qualitative imbalance in staff competencies, that will be required in the future. The program usually offers those retiring early, improved terms, with the aim of encouraging them to retire."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.thebalancecareers.com/early-retirement-is-an-option-for-some-employees-1918105",
+    "firestore_id": "-Mb0K8bvNqb25RzeR3JO"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "היחס בין תפוקות לתשומות. ",
+      "english": "Ratio of output to input. Efficiency increases when costs of inputs are reduced, or value of outputs are increased.",
+      "arabic": "النسبة بين المخرجات والمدخلات. "
+    },
+    "lastEdited": 1622446234578,
+    "conceptName": {
+      "arabic": "الكفاءة",
+      "hebrew": "יעילות",
+      "english": "Efficiency"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:30:34 GMT+0300",
+    "longDefinition": {
+      "arabic": "إنه مؤشر لفحص استراتيجية الكفاءة لاكتساب ميزة تنافسية. تشكل الكفاءة مؤشر لأداء العمليات بشكل صحيح. في الوقت نفسه، يجب التطرق إلى العزيمة أو الفعالية التي تتعلق في فعل الأشياء الصحيحة من أجل ميزة تنافسية. ",
+      "english": "This is an index to measure the strategy of efficiency to achieve a competitive advantage. Efficiency constitutes an index for performing processes correctly. At the same time reference must be made to the purposefulness or the effectiveness of doing things correctly for the purpose of competitive advantage.",
+      "hebrew": "זהו מדד לבחינת אסטרטגיה של התייעלות להשגת יתרון תחרותי. יעילות מהווה מדד לביצוע תהליכים באופן נכון. במקביל יש להתייחס לתכליתיות או אפקטיביות המתייחסת לעשיית הדברים הנכונים לצורך יתרון תחרותי"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://nesslabs.com/efficacy-effectiveness-efficiency",
+    "firestore_id": "-Mb0KCzsD5GEP20omE7d"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "אנשים מונעים תוך השוואת יחס המאמצים/תגמולים שלהם עם אותו יחס אצל אחר ",
+      "arabic": "يتم تحفيز الأشخاص عند مقارنة نسبة الجهود /المكافآت الخاصة بهم مع نفس النسبة لدى الآخرين ",
+      "english": "People are motivated by a desire to be treated fairly and will compare their own efforts/ rewards ratio against selected others’ efforts/ rewards ratio inside or outside of the organization by judging the fairness of their treatment."
+    },
+    "lastEdited": 1622446239425,
+    "conceptName": {
+      "english": "Equity theory",
+      "hebrew": "תיאוריית ההוגנות",
+      "arabic": "نظرية الإنصاف"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:30:39 GMT+0300",
+    "longDefinition": {
+      "english": "The theory of cognitive motivation that was developed by Adams (1965) claims that people have a natural tendency to equity, through a “calculation” of the ratios between his effort (investment) and remuneration (results) and the comparison of this ratio with that of others. The others might be inside or outside the organization, or even the same person in a different position. Based on equity, practices have been developed for setting pay, such as pay reviews (external equity) classification of jobs (internal equity) and bonuses (individual equity).",
+      "hebrew": "\"תיאורית מוטיבציה קוגניטיבית שפותחה על ידי Adams (1965) הטוענת כי לאדם נטייה טבעית להוגנות תוך \"חישוב\" יחסים בין מאמצים (השקעות) ותגמולים (תוצרים) שלו והשוואה ליחס זה אצל האחר. האחר יכול לשמש בתוך הארגון או מחוצה לו. או אף האדם עצמו בתפקיד אחר או בארגון אחר. על בסיס הוגנות פותחו פרקטיקות לקביעת שכר כמו: סקרי שכר (הוגנות חיצונית), דרוג תפקידים (הוגנות פנימית) ובונוסים (הוגנות אישית).\"",
+      "arabic": "\"تدعي نظرية الدافع المعرفي التي تم تطويرها من قبل Adams (1965) بأن الشخص لديه ميل طبيعي ليكون عادلا أثناء \"حساب\" العلاقة بين الجهود (الاستثمارات) والمكافآت (المنتجات) الخاصة به ومقارنة هذه العلاقة لدى الآخر . يمكن استخدام الآخر داخل المؤسسة أو خارجها.  أو حتى الشخص نفسه في منصب آخر أو في مؤسسة أخرى.  على أساس الإنصاف، تم تطوير ممارسات لتحديد الأجور مثل: استطلاعات الراتب (الإنصاف الخارجي)، تدريج المناصب (الإنصاف الداخلي) والمكافآت (الإنصاف الشخصي).\""
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.managementstudyguide.com/equity-theory-motivation.htm",
+    "firestore_id": "-Mb0KEAcajDGkw16IbvO"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "تقدير قيمة المنصب من خلال تدريجه على عدد من العوامل المختارة بهدف تحديد مبلغ الدفع ",
+      "english": "A process of ranking each individual job by certain selected compensable factors to establish appropriate values to be used in determining rates of pay.",
+      "hebrew": "הערכת ערך התפקיד על ידי דירוגו  על מספר גורמים נבחרים במטרה לקבוע גובה התשלום"
+    },
+    "lastEdited": 1622446243954,
+    "conceptName": {
+      "english": "Factor comparison",
+      "arabic": "مقارنة عوامل",
+      "hebrew": "השוואת גורמים"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:30:43 GMT+0300",
+    "longDefinition": {
+      "arabic": "عملية مبنية على الإنصاف الداخلي من أجل خلق عدالة المكافآت بين المناصب المختلفة في المؤسسة. يتم تحديد العوامل (مثل درجة المسؤولية، التعليم، الخبرة وما إلى ذلك) وكذلك الوزن لكل عامل.  يتم تقييم المناصب بناء على هذه العوامل وتتم الإشارة إليها وفقا لوزن كل عامل. يتم منح كل منصب درجة تحدد تدريجه. يرتبط هذا التدريج بمستوى المكافأة للمنصب  ",
+      "english": "A process that is based on internal equity with the aim of creating equity of remuneration between the different jobs in the organization.  Factors are determined (e.g. level of responsibility, education, experience, etc.) and also the weight of each factor. Each job is given a grade that defines its classification. This classification is connected to the job’s level of remuneration.",
+      "hebrew": "תהליך המבוסס על הוגנות פנימית במטרה ליצור הוגנות תגמול בין התפקידים השונים בארגון. נקבעים גורמים (כדוגמת מידת אחריות, השכלה, ניסיון ועוד)  וכן משקל לכל גורם. כל התפקידים מוערכים על גורמים אלה ומצוינים על פי המשקל של כל גורם. לכל תפקיד ניתן ציון המגדיר את הדרוג שלו. דרוג זה נקשר לרמת התגמול של התפקיד"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://hr-guide.com/JobEvaluation/Job_Evaluation_Factor_Comparison.htm",
+    "firestore_id": "-Mb0KFHOSZ9cOVt_5NwO"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "محاولات لتحديد العرض والطلب للقوى العاملة من أجل التنبؤ بالنقص أو الفائض في المستقبل ",
+      "hebrew": "ניסיונות להגדיר את ההיצע והביקוש לכח אדם כדי לנבא מחסור או עודף עתידיים ",
+      "english": "The organization attempts to determine the supply and demand for HR to predict future labor shortages or surpluses"
+    },
+    "lastEdited": 1622446248450,
+    "conceptName": {
+      "english": "Forecasting",
+      "hebrew": "חיזוי",
+      "arabic": "تنبؤ"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:30:48 GMT+0300",
+    "longDefinition": {
+      "english": "The first stage in HR planning. The process involves forecasting the demand, the supply, and the comparison between them. The forecast is made for a period of a year or number of years. The result of the forecast might be to create a shortage or a surplus and to plan HR activity to close these gaps.",
+      "arabic": "الخطوة الأولى في تخطيط القوى العاملة. تنطوي العملية على التنبؤ بشأن العرض والطلب ومقارنة بينهما. يتم تنفيذ التنبؤ لمدة سنة واحدة وحتى عدة سنوات. يمكن أن تؤدي نتيجة التنبؤ إلى نقص أو فائض، وقد تم تصميم تخطيط أداء الموارد البشرية لسد هذه الفجوات. ",
+      "hebrew": "השלב הראשון בתכנון כח אדם. התהליך כרוך בחיזוי הביקוש ההיצע והשוואה ביניהם. החיזוי מבוצע לתקופה של שנה ועד מספר שנים. תוצאת החיזוי יכולה להוליד מחסור או עודף ותכנון הביצועים של משאבי אנוש נועד לסגור פערים אלה"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://smallbusiness.chron.com/proper-sequence-steps-hr-forecasting-process-36463.html",
+    "firestore_id": "-Mb0KGNd1fF8SxiZ6DAI"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "תמריץ  באמצעות חלוקה עם הקבוצה של אחוז מהרווחים מפעילותה ",
+      "arabic": "حافز من خلال التقاسم مع المجموعة على نسبة مئوية من الأرباح من نشاطها   ",
+      "english": "A group incentive plan used to enhance productivity by sharing with a group, a percentage of the gains from specific group efforts."
+    },
+    "lastEdited": 1622446252930,
+    "conceptName": {
+      "hebrew": "תוכנית חלוקת רווחים",
+      "english": "Profit sharing plans ",
+      "arabic": "خطة تقاسم الأرباح"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:30:52 GMT+0300",
+    "longDefinition": {
+      "arabic": "يتطرق هذا النهج إلى المكون المتغيير للأجور. الهدف هو تشجيع التزام الموظف بتحسين الأداء كمجموعة و/أو المؤسسة ككل من خلال مصلحة مشتركة المتمثلة في المشاركة في الأرباح. تكافئ المستويات المختلفة في المؤسسة بنسب مئوية متفاوتة من الأرباح ",
+      "english": "This approach relates to a variable salary component. The aim is to encourage the employee’s commitment to improve group performance and/or those of the entire organization, out of a common interest of profit sharing. Different levels within the organization are rewarded with different percentages of the profits.",
+      "hebrew": "גישה זו מתייחסת למרכיב המשתנה של השכר. המטרה לעודד מחויבות העובד לשיפור הביצועים הקבוצתיים ו/או כלל הארגון מתוך אינטרס משותף של השתתפות ברווחים. דרגים שונים בארגון מתוגמלים באחוזים משתנים של הרווחים"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://bizfluent.com/info-8499121-types-employee-gainsharing-plans.html",
+    "firestore_id": "-Mb0KHTcuo68PYQaKqgY"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Seeking applicants from an existing workforce ",
+      "arabic": "البحث عن مرشحين من القوى العاملة الموجودة داخل المؤسسة ",
+      "hebrew": "חיפוש מועמדים מכח האדם הקיים בתוך הארגון"
+    },
+    "lastEdited": 1622446257727,
+    "conceptName": {
+      "hebrew": "גיוס פנימי",
+      "arabic": "تجنيد داخلي",
+      "english": "Internal recruitment"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:30:57 GMT+0300",
+    "longDefinition": {
+      "hebrew": "השיטה מאפשרת לעובד מתוך הארגון להיות מועמד למשרה הן ביוזמתו או בפניה יזומה של הארגון אליו. בין יתרונות השיטה עלות נמוכה, מהירות, יצירת מחוייבות ומוטיבציה החסרונות שלה נוגעים לשמרנות והתמרמרות. ",
+      "arabic": "تسمح الطريقة من داخل المؤسسة أن يكون مرشحا لهذا المنصب سواء بمبادرته الخاصة أو توجه بمبادرة من المؤسسة إليه. من بين مزايا الطريقة التكلفة المنخفضة، السرعة، خلق الالتزام والتحفيز، عيوبها تتعلق بالمحافظة والاستياء. ",
+      "english": "The method allows an employee from inside the organization to be a candidate for a job, both on his own initiative or by the organization approaching him. The advantages of this method are low cost, speed, creation of commitment and motivation. The disadvantages are conservatism and resentment."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.businessmanagementideas.com/human-resource-management-2/sources-of-recruitment/internal-sources-of-recruitment/20580",
+    "firestore_id": "-Mb0KIdaQHzNJYhlBzK3"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "שיטה להרחבת התפקיד בה העובד מועבר בין מגוון תפקידים ברמה דומה",
+      "english": "A job enlargement method whereby employees are shifted between various comparable jobs ",
+      "arabic": "طريقة لتوسيع المنصب حيث يتم فيها نقل الموظف بين مجموعة متنوعة من المناصب على مستوى مماثل "
+    },
+    "lastEdited": 1622446262155,
+    "conceptName": {
+      "english": "Job rotation",
+      "arabic": "دوران (تناوب) المنصب",
+      "hebrew": "רוטציית (סבב) תפקיד"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:31:02 GMT+0300",
+    "longDefinition": {
+      "hebrew": "סבב בין תפקידים יכול לענות על צרכי הארגון לגמישות ולאיזון כמותי או איכותי בין המחלקות ו/או לענות על צרכי העובד ליצירת מוטיבציה ופיתוח אישי.",
+      "arabic": "يمكن أن يفي تناوب المناصب باحتياجات المؤسسة من المرونة والتوازن الكمي أو النوعي بين الأقسام و/أو تلبية احتياجات الموظف لخلق الحافز والتنمية الشخصية. ",
+      "english": "Rotation between jobs can answer the organization’s needs for flexibility together with quantitative and qualitative balance between the departments, and/or to answer the employee’s needs to create motivation and personal development."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.digitalhrtech.com/job-rotation/",
+    "firestore_id": "-Mb0KJimUj7ABk6pARyt"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "The collective knowledge, skills, and abilities of employees.",
+      "hebrew": "סך הידע, המיומנויות והיכולות של העובדים",
+      "arabic": "إجمالي المعرفة، المهارات وقدرات الموظفين "
+    },
+    "lastEdited": 1622446267469,
+    "conceptName": {
+      "hebrew": "הון אנושי",
+      "arabic": "رأس المال البشري",
+      "english": "Human capital"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:31:07 GMT+0300",
+    "longDefinition": {
+      "arabic": "هذا أصل غير ملموس حيث أنه غير مكتوب في تقارير الشركة ولكنه ذو قيمة اقتصادية ينجم عن مهارات وخبرات الموظفين. يشمل رأس المال هذا أصولا مثل التعليم، الإرشاد، الذكاء، الصحة والأصول الإضافية المتعلقة بالموظفين مثل الثقة والانتماء ",
+      "english": "This is an intangible asset which does not appear in the company’s reports, but has an economic value emanating from the employees’ skills and experience. This capital includes assets such as education, training, intelligence, health and other assets connected to the employees such as loyalty and feeling of belonging.",
+      "hebrew": "זהו נכס לא מוחשי שאינו נכתב בדוחות החברה אך הינו בעל ערך הכלכלי הנובע מכישורים והנסיון של העובדים. הון זה כולל נכסים כמו השכלה, הדרכה, אינטליגנציה, בריאות ונכסים נוספים הקשורים בעובדים כמו נאמנות ומחוברות"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www2.deloitte.com/us/en/insights/focus/human-capital-trends.html",
+    "firestore_id": "-Mb0KL0ogFNsKOmLi2R2"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "english": "Measurements used to determine the value and effectiveness of HR strategies. (also people analytics)",
+      "hebrew": "מדידות שנעשות כדי להגדיר את הערך והיעילות של אסטרטגיית משאבי אנוש. ",
+      "arabic": "مقاييس تم اجراؤها لتحديد قيمة وفعالية استراتيجية الموارد البشرية. "
+    },
+    "lastEdited": 1622446272451,
+    "conceptName": {
+      "hebrew": "מדידת משאבי אנוש",
+      "arabic": "مقياس الموارد البشرية",
+      "english": "HR measurement "
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:31:12 GMT+0300",
+    "longDefinition": {
+      "hebrew": "מדידת משאבי אנוש מבטאת את גישת השותפות העיסקית של משאבי אנוש. בניגוד לעבר, כיום נדרשת הערכת התוצאות ולא רק עצם הפעילות.  מדדים מקובלים: עלות פר גיוס, עלות תחלופה של עובד, החזר השקעה (ROI)  של הדרכה. מדד פריון, עלות תמריצים פר עובד, ועוד. נקרא גם אנליטיקס",
+      "english": "Measuring HR expresses the HR approach of commercial partnership. As opposed to the past, today, evaluation of the results is needed, and not of just the activity. Accepted indices: cost per recruitment, cost of replacing an employee, return on investment (ROI) in training. Productivity index, cost of incentive per employee, etc. Also known as analytics.",
+      "arabic": "يعبر مقياس الموارد البشرية عن نهج الشراكة التجارية للموارد البشرية. على عكس الماضي، فإن تقييم النتائج مطلوب اليوم وليس النشاط نفسه فقط.  المقاييس المقبولة: تكلفة التجنيد، تكلفة استبدال الموظف، عائد الاستثمار (ROI)  للتدريب. مقياس الإنتاجية، تكلفة الحوافز لكل موظف، وأكثر من ذلك. تسمى أيضا تحليلات"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.analyticsinhr.com/blog/hr-metrics-and-analytics-how-both-can-add-value",
+    "firestore_id": "-Mb0KMEeTJz0QnJ3h494"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "مدير مباشر حيث يشرف على الموظفين والعمليات ويعمل على التأكد من تطبيق الخطط  ",
+      "hebrew": "מנהל ישיר אשר מפקח על עובדים ותהליכים ופועל לוודא כי תוכניות מיושמות ",
+      "english": "Oversees other employees and the operations of a business. Works to ensure programs are implemented effectively in a department to help the organization meet its goals. Also known as direct managers"
+    },
+    "lastEdited": 1622446276814,
+    "conceptName": {
+      "english": "Line manager",
+      "arabic": "مدير مباشر",
+      "hebrew": "מנהל קו"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:31:16 GMT+0300",
+    "longDefinition": {
+      "hebrew": "המנהל הנמצא בין ההנהלה ובין העובדים ועוסק בתכנון היישום והקצאת המשאבים של החלטות ההנהלה. המנהל הישיר שותף בהחלטות לגבי כח האדם יישום יוזמות משאבי אנוש. לשיתוף הפעולה בין פונקציית משאבי אנוש למנהל הישיר חשיבות עליונה להצלחה",
+      "arabic": "المدير الذي يكون بين الإدارة والموظفين ويتعامل مع تخطيط التطبيق وتخصيص موارد قرارات الإدارة. يشارك المدير المباشر في القرارات المتعلقة بتنفيذ القوى العاملة لمبادرات الموارد البشرية. التعاون بين وظيفة الموارد البشرية والمدير المباشر له أهمية قصوى للنجاح  ",
+      "english": "The manager between the management and the staff who deals with the planning, the implementation and the allocation of the management’s resources. The direct manager is partner to the decisions on manpower and the implementation of HR initiatives. Cooperation between HR and the direct manager is supremely important for success."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.thebalancecareers.com/role-and-challenges-of-a-line-manager-2275752",
+    "firestore_id": "-Mb0KNIo2zn9QxMTFJ3V"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "כלי מוטיבציוני הניתן כפיצוי נוסף לעובד ומבוסס על התוצאות שהשיג",
+      "english": "A motivational tool used as additional compensation awarded to employees for the results that they achieved.",
+      "arabic": "أداة تحفيزية تُمنح كتعويض إضافي للموظف بناء على النتائج التي حققها   "
+    },
+    "lastEdited": 1622446281293,
+    "conceptName": {
+      "arabic": "خطة الحوافز",
+      "english": "Incentive program",
+      "hebrew": "תוכנית תמריצים"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:31:21 GMT+0300",
+    "longDefinition": {
+      "arabic": "تأتي خطة الحوافز لتحفيز الموظف على بذل الجهود لتحسين الأداء على أساس التعويض المالي. الحافز هو تعويض إضافي على الراتب الثابت وقد يعتمد على أساس الأداء الشخصي، الجماعي أو المؤسساتي مثل خطة المكافآت، تقاسم الأرباح، الأسهم، الخيارات وأكثر من ذلك. مثل الدفع على أساس الأداء   ",
+      "hebrew": "תוכנית התמריצים באה להמריץ את העובד להשקיע מאמצים לשיפור הביצועים על בסיס פיצוי כספי. התמריץ הינו פיצוי נוסף על השכר הקבוע ועשוי להיות על בסיס ביצוע אישי, קבוצתי או ארגוני  כדוגמת תוכנית בונוסים, חלוקת רווחים, מניות, אופציות ועוד . כמו תשלום מבוסס ביצועים",
+      "english": "The incentive program comes to encourage the employee to invest efforts in improving his performance, based on financial compensation. The incentive is further compensation, in addition to the regular salary, and might be based on individual, group or organizational performance, such as a bonus plan, distribution of profits, shares, options, etc. Like a performance-based payment."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://nature.berkeley.edu/ucce50/ag-labor/7labor/08.htm",
+    "firestore_id": "-Mb0KOOoK6yoW3SKOVwA"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "قائمة المعرفة، المهارات، القدرات والخصائص الإضافية المطلوبة لأداء المنصب ",
+      "english": "A list of knowledge, skills abilities, and other characteristics (KSAO) that are required to perform a job",
+      "hebrew": "רשימת הידע המיומנויות, היכולות ומאפיינים נוספים הנדרשים לביצוע התפקיד"
+    },
+    "lastEdited": 1622446286023,
+    "conceptName": {
+      "arabic": "متطلبات المنصب",
+      "english": "Job requirements",
+      "hebrew": "דרישות תפקיד"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:31:26 GMT+0300",
+    "longDefinition": {
+      "hebrew": "חלק משלים של תיאור התפקיד בו מוגדרים הידע,  המיומנויות היכולות והמאפיינים הנוספים. מאפיינים אלה מתבטאים בדרישה להשכלה, ניסיון, שפות, עבודה במחשב, וכן תכונות אישיות (KSAO). הדרישות צריכות להיות רלוונטיות להצלחה בתפקיד. כמו כן מוגדרת הרמה הנדרשת של הדרישות. דרישות התפקיד משמשות לגיוס עובדים, למיון ולתהליך ההכשרה בכניסה לתפקיד",
+      "english": "A complementary part of the job description in which the knowledge, skills, ability and further characteristics are defined. These characteristics are expressed in the requirement for education, experience, languages, work with a computer and also personal characteristics (KSAO). The requirements must be relevant to the success of the position. Furthermore, the required level of requirements is defined. The job requirements are used to recruit staff, for selection and the training process on entering the position.",
+      "arabic": "جزء مكمل لوصف المنصب يتم فيه تحديد المعرفة، المهارات القدرات والخصائص الإضافية. يتم التعبير عن هذه الخصائص في متطلبات التعليم، الخبرة، اللغات، العمل على الحاسوب، وكذلك الصفات الشخصية (KSAO). يجب أن تكون المتطلبات ذات صلة للنجاح في المنصب.  كذلك يتم تحديد المستوى المطلوب من المتطلبات. تستخدم متطلبات المنصب من أجل تجنيد موظفين، تصنيف وعملية التدريب عند الدخول للمنصب "
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.mbaskool.com/business-concepts/human-resources-hr-terms/1792-job-specification.html",
+    "firestore_id": "-Mb0KPYikipjlzHSMv53"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "arabic": "مكافأة غير مادية التي تتطرق إلى الاحتياجات الشخصية، الاجتماعية والمهنية للموظف ",
+      "english": "Non-monetary reinforcer rewards that refer to personal, social or professional needs, such as  recognition, promotion, training & development etc.",
+      "hebrew": "תגמול לא חומרי המתייחס לצרכים אישיים, חברתיים ומקצועיים של העובד "
+    },
+    "lastEdited": 1622446295148,
+    "conceptName": {
+      "english": "Intangible reward",
+      "arabic": "المكافأة غير الملموسة",
+      "hebrew": "תגמול לא מוחשי"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:31:35 GMT+0300",
+    "longDefinition": {
+      "arabic": "مكافأة تلبي احتياجات الموظف غير اقتصادية مثل الاحتياجات الاجتماعية، المهنية والعاطفية. على شبيل المثال: التقدير، التعزيز، الإرشاد والتطوير، إلخ. ",
+      "english": "The remuneration answers the employee’s non-financial needs such as social, professional and emotional needs. For example, respect, advancement, training and development, etc.",
+      "hebrew": "תגמול העונה לצרכי העובד שאינם כלכליים כמו צרכים חברתים, מקצועיים ורגשיים. לדוגמא: הוקרה, קידום, הדרכה ופיתוח וכד'"
+    },
+    "suggestedBy": "Amani",
+    "readMore": "http://www.hrcareertransition.com/wp-content/uploads/2010/04/5-Low-Cost-High-Return-Rewards.pdf",
+    "firestore_id": "-Mb0KRmIyYdkOXljPH7G"
+  },
+  {
+    "categories": [
+      0
+    ],
+    "shortDefinition": {
+      "hebrew": "תהליך חיברות (סוציאליזציה) ארגוני בו מוצגים לעובד החדש הציפיות, המיומנות, הידע ותרבות.",
+      "english": "An organizational socialization process of introducing employees to the expectations, skills, knowledge and culture of the organization",
+      "arabic": "عملية التنشئة الاجتماعية (سيسيولوجيا) المؤسسية حيث يتم فيها عرض التوقعات، المهارات، المعرفة والثقافة للموظف الجديد. "
+    },
+    "lastEdited": 1622446299962,
+    "conceptName": {
+      "english": "Onboarding ",
+      "hebrew": "תוכנית הצטרפות",
+      "arabic": "خطة الانضمام"
+    },
+    "lastEditedDisplayable": "Mon May 31 2021 10:31:39 GMT+0300",
+    "longDefinition": {
+      "arabic": "عملية مستمرة من الأنشطة للموظف الجديد لعرض التوقعات والسلوك اليومي. فضلا عن إكساب المهارات المهنية. تشتمل الخطة على لقاء توجيهي يتم تنفيذه بالتعاون بين الموارد البشرية وبين المدير المباشر. تتضمن الخطة أحيانا إرشاد وحتى دروسا خصوصية شخصية.  مدة الخطة من أيام إلى شهور",
+      "hebrew": "תהליך מתמשך של פעילויות לעובד חדש להצגת הצפיות וההתנהלות היומיומית. וכן הקניית הכישורים המקצועיים. התוכנית כוללת את מפגש האוריינטציה ומתבצעת תוך שיתוף פעולה בין משאבי אנוש ובין המנהל הישיר. לעיתים כוללת התוכנית הדרכה ואף חונכות אישית.  משך התוכנית מימים ועד חודשים",
+      "english": "A continuing process of activities for the new employee to show expectation and daily behavior. And also, the acquisition of professional skills. The program includes an orientation meeting and is implemented jointly by HR and the direct manager. It sometimes includes a training program or even a personal mentor. The length of the program is days or months."
+    },
+    "suggestedBy": "Amani",
+    "readMore": "https://www.trinet.com/insights/7-steps-to-an-effective-employee-onboarding-process",
+    "firestore_id": "-Mb0KSxVZQ7BAja37jln"
+  }
+]

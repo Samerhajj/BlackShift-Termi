@@ -1,0 +1,27 @@
+.input{
+    font-size: larger;
+    padding:5px;
+    margin:2px;
+}
+.form-control{
+   background-color: dark;
+}
+
+.label{
+display: block;
+font-size: larger;
+color: white;
+padding: 5px;
+}
+.btn{
+color: white;
+background-color: red;
+border-radius: 5px;
+font-size: larger;
+display: block;
+padding: 5px;
+margin: 10px auto;
+}
+.class-card-register{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
