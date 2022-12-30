@@ -1,7 +1,10 @@
 const User = require("../Models/userSchema");
+const Suggest = require("../Models/suggestSchema");
 const { validationResult } = require('express-validator');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+// var ObjectID = require('mongodb').ObjectID;
+
 let refreshTokens = [];
 //-------------------------------------------------------------------------------------------------------------------------------------
 const Register = async (req, res) => {
@@ -114,6 +117,127 @@ res.headers['x-refresh-token'] = newRefreshToken;
   return res.status(401).send({ msg: 'Invalid x-refresh-token provided' });
 }
 };
+//-------------------------------------------------------------------------------------------------------------------------------------
+const Logout = (req, res) => {
+
+  const refreshToken = req.headers['x-refresh-token'];
+  const token = req.headers['x-auth-token'];
+  
+  // If the x-refresh-token is not provided, return an error
+  if (!token || !refreshToken) {
+    return res.status(401).send({ msg: 'No x-auth-token or x-refresh-token provided' });
+  }
+
+  // Verify the refresh token and decode its payload
+  try {
+    //jwt.verify(refreshToken,  process.env.REFRESH_TOKEN_SECRET);
+   const decodedRefreshToken = jwt.verify(refreshToken, process.env.SECRET);
+
+    // Check if the refresh token is in the in-memory store
+    if (!refreshTokens.includes(refreshToken)) {
+      return res.status(401).send({ msg: 'Invalid x-refresh-token provided' });
+      console.log("Invalid x-refresh-token provided");
+    }
+ // Check if the x-auth-token and x-refresh-token belong to the same user
+    // if (decodedRefreshToken.email !== req.body.email) {
+    //   return res.status(401).send(req.body.email);
+    // }
+    // Remove the refresh token from the in-memory store
+    refreshTokens.splice(refreshTokens.indexOf(refreshToken), 1);
+    res.header('x-auth-token', '');
+  res.header('x-refresh-token', '');
+  console.log("Logged out successfully")
+
+  res.send('Logged out successfully');
+} catch (err) {
+  return res.status(401).send({ msg: 'Invalid x-refresh-token provided' });
+}
+};
+//-------------------------------------------------------------------------------------------------------------------------------------
+const Private = async(req,res) =>{
+  // --> Here we reach the private fields for our customers
+    try{
+        const resPrivate = await User.findOne({email:req.user});
+        console.log(resPrivate)
+        res.send(resPrivate);
+    }
+    catch(err){
+        console.log(err);
+        res.send("error");
+    }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------
+const Favorite = async (req,res) =>{
+    try{
+            console.log("%%%%%%%%%%%%%%%%%%%%%%%")
+
+      console.log(req.body);
+            console.log("%%%%%%%%%%%%%%%%%%%%%%%")
+
+      const res_user =  await User.findOne({email:req.body.email});
+      // const res_user =  await User.findOne({"_id":req.body.personId});
+
+      console.log("-------------")
+      console.log(res_user);
+      console.log("-------------")
+      console.log(req.body);
+      console.log("-------------")
+      res.send(res_user.favorite)
+    }
+    catch(err){
+      console.log(err);
+    }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------
+const DeleteFavorite = async(req,res) =>{
+  try{
+      const response = await User.updateOne(
+      { "_id": req.body.personId},
+      { $pull: { favorite: req.body.card_id } })
+      console.log("res From DEL FAV");
+      console.log(response);
+      console.log("res From DEL FAV");
+      res.send(response);
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------------------------
+const suggestTerm = async (req,res) =>{
+  
+  
+    const newSuggest = new Suggest({
+    "categories":[],
+    "shortDefinition":{},
+    "lastEdited" : 25.22,
+    "conceptName" : {"Samer" :{
+                                "arabic" :"سامر",
+                                "english" : "samer",
+                                "hebrew" : "סאמר"}
+    },
+    "lastEditedDisplayable" : "29.12.2022",
+    "longDefinition" : {},
+    "suggestedBy" : "",
+    "readMore" : "",
+    "firestore_id" : "23480340918230981"
+
+
+});
+  try{
+  newSuggest.save();
+  console.log(req.body);
+  res.send("hello");
+    
+  }catch(err){
+    res.send(err);
+  }
+  
+}
+//-------------------------------------------------------------------------------------------------------------------------------------
+module.exports = {Register,Login,Logout,tokenG,Private,Favorite,DeleteFavorite,suggestTerm}
+
+
 {
 //process.env.ACCESS_TOKEN_SECRET
 
@@ -153,67 +277,6 @@ res.headers['x-refresh-token'] = newRefreshToken;
 //   }
 // };
 }
-//-------------------------------------------------------------------------------------------------------------------------------------
-const Logout = (req, res) => {
-
-  const refreshToken = req.headers['x-refresh-token'];
-  const token = req.headers['x-auth-token'];
-  
-  // If the x-refresh-token is not provided, return an error
-  if (!token || !refreshToken) {
-    return res.status(401).send({ msg: 'No x-auth-token or x-refresh-token provided' });
-  }
-
-  // Verify the refresh token and decode its payload
-  try {
-    //jwt.verify(refreshToken,  process.env.REFRESH_TOKEN_SECRET);
-   const decodedRefreshToken = jwt.verify(refreshToken, process.env.SECRET);
-
-    // Check if the refresh token is in the in-memory store
-    if (!refreshTokens.includes(refreshToken)) {
-      return res.status(401).send({ msg: 'Invalid x-refresh-token provided' });
-      console.log("Invalid x-refresh-token provided");
-    }
- // Check if the x-auth-token and x-refresh-token belong to the same user
-    // if (decodedRefreshToken.email !== req.body.email) {
-    //   return res.status(401).send(req.body.email);
-    // }
-    // Remove the refresh token from the in-memory store
-    refreshTokens.splice(refreshTokens.indexOf(refreshToken), 1);
-    res.header('x-auth-token', '');
-  res.header('x-refresh-token', '');
-  console.log("Logged out successfully")
-
-  res.send('Logged out successfully');
-} catch (err) {
-  return res.status(401).send({ msg: 'Invalid x-refresh-token provided' });
-}
-};
-//-------------------------------------------------------------------------------------------------------------------------------------
-const Private = (req,res) =>{
-  // --> Here we reach the private fields for our customers
-
-     User.findOne({email:req.user},(err,foundUser)=>{
-      console.log(foundUser)
-       res.send(foundUser);
-    })
-    
-  
-// {
-//   _id: new ObjectId("6399b9f613138008ea6fa9a1"),
-//   fullName: 'mohamed',
-//   phone: '0522907898',
-//   language: 'Arabic',
-//   field: 'English',
-//   email: 'm7md@gmail.com',
-//   password: '123456',
-//   __v: 0
-// }
-    
-  // res.send({msg:`hi to ${req.user}`})
-  // res.send("hi from private area for the user")
-}
-//-------------------------------------------------------------------------------------------------------------------------------------
 {
     // Set the x-auth-token and x-refresh-token in the response header to empty strings
 //   const revokedTokens = [];
@@ -275,7 +338,6 @@ const Private = (req,res) =>{
 //   }
 // };
 }
-module.exports = {Register,Login,Logout,tokenG,Private}
 {
  
   // const refreshToken = req.header("x-auth-token");
@@ -486,3 +548,24 @@ module.exports = {Register,Login,Logout,tokenG,Private}
 // module.exports = {Register,Login,Authorize}
 
 }
+
+
+
+
+// {
+//     "categories":{},
+//     "shortDefinition":{},
+//     "lastEdited" : 25.22,
+//     "conceptName" : {"Samer" :{
+//                                 "arabic" :"سامر",
+//                                 "english" : "samer",
+//                                 "hebrew" : "סאמר"}
+//     },
+//     "lastEditedDisplayable" : "29.12.2022",
+//     "longDefinition" : {},
+//     "suggestedBy" : {},
+//     "readMore" : "",
+//     "firestore_id" : "23480340918230981"
+
+
+// }

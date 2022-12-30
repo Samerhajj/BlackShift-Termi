@@ -5,7 +5,7 @@ const { body } = require("express-validator");
 router.use(express.json());
 
 // imported from other local javaScript files
-const {Register,Login,Logout,tokenG,Private} = require("../Controllers/userController");
+const {Register,Login,Logout,tokenG,Private,Favorite,DeleteFavorite,suggestTerm} = require("../Controllers/userController");
 const authToken = require("../Controllers/UserFolder/Middleware/authenticateToken");
 const {createUser} = require("./../validator");
 
@@ -22,6 +22,11 @@ router.post("/register",Register);
 
 router.get("/private",authToken,Private);
 
+router.post("/favorite",Favorite);
+
+router.put("/deletefav",DeleteFavorite);
+
+router.post("/suggest-term",suggestTerm);
 
 module.exports = router;
 

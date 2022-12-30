@@ -1,120 +1,44 @@
 const Search = require("../Models/searchSchema");
 const User = require("../Models/userSchema");
+var ObjectID = require('mongodb').ObjectID;
 
-const getAllConcept = async (req, res)=>{
-  await Search.find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-const getConcept = async(req,res)=>{
-  await Search.findById(req.body.id)
-    .then((result) => {
-      res.send(result);
-      console.log(req.params.id);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-const SearchParams = async(req,res)=>{
-  await Search.findById(req.params.id)
-    .then((result) => {
-      res.send(result);
-      // console.log(result.conceptName);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-const SearchWord = async(req,res)=>{
-  let wo = req.params['word'];
-
-  console.log("what you are looking for : ",wo);
-  
-  var query = {'conceptName.english': wo}
-  
-  // let respones = await Search.find({"conceptName.english": wo})
-  // let respones = await Search.find({"conceptName.english": {'$regex': wo,$options:'i'}});
+const searchTerm = async(req,res)=>{
+  try{
+    console.log(req.query);
+    let term = req.query.term.trim();
+    let category = req.query.category;
+    let language = req.query.language;
     
-    
-  let respones = await Search.find({ $or: [{"conceptName.english": {'$regex': wo,$options:'i'}}, {"conceptName.english": wo}] });
-   
-
-// var thename = 'Andrew';
-// db.collection.find({'name': {'$regex': thename,$options:'i'}});
-
-  if(respones){
-    console.log(respones);
-      // let respones = await Search.find({conceptName: {english: wo}});
-      console.log({"conceptName.english": wo});
-      // let respones = await Search.find({$conceptName : {"english": wo}});
-      res.send(respones);
+    if(term != null && category != null){
+      let categoryNum = parseInt(category);
+      // let respond = await Search.find({
+      //   $and: [
+      //         {$or: [
+      //               {"conceptName.english": {'$regex': "^"+ term,$options:'i'}},
+      //               // {"conceptName.english": {'$regex': '\\(The'}},
+      //               {"conceptName.hebrew": term},
+      //               {"conceptName.arabic": term}
+      //         ]},
+      //         {"category": categoryNum}
+      //   ]});
+      
+      let respond = await Search.find({
+        "$text": {
+          "$search": term
+        }
+      }).sort( 
+        { score: { $meta : 'textScore' } }
+      );
+      
+      console.log(respond);
+      res.send(respond);
+    }else{
+      res.status(400).send("Missing data");
+    }
+  }catch(e){
+    console.log(e);
+    res.status(500).send("Server error");
   }
-  else{
-      console.log("ohh no something wrong happend");
-  }
-
-    
-  
-  
-  
-  // ,(error,found)=>{
-  //   if(error){
-  //     console.log(error);
-  //   }else{
-  //     console.log(found);
-  //     // let respones = await Search.find({conceptName: {english: wo}});
-  //     console.log({"conceptName.english": wo});
-  //     // let respones = await Search.find({$conceptName : {"english": wo}});
-  //     res.send(respones);
-  //   }
-  //   });
-  
-  
-  
-  
-  
-  // let respones = await Search.find({$conceptName : { english: wo}},(err,found)=>{
-  //   if(err){
-  //     console.log(err);
-  //   }
-  //   else{
-  //     res.send(found);
-  //   }
-  // });
-  
-  // res.send(respones);
-  // console.log(respones);
-  // console.log(wo);
-  
-  //http://dir.y2022.kinneret.cc:7013/search/value/api/oney
-  //conceptName
-  // {conceptName.english: req.params['word']
-  // await Search.find(
-  //   {categories: "0", conceptName : {$elemMatch: {english : "Hiring"}}}
-  //   ,()=>console.log("hello"));
-  
-  // , (err,found)=>{
-  //   if (err) {
-  //     console.log(err);
-  //   } 
-  //     if (found) {
-  //       //if there is a user exist
-  //       console.log(found);
-  //       res.send(found);
-  //     }
-    
-  // })
-  
-  
-  
 };
 
 const autoCompleteTerm = async(req,res) =>{
@@ -157,45 +81,6 @@ const autoCompleteTerm = async(req,res) =>{
   // ]);
   
   // console.log(respones);
-};
-
-const searchTerm = async(req,res)=>{
-  try{
-    console.log(req.query);
-    let term = req.query.term.trim();
-    let category = req.query.category;
-    let language = req.query.language;
-    
-    if(term != null && category != null){
-      let categoryNum = parseInt(category);
-      // let respond = await Search.find({
-      //   $and: [
-      //         {$or: [
-      //               {"conceptName.english": {'$regex': "^"+ term,$options:'i'}},
-      //               // {"conceptName.english": {'$regex': '\\(The'}},
-      //               {"conceptName.hebrew": term},
-      //               {"conceptName.arabic": term}
-      //         ]},
-      //         {"category": categoryNum}
-      //   ]});
-      
-      let respond = await Search.find({
-        "$text": {
-          "$search": term
-        }
-      }).sort( 
-        { score: { $meta : 'textScore' } }
-      );
-      
-      console.log(respond);
-      res.send(respond);
-    }else{
-      res.status(400).send("Missing data");
-    }
-  }catch(e){
-    console.log(e);
-    res.status(500).send("Server error");
-  }
 };
 
 const getRandomConcepts = async(req,res)=>{
@@ -243,35 +128,42 @@ const getRandomConcepts = async(req,res)=>{
 };
 
 const addToFav = async (req,res) =>{
-  console.log(req.body.id);
-  console.log(req.body.emailA);
-  
- await User.updateOne(
-  { email: req.body.emailA },
-  { $push: { favorite: req.body.id_term } },
-  (error, result) => {
-    if (error) {
-      console.log(error);
-      res.send(error);
-    } else {
-      console.log(result);
-      res.send(result);
-    }
+  try {
+        const id = req.body.person_id;
+        const updateRes = await User.updateOne(
+        { "_id": ObjectID(req.body.person_id)},
+        { $addToSet: { favorite: req.body.id } },
+        );
+        res.send(updateRes.modifiedCount== 1) // --> update done succ
   }
-);
+  catch(err){
+    console.log("hi from err");
+    console.log(err);
+  }
 }
 
+const getAllTermList = async (req,res) =>{
+    let lista = ["6390aeba34aa753e5c961306"];
 
+    console.log("data from body");
+    console.log(req.body.list)
+  // const resSe = await Search.find({ _id: { $in: lista} })
 
+  const resSe = await Search.find({ _id: { $in: req.body.list} })
+  
+  // User.findMany()
+//   res.send("hi");
+  res.send(resSe);
 
-module.exports = {getAllConcept,getConcept,SearchParams,SearchWord,autoCompleteTerm,searchTerm,getRandomConcepts,addToFav};
+}
 
+const suggestTerm = async (req,res) =>{
+  console.log(req.body);
+  res.send("hello");
+}
 
-
-// if(err){console.log(err); res.send(err)}
-//     else {
-//       console.log(found)
-//       res.send(found)
-      
-//     }
-//   });
+module.exports = {autoCompleteTerm,
+                  searchTerm,
+                  getRandomConcepts,
+                  addToFav,getAllTermList,
+                  suggestTerm};
