@@ -22,8 +22,7 @@ import {logoutRoute} from '../api/ApiRoutes';
 
 // --> import Icons
 import { IconContext } from "react-icons";
-import {IoLogoGameControllerB} from 'react-icons/io';
-import {FaStickyNote} from 'react-icons/fa';
+import {IoGameController, IoPersonCircle, IoDocument, IoSearch, IoLogOut,IoLogIn} from 'react-icons/io5';
 
 // --> import LoginContext
 import { LoginContext } from './LoginContext';
@@ -120,35 +119,38 @@ const handleLogout = () => {
           </Link>
           <nav>
             <ul>
-             <li><Link to={'/'}
-                  className={location && location.pathname==='terms' ? 'active' : 'nav-link'}>
-                    <img src={searchE} className="game_icon" alt="search"/> </Link>
+              <li>
+                <Link to={'/'} className={location && location.pathname==='terms' ? 'active' : 'nav-link'}>
+                      {/*<img src={searchE} className="game_icon" alt="search"/>*/}
+                  <IconContext.Provider value={{ size: "2rem" }}>
+                    <IoSearch/>
+                  </IconContext.Provider>
+                </Link>
               </li>
             {localStorage.getItem('login') ==='true' ?(
              <Fragment>
               <li>
-              <Link to={'/profile'}
-                  className={location && location.pathname ==='profile' ?  'active': 'nav-link'}>
-                  <i className="fa fa-user fa-2x"></i>
-              </Link>
+                <Link to={'/profile'} className={location && location.pathname ==='profile' ?  'active': 'nav-link'}>
+                  {/*<i className="fa fa-user fa-2x"></i>*/}
+                  <IconContext.Provider value={{ size: "2rem" }}>
+                    <IoPersonCircle/>
+                  </IconContext.Provider>
+                </Link>
               </li>
-              
-              
-               <li><Link to={'/note'}
-                  className={location && location.pathname ==='note' ?  'active': 'nav-link'}>
+              <li>
+                <Link to={'/note'} className={location && location.pathname ==='note' ?  'active': 'nav-link'}>
                   {/*<i className="fa fa-regular fa-comment">*/}
                   <IconContext.Provider value={{ size: "2rem" }}>
-                    <FaStickyNote/>
+                    <IoDocument/>
                   </IconContext.Provider>
                   {/*<img src={santa} alt="santa_note"/>*/}
-                  </Link>
+                </Link>
               </li>
               
-              <li><Link to={'/games'}
-                  className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
+              <li><Link to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
                   {/*<img className="game_icon"  src={gamepad_icon}/>*/}
                   <IconContext.Provider value={{ size: "2rem" }}>
-                    <IoLogoGameControllerB/>
+                    <IoGameController/>
                   </IconContext.Provider>
                    {/*{t('navbar.games')}*/}
                    </Link>
@@ -156,15 +158,19 @@ const handleLogout = () => {
               
                </Fragment>
               )
-              :(  <li><Link to={'/register'}
-                  className={location && location.pathname==='register' ? 'active' : 'nav-link'}>
-                  {t('navbar.register')}</Link>
-              </li>)}
+              :(  
+              <li>
+                <Link to={'/register'} className={location && location.pathname==='register' ? 'active' : 'nav-link'}>
+                  {t('navbar.register')}
+                </Link>
+              </li>
+              )}
               {login === 'false' ? (
               <li>
-              <Link to={'/login'}
-                  className={location && location.pathname==='login' ? 'active' : 'nav-link'}>
-                  {t('navbar.login')}
+              <Link to={'/login'} className={location && location.pathname==='login' ? 'active' : 'nav-link'}>
+                   <IconContext.Provider value={{ size: "2rem" }}>
+                    <IoLogIn/>
+                  </IconContext.Provider>
               </Link>
               </li>
               ):(
@@ -181,16 +187,15 @@ const handleLogout = () => {
                 {t('navbar.logout')}
               </button>*/}
 
-               
-              <a className="nav-link" href="login" onClick={(event) => {
-                handleLogout();
-              }}>
-              
-                             <img className="logout_icon"  src={logout_w}/>
-
-                {/*{t('navbar.logout')}*/}
-              </a>
-            </li>
+                   
+                  <a className="nav-link" href="login" onClick={(event) => {handleLogout();}}>
+                    {/*<img className="logout_icon"  src={logout_w}/>*/}
+                    {/*{t('navbar.logout')}*/}
+                    <IconContext.Provider value={{ size: "2rem" }}>
+                      <IoLogOut/>
+                    </IconContext.Provider>
+                  </a>
+                </li>
               )}
             
               <li>
