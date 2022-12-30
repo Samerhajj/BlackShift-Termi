@@ -1,6 +1,5 @@
 import React,{useState, useEffect,useRef} from 'react';
 import axios from "axios";
-import withAuth from './withAuth';
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import { useTranslation } from 'react-i18next';
