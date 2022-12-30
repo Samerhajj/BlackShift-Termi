@@ -12,8 +12,8 @@ import ErrorPage from "./pages/ErrorPage";
 import ForgotPassword from "./pages/ForgotPassword";
 import SuggestConceptPage from "./pages/SuggestConceptPage";
 import Note from "./pages/Note/Note";
-import CardGame from "./pages/NewGame/CardGame"
-import Favorite from "./pages/Favorite/Favorite"
+import CardGame from "./pages/NewGame/CardGame";
+import Favorite from "./pages/Favorite/Favorite";
 
 //Layouts
 import PageLayout from "./components/PageLayout";
