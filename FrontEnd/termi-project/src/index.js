@@ -9,17 +9,28 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./i18nextInit";
+
+const MyComponent = React.lazy(() => new Promise(resolve => {
+    setTimeout(() => {
+      resolve(import('./App'));
+    }, 2500);
+  }));
+
+function Wrapper() {
+  return (
+    <Suspense fallback={<div className="spinner">Loading...</div>}>
+      <MyComponent />
+    </Suspense>
+  );
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Suspense fallback={
-
-  <div className="loader"></div>
-
-  }>
+  
     <React.StrictMode>
-      <App />
+      <Wrapper/>
     </React.StrictMode>
-  </Suspense>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
