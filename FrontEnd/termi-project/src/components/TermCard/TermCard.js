@@ -1,11 +1,8 @@
 import React,{useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import Accordion from 'react-bootstrap/Accordion';
-import stars_1 from "../../images/stars_1.png";
-import axios from "axios";
 import LanguageMap from "../../api/LanguageAPI";
 import style from "./TermCard.css";
-import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
 // --> APIs
@@ -17,45 +14,33 @@ import {BsStarFill, BsStar} from 'react-icons/bs';
 const TermCard = (props) =>{
     const { t } = useTranslation();
     const [language, setLanguage] = useState(props.initialLanguage);
-    const [isFav, setIsFav] = useState(false);
+    const [isFav, setIsFav] = useState(props.isFavorite);
     
     const handle_starsClick = async() =>{
-        // try{
-        //     let emailA = JSON.parse(localStorage.getItem("profileBody"))['email'];
-        //     let personId = JSON.parse(localStorage.getItem("profileBody"))['_id'];
-        //     const update = await axios.put("http://dir.y2022.kinneret.cc:7013/search/send-favorite", {id:props.term._id,email:emailA,person_id:personId});
-
-        //     if(update.data){
-        //         console.log("true");
-        //         setIsFav(update.data);
-        //     }else {
-        //         console.log("false");
-        //     }
-        // }
-        // catch(err){
-        //     console.log("hi from err");
-        //     console.log(err);
-        // }
-        
         if(!isFav){
             const res = await UserApi.addFavorite(props.term._id);
-            console.log(res);
             if(res.success){
-                setIsFav(res.body);
+                if(props.setParentList){
+                    props.setParentList([...res.body.updatedList]);
+                }else{
+                    setIsFav(res.body.isAdded);
+                }
             }else{
                 alert(res.message);
             }
         }else{
-            const res = await UserApi.deleteFavorite1(props.term._id);
-            console.log(res);
+            const res = await UserApi.deleteFavorite(props.term._id);
             if(res.success){
-                setIsFav(res.body);
+                if(props.setParentList){
+                    props.setParentList([...res.body.updatedList]);
+                }else{
+                    setIsFav(!res.body.isDeleted);
+                }
             }else{
                 alert(res.message);
             }
         }
     };
-    
     
     const changeLanguage = (newLanguage) => {
         setLanguage(newLanguage);
