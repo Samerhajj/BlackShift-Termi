@@ -342,46 +342,4 @@ export default TermsPage;
 //     </div>
 // </div>
 // ---------------
-
-// <div class="list-group">
-//   <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
-//     The current button
-//   </button>
-//   <button type="button" class="list-group-item list-group-item-action">A second item</button>
-//   <button type="button" class="list-group-item list-group-item-action">A third button item</button>
-//   <button type="button" class="list-group-item list-group-item-action">A fourth button item</button>
-//   <button type="button" class="list-group-item list-group-item-action" disabled>A disabled button item</button>
-// </div>
-
-
-
-//  <ul className="list-group">
-//                     {
-//                         list.map((item,index) => {
-//                             return(
-//                             <li key={index} className="list-group-item">{item}</li>
-//                             )
-//                         })
-//                     }
-//                     </ul>
-
-
-
-
-
-
-
-//  <>
-//         <div className=" d-flex justify-content-center">
-//             <div>
-//                 <h4>Terms Page</h4>    
-//                   <input type="text" onChange={(e)=> autoComplete(e)}/>
-//                 <Button className="btn btn-primary" size="s" onClick={search}>Send</Button>
-
-//             </div>
-//             <div className="mt-5">
-//                 <h2> Definition : {definition}</h2>
-//             </div>
-//         </div>
-//         </>
 }
