@@ -1,4 +1,5 @@
 const User = require("../Models/userSchema");
+const Search = require("../Models/searchSchema");
 const Suggest = require("../Models/suggestSchema");
 var ObjectID = require('mongodb').ObjectID;
 
@@ -26,7 +27,7 @@ const deleteFavorite = async(req,res) =>{
   try{
       const response = await User.updateOne(
       { "_id": req.body.personId},
-      { $pull: { favorite: req.body.card_id } })
+      { $pull: { favorite: req.body.card_id } });
       console.log("res From DEL FAV");
       console.log(response);
       console.log("res From DEL FAV");
@@ -35,35 +36,60 @@ const deleteFavorite = async(req,res) =>{
   catch(err){
     console.log(err);
   }
-}
+};
+//-------------------------------------------------------------------------------------------------------------------------------------
+const deleteFavorite1 = async(req,res) =>{
+  try{
+    const deleteResponse = await User.findByIdAndUpdate(req.body.personId,{ $pull: { favorite: req.body.termId }},{ new: true });
+    const findResponse = await Search.find({ _id: { $in: deleteResponse.favorite} });
+    res.send(findResponse);
+  }
+  catch(err){
+    console.log(err);
+  }
+};
 //-------------------------------------------------------------------------------------------------------------------------------------
 const addFavorite = async (req,res) =>{
   try {
-        const updateRes = await User.updateOne({ "_id": ObjectID(req.body.person_id)}, { $addToSet: { favorite: req.body.id } });
-        res.send(updateRes.modifiedCount== 1); // --> update done succ
+    // const updateRes = await User.updateOne({ "_id": ObjectID(req.body.person_id)}, { $addToSet: { favorite: req.body.id } });
+    // res.send(updateRes.modifiedCount== 1); // --> update done succ
+    const response = await User.findByIdAndUpdate(req.body.personId,{ $addToSet: { favorite: req.body.termId }},{ new: true });
+    res.send(response.favorite);
   }
   catch(err){
-    console.log("hi from err");
     console.log(err);
   }
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
 const suggestTerm = async (req,res) =>{
   const newSuggest = new Suggest({
-  "categories":[],
-  "shortDefinition":{},
-  "lastEdited" : 25.22,
-  "conceptName" : {"Samer" :{
-                              "arabic" :"سامر",
-                              "english" : "samer",
-                              "hebrew" : "סאמר"}
+  "categories": [
+    {
+      "$numberInt": "32"
+    }
+  ],
+  "shortDefinition": {
+    "hebrew": "לינוקס היא מערכת הפעלה בקוד פתוח המורכבת מהקרנל, הרכיב הבסיסי של מערכת ההפעלה, ומהכלים, האפליקציות והשירותים המצורפים איתה.",
+    "english": "Linux is an open source operating system that is made up of the kernel, the base component of the OS, and the tools, apps, and services bundled along with it.",
+    "arabic": "لينكس هو نظام تشغيل مفتوح المصدر يتكون من النواة والمكون الأساسي لنظام التشغيل والأدوات والتطبيقات والخدمات المجمعة معه."
   },
-  "lastEditedDisplayable" : "29.12.2022",
-  "longDefinition" : {},
-  "suggestedBy" : "",
-  "readMore" : "",
-  "firestore_id" : "23480340918230981"
-  });
+  "lastEdited":  "1622382981234",
+  "conceptName": {
+    "arabic": "لينكس ",
+    "hebrew": "לינוקס",
+    "english": "Linux"
+  },
+  "lastEditedDisplayable": "Sun May 30 2021 16:56:25 GMT+0300",
+  "longDefinition": {
+    "english": "Linux or GNU/Linux is a cross-platform free software operating system created by Finnish Linus Tovalds. Its free software implies that it is not owned by any person or company and the source code is visible to anyone so it can be modified at the pleasure of anyone. It is also a cross-platform, multi-user and multitasking system, providing the command interface and the graphical interface.",
+    "hebrew": "לינוקס או GNU/Linux היא מערכת הפעלה תוכנה חופשית חוצת פלטפורמות שנוצרה על ידי Linus Tovalds הפינית. התוכנה החינמית שלה מרמזת שהיא אינה בבעלות של אף אדם או חברה וקוד המקור גלוי לכל אחד כך שניתן לשנות אותו להנאתו של כל אחד. זוהי גם מערכת חוצת פלטפורמות, ריבוי משתמשים ומערכת ריבוי משימות, המספקת את ממשק הפקודה והממשק הגרפי.",
+    "arabic": "Linux أو GNU / Linux هو نظام تشغيل برمجي مجاني عبر الأنظمة الأساسية تم إنشاؤه بواسطة الفنلندي Linus Tovalds. يشير برنامجها المجاني إلى أنها ليست مملوكة لأي شخص أو شركة وأن شفرة المصدر مرئية لأي شخص بحيث يمكن تعديلها حسب رغبة أي شخص. وهو أيضًا نظام متعدد المنصات ومتعدد المستخدمين ومتعدد المهام ، ويوفر واجهة الأوامر والواجهة الرسومية."
+  },
+  "suggestedBy": "mohamed sayed ahmad",
+  "readMore": "https://he.wikipedia.org/wiki/%D7%9C%D7%99%D7%A0%D7%95%D7%A7%D7%A1",
+  "firestore_id": "-MaxYwF9vxYYiTg0Is123"
+}
+  );
   try{
     newSuggest.save();
     console.log(req.body);
@@ -72,9 +98,25 @@ const suggestTerm = async (req,res) =>{
     res.send(err);
   }
 };
+
+const getAllSuggestedTerms = async (req,res) =>{
+  try{
+      const response = await Suggest.find();
+      console.log(response);
+      res.send(response)
+  }catch(err){
+       res.send(err);
+  }
+}
 //-------------------------------------------------------------------------------------------------------------------------------------
 
-module.exports = {favorites, deleteFavorite, addFavorite, suggestTerm};
+module.exports = {favorites,
+                  deleteFavorite,
+                  deleteFavorite1,
+                  addFavorite,
+                  suggestTerm,
+                  getAllSuggestedTerms
+};
 
 
 {
@@ -408,3 +450,20 @@ module.exports = {favorites, deleteFavorite, addFavorite, suggestTerm};
 
 
 // }
+    
+  //   {
+  // "categories":[],
+  // "shortDefinition":{},
+  // "lastEdited" : 25.22,
+  // "conceptName" : {"Samer" :{
+  //                             "arabic" :"سامر",
+  //                             "english" : "samer",
+  //                             "hebrew" : "סאמר"}
+  // },
+  // "lastEditedDisplayable" : "29.12.2022",
+  // "longDefinition" : {},
+  // "suggestedBy" : "",
+  // "readMore" : "",
+  // "firestore_id" : "23480340918230981"
+  // }
+  

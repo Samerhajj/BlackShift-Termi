@@ -3,19 +3,25 @@ const router = express.Router();
 router.use(express.json());
 
 // imported from other local javaScript files
-const { favorites, deleteFavorite, addFavorite, suggestTerm} = require("../Controllers/userController");
+const { favorites,
+        deleteFavorite1,
+        addFavorite,
+        suggestTerm,
+        getAllSuggestedTerms
+} = require("../Controllers/userController");
 
 
 // Router Functions
 
 router.post("/favorites", favorites);
 
-router.put("/delete-favorite", deleteFavorite);
+router.put("/delete-favorite", deleteFavorite1);
 
 router.put("/add-favorite", addFavorite);
 
 router.post("/suggest-term", suggestTerm);
 
+router.get("/allsuggestedterms",getAllSuggestedTerms)
 
 module.exports = router;
 

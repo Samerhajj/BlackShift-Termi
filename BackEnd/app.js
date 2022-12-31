@@ -37,6 +37,6 @@ app.get("/", (req, res) => {
 });
 
 //404
-app.use((req, res) => {
-  res.status(404).send("sorry can't find that!");
-});
+// app.use((req, res) => {
+//   res.status(404).send("sorry can't find that!");
+// });
