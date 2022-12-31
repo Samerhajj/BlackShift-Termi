@@ -20,14 +20,28 @@ const favorites = async () => {
     }   
 }
 
-const deleteFavorite = async (list,card,data) => {
+// const deleteFavorite = async (list,card,data) => {
+//     try{
+//         const card_id = card['_id'];
+//         let personId = JSON.parse(localStorage.getItem("profileBody"))['_id'];
+//         const del = await axios.put(deleteFavoriteRoute, {card_id,personId});
+//         const updatedArray = list.filter(item => item !== data);
+//         console.log("delete");
+//         return {body: updatedArray, success: true};
+//     }
+//     catch(err){
+//          console.log(err);
+//          return {success: false, message: err.message};
+//     }
+// };
+
+const deleteFavorite = async (termId) => {
     try{
-        const card_id = card['_id'];
-        let personId = JSON.parse(localStorage.getItem("profileBody"))['_id'];
-        const del = await axios.put(deleteFavoriteRoute, {card_id,personId});
-        const updatedArray = list.filter(item => item !== data);
-        console.log("delete");
-        return {body: updatedArray, success: true};
+        let user = JSON.parse(localStorage.getItem("profileBody"));
+        const res = await axios.put(deleteFavoriteRoute, {termId: termId, personId: user['_id']});
+        user['favorite'] = res.data;
+        localStorage.setItem("profileBody", JSON.stringify(user));
+        return {body: {updatedList: res.data, isDeleted: !res.data.includes(termId)}, success: true};
     }
     catch(err){
          console.log(err);
@@ -35,26 +49,13 @@ const deleteFavorite = async (list,card,data) => {
     }
 };
 
-const deleteFavorite1 = async (termId) => {
+const addFavorite = async (termId) => {
     try{
-        let personId = JSON.parse(localStorage.getItem("profileBody"))['_id'];
-        const res = await axios.put(deleteFavoriteRoute, {termId, personId});
-        console.log(res);
-        return {body: res.data, success: true};
-    }
-    catch(err){
-         console.log(err);
-         return {success: false, message: err.message};
-    }
-};
-
-const addFavorite = async (favoriteId) => {
-    try{
-        let emailA = JSON.parse(localStorage.getItem("profileBody"))['email'];
-        let personId = JSON.parse(localStorage.getItem("profileBody"))['_id'];
-        const update = await axios.put(addFavoriteRoute, {id:favoriteId, email:emailA, person_id:personId});
-        console.log(update);
-        return {body: update.data, success: true};
+        let user = JSON.parse(localStorage.getItem("profileBody"));
+        const res = await axios.put(addFavoriteRoute, {termId: termId, personId: user['_id']});
+        user['favorite'] = res.data;
+        localStorage.setItem("profileBody", JSON.stringify(user));
+        return {body: {updatedList: res.data, isAdded: res.data.includes(termId)}, success: true};
     }
     catch(err){
         console.log(err);
@@ -62,4 +63,4 @@ const addFavorite = async (favoriteId) => {
     }
 };
 
-export default {favorites, deleteFavorite, deleteFavorite1, addFavorite};
+export default {favorites, deleteFavorite, addFavorite};
