@@ -70,11 +70,13 @@ const TermCard = (props) =>{
                     }
                     {/*<img className="star" src={stars_1} onClick={handle_starsClick}/>*/}
                     {
-                        isFav ? (
-                            <BsStarFill className="star-filled" onClick={()=>{handle_starsClick();}}/>
-                        ):(
-                            <BsStar className="star-outline" onClick={()=>{handle_starsClick();}}/>
-                        )
+                        localStorage.getItem("login") === 'true' ? (
+                            isFav ? (
+                                <BsStarFill className="star-filled" onClick={()=>{handle_starsClick();}}/>
+                            ):(
+                                <BsStar className="star-outline" onClick={()=>{handle_starsClick();}}/>
+                            )
+                        ) : (null)
                     }
                 </div>
                 <div className="definitions-box">

@@ -36,24 +36,12 @@ const TermsPage = () =>{
             const res = await SearchApi.search(term, category);
             if(res.success){
                 let closestResult = res.body;
-                // setDefinitions(previousState => {
-                //       return { ...previousState, 
-                //               id:closestResult._id,
-                //               term: closestResult.conceptName[LanguageMap[i18n.language].name], 
-                //               shortDef: closestResult.shortDefinition[LanguageMap[i18n.language].name], 
-                //               longDef: closestResult.longDefinition[LanguageMap[i18n.language].name], 
-                //               readMore: closestResult.readMore,
-                //               suggestedBy: closestResult.suggestedBy,
-                //               category: closestResult.categories[0],
-                //               show: true
-                //       };
-                // });
                 console.log(closestResult._id);
                 //let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
                 let favorite=[];
                if (localStorage.getItem("profileBody") !== null) {
                      favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
-}
+                  }
                 setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id)});
                 setResultLanguage(inputLanguage);
                 setShowResult(true);
@@ -63,26 +51,7 @@ const TermsPage = () =>{
                 setShow(true);
             }
             {
-            // const res = await axios.get(searchAPI, query);
-            // if(res.data.length != 0){
-            //     let defs = res.data[0]; 
-            //     Object.assign(resultDef,defs);
-            //     setDefinitions(previousState => {
-            //       return { ...previousState, 
-            //               term: defs.conceptName[languages[i18n.language]], 
-            //               shortDef: defs.shortDefinition[languages[i18n.language]], 
-            //               longDef: defs.longDefinition[languages[i18n.language]], 
-            //               readMore: defs.readMore,
-            //               suggestedBy: defs.suggestedBy,
-            //               category: defs.categories[0],
-            //               show: true
-            //       };
-            //     });
-            //     setInputLanguage(i18n.language);
-            // }else{
-            //     // Add the alert to suggest the searched term
-            //     alert("Term doesn't exist");
-            // }
+           
             }
         }
         setSearchedTerm("");
@@ -204,6 +173,7 @@ const TermsPage = () =>{
                 :
                 null
             }
+            
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title>Add Concept</Modal.Title>
