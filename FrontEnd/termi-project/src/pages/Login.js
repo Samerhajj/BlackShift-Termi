@@ -17,7 +17,8 @@ import {Row,Col} from 'react-bootstrap';
 import LoginSytle from "./../styles/LoginStyle.css";
 
 const Login = () =>{
-  
+    console.log("hi from app");
+
     // --> Hooks
     const navigate = useNavigate();
     const {t} = useTranslation();
