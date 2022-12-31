@@ -36,3 +36,5 @@ to understand axios.defaults.headers.common :
     
 the delete button in fav :
                             https://www.google.com/search?q=remove+icon+png++x&tbm=isch&ved=2ahUKEwjms6fG1Jz8AhW_UKQEHROWBoAQ2-cCegQIABAA&oq=remove+icon+png++x&gs_lcp=CgNpbWcQAzoECCMQJzoECAAQQzoFCAAQgAQ6BAgAEB46BggAEAUQHjoGCAAQCBAeUKYMWPEXYNsdaAFwAHgAgAH3AogBxgaSAQcwLjIuMS4xmAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=CmWsY-aGOL-hkdUPk6yagAg&bih=852&biw=1745#imgrc=vkAH6QPoadTSlM&imgdii=yvy_iSygLlZ2gM
+JSON Pretty Print :                            
+                            https://jsonformatter.org/json-pretty-print
