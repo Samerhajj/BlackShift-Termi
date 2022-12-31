@@ -3,7 +3,9 @@ import {BrowserRouter as Router, Routes, Route,Navigate} from 'react-router-dom'
 
 //Pages
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+// import Register from "./pages/Register";
+import Register from "./pages/Register/Register";// edit
+
 import TermsPage from "./pages/TermsPage";
 import GamesPage from "./pages/GamesPage";
 import HomePage from "./pages/HomePage";
@@ -69,7 +71,7 @@ function App() {
           <Route path="/suggest" element={<DynamicTitleRoute title="suggestions" element={<WSuggestConceptPage/>} />}/>
           <Route path="/newgame" element={<DynamicTitleRoute title="NewGame" element={<CardGame/>} />}/>
           <Route path="*" element={<DynamicTitleRoute title="Error" element={<ErrorPage/>} />}/>
-          <Route path="/admin" element={<DynamicTitleRoute title="Admin" element={<WAdminPage/>} />}/>
+          <Route path="/admin" element={<DynamicTitleRoute title="Admin" element={<AdminPage/>} />}/>
 
           
         </Route>
