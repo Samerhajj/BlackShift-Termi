@@ -1,9 +1,26 @@
-import React from 'react';
+import React,{useState} from 'react';
+import axios from "axios";
 
+// --> components
+import SuggestCard from './AdminPage/SuggestCard';
 
-const AdminPage=()=> 
-{
+// --> APIs
+import AdminAPI from '../api/AdminAPI';
 
+const AdminPage=()=> {
+    
+ const [suggestList,setSuggestList] = useState([]);
+
+ // --> functions
+ const handleGetAllSuggest = async() =>{
+    const response = await AdminAPI.getAllSuggestedTerms();
+      if(response.success){
+        setSuggestList([...response.body])
+     }
+     else{
+       alert(response.message);
+     }
+  }
 
 return (
     <div>
@@ -17,7 +34,18 @@ return (
         </div>
       </div>
                <div className="container d-flex justify-content-center">
+               <div>
+                    <button onClick={handleGetAllSuggest}>dont click</button>
                </div>
+               <div className="mt-5">
+               {
+                 suggestList.map((item,index)=>{
+                   console.log(item);
+                   return(<SuggestCard key={index} data={item}/>)
+                 })
+               }
+               </div>
+          </div>
     </div>
     )
 }

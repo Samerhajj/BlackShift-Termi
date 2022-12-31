@@ -1,7 +1,11 @@
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
-import FavCard from './FavCard'
-import fav from './fav.css'
+import FavCard from './FavCard';
+import fav from './fav.css';
+
+import TermCard from '../../components/TermCard/TermCard';
+
+// --> Import APIs
 import UserAPI from '../../api/UserAPI';
 
 const Favorite  = ({initialLanguage}) =>{
@@ -72,12 +76,13 @@ const Favorite  = ({initialLanguage}) =>{
         <button className="btn btn-primary" onClick={handle_showMore}>Show More</button>
         {(isOpen) ?
         (
-        list.map((item,index)=>{
-            return(<FavCard key={index} index={index} data={item} list={list} setList={setList} initialLanguage={language} changeLanguage={changeLanguage}/>)
-        }) 
+            list.map((item,index)=>{
+                {/*return(<FavCard key={index} index={index} data={item} list={list} setList={setList} initialLanguage={language} changeLanguage={changeLanguage}/>);*/}
+                return(<TermCard key={index} initialLanguage="en" isFavorite={true} term={item} setParentList={setList}/>);
+            }) 
         )
         : 
-        (null)
+            (null)
         }
     </div>
     </>

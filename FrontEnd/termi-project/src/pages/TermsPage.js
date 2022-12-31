@@ -1,5 +1,4 @@
 import React,{useState, useEffect,useRef} from 'react';
-import axios from "axios";
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import { useTranslation } from 'react-i18next';
@@ -17,17 +16,7 @@ const TermsPage = () =>{
     const [category, setCategory] = useState(0);
     const [suggestions, setSuggestions] = useState([]);
     const [inputLanguage, setInputLanguage] = useState(i18n.language);
-     const navigate = useNavigate();
-    // const [definitions, setDefinitions] = useState({
-    //     id : "",
-    //     term: "",
-    //     shortDef: "",
-    //     longDef: "",
-    //     readMore: "",
-    //     suggestedBy: "",
-    //     category: 0,
-    //     show: false
-    // });
+    const navigate = useNavigate();
     const [resultTerm, setResultTerm] = useState({});
     const [resultLanguage, setResultLanguage] = useState(i18n.language);
     const [showResult, setShowResult] = useState(false);
@@ -36,9 +25,10 @@ const TermsPage = () =>{
     */
     const[show,setShow]=useState(false);
     const handleClose=()=>setShow(false);
+    
     const handleClick = () => {
     navigate('/suggest');
-  };
+    };
     
     const search = async (term) => {
         setShowResult(false);
@@ -59,7 +49,8 @@ const TermsPage = () =>{
                 //       };
                 // });
                 console.log(closestResult._id);
-                setResultTerm(closestResult);
+                let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
+                setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id)});
                 setResultLanguage(inputLanguage);
                 setShowResult(true);
                 setInputLanguage(i18n.language);
@@ -175,18 +166,8 @@ const TermsPage = () =>{
     
     // Listen to change language and act accordingly
     useEffect(()=>{
-        // if(definitions.show){
-        //     setDefinitions(previousState => {
-        //         return { ...previousState, 
-                    
-        //             term: SearchApi.closestResult.conceptName[LanguageMap[i18n.language].name], 
-        //             shortDef: SearchApi.closestResult.shortDefinition[LanguageMap[i18n.language].name], 
-        //             longDef: SearchApi.closestResult.longDefinition[LanguageMap[i18n.language].name],
-        //         };
-        //     });
-        // }
         setInputLanguage(i18n.language);
-    },[i18n.language])
+    },[i18n.language]);
   
     return(
         <>
@@ -215,24 +196,24 @@ const TermsPage = () =>{
                 </div>
             </div>
             { showResult ? 
-                <TermCard term={resultTerm} initialLanguage={resultLanguage}/>
+                <TermCard term={resultTerm.term} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
                 :
                 null
             }
             <Modal show={show} onHide={handleClose}>
-  <Modal.Header closeButton>
-    <Modal.Title>Add Concept</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>If you would like to suggest a concept, please press Suggest Concept</Modal.Body>
-  <Modal.Footer>
-    <Button variant="secondary" onClick={handleClose}>
-      Close
-    </Button>
-    <Button variant="primary" onClick={handleClick}>
-      Suggest Concept
-    </Button>
-  </Modal.Footer>
-</Modal>
+              <Modal.Header closeButton>
+                <Modal.Title>Add Concept</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>If you would like to suggest a concept, please press Suggest Concept</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+                <Button variant="primary" onClick={handleClick}>
+                  Suggest Concept
+                </Button>
+              </Modal.Footer>
+            </Modal>
         </>
     );
 };

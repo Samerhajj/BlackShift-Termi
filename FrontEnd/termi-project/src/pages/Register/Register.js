@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 // --> styles
-import RegisterToTermi from "../images/RegisterToTermi.gif";
-import Image from 'react-bootstrap/Image';
-import styles from "../styles/RegisterPage.css";
+// import styles from "../styles/RegisterPage.css";
+import styles from "./RegisterPage.module.css";
+
 
 // --> APIs
-import AuthAPI from '../api/AuthAPI';
+import AuthAPI from '../../api/AuthAPI';
 
 const Register = () =>{
 
@@ -30,13 +30,13 @@ const Register = () =>{
     return(
       <>
       <div className="banner banner_login">
-      <div className="wrapper">
-     <div className="banner_content">
-      <h1>{t('register.register')}</h1>
-     </div>
-     </div>
-     </div>
-    <div className="class-card-register wrapper">
+        <div className="wrapper">
+          <div className="banner_content">
+              <h1>{t('register.register')}</h1>
+          </div>
+        </div>
+      </div>
+    <div className={`${styles.class_card_register} wrapper`}>
       <div className="d-flex justify-content-center">
         <form className="login-form">
          <div className="form-group my-3">
@@ -105,7 +105,7 @@ const Register = () =>{
           <div className="form-group">
             <button
               type="button"
-              className="form-control btn btn-primary rounded submit px-3 mt-5"
+              className={`form-control ${styles.btn} btn btn-primary rounded submit px-3 mt-5`}
               onClick={handleSubmit}
             >
             {t('register.register')}
