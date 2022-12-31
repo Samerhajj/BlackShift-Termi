@@ -16,7 +16,7 @@ import SuggestConceptPage from "./pages/SuggestConceptPage";
 import Note from "./pages/Note/Note";
 import CardGame from "./pages/NewGame/CardGame";
 import Favorite from "./pages/Favorite/Favorite";
-import AdminPage from "./pages/AdminPage";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 //Layouts
 import PageLayout from "./components/PageLayout";
