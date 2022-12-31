@@ -21,7 +21,7 @@ router.put("/add-favorite", addFavorite);
 
 router.post("/suggest-term", suggestTerm);
 
-router.get("/allsuggestedterms",getAllSuggestedTerms)
+router.get("/allsuggestedterms",getAllSuggestedTerms);
 
 module.exports = router;
 
