@@ -2,10 +2,10 @@ import React,{useState} from 'react';
 import axios from "axios";
 
 // --> components
-import SuggestCard from './AdminPage/SuggestCard';
+import SuggestCard from './SuggestCard';
 
 // --> APIs
-import AdminAPI from '../api/AdminAPI';
+import AdminAPI from '../../api/AdminAPI';
 
 const AdminPage=()=> {
     
