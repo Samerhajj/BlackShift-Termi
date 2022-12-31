@@ -49,7 +49,11 @@ const TermsPage = () =>{
                 //       };
                 // });
                 console.log(closestResult._id);
-                let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
+                //let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
+                let favorite=[];
+               if (localStorage.getItem("profileBody") !== null) {
+                     favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
+}
                 setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id)});
                 setResultLanguage(inputLanguage);
                 setShowResult(true);
