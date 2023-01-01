@@ -1,95 +1,51 @@
-import React,{useState,useEffect,useRef} from 'react';
-import './SuggestCard.css';
-// Core modules imports are same as usual
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper-bundle.min.css";
+import React, { useState } from 'react';
 
-
-import SwiperCore, { EffectFlip, Navigation, Pagination } from "swiper";
-
-
-const SuggestCard = ({data}) => {
+const SuggestCard = ({ data }) => {
   const languages = ['english', 'arabic', 'hebrew'];
-  const [currentLanguage, setCurrentLanguage] = useState('english');
+  const [currentIndex, setCurrentIndex] = useState(0);
 
+  const handlePrevSlide = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+    else{
+      setCurrentIndex(languages.length-1);
+    }
+  }
 
+  const handleNextSlide = () => {
+    if (currentIndex < languages.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+    else{
+    setCurrentIndex(0);
+    }
+  }
 
-const handleSlideChange = (swiper) => {
-  console.log("JHELLO");
-  console.log(swiper);
-  setCurrentLanguage(languages[swiper.activeIndex]);
-}
+  const currentLanguage = languages[currentIndex];
 
   return (
-     <Swiper loop={false}    navigation
-      pagination={{ clickable: true }}    
-      onSlideChange={(handleSlideChange) => console.log('slide change')}>
+    <div>
+      <h1 className="suggest-card__title">{data.conceptName[currentLanguage]}</h1>
       {
-        languages.map((language, index) => (
-           <SwiperSlide key={index} style={{ display: language !== currentLanguage ? 'none' : 'block' }}>
-            <h1 className="suggest-card__title">{data.conceptName[language]}</h1>
-            {
-              data.shortDefinition && (
-                <div className="definition">
-                  <p className="definition__text">{data.shortDefinition[language]}</p>
-                </div>
-              )
-            }
-            {
-              data.longDefinition && (
-                <div className="definition">
-                  <p className="definition__text">{data.longDefinition[language]}</p>
-                </div>
-              )
-            }
-            <h2 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h2>
-            <button className="btn btn-success">Add</button>
-            <button className="btn btn-danger">Remove</button>
-          </SwiperSlide>
-        ))
+        data.shortDefinition && (
+          <div className="definition">
+            <p className="definition__text">{data.shortDefinition[currentLanguage]}</p>
+          </div>
+        )
       }
-    </Swiper>
+      {
+        data.longDefinition && (
+          <div className="definition">
+            <p className="definition__text">{data.longDefinition[currentLanguage]}</p>
+          </div>
+        )
+      }
+      <h2 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h2>
+      <button className="btn btn-success" onClick={handlePrevSlide}>Prev</button>
+      <button className="btn btn-danger" onClick={handleNextSlide}>Next</button>
+    </div>
   );
 }
 export default SuggestCard;
 
-
-
-
-// return (
-//       <div className="suggest-card-container">
-//     <Swiper
-//         className="swiper-container"
-//         pagination={{ clickable: true }}
-//         navigation
-//         spaceBetween={30}
-//         slidesPerView={1}
-//     >
-//       {
-//           languages.map((language, index) => (
-//             <SwiperSlide key={index}>
-//               <h1 className="suggest-card__title">{data.conceptName[language]}</h1>
-//               {
-//                 data.shortDefinition && (
-//                   <div className="definition">
-//                     <p className="definition__text">{data.shortDefinition[language]}</p>
-//                   </div>
-//                 )
-//               }
-//               {
-//                 data.longDefinition && (
-//                   <div className="definition">
-//                     <p className="definition__text">{data.longDefinition[language]}</p>
-//                   </div>
-//                 )
-//               }
-//             </SwiperSlide>
-//           ))
-//         }
-//       </Swiper>
-//       <h2 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h2>
-//       <button className="btn btn-success">Add</button>
-//       <button className="btn btn-danger">Remove</button>
-//     </div>
-//   );
-// }
