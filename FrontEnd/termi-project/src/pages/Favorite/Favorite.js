@@ -9,6 +9,7 @@ import TermCard from '../../components/TermCard/TermCard';
 import UserAPI from '../../api/UserAPI';
 
 const Favorite  = ({initialLanguage}) =>{
+    console.log("hi from Favorite parent");
     const [list,setList] = useState([]);
     const [isOpen,setIsOpen] = useState(false);
     const [language,setLanguage]=useState(initialLanguage);

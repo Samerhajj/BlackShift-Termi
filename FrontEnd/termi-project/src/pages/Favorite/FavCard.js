@@ -10,6 +10,7 @@ import { Accordion, Image } from 'react-bootstrap';
 import LanguageMap from '../../api/LanguageAPI';
 
 const FavCard = ({data,index,list,setList,initialLanguage ='en'}) =>{
+    console.log("hi from FavCard")
     const {t} = useTranslation();
     const card = list[index];
     const [currentLanguage, setLanguage] = useState(initialLanguage);
@@ -35,6 +36,7 @@ const FavCard = ({data,index,list,setList,initialLanguage ='en'}) =>{
     };
 
 const changeLanguage = (newLanguage) => {
+    console.log("hi from Change Language");
   setLanguage(newLanguage);
 };
     
