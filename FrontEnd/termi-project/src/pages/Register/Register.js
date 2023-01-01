@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-
+import RegisterHook from './RegisterHook';
 // --> styles
 // import styles from "../styles/RegisterPage.css";
 import styles from "./RegisterPage.module.css";
@@ -11,21 +11,38 @@ import styles from "./RegisterPage.module.css";
 import AuthAPI from '../../api/AuthAPI';
 
 const Register = () =>{
-
+  
   const navigate = useNavigate();
   const {t} = useTranslation();
   const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",field:"",favorite:[]});
-  
+    const { errors, validate } = RegisterHook(); // use the custom hook
+
   // Handle the button click to register
-    const handleSubmit = async () => {
-      const response = await AuthAPI.register({data:data});
-      if(response.success){
-         navigate('/login');
-      }
-      else{
-          alert(response.message);
-      }
-  };
+  //   const handleSubmit = async () => {
+  //     const response = await AuthAPI.register({data:data});
+  //     if(response.success){
+  //       navigate('/login');
+  //     }
+  //     else{
+  //         alert(response.message);
+  //     }
+  // };
+  const handleSubmit = async (e) => {
+e.preventDefault();
+const errors = validate(data); // validate the data
+if (Object.keys(errors).length > 0) {
+// If there are errors, display them to the user
+return;
+}
+// If there are no errors, make the API call
+const response = await AuthAPI.register({data:data});
+if(response.success){
+navigate('/login');
+}
+else{
+alert(response.message);
+}
+};
   
     return(
       <>
@@ -46,6 +63,7 @@ const Register = () =>{
               placeholder={t('register.full_name')}
               onChange={(e)=>setData({...data,fullName : e.target.value})}
             />
+              {errors.fullName && <p className="text-danger">{errors.fullName}</p>}
           </div>
           
          <div className="form-group my-3">
@@ -55,6 +73,7 @@ const Register = () =>{
               placeholder={t('register.phone')}
               onChange={(e)=>setData({...data,phone:e.target.value})}
             />
+              {errors.phone && <p className="text-danger">{errors.phone}</p>}
           </div>
         
           <div className="form-group my-3">
@@ -64,6 +83,7 @@ const Register = () =>{
               placeholder={t('register.email')}
               onChange={(e)=>setData({...data,email:e.target.value})}
             />
+              {errors.email && <p className="text-danger">{errors.email}</p>}
           </div>
           
           <div className="form-group d-flex my-3">
@@ -73,13 +93,15 @@ const Register = () =>{
               placeholder={t('register.password')}
               onChange={(e)=>setData({...data,password:e.target.value})}
             />
+              {errors.password && <p className="text-danger">{errors.password}</p>}
           </div>
           
         <select
             style={{ width: 200 }}
-            className="form-select w-100"
+          className={`form-select w-100 ${errors.field ? 'is-invalid' : ''}`}
             aria-label="Default select example"
-            id="lang"
+            id="field"
+            title={errors.field}
             onChange={(e)=>setData({...data,field:e.target.value})}
           >
             <option value="Select">{t('register.select_category')}</option>
@@ -90,9 +112,10 @@ const Register = () =>{
           
         <select 
             style={{ width: 200}}
-            className="form-select w-100 mt-3"
+           className={`form-select w-100 mt-3 ${errors.language ? 'is-invalid' : ''}`}
             aria-label="Default select example"
             id="lang"
+            title={errors.language}
             onChange={(e)=>setData({...data,language:e.target.value})}
           >
             <option value="Select">{t('register.select_lang')}</option>
