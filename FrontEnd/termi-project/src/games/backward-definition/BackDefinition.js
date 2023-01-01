@@ -19,36 +19,12 @@ const [score, setScore] = useState(0);
 const [start, setStart] = useState(false);
 const [message,setMessage]=useState('');
 const steps = t('games.backword-definition.step-by-step', { returnObjects: true });
- const [buttonColor, setButtonColor] = useState(null);
+const [buttonColor, setButtonColor] = useState(null);
 const [disabled, setDisabled] = useState(false);
 // Timer
 const [elapsedTime, setElapsedTime] = useState(0);
 const [timeLeft, setTimeLeft] = useState(30);
 
-/*----------------useEffect Old Code
-// useEffect(() => {
-//   let intervalId = null;
-//   if (start && !showScore) {
-//     intervalId = setInterval(() => {
-//       setElapsedTime(elapsedTime + 1);
-//     }, 1000);
-//   } else {
-//     clearInterval(intervalId);
-//   }
-//   return () => clearInterval(intervalId);
-// }, [start, showScore, elapsedTime]);
-
-// useEffect(() => {
-//   let timerId = null;
-//   if(start){
-//     timerId = setInterval(() => {
-//       setTimeLeft(timeLeft - 1);
-//     }, 1000);
-//   }
-//   return () => clearInterval(timerId);
-// }, [start, timeLeft]);
- END OF OLD CODe*/
- 
 						//useIntervaal
  useInterval(() => {
     // Update elapsedTime only if start is true and showScore is false
@@ -153,7 +129,7 @@ const handleAnswerOptionClick = (event,isCorrect) => {
     
   } else {
     event.target.classList.add('btn-danger');
-   setMessage('Wrong answer. The correct answer was: ');
+    setMessage(' The correct answer was: ' + questions[currentQuestion].correctAnswer);
     
     
   }
@@ -264,7 +240,6 @@ const seconds = elapsedTime % 60;
   </Modal.Footer>
 </Modal>
     
- 
 				</div>
 				
 				)}
