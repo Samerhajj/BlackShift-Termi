@@ -1,27 +1,19 @@
 import React,{useState} from 'react';
 import axios from "axios";
-
+import { useNavigate,Link } from "react-router-dom";
 // --> components
 import SuggestCard from './SuggestCard';
 
-// --> APIs
-import AdminAPI from '../../api/AdminAPI';
 
 const AdminPage=()=> {
-    
- const [suggestList,setSuggestList] = useState([]);
+    const navigate=useNavigate();
 
- // --> functions
- const handleGetAllSuggest = async() =>{
-    const response = await AdminAPI.getAllSuggestedTerms();
-      if(response.success){
-        setSuggestList([...response.body])
-     }
-     else{
-       alert(response.message);
-     }
-  }
-
+  const handleSuggestionPage = () => {
+    navigate('/admin/suggestions');
+  };
+   const handleAddTerms = () => {
+    navigate('/admin/add-term');
+  };
 return (
     <div>
     <div className="banner banner_profile">
@@ -35,17 +27,11 @@ return (
       </div>
                <div className="container d-flex justify-content-center">
                <div>
-                    <button onClick={handleGetAllSuggest}>dont click</button>
+                    <button onClick={handleSuggestionPage}>Suggestions from users</button>
+                    <button onClick={handleAddTerms}>Admin Add Terms</button>
                </div>
-               <div className="mt-5">
-               {
-                 suggestList.map((item,index)=>{
-                   console.log(item);
-                   return(<SuggestCard key={index} data={item}/>)
-                 })
-               }
-               </div>
-          </div>
+               
+    </div>
     </div>
     )
 }
