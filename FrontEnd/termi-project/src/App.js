@@ -17,6 +17,8 @@ import Note from "./pages/Note/Note";
 import CardGame from "./pages/NewGame/CardGame";
 import Favorite from "./pages/Favorite/Favorite";
 import AdminPage from "./pages/AdminPage/AdminPage";
+import AdminSuggestionPage from "./pages/AdminPage/ViewSuggestions";
+import AddTermAdmin from "./pages/AdminPage/AddTermAdmin";
 
 //Layouts
 import PageLayout from "./components/PageLayout";
@@ -48,6 +50,8 @@ function App() {
   const WRegister = withNotAuth(Register);
   const WSuggestConceptPage=withAuth(SuggestConceptPage);
   const WAdminPage=withAdminAuth(AdminPage,'admin');
+  const WAdminSuggestionPage = withAdminAuth(AdminSuggestionPage,'admin');
+  const WAddTermAdmin = withAdminAuth(AddTermAdmin,'admin');
   
   
   const [login, setLogin] = React.useState(localStorage.getItem('login') || false);
@@ -72,6 +76,8 @@ function App() {
           <Route path="/newgame" element={<DynamicTitleRoute title="NewGame" element={<CardGame/>} />}/>
           <Route path="*" element={<DynamicTitleRoute title="Error" element={<ErrorPage/>} />}/>
           <Route path="/admin" element={<DynamicTitleRoute title="Admin" element={<AdminPage/>} />}/>
+          <Route path="/admin/suggestions" element={<DynamicTitleRoute title="User Suggestions" element={<AdminSuggestionPage/>} />}/>
+          <Route path="/admin/add-term" element={<DynamicTitleRoute title="Admin Add Term" element={<AddTermAdmin/>} />}/>
 
           
         </Route>
