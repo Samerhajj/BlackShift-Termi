@@ -7,7 +7,8 @@ const { favorites,
         deleteFavorite1,
         addFavorite,
         suggestTerm,
-        getAllSuggestedTerms
+        getAllSuggestedTerms,
+        deleteOneSuggest
 } = require("../Controllers/userController");
 
 
@@ -22,6 +23,10 @@ router.put("/add-favorite", addFavorite);
 router.post("/suggest-term", suggestTerm);
 
 router.get("/allsuggestedterms",getAllSuggestedTerms);
+
+router.delete("/deleteonesuggest",deleteOneSuggest);
+
+
 
 module.exports = router;
 
