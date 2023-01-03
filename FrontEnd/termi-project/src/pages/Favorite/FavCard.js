@@ -15,7 +15,7 @@ const FavCard = ({data,index,list,setList,initialLanguage ='en'}) =>{
     const card = list[index];
     const [currentLanguage, setLanguage] = useState(initialLanguage);
     
-    // useEffect(() => {
+   { // useEffect(() => {
     //   // setList(updatedArray)
     //   console.log("hi from useEffect")
     //   // console.log(JSON.parse(data[index])); 
@@ -23,6 +23,7 @@ const FavCard = ({data,index,list,setList,initialLanguage ='en'}) =>{
     //   console.log(x[index]['_id'])
     //   console.log("hi from useEffect")
     // },[])
+    }
       
     const handleDelete = async  () =>{
         const response = await UserAPI.deleteFavorite(list,card,data);
