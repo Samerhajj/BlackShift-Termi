@@ -11,6 +11,10 @@ import UserApi from '../../api/UserAPI';
 // --> Import Icons
 import {BsStarFill, BsStar} from 'react-icons/bs';
 
+//
+import PropTypes from 'prop-types'
+
+
 const TermCard = (props) =>{
     const { t } = useTranslation();
     const [language, setLanguage] = useState(props.initialLanguage);
@@ -101,5 +105,13 @@ const TermCard = (props) =>{
         </div>
     );
 };
+
+//   initialLanguage: ,need to be added
+TermCard.propTypes = {
+  isFavorite: PropTypes.bool,
+  term: PropTypes.object,
+  
+}
+
 
 export default TermCard;
