@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./i18nextInit";
 
+
 const MyComponent = React.lazy(() => new Promise(resolve => {
     setTimeout(() => {
       resolve(import('./App'));
