@@ -7,6 +7,8 @@ import SuggestCard from './SuggestCard';
 // --> APIs
 import AdminAPI from '../../api/AdminAPI';
 
+import './Admin.css'
+
 const ViewSuggestions=()=> {
     
     const navigate = useNavigate();
@@ -38,11 +40,15 @@ return (
           </div>
         </div>
       </div>
-               <div className="container d-flex justify-content-center">
-               <div>
-                    <button onClick={handleGetAllSuggest}>View Suggestions</button>
-                      <button onClick={handleAdminPanel}>Back To Panel</button>
+      
+                     <div className="admin-sg">
+               
+                    <button className="su-button mb-2" onClick={handleGetAllSuggest}>View Suggestions</button>
+                    <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
+                    
                </div>
+               <div className="container d-flex justify-content-center">
+
                <div className="mt-5">
                {
                  suggestList.map((item,index)=>{

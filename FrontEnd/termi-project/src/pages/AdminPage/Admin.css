@@ -1,0 +1,50 @@
+
+
+
+.admin-body{
+    background-color: #F8F9D7;
+    width:100%;
+    color:#1A0000;
+    padding:15px;
+    
+  /*text-align: center;*/
+
+}
+
+.admin-sg{
+    /*background-color: #F8F9D7;*/
+    color:#1A0000;
+    padding:15px;
+    height: 10%;
+    margin-right: 10px;
+  /*text-align: center;*/
+
+}
+
+
+.par{
+    color:#1363DF;
+    font-size: 25px;
+    display:flex;
+    justify-content: center;
+
+}
+.su-button{
+    border:solid 2px #A5BECC;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: monospace;
+
+
+}
+
+
+.oneCard-e{
+    border: solid 1px black;
+    margin-bottom: 20px;
+    padding:5px;
+}
+.definition__text{
+    color:black;
+    font-weight:bold;
+}

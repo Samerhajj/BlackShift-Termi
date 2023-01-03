@@ -7,6 +7,9 @@ import SuggestCard from './SuggestCard';
 
 // --> APIs
 import AdminAPI from '../../api/AdminAPI';
+
+import './Admin.css'
+
 const { Option } = Select;
 const layout = {
   labelCol: { span: 8 },
@@ -45,6 +48,12 @@ const AddTermAdmin=()=> {
 const onFinish = values => {
     console.log(values);
   };
+  
+   const [selectedCategory, setSelectedCategory] = useState("");
+
+const handleCategoryChange = (value) => {
+  setSelectedCategory(value);
+};
 
 return (
     <div>
@@ -59,8 +68,7 @@ return (
       </div>
                <div className="container d-flex justify-content-center">
                <div>
-                   
-                      <button onClick={handleAdminPanel}>Back To Panel</button>
+                      <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
                </div>
              
           </div>
@@ -68,6 +76,39 @@ return (
      <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
       <Form.Item label="URL" name="ReadMore" rules={[{ validator: validateUrl }]}>
         <Input />
+      </Form.Item>
+       <Form.Item label="Category (English)">
+          <Select
+            placeholder="Select a category"
+            value={selectedCategory}
+            onChange={(value) => setSelectedCategory(value)}
+          >
+            <Option value="human resources">Human Resources</Option>
+            <Option value="medicine">Medicine</Option>
+            <Option value="software engineering">Software Engineering</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="Category (Arabic)">
+        <Select
+          value={selectedCategory}
+        onChange={(value) => setSelectedCategory(value)}
+          placeholder="Select a category"
+        >
+          <Option value="human resources">الموارد البشرية</Option>
+          <Option value="medicine">طب</Option>
+          <Option value="software engineering">برمجة</Option>
+        </Select>
+      </Form.Item>
+      <Form.Item label="Category (Hebrew)">
+        <Select
+          value={selectedCategory}
+         onChange={(value) => setSelectedCategory(value)}
+          placeholder="Select a category"
+        >
+          <Option value="human resources">שאבי אנוש</Option>
+          <Option value="medicine">רפואה</Option>
+          <Option value="software engineering">תִכנוּת</Option>
+        </Select>
       </Form.Item>
       <Form.Item name={['conceptName', 'english']} label="Concept Name (English)" rules={[{ required: true }]}>
         <Input />

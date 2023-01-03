@@ -2,25 +2,10 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { Form, Input,Select, Button } from 'antd';
 import AdminAPI from '../../api/AdminAPI';
-const { Option } = Select;
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
 
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not validate email!',
-    number: '${label} is not a validate number!',
-  },
-  number: {
-    range: '${label} must be between ${min} and ${max}',
-  },
-};
+import PropTypes from 'prop-types'
+import './Admin.css'
+
 
 
 const SuggestCard = ({ data,setSuggestList,suggestList }) => {
@@ -84,7 +69,7 @@ const SuggestCard = ({ data,setSuggestList,suggestList }) => {
   const currentLanguage = languages[currentIndex];
 
   return (
-    <div>
+    <div className="oneCard-e">
       <h1 className="suggest-card__title">{data.conceptName[currentLanguage]}</h1>
       {
         data.shortDefinition && (
@@ -100,6 +85,13 @@ const SuggestCard = ({ data,setSuggestList,suggestList }) => {
           </div>
         )
       }
+      {
+       data.lastEditedDisplayable && (
+    <div className="last-edited">
+      <h1 style={{fontStyle: 'italic', fontWeight: 'bold'}} className="last-edited__text">Last edited: {data.lastEditedDisplayable}</h1>
+    </div>
+    )
+    }
       <h2 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h2>
       <button className="btn btn-success" onClick={handlePrevSlide}>Prev</button>
       <button className="btn btn-danger" onClick={handleNextSlide}>Next</button>
@@ -110,5 +102,12 @@ const SuggestCard = ({ data,setSuggestList,suggestList }) => {
     </div>
   );
 }
+
+SuggestCard.propTypes ={
+  suggestList: PropTypes.array,
+  data: PropTypes.object,
+  setList: PropTypes.func
+}
+
 export default SuggestCard;
 
