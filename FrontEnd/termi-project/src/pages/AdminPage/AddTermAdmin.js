@@ -45,8 +45,26 @@ const AddTermAdmin=()=> {
     callback();
   }
 };
-const onFinish = values => {
-    console.log(values);
+  const onFinish = values => {
+      const user = JSON.parse(localStorage.getItem('profileBody'));
+    values.suggestedBy = user.fullName;
+      values.shortDefinition = {
+    english: values['shortDefinition-english'],
+    arabic: values['shortDefinition-arabic'],
+    hebrew: values['shortDefinition-hebrew']
+  };
+   values.longDefinition = {
+    english: values['longDefinition-english'],
+    arabic: values['longDefinition-arabic'],
+    hebrew: values['longDefinition-hebrew']
+  };
+  delete values['shortDefinition-english'];
+delete values['shortDefinition-arabic'];
+delete values['shortDefinition-hebrew'];
+delete values['longDefinition-english'];
+delete values['longDefinition-arabic'];
+delete values['longDefinition-hebrew'];
+   console.log(values);
   };
   
    const [selectedCategory, setSelectedCategory] = useState("");
@@ -54,6 +72,12 @@ const onFinish = values => {
 const handleCategoryChange = (value) => {
   setSelectedCategory(value);
 };
+const [form] = Form.useForm();
+const onReset = () => {
+  form.resetFields();
+  setSelectedCategory("");
+};
+
 
 return (
     <div>
@@ -119,24 +143,32 @@ return (
       <Form.Item name={['conceptName', 'hebrew']} label="Concept Name (Hebrew)" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
-      <Form.Item name="shortDefinition" label="Short Definition (English)" rules={[{ required: true }]}>
+       <Form.Item name="shortDefinition-english" label="Short Definition (English)" rules={[{ required: true }]}>
         <Input.TextArea />
       </Form.Item>
-      <Form.Item name="shortDefinition" label="Short Definition (Arabic)" rules={[{ required: true }]}>
+      <Form.Item name="shortDefinition-arabic" label="Short Definition (Arabic)" rules={[{ required: true }]}>
         <Input.TextArea />
       </Form.Item>
-       <Form.Item name="shortDefinition" label="Short Definition (Hebrew)" rules={[{ required: true }]}>
+       <Form.Item name="shortDefinition-hebrew" label="Short Definition (Hebrew)" rules={[{ required: true }]}>
         <Input.TextArea />
       </Form.Item>
-       <Form.Item name="longDefinition" label="Long Definition (English)" rules={[{ required: true }]}>
+       <Form.Item name="longDefinition-english" label="Long Definition (English)" rules={[{ required: true }]}>
         <Input.TextArea />
       </Form.Item>
-       <Form.Item name="longDefinition" label="Long Definition (Arabic)" rules={[{ required: true }]}>
+       <Form.Item name="longDefinition-arabic" label="Long Definition (Arabic)" rules={[{ required: true }]}>
         <Input.TextArea />
       </Form.Item>
-       <Form.Item name="longDefinition" label="Long Definition (Hebrew)" rules={[{ required: true }]}>
+       <Form.Item name="longDefinition-hebrew" label="Long Definition (Hebrew)" rules={[{ required: true }]}>
         <Input.TextArea />
       </Form.Item>
+       <Form.Item {...tailLayout}>
+<Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
+  Suggest
+</Button>
+ <Button type="danger" onClick={onReset}>
+    Reset
+  </Button>
+</Form.Item>
         </Form>
         </div>
         
