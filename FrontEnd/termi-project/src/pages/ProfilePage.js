@@ -7,7 +7,11 @@ import goldChevron from "../images/Games/Chevron/goldChevron.png";
 import silverChevron from "../images/Games/Chevron/silverChevron.png";
 import brownChevron from "../images/Games/Chevron/brownChevron.png";
 import "./../styles/ProfilePage.css";
+
+
+
 const ProfilePage =  () => {
+  
   let avatarGenerator = new AvatarGenerator();
   let avatarImageUrl = avatarGenerator.generateRandomAvatar('avatar');
   console.log(avatarImageUrl);
@@ -72,47 +76,6 @@ function handleChange(event) {
     [fieldName]: fieldValue
   });
 }
-
-{
-  //------------------------------------------------------------------------------------------   
-// const [p,setP] = useState();
-
-  
-  
-      //   axios.get('http://dir.y2022.kinneret.cc:7013/user/private', {
-      //   headers: {
-      //     'token': `${localStorage.getItem('token')}`
-      //   }}).then((res)=>{
-      // console.log(res);
-      //   localStorage.setItem("profileData",res);
-      //     // setP(res);// ∞
-      //   }).catch((err)=>{
-      //     console.log(err);
-      //   })
-        
-        
-
-
-  //------------------------------------------------------------------------------------------   
-  //   const getValues = async() =>{
-  //   try{
-  //     const response = await  axios.get('http://dir.y2022.kinneret.cc:7013/user/private', {
-  //       headers: {
-  //         'token': `${localStorage.getItem('token')}`
-  //       }})
-  //       return response;
-  //       // console.log();
-  //   }
-  //   catch(err){
-  //     console.log(err);
-  //   }
-    
-  // }
-  // console.log(getValues());
-  //------------------------------------------------------------------------------------------   
-
-}
-
 
  console.log("type");
  console.log(typeof(x));
@@ -225,30 +188,7 @@ function handleChange(event) {
                 </div>
                 
                 
-                {/*<ul className="nav nav-tabs" role="tablist">
-                  <li className="nav-item">
-                    <a
-                      className="nav-link active"
-                      id="home_tab"
-                      data-toggle="tab"
-                      href="#home"
-                      role="tab"
-                    >
-                      About
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a
-                      className="nav-link active"
-                      id="profile_tab"
-                      data-toggle="tab"
-                      href="#profile"
-                      role="tab"
-                    >
-                      Timeline
-                    </a>
-                  </li>
-                </ul>*/}
+               
               </div>
             </div>
 
@@ -263,10 +203,7 @@ function handleChange(event) {
               
               <button className="btn btn-warning" onClick={handleClick}>Favorites</button>
 
-              
-              
-              
-              
+                
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
