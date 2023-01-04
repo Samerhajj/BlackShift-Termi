@@ -1,28 +1,4 @@
  import React, { createContext, useState,useEffect } from 'react';
-
-
-// const LoginContext = createContext({
-//   login: false,
-//   setLogin: () => {}
-// });
-
-// const LoginProvider = ({ children }) => {
-//   const [login, setLogin] = useState(false);
-
-//   return (
-//     <LoginContext.Provider value={{ login, setLogin }}>
-//       {children}
-//     </LoginContext.Provider>
-//   );
-// };
-
-// export { LoginContext, LoginProvider };
-
-
-
-
-
-
 // --> create LoginContext context 
 export const LoginContext = createContext();
 
