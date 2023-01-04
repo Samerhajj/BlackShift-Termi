@@ -95,7 +95,7 @@ const onReset = () => {
         <Input />
       </Form.Item>
         <Form.Item label="Category (English)" rules={[{ required: true, message: 'Please select a category' },
-        { whitespace: true, message: 'Category cannot be empty' }]}>>
+        { whitespace: true, message: 'Category cannot be empty' }]}>
           <Select
             placeholder="Select a category"
             value={selectedCategory}
@@ -107,7 +107,7 @@ const onReset = () => {
           </Select>
         </Form.Item>
         <Form.Item label="Category (Arabic)" rules={[{ required: true, message: 'Please select a category' }, 
-        { whitespace: true, message: 'Category cannot be empty' }]}>>
+        { whitespace: true, message: 'Category cannot be empty' }]}>
         <Select
           value={selectedCategory}
         onChange={(value) => setSelectedCategory(value)}
@@ -119,7 +119,7 @@ const onReset = () => {
         </Select>
       </Form.Item>
       <Form.Item label="Category (Hebrew)" rules={[{ required: true, message: 'Please select a category' }, 
-      { whitespace: true, message: 'Category cannot be empty' }]}>>
+      { whitespace: true, message: 'Category cannot be empty' }]}>
         <Select
           value={selectedCategory}
          onChange={(value) => setSelectedCategory(value)}
