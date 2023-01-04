@@ -36,16 +36,20 @@ const SuggestConceptPage=()=>{
   const onFinish = values => {
       const user = JSON.parse(localStorage.getItem('profileBody'));
     values.suggestedBy = user.fullName;
+    
+    //Combine the values of short definitions into a single object,
       values.shortDefinition = {
     english: values['shortDefinition-english'],
     arabic: values['shortDefinition-arabic'],
     hebrew: values['shortDefinition-hebrew']
   };
+  //combine the values of long definitions into a single object,
    values.longDefinition = {
     english: values['longDefinition-english'],
     arabic: values['longDefinition-arabic'],
     hebrew: values['longDefinition-hebrew']
   };
+  //delete the withstand values from the original fields after combining , we dont need em
   delete values['shortDefinition-english'];
 delete values['shortDefinition-arabic'];
 delete values['shortDefinition-hebrew'];

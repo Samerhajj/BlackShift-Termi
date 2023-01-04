@@ -13,7 +13,7 @@ import "./../styles/ProfilePage.css";
 const ProfilePage =  () => {
   
   let avatarGenerator = new AvatarGenerator();
-  let avatarImageUrl = avatarGenerator.generateRandomAvatar('avatar');
+  let avatarImageUrl = avatarGenerator.generateRandomAvatar('random13213');
   console.log(avatarImageUrl);
   const [showModal, setShowModal] = useState(false);
    const [showModalAvatar, setShowModalAvatar] = useState(false);
@@ -93,69 +93,65 @@ function handleChange(event) {
       <div className="container emp-profile mt-2">
         <form method="">
           <div className="row">
-
             <div className="col-md-4">
               <div className="profile-img">
                 <Image src={avatarImageUrl}/>
-               
-       
               </div>
               <Button onClick={handleOpenModalAvatar}>Edit Avatar</Button>
-                <Modal show={showModalAvatar} onHide={handleCloseModalAvatar}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Profile</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-         <form>
-          <div className="form-group">
-            <label>
-            Full Name
-            </label>
-            <input type="text" onChange={handleChange}   name="fullName" className="form-control" value=
-            {formValues.fullName}/>
-            </div>
-            
-            <div className="form-group">
-            <label>
-            Email
-            </label>
-            <input type="email" onChange={handleChange} name="email" className="form-control" value=
-            {formValues.email}/>
-            </div>
-             <div className="form-group">
-            <label>
-            Phone Number
-            </label>
-            <input type="text" onChange={handleChange} name="phone" className="form-control" value=
-            {formValues.phone}/>
-            </div>
-             <div className="form-group">
-            <label>
-            Category
-            </label>
-            <input type="text" onChange={handleChange} name="field" className="form-control" value=
-            {formValues.field}/>
-            </div>
-             <div className="form-group">
-            <label>
-            Preferred Language
-            </label>
-            <input type="text" onChange={handleChange} name="language" className="form-control" value=
-            {formValues.language}/>
-            </div>
-            
-            </form>
-            
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModalAvatar}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSaveChanges}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+              <Modal show={showModalAvatar} onHide={handleCloseModalAvatar}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Edit Profile</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <form>
+                    <div className="form-group">
+                      <label>
+                        Full Name
+                      </label>
+                      <input type="text" onChange={handleChange}   name="fullName" className="form-control" value=
+                      {formValues.fullName}/>
+                    </div>
+                      
+                    <div className="form-group">
+                      <label>
+                        Email
+                      </label>
+                      <input type="email" onChange={handleChange} name="email" className="form-control" value=
+                      {formValues.email}/>
+                    </div>
+                    
+                    <div className="form-group">
+                      <label>
+                        Phone Number
+                      </label>
+                      <input type="text" onChange={handleChange} name="phone" className="form-control" value=
+                      {formValues.phone}/>
+                    </div>
+                    <div className="form-group">
+                      <label>
+                        Category
+                      </label>
+                      <input type="text" onChange={handleChange} name="field" className="form-control" value=
+                      {formValues.field}/>
+                    </div>
+                    <div className="form-group">
+                      <label>
+                        Preferred Language
+                      </label>
+                      <input type="text" onChange={handleChange} name="language" className="form-control" value=
+                      {formValues.language}/>
+                    </div>
+                  </form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseModalAvatar}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleSaveChanges}>
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </div>
 
             <div className="col-md-6">
@@ -186,22 +182,13 @@ function handleChange(event) {
                     <img className="chevron" alt="brown chevron" src={brownChevron}/>
                     <img className="chevron" alt="brown chevron" src={brownChevron}/>
                 </div>
-                
-                
-               
               </div>
             </div>
 
             <div className="col-md-2">
-              <input
-                type="button"
-                className="btn btn-primary mt-4 m-1"
-                name="btnAddMore"
-                value="Edit Profile"
-                onClick={handleOpenModal}
-              />
-              
-              <button className="btn btn-warning" onClick={handleClick}>Favorites</button>
+            <button className="btn btn-warning" onClick={handleClick}>Favorites</button>
+            //BUTTON TO NOT RENDER... not button
+            <Button className="btn btn-primary mb" onClick={handleOpenModal}>Edit Profile</Button>
 
                 
 
@@ -264,7 +251,7 @@ function handleChange(event) {
           </div>
 
           <div className="row">
-            <div className="col-md-4">
+            {/*<div className="col-md-4">
               <div className="profile-work">
                 <p>Work LINK</p>
                 <a href="https://en.wikipedia.org/wiki/Lionel_Messi" target="_messi">
@@ -272,7 +259,7 @@ function handleChange(event) {
                 </a>
                 <br />
               </div>
-            </div>
+            </div>*/}
 
             <div className="col-md-7 pl-5 about-info">
               <div className="tab-content profile-tab" id="myTabContent">
@@ -286,7 +273,6 @@ function handleChange(event) {
                         <label>Email</label>
                       </div>
                       <div className="col-md-6">
-                        {/*<p> Lionel Messi</p>*/}
                         <p>{x.email}</p>
                       </div>
                   </div>
@@ -295,7 +281,6 @@ function handleChange(event) {
                       <label>Category</label>
                     </div>
                     <div className="col-md-6 ">
-                      {/*<p> Football</p>*/}
                       <p>{x.field}</p>
                     </div>
                   </div>
@@ -314,9 +299,9 @@ function handleChange(event) {
                     <div className="col-md-6">
                       <p> {x.language}</p>
                     </div>
-                    <div className="col-md-6">
-                        <a href="#" onClick={handleClick}>Favorites</a>
-                      </div>
+                    {/*<div className="col-md-6">
+                      <a href="#" onClick={handleClick}>Favorites</a>
+                    </div>*/}
                   </div>
                 </div>
               </div>
