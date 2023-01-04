@@ -61,7 +61,7 @@ const addFavorite = async (req,res) =>{
   }
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
-
+const suggestTerm = async (req,res) =>{
 const newSuggest = new Suggest({
   categories: req.body.categories,
     shortDefinition: req.body.shortDefinition,
@@ -89,7 +89,6 @@ const newSuggest = new Suggest({
   }catch(err){
     res.send(err);
   }
-};
 
 
 const getAllSuggestedTerms = async (req,res) =>{
