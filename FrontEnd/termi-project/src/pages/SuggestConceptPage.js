@@ -8,7 +8,7 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { span: 8, span: 16 },
 };
 
 const validateMessages = {
@@ -84,9 +84,9 @@ const onReset = () => {
     <div className="wrapper">
      <Form {...layout}  form ={form} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
     <Form.Item {...tailLayout}>
-  <Button type="primary" htmlType="submit" >
-    Suggest
-  </Button>
+<Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
+  Suggest
+</Button>
  <Button type="danger" onClick={onReset}>
     Reset
   </Button>
