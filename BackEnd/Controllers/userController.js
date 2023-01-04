@@ -89,7 +89,7 @@ const newSuggest = new Suggest({
   }catch(err){
     res.send(err);
   }
-
+};
 
 const getAllSuggestedTerms = async (req,res) =>{
   try{
