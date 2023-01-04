@@ -5,16 +5,16 @@ import { useTranslation } from 'react-i18next';
 
 // --> imports
 import validator from 'validator'
-import { LoginContext } from '../components/LoginContext';
-
+import { LoginContext } from '../../components/LoginContext';
+import LoginHook from './LoginHook';
 // --> APIs
-import AuthAPI from '../api/AuthAPI';
+import AuthAPI from '../../api/AuthAPI';
 
 
 // --> style
 import 'font-awesome/css/font-awesome.min.css';
 import {Row,Col} from 'react-bootstrap';
-import LoginSytle from "./../styles/LoginStyle.css";
+import LoginSytle from "./../../styles/LoginStyle.css";
 
 const Login = () =>{
     console.log("hi from app");
@@ -22,48 +22,47 @@ const Login = () =>{
     // --> Hooks
     const navigate = useNavigate();
     const {t} = useTranslation();
-    const [loginData,setLoginData]=useState({email:"",password:""})
-    const [error,setError] = useState({wrongPass:false,vaildEmail:false});
+    // const [loginData,setLoginData]=useState({email:"",password:""})
+    // const [error,setError] = useState({wrongPass:false,vaildEmail:false});
+     const { loginData, error, isLoggedIn, setLoginData, handleSubmit } = LoginHook();
     const [token, setToken] = useState(null);
     const [refreshToken, setRefreshToken] = useState(null);
     
     // --> here we get the context from LoginContext
     const { login, setLogin } = useContext(LoginContext);
    
-   // --> The first time to load the page we set the login
-//   useEffect(() => {
-//     localStorage.setItem('login', login);
-//     }, []);
+ 
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      {
-      // --> some validation in the front ,in order to prevent unnecessary requests
-      // if(loginData['email']=="" && loginData['password']==""){
-      //   setError({...error,vaildEmail:true,wrongPass:true});
-      //   return;
-      // }
-      // if(!validator.isEmail(loginData['email'])){
-      // setError({...error,vaildEmail:true});
-      // return ;
-      // }else{setError({...error,vaildEmail:false});}
+//     const handleSubmit = async (e) => {
+//         console.log("hi");
+//       e.preventDefault();
+//       {
+//       // --> some validation in the front ,in order to prevent unnecessary requests
+//       // if(loginData['email']=="" && loginData['password']==""){
+//       //   setError({...error,vaildEmail:true,wrongPass:true});
+//       //   return;
+//       // }
+//       // if(!validator.isEmail(loginData['email'])){
+//       // setError({...error,vaildEmail:true});
+//       // return ;
+//       // }else{setError({...error,vaildEmail:false});}
 
-      // if(loginData['password'].length<6){
-      //   setError({...error,wrongPass:true});
-      //   return ;
-      // }
-      // else{setError({...error,vaildEmail:false});}
-      }
-      const response = await AuthAPI.login(loginData);
+//       // if(loginData['password'].length<6){
+//       //   setError({...error,wrongPass:true});
+//       //   return ;
+//       // }
+//       // else{setError({...error,vaildEmail:false});}
+//       }
+//       const response = await AuthAPI.login(loginData);
       
-      if(response.success){
-          // --> redirect to the homepage 
-          setLogin(true);
-          navigate("/");
-      }else{
-          alert(response.message);
-      }
-};
+//       if(response.success){
+//           // --> redirect to the homepage 
+//           setIsLoggedIn(true);
+//           navigate("/");
+//       }else{
+//           alert(response.message);
+//       }
+// };
 
 
 
@@ -83,7 +82,7 @@ const Login = () =>{
                <h1 className="d-flex justify-content-center mt-5 "><i className="fa fa-user fa-2x"></i></h1>
             <Col className="d-flex justify-content-center">
                   <div className="d-flex">
-                    <form className="login-form" onSubmit={e=>handleSubmit(e)}>
+                    <form className="login-form" onSubmit={handleSubmit}>
                       <div className="form-group p-3">
                           <Row >
                                 <Col xs = {2} lg={2}>
@@ -94,6 +93,7 @@ const Login = () =>{
                                       type="text"
                                       className="form-control rounded-left"
                                       placeholder={t('login.email')}
+                                      value={loginData.email}
                                       onChange = {(e)=>setLoginData({...loginData,email:e.target.value})}
                                     />
                                     {error['vaildEmail'] ? <label className="text-danger">Not valid email</label> : "" }
@@ -109,6 +109,7 @@ const Login = () =>{
                                     type="password"
                                     className="form-control rounded-left"
                                     placeholder={t('login.password')}
+                                    value={loginData.password}
                                     onChange = {(e)=>setLoginData({...loginData,password:e.target.value})}
                                     />
                                     {error['wrongPass'] ? <label className="text-danger">Wrong password</label> : "" }

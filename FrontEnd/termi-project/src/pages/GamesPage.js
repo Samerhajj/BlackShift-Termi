@@ -7,6 +7,7 @@ import React from "react";
 import {handleOpenModal} from "../games/backward-definition/BackDefinition";
 import { useTranslation } from 'react-i18next';
 const GamesPage = () => {
+  console.log("hi from GamesPage");
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const games = {

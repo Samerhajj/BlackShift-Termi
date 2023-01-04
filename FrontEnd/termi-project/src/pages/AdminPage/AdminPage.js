@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import axios from "axios";
-import { useNavigate,Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
 // --> components
 import SuggestCard from './SuggestCard';
 
@@ -10,7 +11,7 @@ import './Admin.css'
 
 const AdminPage=()=> {
     const navigate=useNavigate();
-
+    const {t} = useTranslation();
   const handleSuggestionPage = () => {
     navigate('/admin/suggestions');
   };
@@ -30,7 +31,7 @@ return (
       </div>
             <div className="container d-flex justify-content-center">
                 <div className="admin-body">
-                    <p className="par">Start You Controll</p>
+                    <p className="par">Start You Control</p>
                     <button className=" su-button mb-2" onClick={
                     handleSuggestionPage}>
                     Suggestions from users</button>
@@ -50,7 +51,7 @@ return (
                     >Profile Page</button>
                     <button className="su-button mb-2" onClick={
                     ()=> navigate('/games')}
-                    >Games</button>
+                    >{t('Adminwords.Games')}</button>
                 </div>
             <div>
         </div>
