@@ -28,6 +28,8 @@
     "i18next-http-backend": "^2.0.2",
     "jquery": "^3.6.2",
     "js-cookie": "^3.0.1",
+    "node-sass": "^8.0.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-circular-progressbar": "^2.1.0",
@@ -45,6 +47,7 @@
     "seedrandom": "^3.0.5",
     "short-id": "^0.0.0",
     "shortid": "^2.2.16",
+    "swiper": "^8.4.5",
     "tsparticles-preset-snow": "^2.6.0",
     "validator": "^13.7.0",
     "web-vitals": "^2.1.4"
