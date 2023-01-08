@@ -583,6 +583,13 @@ header .mobile_menu nav ul li a.active:after {
     min-height: auto;
     padding-bottom: 8vh;
 }
+.banner.banner_admin{
+    background-image: url(../images/sun-tornado _black.svg);
+    min-width: auto;
+    min-height: auto;
+    padding-bottom: 8vh;
+
+}
 .banner.banner_game{
     background-image: url(../images/game_bg.png);
   

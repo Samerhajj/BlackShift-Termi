@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import Accordion from 'react-bootstrap/Accordion';
 import LanguageMap from "../../api/LanguageAPI";
@@ -46,12 +46,14 @@ const TermCard = (props) =>{
         }
     };
     
+    
     const changeLanguage = (newLanguage) => {
         setLanguage(newLanguage);
     };
     
     return(
         <div className="term-card" dir="ltr">
+       
             <div className="language-selector">
                 {
                     Object.keys(LanguageMap).map((language) => (
@@ -84,6 +86,7 @@ const TermCard = (props) =>{
                     }
                 </div>
                 <div className="definitions-box">
+                <div className="search-count">Searched {props.term.searchCount} times</div>
                     <h3 className="trem-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
                     <Accordion className="my-3" defaultActiveKey="0">
                         <Accordion.Item eventKey="0">
@@ -110,7 +113,7 @@ const TermCard = (props) =>{
 TermCard.propTypes = {
   isFavorite: PropTypes.bool,
   term: PropTypes.object,
-  
+  searchCount: PropTypes.number.isRequired
 }
 
 
