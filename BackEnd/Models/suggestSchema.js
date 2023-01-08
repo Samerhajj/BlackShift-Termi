@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
 
 const suggestSchema = new mongoose.Schema({
-  categories:Array,  
+  categories:String,  
   shortDefinition:Object,
-  lastEdited:Number,
+  lastEdited:{
+    type: Date,
+    default: Date.now
+  },
   conceptName:Object,
-  lastEditedDisplayable:String,
   longDefinition:Object,
   suggestedBy:String,
-  readMore:String,
-  firestore_id:String
+  readMore:String
 });
 
 suggestSchema.index({"conceptName.english": 'text', "conceptName.hebrew": 'text', "conceptName.arabic": 'text'});
@@ -17,3 +18,19 @@ suggestSchema.index({"conceptName.english": 'text', "conceptName.hebrew": 'text'
 const SUGGEST = mongoose.model("suggestconcepts", suggestSchema);
 
 module.exports = SUGGEST;
+
+// const suggestSchema = new mongoose.Schema({
+//   categories:String,  
+//   shortDefinition:Object,
+//   lastEdited:{
+//     type: Date,
+//     default: Date.now
+//   },
+//   conceptName:Object,
+//   lastEditedDisplayable:String,
+//   longDefinition:Object,
+//   suggestedBy:String,
+//   readMore:String,
+//   firestore_id:String
+// });
+

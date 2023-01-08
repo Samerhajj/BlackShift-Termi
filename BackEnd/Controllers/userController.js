@@ -61,35 +61,61 @@ const addFavorite = async (req,res) =>{
   }
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
+
 const suggestTerm = async (req,res) =>{
-const newSuggest = new Suggest({
-  categories: req.body.categories,
-    shortDefinition: req.body.shortDefinition,
-    lastEdited: Date.now(),
-    conceptName: req.body.conceptName,
-   lastEditedDisplayable: new Date().toLocaleString('en-US', {
-      timeZone: 'Asia/Jerusalem',
-      hour12: false,
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }),
-    longDefinition: req.body.longDefinition,
-    suggestedBy: req.body.suggestedBy,
-    readMore: req.body.readMore,
-    firestore_id: req.body.firestore_id
-  }
-  );
-  try{
-    newSuggest.save();
-    console.log(newSuggest.find());
-    res.send(newSuggest);
-  }catch(err){
-    res.send(err);
-  }
+        console.log(req.body);
+         const newSuggest = await new Suggest({
+          categories: req.body.selectedCategory,
+          shortDefinition:{
+            hebrew:req.body.values['shortDefinition-hebrew'],
+            english:req.body.values['shortDefinition-english'],
+            arabic:req.body.values['shortDefinition-arabic']
+          },
+          lastEdited: Date.now(),
+          conceptName: req.body.values.conceptName,
+          suggestedBy: req.body.values.suggestedBy,
+        }
+        
+        );
+        try{
+            await newSuggest.save();
+            res.send(newSuggest);
+        }
+        catch(err){
+            res.send(err);
+        } 
 };
+        
+      // const newSuggest = new Suggest({
+      //   categories: req.body.categories,
+      //     shortDefinition: req.body.shortDefinition,
+      //     lastEdited: Date.now(),
+      //     conceptName: req.body.conceptName,
+          
+      //   lastEditedDisplayable: new Date().toLocaleString('en-US', {
+      //       timeZone: 'Asia/Jerusalem',
+      //       hour12: false,
+      //       year: 'numeric',
+      //       month: 'long',
+      //       day: 'numeric',
+      //       hour: '2-digit',
+      //       minute: '2-digit'
+      //     }),
+          
+      //     longDefinition: req.body.longDefinition,
+      //     suggestedBy: req.body.suggestedBy,
+      //     readMore: req.body.readMore,
+      //     firestore_id: req.body.firestore_id
+      //   }
+      //   );
+      //   try{
+      //     newSuggest.save();
+      //     console.log(newSuggest.find());
+      //     res.send(newSuggest);
+      //   }catch(err){
+      //     res.send(err);
+      //   }
+
 
 const getAllSuggestedTerms = async (req,res) =>{
   try{

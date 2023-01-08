@@ -10,6 +10,10 @@ const searchTerm = async(req,res)=>{
     
     if(term != null && category != null){
       let categoryNum = parseInt(category);
+      
+
+      
+      
       // let respond = await Search.find({
       //   $and: [
       //         {$or: [
@@ -24,11 +28,19 @@ const searchTerm = async(req,res)=>{
       let respond = await Search.find({
         "$text": {
           "$search": term
+          
         }
       }).sort( 
         { score: { $meta : 'textScore' } }
       );
-      
+      Search.updateOne({ _id: respond[0]._id }, { $inc: { searchCount: 1 } }, function(error,res) {
+  if (error) {
+    console.log(error);
+  }
+  else{
+    console.log(res);
+  }
+});
       console.log(respond);
       res.send(respond);
     }else{
@@ -146,8 +158,25 @@ const suggestTerm = async (req,res) =>{
   res.send("hello");
 }
 
+const getTop10 = async (req,res)=>{
+  try{
+      const response = await Search.find().sort({searchCount : -1}).limit(10);
+      res.send(response);
+      console.log(response);
+  }
+  catch(err){
+      console.log(err);
+      res.send(err);
+  }
+}
+
+
+
+
 module.exports = {autoCompleteTerm,
                   searchTerm,
                   getRandomConcepts,
                   getAllTermList,
-                  suggestTerm};
+                  suggestTerm,
+                  getTop10
+};
