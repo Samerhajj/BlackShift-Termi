@@ -78,4 +78,3 @@ const suggestFromUser = async (values,selectedCategory) => {
 
 export default {favorites, deleteFavorite, addFavorite,suggestFromUser};
 
-

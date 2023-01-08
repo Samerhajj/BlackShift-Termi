@@ -86,35 +86,6 @@ const suggestTerm = async (req,res) =>{
         } 
 };
         
-      // const newSuggest = new Suggest({
-      //   categories: req.body.categories,
-      //     shortDefinition: req.body.shortDefinition,
-      //     lastEdited: Date.now(),
-      //     conceptName: req.body.conceptName,
-          
-      //   lastEditedDisplayable: new Date().toLocaleString('en-US', {
-      //       timeZone: 'Asia/Jerusalem',
-      //       hour12: false,
-      //       year: 'numeric',
-      //       month: 'long',
-      //       day: 'numeric',
-      //       hour: '2-digit',
-      //       minute: '2-digit'
-      //     }),
-          
-      //     longDefinition: req.body.longDefinition,
-      //     suggestedBy: req.body.suggestedBy,
-      //     readMore: req.body.readMore,
-      //     firestore_id: req.body.firestore_id
-      //   }
-      //   );
-      //   try{
-      //     newSuggest.save();
-      //     console.log(newSuggest.find());
-      //     res.send(newSuggest);
-      //   }catch(err){
-      //     res.send(err);
-      //   }
 
 
 const getAllSuggestedTerms = async (req,res) =>{

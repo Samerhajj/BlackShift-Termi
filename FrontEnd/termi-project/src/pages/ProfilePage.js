@@ -7,6 +7,7 @@ import goldChevron from "../images/Games/Chevron/goldChevron.png";
 import silverChevron from "../images/Games/Chevron/silverChevron.png";
 import brownChevron from "../images/Games/Chevron/brownChevron.png";
 import "./../styles/ProfilePage.css";
+import profileAPI from "../api/ProfileAPI";
 
 const ProfilePage =  () => {
   
@@ -43,23 +44,30 @@ const [formValues, setFormValues] = useState({
     setShowModalAvatar(false);
   }
   
-  function handleSaveChanges(event) {
+  async function handleSaveChanges(event) {
     event.preventDefault();
   //get values from the form field
-    
-     // --> update the profile data in localStorage
+    // send request to update the profile information in the backend
+     try {
+    const response = await profileAPI.updateProfile(formValues);
+    if (response.success) {
+      // update the profile data in localStorage
       localStorage.setItem('profileBody', JSON.stringify({
-      fullName: formValues['fullName'],
-      email: formValues['email'],
-      phone: formValues['phone'],
-      field: formValues['field'],
-      language: formValues['language']
-     // image:formValues['image']
-    }));
-  //send api request
-  
-  // close the modal
-  setShowModal(false);
+        fullName: formValues['fullName'],
+        email: formValues['email'],
+        phone: formValues['phone'],
+        field: formValues['field'],
+        language: formValues['language']
+        // image:formValues['image']
+      }));
+      // close the modal
+      setShowModal(false);
+    } else {
+      console.log('Error updating profile: ' + response.message);
+    }
+  } catch (error) {
+    console.log('Error updating profile: ' + error.message);
+  }
 }
  
 
