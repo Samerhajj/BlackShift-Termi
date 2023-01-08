@@ -1,5 +1,5 @@
 import axios from "axios";
-import { favoritesRoute, deleteFavoriteRoute, addFavoriteRoute } from '../api/ApiRoutes';
+import { favoritesRoute, deleteFavoriteRoute, addFavoriteRoute,suggestUserRoute } from '../api/ApiRoutes';
 
 const favorites = async () => {
     try{
@@ -63,4 +63,19 @@ const addFavorite = async (termId) => {
     }
 };
 
-export default {favorites, deleteFavorite, addFavorite};
+const suggestFromUser = async (values,selectedCategory) => {
+    try{
+        const user = JSON.parse(localStorage.getItem('profileBody'));
+        values.suggestedBy = user.fullName;
+        const res = await axios.post(suggestUserRoute, {values,selectedCategory})
+        return {body: res, success: true};
+    }
+    catch(err){
+        console.log(err);
+        return {success: false, message: err.message};
+    }
+}
+
+export default {favorites, deleteFavorite, addFavorite,suggestFromUser};
+
+

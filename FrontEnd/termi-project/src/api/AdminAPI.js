@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const getAllSuggestedTerms = async (termId) => {
     try{
          const res = await axios.get("http://dir.y2022.kinneret.cc:7013/user/allsuggestedterms");
@@ -15,9 +14,11 @@ const getAllSuggestedTerms = async (termId) => {
 const addSelectedTerm = async ()=>{
     // not implemented
 }
+
 const deleteSelectedTerm = async (data) =>{
     try{
-        const url = "http://dir.y2022.kinneret.cc:7013/user/deleteonesuggest";
+        // const url = "http://dir.y2022.kinneret.cc:7013/user/deleteonesuggest";
+        const url = process.env.React_App_BaseURL + "user" + "/" + "deleteonesuggest";
         const res = await axios.delete(url, {data : {suggestId: data['_id']}});
         return {body: {info: res.data,del_ID:data['_id']}, success: true};
     }
@@ -25,7 +26,17 @@ const deleteSelectedTerm = async (data) =>{
         console.log(err);
         return {success: false, message: err.message};
     }
-    
 }
 
-export default {getAllSuggestedTerms,deleteSelectedTerm};
+const top10 = async () =>{
+    try{
+        const res = await axios.get(process.env.React_App_BaseURL + "search" + "/" + "get-top10");
+        return {body: res, success: true};
+    }
+    catch(err){
+        console.log(err);
+        return {success: false, message: err.message};
+    }
+}
+
+export default {getAllSuggestedTerms,deleteSelectedTerm,top10};
