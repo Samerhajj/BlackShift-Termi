@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import axios from "axios";
 import { useNavigate} from 'react-router-dom';
 // --> components
@@ -9,9 +9,9 @@ import AdminAPI from '../../api/AdminAPI';
 
 import './Admin.css'
 
-const ViewSuggestions=()=> {
+const ViewSuggestions = ()=> {
     
-    const navigate = useNavigate();
+ const navigate = useNavigate();
  const [suggestList,setSuggestList] = useState([]);
 
  // --> functions
@@ -28,7 +28,9 @@ const ViewSuggestions=()=> {
     navigate('/admin');
   };
 
-
+useEffect(()=>{
+    handleGetAllSuggest();
+},[])
 return (
     <div>
     <div className="banner banner_profile">
@@ -40,8 +42,7 @@ return (
           </div>
         </div>
       </div>
-      
-                     <div className="admin-sg">
+                    <div className="admin-sg">
                
                     <button className="su-button mb-2" onClick={handleGetAllSuggest}>View Suggestions</button>
                     <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
@@ -60,6 +61,7 @@ return (
           </div>
     </div>
     )
+    
 }
 
 

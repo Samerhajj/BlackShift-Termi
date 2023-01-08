@@ -6,7 +6,6 @@ import RegisterHook from './RegisterHook';
 // import styles from "../styles/RegisterPage.css";
 import styles from "./RegisterPage.module.css";
 
-
 // --> APIs
 import AuthAPI from '../../api/AuthAPI';
 
@@ -15,8 +14,9 @@ const Register = () =>{
   const navigate = useNavigate();
   const {t} = useTranslation();
   const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",field:"",favorite:[]});
-    const { errors, validate } = RegisterHook(); // use the custom hook
+  const { errors, validate } = RegisterHook(); // use the custom hook
 
+{
   // Handle the button click to register
   //   const handleSubmit = async () => {
   //     const response = await AuthAPI.register({data:data});
@@ -27,22 +27,23 @@ const Register = () =>{
   //         alert(response.message);
   //     }
   // };
-  const handleSubmit = async (e) => {
-e.preventDefault();
-const errors = validate(data); // validate the data
-if (Object.keys(errors).length > 0) {
-// If there are errors, display them to the user
-return;
-}
-// If there are no errors, make the API call
-const response = await AuthAPI.register({data:data});
-if(response.success){
-navigate('/login');
-}
-else{
-alert(response.message);
-}
-};
+} 
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    const errors = validate(data); // validate the data
+    if (Object.keys(errors).length > 0) {
+    // If there are errors, display them to the user
+    return;
+    }
+    // If there are no errors, make the API call
+    const response = await AuthAPI.register({data:data});
+    if(response.success){
+        navigate('/login');
+    }
+    else{
+        alert(response.message);
+    }
+  };
   
     return(
       <>

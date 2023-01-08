@@ -11,9 +11,10 @@ const GamesPage = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const games = {
-0: { title: t('games.backword-definition.title'), description:t('games.backword-definition.description'), path:"/games/back-definition", img: GameImg }
-    // 1: { title:"Wordle", description:"In this game ...", path:"/games/wordle", img: GameImg },
-    // 2: { title:"Hangman", description:"Try to Guess the game before gallowing the user", path:"/games/hangman", img: GameImg }
+    0: { title: t('games.backword-definition.title'), description:t('games.backword-definition.description'), path:"/games/back-definition", img: GameImg },
+    1: { title:"Memory Game", description:"In this game ...", path:"/games/memory-game", img: GameImg },
+    2: { title:"Crossword Game", description:"Crossword Game", path:"/games/crossword-game", img: GameImg },
+    3: { title:"Wordle Game", description:"Wordle Game", path:"/games/wordle", img: GameImg }
   };
   return (
     

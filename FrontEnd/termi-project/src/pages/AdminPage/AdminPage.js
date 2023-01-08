@@ -1,30 +1,22 @@
-import React,{useState} from 'react';
-import axios from "axios";
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 // --> components
-import SuggestCard from './SuggestCard';
-
 import './Admin.css'
 
 // <IconBell />
 
 const AdminPage=()=> {
-    const navigate=useNavigate();
-    const {t} = useTranslation();
-  const handleSuggestionPage = () => {
-    navigate('/admin/suggestions');
-  };
-   const handleAddTerms = () => {
-    navigate('/admin/add-term');
-  };
+  const navigate=useNavigate();
+  const {t} = useTranslation();
+
 return (
     <div>
-    <div className="banner banner_profile">
+    <div className="banner banner_admin">
         <div className="wrapper">
           <div className="banner_content">
             <h1 className="pulsing-element">
-              <strong>Welcome Admin User...</strong>
+              <strong className="text-white">Welcome Admin User...</strong>
             </h1>
           </div>
         </div>
@@ -35,6 +27,9 @@ return (
                     <button className=" su-button mb-2" onClick={
                     handleSuggestionPage}>
                     Suggestions from users</button>
+                    <button className=" su-button mb-2" onClick={
+                    top10}>
+                    Top 10</button>
                     <button className="su-button mb-2" onClick={
                     handleAddTerms}>Admin Add Terms</button>
                     <button className="su-button mb-2" onClick={
@@ -57,7 +52,18 @@ return (
         </div>
     </div>
 </div>
-    )
+)
+    
+function top10(){
+    navigate('/admin/top-10');
+}
+function handleAddTerms(){
+    navigate('/admin/add-term');
+};
+function handleSuggestionPage(){
+    navigate('/admin/suggestions');
+};
+  
 }
 
 

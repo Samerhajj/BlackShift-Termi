@@ -8,8 +8,6 @@ import silverChevron from "../images/Games/Chevron/silverChevron.png";
 import brownChevron from "../images/Games/Chevron/brownChevron.png";
 import "./../styles/ProfilePage.css";
 
-
-
 const ProfilePage =  () => {
   
   let avatarGenerator = new AvatarGenerator();
@@ -186,9 +184,8 @@ function handleChange(event) {
             </div>
 
             <div className="col-md-2">
-            <button className="btn btn-warning" onClick={handleClick}>Favorites</button>
-            //BUTTON TO NOT RENDER... not button
-            <Button className="btn btn-primary mb" onClick={handleOpenModal}>Edit Profile</Button>
+            <button className="btn btn-warning" onClick={() => {handleClick()}}>Favorites</button>
+            <Button className="btn btn-primary mb" onClick={() => {handleOpenModal()}}>Edit Profile</Button>
 
                 
 
