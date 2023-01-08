@@ -16,6 +16,7 @@ const ProfilePage =  () => {
   console.log(avatarImageUrl);
   const [showModal, setShowModal] = useState(false);
    const [showModalAvatar, setShowModalAvatar] = useState(false);
+   const [showPasswordModal,setShowPasswordModal]=useState(false);
  const navigate = useNavigate();
 function handleOpenModal() {
     setShowModal(true);
@@ -27,6 +28,10 @@ function handleOpenModal() {
     navigate('/favorite');
   };
  
+ function handleOpenPasswordModal()
+ {
+   setShowPasswordModal(true);
+ }
 
  let x = JSON.parse(localStorage.getItem('profileBody'));
 const [formValues, setFormValues] = useState({
@@ -42,6 +47,10 @@ const [formValues, setFormValues] = useState({
   }
    function handleCloseModalAvatar() {
     setShowModalAvatar(false);
+  }
+  
+  function handleClosePasswordModal(){
+    setShowPasswordModal(false);
   }
   
   async function handleSaveChanges(event) {
@@ -67,6 +76,28 @@ const [formValues, setFormValues] = useState({
     }
   } catch (error) {
     console.log('Error updating profile: ' + error.message);
+  }
+}
+
+async function handleSavePasswordChanges(event) {
+  event.preventDefault();
+  const response = await profileAPI.changePassword(formValues);
+  if (response.success) {
+    // update the password in local storage
+  //   localStorage.setItem('profileBody', JSON.stringify({
+  //     password: formValues.newPassword,
+   
+  // }));
+  const currentProfile = JSON.parse(localStorage.getItem('profileBody'));
+
+// Update the password field
+currentProfile.password = formValues.newPassword;
+
+// Set the updated value back to localStorage
+localStorage.setItem('profileBody', JSON.stringify(currentProfile));
+   setShowPasswordModal(false);
+  }else {
+    console.log("ERROR SAVING PASSWORD CHANGES");
   }
 }
  
@@ -255,6 +286,48 @@ function handleChange(event) {
             </div>
           </div>
 
+  <Button onClick={handleOpenPasswordModal}>Change Password</Button>
+              <Modal show={showPasswordModal} onHide={handleClosePasswordModal}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Change Password</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <form>
+                    <div className="form-group">
+                      <label>
+                       Current Password
+                      </label>
+                      <input type="password" onChange={handleChange}   name="currentPassword" className="form-control" value=
+                      {formValues.currentPassword}/>
+                    </div>
+                      
+                    <div className="form-group">
+                      <label>
+                      New Password
+                      </label>
+                      <input type="password" onChange={handleChange} name="newPassword" className="form-control" value=
+                      {formValues.newPassword}/>
+                    </div>
+                    
+                    <div className="form-group">
+                      <label>
+                        New Password
+                      </label>
+                      <input type="password" onChange={handleChange} name="validatePassword" className="form-control" value=
+                      {formValues.validatePassword}/>
+                    </div>
+                  
+                  </form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClosePasswordModal}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleSavePasswordChanges}>
+                    Change Password
+                  </Button>
+                </Modal.Footer>
+              </Modal>
           <div className="row">
             {/*<div className="col-md-4">
               <div className="profile-work">

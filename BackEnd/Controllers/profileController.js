@@ -30,4 +30,33 @@ const changeProfile = async(req,res)=>{
   });
     
 }
-module.exports = { changeProfile };
+
+
+const changePassword = async(req, res) => {
+  // get the new password from the request body
+  const newPassword = req.body.newPassword;
+
+  // get the user's email from the request body
+  const email = req.body.email;
+
+  // find the user in the database
+  User.findOne({ email: email }, (err, user) => {
+    if (err) {
+      // handle error
+      res.status(500).send(err);
+    } else {
+      // update the user's password
+      user.password = newPassword;
+      user.save((err, updatedUser) => {
+        if (err) {
+          // handle error
+          res.status(500).send(err);
+        } else {
+          // send the updated user object back to the frontend
+          res.send(updatedUser);
+        }
+      });
+    }
+  });
+};
+module.exports = { changeProfile,changePassword };

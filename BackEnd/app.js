@@ -23,8 +23,8 @@ app.use("/search", require("./routes/search"));
 app.use("/user", require("./routes/user"));
 app.use("/auth", require("./routes/auth"));
 app.use("/note",require("./routes/note"));
-// mount the profile routes at the '/api' path
-app.use("/api", require("./routes/profile"));
+// mount the profile routes at the '/profile' path
+app.use("/profile", require("./routes/profile"));
 // Set staic folder
 
 // app.use(express.static("public"));
