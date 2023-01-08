@@ -1,0 +1,40 @@
+.memory-cards-grid{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-basis:auto;
+    gap: 10px;
+}
+
+.memory-card{
+    border: 3px solid gray;
+}
+
+.disabled-memory-card{
+    pointer-events:none;
+}
+
+.memory-card .back,
+.memory-card .front{
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.memory-card .back{
+    background-color: gray;
+    color: transparent;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.memory-card .front{
+    background-color: white;
+}
+
+.memory-card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+}

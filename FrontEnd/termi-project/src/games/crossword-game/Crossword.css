@@ -1,0 +1,59 @@
+.crossword-game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid-row {
+  display: flex;
+  align-items: center;
+}
+
+.grid-cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.game-clues {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+.clues-across,
+.clues-down {
+  display: flex;
+  flex-direction: column;
+}
+
+.clue {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.clue-id {
+  width: 20px;
+  margin-right: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.clue-text {
+  font-size: 16px;
+}
+
+.game-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
