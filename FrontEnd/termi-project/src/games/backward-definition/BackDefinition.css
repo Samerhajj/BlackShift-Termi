@@ -50,4 +50,5 @@ h1 {
   font-size:14px;
   padding:4px 8px;
   min-width:80px;
+  max-height: 50%;
 }

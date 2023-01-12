@@ -1,10 +1,11 @@
 // import "./BackDefinition.css";
 import React, {useEffect, useState} from "react";
 import { useTranslation } from 'react-i18next';
-import {coolFontText} from "./BackDefinition.css";
-import play_Icon from "../../images/play_Icon.svg";
 import { Modal, Button } from "react-bootstrap";
 import useInterval from "./useInterval";
+import { MdOutlineReplay } from "react-icons/md";
+import { AiFillPlayCircle } from "react-icons/ai";
+import "./BackDefinition.css";
 
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
@@ -24,26 +25,33 @@ const [disabled, setDisabled] = useState(false);
 // Timer
 const [elapsedTime, setElapsedTime] = useState(0);
 const [timeLeft, setTimeLeft] = useState(30);
+const [points,setPoints]=useState(0);
 
 						//useIntervaal
- useInterval(() => {
-    // Update elapsedTime only if start is true and showScore is false
-    if (start && !showScore) {
-      setElapsedTime(elapsedTime + 1);
+useInterval(() => {
+    setElapsedTime(elapsedTime + 1);
+    setTimeLeft(timeLeft - 1);
+    if(timeLeft===0)
+    {
+    	  const nextQuestion = currentQuestion + 1;
+        if (nextQuestion < questions.length) {
+          setCurrentQuestion(nextQuestion);
+          setTimeLeft(30);
     }
-  }, 1000);
+    else{
+    	finishGame();
+    }
+ }
+    
+}, start && !showScore ? 1000 : null);
 
- useInterval(() => {
-    // Update timeLeft only if start is true
-    if (start) {
-      setTimeLeft(timeLeft - 1);
-    }
-  }, 1000);
+
 
  useEffect(() => {
     if (timeLeft === 0) {
+    		const correctAnswer = questions[currentQuestion].answerOptions.find(option => option.isCorrect).answerText[LanguageMap[i18n.language].name];
       setDisabled(true);
-      setMessage('Time\'s up! The correct answer was: ' + questions[currentQuestion].correctAnswer);
+      setMessage('Time\'s up! The correct answer was: ' + correctAnswer);
       setTimeout(() => {
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < questions.length) {
@@ -52,7 +60,8 @@ const [timeLeft, setTimeLeft] = useState(30);
           setMessage(null);
           setDisabled(false);
         } else {
-          setShowScore(true);
+          finishGame();
+          
         }
       }, 1000);
     }
@@ -112,7 +121,9 @@ const initGame = async () => {
 			setScore(0);
 			setTimeLeft(30);  // reset the time left
 			setStart(true);
-        }else{
+			setDisabled(false);
+			setMessage("");
+		        }else{
         	console.log(res.message);
         }
 	};
@@ -120,7 +131,8 @@ const initGame = async () => {
   
 const handleAnswerOptionClick = (event,isCorrect) => {
 		setDisabled(true);
-	
+		console.log(questions[currentQuestion]);
+	const correctAnswer = questions[currentQuestion].answerOptions.find(option => option.isCorrect).answerText[LanguageMap[i18n.language].name];
     console.log(event.target);
 	if (isCorrect) {
     setScore(score + 1);
@@ -129,11 +141,12 @@ const handleAnswerOptionClick = (event,isCorrect) => {
     
   } else {
     event.target.classList.add('btn-danger');
-    setMessage(' The correct answer was: ' + questions[currentQuestion].correctAnswer);
+    setMessage(' The correct answer was: ' + correctAnswer);
     
     
   }
   setTimeout(() => {
+  	
     // reset the classes of the answer options
     event.target.classList.remove('btn-success');
     event.target.classList.remove('btn-danger');
@@ -150,7 +163,8 @@ const handleAnswerOptionClick = (event,isCorrect) => {
 			setCurrentQuestion(nextQuestion);
 			
 		} else {
-			setShowScore(true);
+		finishGame();
+			
 			
 			// stopTimer();
 		}
@@ -161,7 +175,23 @@ const handleAnswerOptionClick = (event,isCorrect) => {
 	};
 	
 const [showModal, setShowModal] = useState(false);
-
+const finishGame = async()=>{
+	setShowScore(true);
+	//tStart(false);
+	let points=0;
+	points=score*10;
+	console.log(points);
+	console.log(score);
+	setPoints(points);
+	const {_id} = JSON.parse(localStorage.getItem('profileBody'));
+		const response =await GamesApi.updatePoints(_id,points)
+		if(response.success)
+		{
+			console.log("points UPDATEd");
+		}else{
+			console.log(response.message);
+		}
+}
 function handleOpenModal() {
     setShowModal(true);
   }
@@ -181,20 +211,13 @@ const seconds = elapsedTime % 60;
 			{start ? (
 				<div className="box">
 					{showScore ? (
-						<div>
-						<div className="styled-text" >
-						<p>
-							{t('games.backword-definition.score', {score: score, questionsLength: questions.length})}
-							  <h1>Elapsed time: {minutes}:{seconds}</h1>
-							</p>
+						<div className="score-box">
+							<h2>Score</h2>
+							<h4>{t('games.backword-definition.score', {score: score, questionsLength: questions.length})}</h4>
+							<h4>Elapsed time: {minutes}:{seconds}</h4>
+							<h4>Points gained: +{points} points</h4>
+							<MdOutlineReplay className="icon-button" onClick={() => {initGame()}}/>
 						</div>
-						 <Button variant="primary"  onClick={() => { initGame() }}
-						    
-						     className="restart-button small button">
-						      Play again
-							 </Button>
-							 </div>
-						
 					) : (
 						<div className="m-5">
 							<div>
@@ -206,7 +229,7 @@ const seconds = elapsedTime % 60;
 							<div className="flex d-flex flex-wrap" >
 							<div>Time remaining: {timeLeft} seconds</div>
 								{questions[currentQuestion].answerOptions.map((answerOption,index) => (
-								<button className="btn btn-primary" disabled={disabled}  key={index} onClick={(event) => handleAnswerOptionClick(event, answerOption.isCorrect)}>{answerOption.answerText[LanguageMap[i18n.language].name]}</button>
+								<button className="btn btn-primary mb-2" disabled={disabled}  key={index} onClick={(event) => handleAnswerOptionClick(event, answerOption.isCorrect)}>{answerOption.answerText[LanguageMap[i18n.language].name]}</button>
 								))}
 								<div>{message}
 								</div>
@@ -216,37 +239,32 @@ const seconds = elapsedTime % 60;
 				</div>
 				) : (
 					<div className="center-button ">
-					<button className="circle-button"   onClick={handleOpenModal}><img src={play_Icon}/></button>
+					{/*<button className="circle-button"   onClick={handleOpenModal}><img src={play_Icon}/></button>*/}
+					<AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
 					<Modal show={showModal} onHide={() => setShowModal(false)} >
-  <Modal.Header className="mx-0" closeButton>
-    <Modal.Title className="ms-auto">{t('games.backword-definition.modalTitle')}</Modal.Title>
-  </Modal.Header>
-  <Modal.Body> 
-  <ul>
-      {steps.map((step) => (
-      <li key={step.id}>{step.text}
-    
-    </li>
-      ))}
-    </ul>
-    </Modal.Body>
-  <Modal.Footer>
-   <Button variant="secondary" onClick={() => { setShowModal(false)}}>
-     {t('games.backword-definition.goBack')}
-    </Button>
-    <Button variant="primary" onClick={() => { setShowModal(false); initGame(); }}>
-     {t('games.backword-definition.continueToGame')}
-    </Button>
-  </Modal.Footer>
-</Modal>
-    
+					  <Modal.Header className="mx-0" closeButton>
+					    <Modal.Title className="ms-auto">{t('games.backword-definition.modalTitle')}</Modal.Title>
+					  </Modal.Header>
+					  <Modal.Body> 
+					  <ul>
+					      {steps.map((step) => (
+					      <li key={step.id}>{step.text}
+					    
+					    </li>
+					      ))}
+					    </ul>
+					    </Modal.Body>
+					  <Modal.Footer>
+					   <Button variant="secondary" onClick={() => { setShowModal(false)}}>
+					     {t('games.backword-definition.goBack')}
+					    </Button>
+					    <Button variant="primary" onClick={() => { setShowModal(false); initGame(); }}>
+					     {t('games.backword-definition.continueToGame')}
+					    </Button>
+					  </Modal.Footer>
+					</Modal>
 				</div>
-				
-				)}
-				
+			)}
 		</>
 	);
 }
-
-
-
