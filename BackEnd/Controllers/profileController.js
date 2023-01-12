@@ -59,4 +59,54 @@ const changePassword = async(req, res) => {
     }
   });
 };
-module.exports = { changeProfile,changePassword };
+
+
+const updatePoints = async(req,res)=>{
+  try{
+    const userId=req.body._id;
+    const points=req.body.points;
+    //find the user
+    const updatedUser = await User.findByIdAndUpdate(userId,{$inc: {points:
+      points}},{new:true});
+    res.status(200).json({
+      success:true,
+      message:"updated points successfully",
+      updatedUser
+      
+    });
+    
+  }
+  catch(error){
+     res.status(500).json({
+      success: false,
+      message: 'Error updating points',
+      error
+    });
+    
+  }
+}
+
+
+
+const getGamePoints =async(req,res)=>{
+  try{
+      const userId=req.body._id;
+      const user=await User.findById(userId);
+      res.status(200).json({
+        success:true,
+        points:user.points,
+      });
+
+  }
+ catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error getting points",
+      error,
+    });
+ }
+}
+
+module.exports = { changeProfile,changePassword ,updatePoints,getGamePoints};
+
+
