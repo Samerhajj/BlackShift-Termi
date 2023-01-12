@@ -5,11 +5,15 @@ const autocompleteRoute = process.env.React_App_BaseURL + "search" + "/" + "auto
 // Games Routes
 const randomRoute = process.env.React_App_BaseURL + "search" + "/" + "random";
 const top10 = process.env.React_App_BaseURL + "search" + "/" + "get-top10";
+
 // Auth Routes
 const loginRoute = process.env.React_App_BaseURL + "auth" + "/" + "login";
 const privateRoute = process.env.React_App_BaseURL + "auth" + "/" + "private";
 const registerRoute = process.env.React_App_BaseURL + "auth" + "/" + "register";
 const logoutRoute = process.env.React_App_BaseURL + "auth" + "/" + "logout";
+
+// Category Routes
+const allCategoriesRoute = process.env.React_App_BaseURL + "category";
 
 // User Routes
 const favoritesRoute = process.env.React_App_BaseURL + "user" + "/" + "favorites";
@@ -31,6 +35,6 @@ export {searchRoute,
         addFavoriteRoute,
         displayMytermsRoute1,
         suggestUserRoute,
-        top10
-        
+        top10,
+        allCategoriesRoute
 };
