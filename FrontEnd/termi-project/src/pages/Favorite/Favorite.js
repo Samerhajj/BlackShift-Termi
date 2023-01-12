@@ -34,36 +34,7 @@ const Favorite  = ({initialLanguage}) =>{
       };
     }));
   };
-    
-    // try{
-        //         let x = JSON.parse(localStorage.getItem('profileBody'));
-        //         // console.log(x['email']);
-        //         let email = x.email;
-        //         // console.log(email);
-        //         const res1 = await axios.post("http://dir.y2022.kinneret.cc:7013/user/favorite", {email:email})
-        //         // const res1 = await axios.post(favoriteRoute1, {email:email})
-        //         // const rrr =  await axios.post(displayMytermsRoute1,{list:res1.data});
 
-        //         const rrr =  await axios.post("http://dir.y2022.kinneret.cc:7013/search/display-myterms",{list:res1.data});
-        //         // console.log("here neeeww")
-        //         // console.log(rrr.data);
-        //         // console.log("here neeeww")
-        //         // console.log(res1);
-        //         let temp = [];
-        //         temp = res1.data;
-        //         let temp1 = [];
-        //         temp1 = rrr.data;
-        //         // const responst = UserAPI.Favorite();
-        //         // temp = rrr.data;
-        //         // console.log(`this is temp1 : \n ${temp1} `)
-        //         // console.log(`this is temp : \n ${temp}`)
-        //         // setList([...temp])
-        //         setList([...temp1])
-        //         setIsOpen(!isOpen);
-        //         // console.log(list);
-    // }catch(e){
-        //     console.log(e);
-        // }
     return (
     <>
     <div className="banner banner_note">
