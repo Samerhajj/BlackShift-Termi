@@ -10,9 +10,17 @@ const favorites = async () => {
         const usr = await axios.post(favoritesRoute, {email:email})//find the user
         // const res1 = await axios.post("http://dir.y2022.kinneret.cc:7013/user/favorite", {personId})
         const favList =  await axios.post("http://dir.y2022.kinneret.cc:7013/search/display-myterms", {list:usr.data});// display all the fav
+        
         let array = [];
         array = favList.data;
         console.log(array)
+        
+        // const ur = "http://dir.y2022.kinneret.cc:7013/search/returnAllCategories";
+            // const categoryNames = await axios.post(ur,);
+        
+        
+        
+        
         return {body: array, success: true};
     }catch(err){
         console.log(err);
@@ -67,6 +75,7 @@ const suggestFromUser = async (values,selectedCategory) => {
     try{
         const user = JSON.parse(localStorage.getItem('profileBody'));
         values.suggestedBy = user.fullName;
+        console.log(selectedCategory);
         const res = await axios.post(suggestUserRoute, {values,selectedCategory})
         return {body: res, success: true};
     }
