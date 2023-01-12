@@ -26,4 +26,15 @@ const changePassword = async formValues => {
   }
 };
 
-export default {updateProfile,changePassword}  ;
+const getGamePoints = async ()=>{
+  try{
+    
+    	const {_id} = JSON.parse(localStorage.getItem('profileBody'));
+        console.log(_id);
+    	const response=await axios.post('http://dir.y2022.kinneret.cc:7013/profile/getPoints',{_id});
+ return { body: response.data, success: true };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+};
+export default {updateProfile,changePassword,getGamePoints}  ;
