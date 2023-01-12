@@ -67,24 +67,25 @@ const [selectedCategory, setSelectedCategory] = useState("");
 const [form] = Form.useForm();
 
 const englishOptions = [
-  { value: 'human resources', label: 'human resources' },
+  { value: 0, label: 'human resources' },
+  { value: 1, label: 'software engineering' },
   { value: 'medicine', label: 'medicine' },
-  { value: 'software engineering', label: 'software engineering' },
 ];
 const arabicOptions = [
-  { value: 'human resources', label: 'ارد البشرية' },
+  { value: 0, label: 'الموارد البشرية' },
+  { value: 1, label: 'برمجة' },
   { value: 'medicine', label: 'طب' },
-  { value: 'software engineering', label: 'برمجة' },
 ];
 const hebrewOptions = [
-  { value: 'human resources', label: 'משאבי אנוש' },
+  { value: 0, label: 'משאבי אנוש' },
+  { value: 1, label: 'תִכנוּת' },
   { value: 'medicine', label: 'רפואה' },
-  { value: 'human resources', label: 'תִכנוּת' },
 ];
 
 
-  const onFinish = async (values,selectedCategory) => {
+  const onFinish = async(values)=> {
     const res = await UserAPI.suggestFromUser(values,selectedCategory);
+   
     console.log(res);
     if(res.success){
       form.resetFields();
@@ -135,7 +136,7 @@ const hebrewOptions = [
                       </Select>*/}
                       
                       <Select
-                        name={['category', 'english']}
+                         name="category"
                         placeholder="Select a category"
                         value={selectedCategory}
                         onChange={(value) => setSelectedCategory(value)}
@@ -145,15 +146,9 @@ const hebrewOptions = [
                     
                     
                     <Form.Item label="Category (Arabic)" rules={[{ required: true, message: 'Please select a category' }, { whitespace: true, message: 'Category cannot be empty' }]}>
-                    {/*<Select
-                      value={selectedCategory}
-                      onChange={(value) => setSelectedCategory(value)}
-                      placeholder="Select a category">
-                      <Option value="human resources">الموارد البشرية</Option>
-                      <Option value="medicine">طب</Option>
-                      <Option value="software engineering">برمجة</Option>
-                    </Select>*/}
+                   
                     <Select
+                      name="category"
                       value={selectedCategory}
                       onChange={(value) => setSelectedCategory(value)}
                       placeholder="Select a category"
@@ -174,6 +169,7 @@ const hebrewOptions = [
                       
                     </Select>*/}
                      <Select
+                     name="category"
                       value={selectedCategory}
                       onChange={(value) => setSelectedCategory(value)}
                       placeholder="Select a category"
