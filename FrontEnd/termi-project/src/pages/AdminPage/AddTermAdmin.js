@@ -33,9 +33,7 @@ const AddTermAdmin=()=> {
     
     const navigate = useNavigate();
 
-  const handleAdminPanel = () => {
-    navigate('/admin');
-  };
+
   const validateUrl = (rule, value, callback) => {
   if (!value) {
     callback();
@@ -81,7 +79,7 @@ const onReset = () => {
 
 return (
     <div>
-    <div className="banner banner_profile">
+    <div className="banner banner_admin">
         <div className="wrapper">
           <div className="banner_content">
             <h1 className="pulsing-element">
@@ -91,10 +89,11 @@ return (
         </div>
       </div>
                <div className="container d-flex justify-content-center">
-               <div>
-                      <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
-               </div>
-             
+
+                 <div className="admin-sg goAndChange">
+                    <button className="su-button mb-2 " onClick={handleAdminPanel}>Back To Panel</button>
+                </div>
+
           </div>
            <div className="wrapper">
      <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
@@ -174,6 +173,9 @@ return (
         
     </div>
     )
+  function handleAdminPanel(){
+    navigate('/admin');
+  };
 }
 
 

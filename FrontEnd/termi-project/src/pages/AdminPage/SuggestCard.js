@@ -45,6 +45,27 @@ const SuggestCard = ({ data,setSuggestList,suggestList }) => {
        alert(response.message);
      }
   }
+  
+  const handleApprove=async()=>{
+    const id = data._id;
+    console.log(id);
+    // const response = await AdminAPI.addSelectedTerm({_id:id});//data
+    const response = await AdminAPI.addSelectedTerm(data);
+    if(response.success){
+      console.log(response);
+      const response = await AdminAPI.deleteSelectedTerm(data);
+      setSuggestList(suggestList.filter((item) => item['_id']!==id));
+
+    }
+    else{
+      alert(response.message);
+    }
+  }
+  
+// const handleApprove = async()=>{
+  
+//   const respone = await.AdminAPI.addSelecterTerm()
+// }
 
   const currentLanguage = languages[currentIndex];
 
@@ -93,11 +114,12 @@ const SuggestCard = ({ data,setSuggestList,suggestList }) => {
     )
     }
     */}
-      <h2 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h2>
+      <h6 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h6>
       <button className="btn btn-danger" onClick={handleNextSlide}>Next</button>
       <button className="btn btn-success" onClick={handlePrevSlide}>Prev</button>
       
       <button className="btn" onClick={handleEditCard}>send to edit</button>
+        <button className="btn" onClick={handleApprove}>Approve to database</button>
       
       {(show)&&(<EditModal show={show} setShow={setShow} />)}
     </div>

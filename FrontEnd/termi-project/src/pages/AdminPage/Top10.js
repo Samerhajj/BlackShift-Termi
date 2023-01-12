@@ -23,8 +23,8 @@ const Top10 = () =>{
         <div className="banner banner_admin">
         <div className="wrapper">
           <div className="banner_content">
-            <h1 className="pulsing-element">
-              <strong className="text-white">Welcome Admin User...</strong>
+            <h1 className="">
+              <strong className="text-white">Most searched Terms</strong>
             </h1>
           </div>
         </div>

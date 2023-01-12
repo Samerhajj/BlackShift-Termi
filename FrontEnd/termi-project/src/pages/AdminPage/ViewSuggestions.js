@@ -33,11 +33,11 @@ useEffect(()=>{
 },[])
 return (
     <div>
-    <div className="banner banner_profile">
+    <div className="banner banner_admin">
         <div className="wrapper">
           <div className="banner_content">
-            <h1 className="pulsing-element">
-              <strong>Welcome to Suggestions</strong>
+            <h1 className="">
+              <strong className="text-white">Suggestions</strong>
             </h1>
           </div>
         </div>

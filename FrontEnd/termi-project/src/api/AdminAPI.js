@@ -11,8 +11,18 @@ const getAllSuggestedTerms = async (termId) => {
     }
 };
 
-const addSelectedTerm = async ()=>{
+const addSelectedTerm = async (data)=>{
     // not implemented
+    try{
+        // const res = await axios.put(process.env.React_App_BaseURL + "user" + '/' + "approve-term",{_id:term_id});
+        const res = await axios.put(process.env.React_App_BaseURL + "user" + '/' + "approve-term",{data});
+        console.log(res);
+        return {body: res, success: true};
+    }
+    catch(err){
+        console.log(err);
+        return {success: false, message: err.message};
+    }
 }
 
 const deleteSelectedTerm = async (data) =>{
@@ -39,4 +49,5 @@ const top10 = async () =>{
     }
 }
 
-export default {getAllSuggestedTerms,deleteSelectedTerm,top10};
+
+export default {getAllSuggestedTerms,deleteSelectedTerm,top10,addSelectedTerm};
