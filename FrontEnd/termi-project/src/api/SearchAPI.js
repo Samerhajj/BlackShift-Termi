@@ -9,7 +9,6 @@ const search = async (term, category) =>{
     try{
         let query = {params: {term: term, category: category}};
         const res = await axios.get(searchRoute, query);
-        
         // If the server returns a status error
         if(res.status != 200){
             return {success: false, message: res.statusText};
@@ -19,7 +18,17 @@ const search = async (term, category) =>{
             Object.assign(allCloseResults, res.data);
             // Take the closest term
             Object.assign(closestResult, res.data[0]);
-            return {body: closestResult, success: true};
+            
+            
+            console.log(closestResult['categories'])
+            const ur = "http://dir.y2022.kinneret.cc:7013/search/returnAllCategories";
+            const categoryNames = await axios.post(ur,closestResult['categories']);
+            console.log("*****(((((((((((((((((((((((((((((((((((**")
+            console.log(categoryNames.data);
+            console.log("*****((((((((((((((((((((((((((((((((((**")
+
+            
+            return {body: {closestResult,categoryNames}, success: true};
         }else{
             // Add the alert to suggest the searched term
             return {success: false, message: "Term doesn't exist, would you like to suggest it ?"};
