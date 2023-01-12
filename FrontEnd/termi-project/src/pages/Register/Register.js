@@ -87,7 +87,15 @@ const handleSubmit = async (e) => {
               {errors.email && <p className="text-danger">{errors.email}</p>}
           </div>
           
-          <div className="form-group d-flex my-3">
+          
+        <select
+            style={{ width: 200 }}
+          className={`form-select w-100 ${errors.field ? 'is-invalid' : ''}`}
+          >
+            <option value="male">male</option>
+            <option value="female">female</option>
+      </select>
+          <div className="form-group my-3">
             <input
               type="password"
               className="form-control rounded-left"
