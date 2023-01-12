@@ -28,13 +28,8 @@ const CategorySelector = (props) => {
     }, []);
     
     const onCategoryChange = (newCategory) => {
-        // setSelectedCategory(newCategory);
-        if(newCategory){
-            setSelectedCategory(newCategory.categoryId);
-        }else{
-            setSelectedCategory(undefined);
-        }
-        props.categoryChanged(newCategory);
+        setSelectedCategory(newCategory);
+        props.categoryChanged(categories[newCategory]);
     };
     
     return(
@@ -43,7 +38,7 @@ const CategorySelector = (props) => {
             value={selectedCategory}
             className="form-select"
             title="Category"
-            onChange={(e)=>{onCategoryChange(categories[e.target.value])}}>
+            onChange={(e)=>{onCategoryChange(e.target.value)}}>
             <option value="Category">Category</option>
             {
                 categories.map((category, index) => (
