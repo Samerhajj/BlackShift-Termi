@@ -19,6 +19,8 @@
     "mongodb": "^4.12.1",
     "mongoose": "^6.7.4",
     "mongoose-encryption": "^2.1.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "swagger-jsdoc": "^6.2.7",
+    "swagger-ui-express": "^4.6.0"
   }
 }
