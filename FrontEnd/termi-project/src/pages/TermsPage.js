@@ -21,6 +21,20 @@ const TermsPage = () =>{
     const [resultLanguage, setResultLanguage] = useState(i18n.language);
     const [showResult, setShowResult] = useState(false);
     
+    
+    
+    const [isAdmin,setIsAdmin] = useState(false);
+
+    //         // setIsAdmin(true);
+    
+    function handleAdminPanel(){
+        navigate('/admin');
+    };
+  
+
+    
+    
+    
     /*Adding Modal to redirect user to concept add page
     */
     const[show,setShow]=useState(false);
@@ -35,14 +49,15 @@ const TermsPage = () =>{
         if(term != ""){
             const res = await SearchApi.search(term, category);
             if(res.success){
-                let closestResult = res.body;
+                let closestResult = res.body['closestResult'];
+                let categoryResult = res.body['categoryNames'];
                 console.log(closestResult._id);
                 //let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
                 let favorite=[];
                if (localStorage.getItem("profileBody") !== null) {
                      favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
                   }
-                setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id)});
+                setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),categoryNames:categoryResult});
                 setResultLanguage(inputLanguage);
                 setShowResult(true);
                 setInputLanguage(i18n.language);
@@ -140,12 +155,27 @@ const TermsPage = () =>{
     useEffect(()=>{
         setInputLanguage(i18n.language);
     },[i18n.language]);
-  
+    
+    useEffect(()=>{
+    const role = localStorage.getItem('role');
+    if(role == 'admin'){
+        setIsAdmin(true);
+        
+    }
+    },[])
+    
+
+
+
     return(
         <>
             <div className="banner banner_home">
                 <div className='wrapper'>
                     <div className="banner_content fade-in-element">
+                    
+
+                    
+                    
                         <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
                         <div className="search-box">
                             <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
@@ -167,8 +197,16 @@ const TermsPage = () =>{
                     </div>
                 </div>
             </div>
+            
+            {   isAdmin && (
+                 <div className="admin-sg goAndChange">
+                    <button className="su-button mb-2 " onClick={handleAdminPanel}>Back To Panel</button>
+                </div>
+                )
+            }
+            
             { showResult ? 
-                <TermCard term={resultTerm.term} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
+                <TermCard categorys={resultTerm.categoryNames} term={resultTerm.term} isSearch={true} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
                 :
                 null
             }
