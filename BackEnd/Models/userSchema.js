@@ -18,7 +18,11 @@ const UserSchema = new mongoose.Schema({
   field:String,
   email: String,
   password: String,
-  favorite : []
+  favorite : [],
+  points: {
+    type: Number,
+    default: 0
+  }
 });
 
 // const secret = "Thisisourlittlesecret";
