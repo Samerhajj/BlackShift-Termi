@@ -1,13 +1,18 @@
 .memory-cards-grid{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    flex-basis:auto;
-    gap: 10px;
+    margin: 10px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
 }
 
 .memory-card{
-    border: 3px solid gray;
+    border-radius: .25rem;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
+    background-color: white;
+    transform-style: preserve-3d;
+    transition: 150ms;
+    cursor: pointer;
 }
 
 .disabled-memory-card{
@@ -19,7 +24,6 @@
     width: 100%;
     height: 100%;
     padding: 12px;
-    cursor: pointer;
 }
 
 .memory-card .back{
@@ -28,13 +32,45 @@
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    backface-visibility: hidden;
 }
 
 .memory-card .front{
-    background-color: white;
+    border-radius: .25rem;
 }
 
 .memory-card:hover{
     transform: translateY(-2px);
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
+}
+
+.score-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 4px solid gray;
+    margin: 25px 5px 5px 5px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 18px;
+    background: linear-gradient(225deg, #f2f2f2, #ffffff);
+    box-shadow:  -5px 5px 5px #c2c2c2,
+                 5px -5px 5px #ffffff;
+}
+
+.icon-button{
+    font-size: 5em;
+    cursor: pointer;
+}
+
+.icon-button:hover{
+    color: green;
+}
+
+.correct{
+    background-color: #55cc3b;
+}
+
+.incorrect{
+    background-color: red;
 }
