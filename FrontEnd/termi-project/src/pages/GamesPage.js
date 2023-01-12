@@ -6,15 +6,13 @@ import {useNavigate} from "react-router-dom";
 import React from "react";
 import {handleOpenModal} from "../games/backward-definition/BackDefinition";
 import { useTranslation } from 'react-i18next';
+
 const GamesPage = () => {
-  console.log("hi from GamesPage");
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const games = {
     0: { title: t('games.backword-definition.title'), description:t('games.backword-definition.description'), path:"/games/back-definition", img: GameImg },
-    1: { title:"Memory Game", description:"In this game ...", path:"/games/memory-game", img: GameImg },
-    2: { title:"Crossword Game", description:"Crossword Game", path:"/games/crossword-game", img: GameImg },
-    3: { title:"Wordle Game", description:"Wordle Game", path:"/games/wordle", img: GameImg }
+    1: { title:t('games.memory-game.title'), description:t('games.memory-game.description'), path:"/games/memory-game", img: GameImg }
   };
   return (
     
@@ -52,6 +50,6 @@ const GamesPage = () => {
 </Container>
     </>
   );
-}
+};
 
 export default GamesPage;
