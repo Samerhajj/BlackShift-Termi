@@ -1,5 +1,6 @@
 const Search = require("../Models/searchSchema");
 const User = require("../Models/userSchema");
+const Category = require("../Models/categorySchema");
 
 const searchTerm = async(req,res)=>{
   try{
@@ -11,20 +12,6 @@ const searchTerm = async(req,res)=>{
     if(term != null && category != null){
       let categoryNum = parseInt(category);
       
-
-      
-      
-      // let respond = await Search.find({
-      //   $and: [
-      //         {$or: [
-      //               {"conceptName.english": {'$regex': "^"+ term,$options:'i'}},
-      //               // {"conceptName.english": {'$regex': '\\(The'}},
-      //               {"conceptName.hebrew": term},
-      //               {"conceptName.arabic": term}
-      //         ]},
-      //         {"category": categoryNum}
-      //   ]});
-      
       let respond = await Search.find({
         "$text": {
           "$search": term
@@ -34,14 +21,15 @@ const searchTerm = async(req,res)=>{
         { score: { $meta : 'textScore' } }
       );
       Search.updateOne({ _id: respond[0]._id }, { $inc: { searchCount: 1 } }, function(error,res) {
-  if (error) {
-    console.log(error);
-  }
-  else{
-    console.log(res);
-  }
-});
+        if (error) {
+          console.log(error);
+        }
+        else{
+          console.log(res);
+        }
+      });
       console.log(respond);
+      console.log(respond[0]['categories'])
       res.send(respond);
     }else{
       res.status(400).send("Missing data");
@@ -108,6 +96,10 @@ const getRandomConcepts = async(req,res)=>{
       let randomTerms = [];
       let generatedIndexs = new Map();
       
+      if(terms.length <= numOfTerms){
+        res.status(400).send("Not enough concepts in the database");
+      }
+      
       for (var i = 0; i < numOfTerms; i++) {
         let randIndex = Math.floor(Math.random() * terms.length);
         if(numOfTerms <= terms.length && generatedIndexs.has(randIndex)){
@@ -134,6 +126,7 @@ const getRandomConcepts = async(req,res)=>{
       // });
     }
   }catch(e){
+    res.send()
     console.log(e);
   }
 };
@@ -170,6 +163,81 @@ const getTop10 = async (req,res)=>{
   }
 }
 
+const addNewCategories = async (req,res) =>{
+  try{
+      console.log("hi");
+      
+          const newCategory = await new Category({
+          categoryId: "0",
+            "categoryName" : {
+            "arabic": 'الموارد البشرية' ,
+            "hebrew" : "משאבי אנוש",
+            "english" : "human resources"
+        }
+    })
+    
+    
+
+
+//     const newCategory = await new Category({
+//     "categoryId": "1",
+//     "categoryName": {
+//         "arabic": "حاسوب هندسة",
+//         "hebrew": "תוכנה הנדסת",
+//         "english": "software engineering"
+//     }
+// })
+    
+    
+    
+     newCategory.save(); 
+      console.log(req.body);
+      res.send(req.body);
+  }
+  catch(err){
+    console.log(err);
+    res.send(err);
+  }
+}
+
+const getCategorie = async (req,res)=>{
+  // const cats = [0,1];
+  const cats  = req.body
+  
+  console.log("*****(((((((((((((((((((((((((((((((((((**")
+
+  console.log(req.body);
+        console.log("*****(((((((((((((((((((((((((((((((((((**")
+
+  // const catName = await Category.find({ 'categoryId': { $in: req.body.categoryName} })
+  // res.send(catName);
+
+    const cat_res = await Category.find({categoryId :{$in: cats }});//new
+    const arrayOfCategorys = cat_res.map(item => item.categoryName);
+    console.log(arrayOfCategorys)
+  
+  
+  
+  console.log("*******")
+  console.log(arrayOfCategorys);
+  console.log("*******")
+  res.send(arrayOfCategorys);
+  
+  
+  
+  
+  
+  
+  
+  
+  // const cat_res = await Category.find({categoryId :{$in: cat }});
+  
+  // console.log(cat_res[0]['categoryName']);
+  // res.send(cat_res[0]['categoryName']);
+
+}
+
+
 
 
 
@@ -178,5 +246,7 @@ module.exports = {autoCompleteTerm,
                   getRandomConcepts,
                   getAllTermList,
                   suggestTerm,
-                  getTop10
+                  getTop10,
+                  addNewCategories,
+                  getCategorie
 };

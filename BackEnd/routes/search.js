@@ -5,7 +5,9 @@ searchTerm,
 getRandomConcepts,
 getAllTermList,
 suggestTerm,
-getTop10
+getTop10,
+addNewCategories,
+getCategorie
 } = require("../Controllers/searchController");
 router.use(express.json());
 
@@ -20,5 +22,9 @@ router.post("/display-myterms",getAllTermList);
 router.post("/suggest-term",suggestTerm);
 
 router.get("/get-top10",getTop10);
+
+router.post("/addCategories",addNewCategories);
+
+router.post("/returnAllCategories",getCategorie);
 
 module.exports = router;

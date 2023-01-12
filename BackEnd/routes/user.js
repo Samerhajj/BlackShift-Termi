@@ -8,17 +8,110 @@ const { favorites,
         addFavorite,
         suggestTerm,
         getAllSuggestedTerms,
-        deleteOneSuggest
+        deleteOneSuggest,
+        addSelectedTerm
 } = require("../Controllers/userController");
 
 
 // Router Functions
 
+/**
+ * @swagger
+ * tags:
+ *   - name: user
+ *     description: User related operations
+ * paths:
+ *  /user/favorites:
+ *    post:
+ *      tags: [user]
+ *      summary: Finds the favorite terms of a user.
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                email:
+ *                  type: string
+ *                  description: email of the user
+ *                  required: true
+ *      responses:
+ *        200:
+ *          description: A list of the user's favorite terms.
+ */
 router.post("/favorites", favorites);
 
 router.put("/delete-favorite", deleteFavorite1);
 
 router.put("/add-favorite", addFavorite);
+
+/**
+ * @swagger
+ *  tags:
+ *   - name: user
+ *     description: User related operations
+ * 
+ * /user/suggest-term:
+ *    post:
+ *      tags: [user]
+ *      summary: Suggests a new term
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                selectedCategory:
+ *                  type: array
+ *                  items:
+ *                    type: string
+ *                  description: Categories of the term
+ *                  required: true
+ *                shortDefinition:
+ *                  type: object
+ *                  properties:
+ *                    hebrew:
+ *                      type: string
+ *                      description: Hebrew short definition of the term
+ *                      required: true
+ *                    english:
+ *                      type: string
+ *                      description: English short definition of the term
+ *                      required: true
+ *                    arabic:
+ *                      type: string
+ *                      description: Arabic short definition of the term
+ *                      required: true
+ *                lastEdited:
+ *                  type: number
+ *                  format: timestamp
+ *                  description: Last edited date of the term
+ *                  required: true
+ *                conceptName:
+ *                  type: object
+ *                  properties:
+ *                    hebrew:
+ *                      type: string
+ *                      description: Hebrew short definition of the term
+ *                      required: true
+ *                    english:
+ *                      type: string
+ *                      description: English short definition of the term
+ *                      required: true
+ *                    arabic:
+ *                      type: string
+ *                      description: Arabic short definition of the term
+ *                      required: true
+ *                suggestedBy:
+ *                  type: string
+ *                  description: Email of the user who suggested the term
+ *                  required: true
+ *      responses:
+ *        200:
+ *          description: The newly suggested term
+ */
 
 router.post("/suggest-term", suggestTerm);
 
@@ -26,7 +119,7 @@ router.get("/allsuggestedterms",getAllSuggestedTerms);
 
 router.delete("/deleteonesuggest",deleteOneSuggest);
 
-
+router.put("/approve-term",addSelectedTerm);
 
 module.exports = router;
 

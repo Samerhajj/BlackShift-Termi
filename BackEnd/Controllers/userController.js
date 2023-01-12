@@ -64,6 +64,7 @@ const addFavorite = async (req,res) =>{
 
 const suggestTerm = async (req,res) =>{
         console.log(req.body);
+        
          const newSuggest = await new Suggest({
           categories: req.body.selectedCategory,
           shortDefinition:{
@@ -110,7 +111,41 @@ const deleteOneSuggest = async (req,res)=>{
         console.log(err);
   }
 }
-//-------------------------------------------------------------------------------------------------------------------------------------
+
+const addSelectedTerm = async(req,res)=>{
+  // try{
+    
+  // }
+  // catch(err){
+  //   res.send(err);
+  // }
+  const id = req.body._id;
+  console.log(id);
+  console.log("*********************************************************************")
+console.log(req.body);
+ console.log("*********************************************************************")
+//   const termData={
+//   categories:req.body.categories,
+//   shortDefinition:req.body.shortDefinition,
+//   conceptName:req.body.conceptName
+// };
+  const NewTerm = new Search({
+    
+      categories:req.body.data.categories,
+      shortDefinition:req.body.data.shortDefinition,
+      conceptName:req.body.data.conceptName
+
+  });
+
+const resTerm = await NewTerm.save();
+
+res.send(req.body)
+  // const response = await Search.findOneAndUpdate({_id:id}, termData, {upsert: true, new: true});
+  // console.log(response);
+  // res.send(response);
+
+  }
+//------------------------------------------------------------------------------------------------------------------------------------
 
 module.exports = {favorites,
                   deleteFavorite,
@@ -118,6 +153,7 @@ module.exports = {favorites,
                   addFavorite,
                   suggestTerm,
                   getAllSuggestedTerms,
+                  addSelectedTerm,
                   deleteOneSuggest
 };
 
