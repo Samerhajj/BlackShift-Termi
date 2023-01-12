@@ -17,8 +17,10 @@ const ProfilePage =  () => {
   const [showModal, setShowModal] = useState(false);
    const [showModalAvatar, setShowModalAvatar] = useState(false);
    const [showPasswordModal,setShowPasswordModal]=useState(false);
+   const [showPasswordError, setShowPasswordError] = useState(false);
+  const [points,setPoints]=useState(0);
  const navigate = useNavigate();
-function handleOpenModal() {
+  function handleOpenModal() {
     setShowModal(true);
   }
   function handleOpenModalAvatar() {
@@ -32,6 +34,25 @@ function handleOpenModal() {
  {
    setShowPasswordModal(true);
  }
+ 
+ const fetchPoints=async()=>{
+  const response = await profileAPI.getGamePoints();
+  if (response.success){
+    setPoints(response.body.points);
+    console.log(response.body.points);
+    
+}
+ else {
+    console.log("Error getting points:", response.message);
+  }
+}
+
+ useEffect(()=>{
+   fetchPoints();
+ },[])
+ 
+
+
 
  let x = JSON.parse(localStorage.getItem('profileBody'));
 const [formValues, setFormValues] = useState({
@@ -45,7 +66,8 @@ const [formValues, setFormValues] = useState({
   function handleCloseModal() {
     setShowModal(false);
   }
-   function handleCloseModalAvatar() {
+  
+  function handleCloseModalAvatar() {
     setShowModalAvatar(false);
   }
   
@@ -81,25 +103,35 @@ const [formValues, setFormValues] = useState({
 
 async function handleSavePasswordChanges(event) {
   event.preventDefault();
-  const response = await profileAPI.changePassword(formValues);
-  if (response.success) {
-    // update the password in local storage
-  //   localStorage.setItem('profileBody', JSON.stringify({
-  //     password: formValues.newPassword,
-   
-  // }));
   const currentProfile = JSON.parse(localStorage.getItem('profileBody'));
-
-// Update the password field
-currentProfile.password = formValues.newPassword;
-
-// Set the updated value back to localStorage
-localStorage.setItem('profileBody', JSON.stringify(currentProfile));
-   setShowPasswordModal(false);
-  }else {
-    console.log("ERROR SAVING PASSWORD CHANGES");
+  if(currentProfile.password!==formValues.currentPassword){
+    alert("Make sure you have the current password right");
+  }else{
+    // Compare newPassword and validatePassword
+    if (formValues.newPassword !== formValues.validatePassword) {
+      // Set showPasswordError to true
+      setShowPasswordError(true);
+    } else {
+      if(formValues.newPassword.length>=6 && formValues.validatePassword.length>=6){
+        // Update password in the backend and local storage
+        const response = await profileAPI.changePassword(formValues);
+        if (response.success) {
+          // Update password in local storage
+          currentProfile.password = formValues.newPassword;
+          localStorage.setItem('profileBody', JSON.stringify(currentProfile));
+          setShowPasswordModal(false);
+          // Show pop-up message
+          alert('Successfully changed your password');
+        }
+      }else if(formValues.newPassword.length<6 && formValues.validatePassword.length<6){
+        alert('Please Enter More Than 6 Letters');
+      } else {
+        alert("ERROR SAVING PASSWORD CHANGES");
+      }
+    }
   }
 }
+
  
 
 function handleChange(event) {
@@ -293,12 +325,15 @@ function handleChange(event) {
                 </Modal.Header>
                 <Modal.Body>
                   <form>
+                    {showPasswordError && (
+                    <div className="error-message">Make sure you enter the same password</div>
+                  )}
                     <div className="form-group">
                       <label>
                        Current Password
                       </label>
                       <input type="password" onChange={handleChange}   name="currentPassword" className="form-control" value=
-                      {formValues.currentPassword}/>
+                      {formValues.currentPassword} minLength="6"/>
                     </div>
                       
                     <div className="form-group">
@@ -306,7 +341,7 @@ function handleChange(event) {
                       New Password
                       </label>
                       <input type="password" onChange={handleChange} name="newPassword" className="form-control" value=
-                      {formValues.newPassword}/>
+                      {formValues.newPassword} minLength="6"/>
                     </div>
                     
                     <div className="form-group">
@@ -314,7 +349,7 @@ function handleChange(event) {
                         New Password
                       </label>
                       <input type="password" onChange={handleChange} name="validatePassword" className="form-control" value=
-                      {formValues.validatePassword}/>
+                      {formValues.validatePassword} minLength="6"/>
                     </div>
                   
                   </form>
@@ -351,7 +386,7 @@ function handleChange(event) {
                         <label>Email</label>
                       </div>
                       <div className="col-md-6">
-                        <p>{x.email}</p>
+                        <p className="font-for-profile">{x.email}</p>
                       </div>
                   </div>
                   <div className="row">
@@ -359,7 +394,7 @@ function handleChange(event) {
                       <label>Category</label>
                     </div>
                     <div className="col-md-6 ">
-                      <p>{x.field}</p>
+                      <p className="font-for-profile">{x.field}</p>
                     </div>
                   </div>
                   <div className="row">
@@ -367,20 +402,35 @@ function handleChange(event) {
                       <label>Phone Number</label>
                     </div>
                     <div className="col-md-6">
-                      <p> {x.phone}</p>
+                      <p className="font-for-profile"> {x.phone}</p>
                     </div>
                   </div>
+                  
+                  
                    <div className="row">
                     <div className="col-md-6">
                       <label>Preferred language</label>
                     </div>
                     <div className="col-md-6">
-                      <p> {x.language}</p>
+                      <p className="font-for-profile"> {x.language}</p>
                     </div>
+                    </div>
+                    
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label>Points</label>
+                      </div>
+                      <div className="col-md-6">
+                        <p className="font-for-profile">{points}</p>
+                      </div>
+                  </div>
+                  
+                  
+                  
                     {/*<div className="col-md-6">
                       <a href="#" onClick={handleClick}>Favorites</a>
                     </div>*/}
-                  </div>
+                 
                 </div>
               </div>
             </div>
