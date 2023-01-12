@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import Accordion from 'react-bootstrap/Accordion';
 import LanguageMap from "../../api/LanguageAPI";
@@ -12,14 +12,15 @@ import UserApi from '../../api/UserAPI';
 import {BsStarFill, BsStar} from 'react-icons/bs';
 
 //
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 
 const TermCard = (props) =>{
     const { t } = useTranslation();
     const [language, setLanguage] = useState(props.initialLanguage);
     const [isFav, setIsFav] = useState(props.isFavorite);
-    
+    const [isSearch,setIsSearch] = useState(props.isSearch);
+
     const handle_starsClick = async() =>{
         if(!isFav){
             const res = await UserApi.addFavorite(props.term._id);
@@ -65,7 +66,7 @@ const TermCard = (props) =>{
             </div>
             <div className="term-box">
                 <div className="categories-box">
-                    { 
+                    {/*
                         props.term.categories.map((category, index) =>{
                             return(
                                 <div key={index} className="category-tag">
@@ -73,8 +74,16 @@ const TermCard = (props) =>{
                                 </div>
                             );
                         })
+                    */}
+                    
+                    
+                    {
+                    (isSearch)  &&
+                        props.categorys.data.map((item, index)=>{
+                            return(<div key={index} className="category-tag">{item[LanguageMap[language].name]}</div>);
+                        })
                     }
-                    {/*<img className="star" src={stars_1} onClick={handle_starsClick}/>*/}
+                    
                     {
                         localStorage.getItem("login") === 'true' ? (
                             isFav ? (
@@ -90,13 +99,14 @@ const TermCard = (props) =>{
                     <h3 className="trem-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
                     <Accordion className="my-3" defaultActiveKey="0">
                         <Accordion.Item eventKey="0">
-                            <Accordion.Header>{t('.')}</Accordion.Header>
-                           
+                            <Accordion.Header><h2><strong className="font-weight-bold">{t('.')}</strong></h2></Accordion.Header>
                             <Accordion.Body dir={LanguageMap[language].dir}>{props.term.shortDefinition[LanguageMap[language].name]}</Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="1">
-                            <Accordion.Header>{t('...')}</Accordion.Header>
+                            <Accordion.Header><h2><strong className="font-weight-bold">{t('...')}</strong></h2></Accordion.Header>
+                        {props.term.longDefinition && props.term.longDefinition[LanguageMap[language].name] &&
                             <Accordion.Body dir={LanguageMap[language].dir}>{props.term.longDefinition[LanguageMap[language].name]}</Accordion.Body>
+                            }
                         </Accordion.Item>
                     </Accordion>
                 <div>
@@ -118,3 +128,12 @@ TermCard.propTypes = {
 
 
 export default TermCard;
+
+
+                    // {
+                    //     props.categorys.map((item)=>{
+                    //         return(
+                    //         <h1>nigga</h1>
+                    //         );
+                    //     })
+                    // }

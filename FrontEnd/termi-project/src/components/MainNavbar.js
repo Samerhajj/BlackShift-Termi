@@ -19,7 +19,7 @@ import {logoutRoute} from '../api/ApiRoutes';
 
 // --> import Icons
 import { IconContext } from "react-icons";
-import {IoGameController, IoPersonCircle, IoDocument, IoSearch, IoLogOut,IoLogIn} from 'react-icons/io5';
+import {IoGameController, IoPersonCircle, IoDocument, IoSearch, IoLogOut,IoLogIn,AiOutlineHome} from 'react-icons/io5';
 
 // --> import LoginContext
 import { LoginContext } from './LoginContext';
@@ -134,6 +134,8 @@ const handleLogout = () => {
                   </IconContext.Provider>
                 </Link>
               </li>
+              
+              
               <li>
                 <Link to={'/note'} className={location && location.pathname ==='note' ?  'active': 'nav-link'}>
                   {/*<i className="fa fa-regular fa-comment">*/}
@@ -143,6 +145,15 @@ const handleLogout = () => {
                   {/*<img src={santa} alt="santa_note"/>*/}
                 </Link>
               </li>
+              
+              
+    
+              
+        
+              
+              
+              
+              
               
               <li><Link to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
                   {/*<img className="game_icon"  src={gamepad_icon}/>*/}

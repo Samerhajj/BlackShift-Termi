@@ -449,6 +449,7 @@ header .logo {
     -o-transition:0.5s all ease;
     -moz-transition:0.5 all ease;
     float:left;
+    width: 100px;
 }
 
 header.sticky .logo {
@@ -584,9 +585,14 @@ header .mobile_menu nav ul li a.active:after {
     padding-bottom: 8vh;
 }
 .banner.banner_admin{
-    background-image: url(../images/sun-tornado _black.svg);
+    /*background-image: url(../images/sun-tornado _black.svg);*/
+    background-image: url(../images/SVGBackground/stackedstepshaikei.svg);
     min-width: auto;
     min-height: auto;
+    
+    max-height: 20%;
+    /*max-height: 22vh;*/
+
     padding-bottom: 8vh;
 
 }
@@ -595,7 +601,9 @@ header .mobile_menu nav ul li a.active:after {
   
   /*height: 500px;*/
    width: 100vw;
-  height: 60vh;
+   /*height: 60vh;*/
+    height: 40vh;
+
     padding-bottom: 40vh;
     background-position: bottom center;
 }
@@ -783,7 +791,6 @@ header .mobile_menu nav ul li a.active:after {
     .banner.banner_game{
   
     min-width:350PX;
-   
     padding-bottom: 40vh;
     background-position: bottom center;
 }
@@ -1367,3 +1374,7 @@ header .mobile_menu nav ul li a.active:after {
 }
 
 
+.font-for-profile{
+    color:green;
+    font-weight: bold;
+}

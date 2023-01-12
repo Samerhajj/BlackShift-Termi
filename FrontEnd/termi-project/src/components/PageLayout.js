@@ -26,8 +26,8 @@ const PageLayout = ()=>{
             <footer>
                 <div className="wrapper cf">
                     <div className="wrapper">
-                        <Image className="img-fluid " src={christmas}/>
-                        <Image className="img-fluid " src={village}/>
+                        {/*<Image className="img-fluid " src={christmas}/>
+                        <Image className="img-fluid " src={village}/>*/}
                          
                     </div>
                
