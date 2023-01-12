@@ -95,7 +95,7 @@ useEffect(() => {
       <Row>
            <Col xs={1} lg={2}></Col>
            <Col xs={10} lg={8}>      
-                  <label for="exampleFormControlTextarea1" class="form-label">{t('note.body')}</label>
+                  <label for="exampleFormControlTextarea1" className="form-label">{t('note.body')}</label>
                   <textarea 
                   maxLength={378} 
                   value={txtBody} 
