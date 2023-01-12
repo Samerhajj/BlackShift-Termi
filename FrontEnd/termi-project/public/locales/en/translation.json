@@ -93,8 +93,42 @@
              		"text": "At the end of the game, your score will be displayed."
              	}
              ]
+        },
+        "memory-game":{
+            "start-game": "Start Game",
+              "modalTitle": "Instruction",
+              "title":"Memory Game",
+               "goBack": "Go Back",
+               "description":"Word game where you choose definition and choose the correct term for it and earn points for correct answers",
+                "continueToGame": "Continue To Game",
+             "step-by-step": [
+             	{
+             		"id": "step1",
+             		"text": "Click the \"Start Game\" button to begin the game."
+             	},
+             	{
+             		"id": "step2",
+             		"text": "click on the grey boxes,the small one is the term, and the big box would be the short term definition."
+             	},
+             	{
+             		"id": "step3",
+             		"text": "clicking on the term and its definition would match both the two boxes."
+             	},
+             	{
+             		"id": "step4",
+             		"text": "If your answer is correct, the shown term with its right definition would still up."
+             	},
+             	{
+             		"id": "step5",
+             		"text": "finish the game according to the previous steps."
+             	},
+             	
+             	{
+             		"id": "step6",
+             		"text": "At the end of the game, your score will be displayed."
+             	}
+             ]
         }
-    
         
     },
     "note":{
