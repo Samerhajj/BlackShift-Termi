@@ -10,6 +10,11 @@ const encrypt = require("mongoose-encryption"); //new level 2
 //   email: String,
 //   password: String,
 // });
+
+// Gender : Object,
+
+
+
 // replace ↓↑
 const UserSchema = new mongoose.Schema({
   fullName:String,

@@ -12,6 +12,8 @@ const register = async (req, res) => {
   }
   // Extract the fields from the request body
   const {fullName, phone, language, field, email, password,favorite } = req.body.data;
+  // const {fullName, phone, language, field, email, password,favorite,gender } = req.body.data;
+
     // const {fullName, phone, language, field, email, password,favorite } = req.body;
 
   // Check if a user with the same email already exists
@@ -25,6 +27,7 @@ const register = async (req, res) => {
   }
   // Create a new user
   const newUser = new User({fullName, phone, language, field, email, password});
+  // const newUser = new User({fullName, phone, language, field, email, password,gender});
   const payload = {id: newUser.id};
   const token = jwt.sign({email}, process.env.SECRET,{expiresIn: "1h"});
   //req.session.jwt = token;

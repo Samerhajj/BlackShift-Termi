@@ -86,6 +86,31 @@ const suggestTerm = async (req,res) =>{
             res.send(err);
         } 
 };
+// const suggestTermEnglish = async (req,res) =>{
+//         console.log(req.body);
+        
+//         const newSuggest = await new Suggest({
+//           categories: req.body.selectedCategory,
+//           shortDefinition:{
+//             english:req.body.values['shortDefinition-english']
+//           },
+//           lastEdited: Date.now(),
+//           conceptName: req.body.values.conceptName,
+//           suggestedBy: req.body.values.suggestedBy,
+//         }
+        
+//         );
+//         try{
+//             await newSuggest.save();
+//             res.send(newSuggest);
+//         }
+//         catch(err){
+//             res.send(err);
+//         } 
+// };
+
+
+
         
 
 
@@ -154,7 +179,8 @@ module.exports = {favorites,
                   suggestTerm,
                   getAllSuggestedTerms,
                   addSelectedTerm,
-                  deleteOneSuggest
+                  deleteOneSuggest,
+                  
 };
 
 
