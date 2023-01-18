@@ -9,17 +9,19 @@ import { Modal, Button } from "react-bootstrap";
 import LanguageMap from '../api/LanguageAPI';
 import TermCard from '../components/TermCard/TermCard';
 import { useNavigate} from 'react-router-dom';
-
+import CategorySelector from "../components/CategorySelector";
 const TermsPage = () =>{
-    const { t, i18n } = useTranslation();
-    const [searchedTerm, setSearchedTerm] = useState("");
-    const [category, setCategory] = useState(0);
-    const [suggestions, setSuggestions] = useState([]);
-    const [inputLanguage, setInputLanguage] = useState(i18n.language);
-    const navigate = useNavigate();
-    const [resultTerm, setResultTerm] = useState({});
-    const [resultLanguage, setResultLanguage] = useState(i18n.language);
-    const [showResult, setShowResult] = useState(false);
+      localStorage.setItem('currentPage', 'TermsPage')//test
+
+const { t, i18n } = useTranslation();
+const [searchedTerm, setSearchedTerm] = useState("");
+const [category, setCategory] = useState(JSON.parse(localStorage.getItem("profileBody"))['field']);
+const [suggestions, setSuggestions] = useState([]);
+const [inputLanguage, setInputLanguage] = useState(i18n.language);
+const navigate = useNavigate();
+const [resultTerm, setResultTerm] = useState({});
+const [resultLanguage, setResultLanguage] = useState(i18n.language);
+const [showResult, setShowResult] = useState(false);
     
     
     
@@ -45,35 +47,72 @@ const TermsPage = () =>{
     };
     
     const search = async (term) => {
-        setShowResult(false);
-        if(term != ""){
-            const res = await SearchApi.search(term, category);
-            if(res.success){
-                let closestResult = res.body['closestResult'];
-                let categoryResult = res.body['categoryNames'];
-                console.log(closestResult._id);
-                //let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
-                let favorite=[];
-               if (localStorage.getItem("profileBody") !== null) {
-                     favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
-                  }
-                setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),categoryNames:categoryResult});
-                setResultLanguage(inputLanguage);
-                setShowResult(true);
-                setInputLanguage(i18n.language);
-            }else{
-                //show modal, ask user if wants to add concept or not
-                setShow(true);
+        console.log(category);
+        if(category !== undefined){
+            setShowResult(false);
+            
+            if(term != ""){
+                const res = await SearchApi.search(term, category);
+                if(res.success){
+                    
+                    
+                    var attempts = (parseInt(localStorage.getItem('searchCounter'))+1);
+                    localStorage.setItem("searchCounter",attempts );
+                    
+                    
+                    let closestResult = res.body['closestResult'];
+                    closestResult = Object.assign({}, closestResult, { category });
+                    let categoryResult = res.body['categoryNames'];
+                    // categoryResult = Array.from(categoryResult).filter((cat) => cat.categoryId == category);
+                    // console.log(categoryResult);
+                    //let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
+                    let favorite=[];
+                    if (localStorage.getItem("profileBody") !== null) {
+                        favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
+                         
+                    }
+                    console.log(categoryResult);
+                     setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),category:category,categoryNames:categoryResult});
+                    setResultLanguage(inputLanguage);
+                    setShowResult(true);
+                    setInputLanguage(i18n.language);
+                    
+                   
+                    // if(closestResult.categoryId == category) 
+                //     {
+                //     setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),category:category,categoryNames:categoryResult});
+                //     setResultLanguage(inputLanguage);
+                //     setShowResult(true);
+                //     setInputLanguage(i18n.language);
+                // } else {
+                //     // show an error message or alert to the user that no terms were found in the selected category
+                //     alert("No terms were found in the selected category, please try again with a different category.");
+                // }
+
+                }else{
+                    //show modal, ask user if wants to add concept or not
+                    setShow(true);
+                }
             }
-            {
-            }
-        }
-        setSearchedTerm("");
+            setSearchedTerm("");
+        }else{
+    		alert("Must choose a category first");
+    	}
     };
     
+	const changeCategory = (newCategory) => {
+		if(newCategory === undefined){
+			setCategory(undefined);
+		}else{
+			setCategory(newCategory.categoryId);
+		}
+	};
     const autoComplete = async () => {
+        if(category !== undefined)
+        {
+            setShowResult(false);
         let input = searchedTerm;
-        const res = await SearchApi.autocomplete(input, LanguageMap[inputLanguage].name);
+        const res = await SearchApi.autocomplete(input, LanguageMap[inputLanguage].name,category);
         console.log(res);
         if(res.success){
             console.log(res.body);
@@ -97,7 +136,10 @@ const TermsPage = () =>{
         //   setSuggestions(temp);
         // }
         }
-        
+        }
+        else if( handleEnterClick(true)){
+            alert("Must choose a category first");
+        }
     };
     
     const selectAutoCompleteTerm = (term)=>{
@@ -172,11 +214,10 @@ const TermsPage = () =>{
             <div className="banner banner_home">
                 <div className='wrapper'>
                     <div className="banner_content fade-in-element">
-                    
-
-                    
-                    
                         <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
+                        <div>
+        					<CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+        				</div>
                         <div className="search-box">
                             <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
                             <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm)}}></i>
@@ -206,7 +247,8 @@ const TermsPage = () =>{
             }
             
             { showResult ? 
-                <TermCard categorys={resultTerm.categoryNames} term={resultTerm.term} isSearch={true} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
+               <TermCard category={resultTerm.category} categorys={resultTerm.categoryNames} term={resultTerm.term} isSearch={true} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
+
                 :
                 null
             }

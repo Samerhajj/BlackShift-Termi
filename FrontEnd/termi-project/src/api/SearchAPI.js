@@ -8,6 +8,7 @@ const closestResult = {};
 const search = async (term, category) =>{
     try{
         let query = {params: {term: term, category: category}};
+        console.log(category);
         const res = await axios.get(searchRoute, query);
         // If the server returns a status error
         if(res.status != 200){
@@ -17,14 +18,15 @@ const search = async (term, category) =>{
             // Take all the close terms
             Object.assign(allCloseResults, res.data);
             // Take the closest term
-            Object.assign(closestResult, res.data[0]);
+            Object.assign(closestResult, res.data[0], {category: category});
+
             
             
             console.log(closestResult['categories'])
             const ur = "http://dir.y2022.kinneret.cc:7013/search/returnAllCategories";
             const categoryNames = await axios.post(ur,closestResult['categories']);
             console.log("*****(((((((((((((((((((((((((((((((((((**")
-            console.log(categoryNames.data);
+            console.log(categoryNames);
             console.log("*****((((((((((((((((((((((((((((((((((**")
 
             
@@ -42,9 +44,9 @@ const search = async (term, category) =>{
     }
 };
 
-const autocomplete = async (input, language)=>{
+const autocomplete = async (input, language,category)=>{
     try{
-        let params = {input: input, language: language};
+        let params = {input: input, language: language,category:category};
         const res = await axios.post(autocompleteRoute, params);
         return {body: res.data, success: true};
     }catch(e){
@@ -55,5 +57,7 @@ const autocomplete = async (input, language)=>{
         }
     }
 };
+
+
 
 export default {search, autocomplete, closestResult, allCloseResults};

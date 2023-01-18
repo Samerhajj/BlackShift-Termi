@@ -1,6 +1,6 @@
 
 BackEnd
-dir.dev.kinneret.cc:7013/login
+http://dir.y2022.kinneret.cc:7013/
 
 FrontEnd
 http://dir.y2022.kinneret.cc:7024/

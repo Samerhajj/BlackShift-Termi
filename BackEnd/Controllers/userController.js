@@ -63,18 +63,15 @@ const addFavorite = async (req,res) =>{
 //-------------------------------------------------------------------------------------------------------------------------------------
 
 const suggestTerm = async (req,res) =>{
-        console.log(req.body);
+        console.log("->>>>" + req.body);
         
          const newSuggest = await new Suggest({
           categories: req.body.selectedCategory,
-          shortDefinition:{
-            hebrew:req.body.values['shortDefinition-hebrew'],
-            english:req.body.values['shortDefinition-english'],
-            arabic:req.body.values['shortDefinition-arabic']
-          },
+          
+          shortDefinition:req.body.shortDefinition,
           lastEdited: Date.now(),
-          conceptName: req.body.values.conceptName,
-          suggestedBy: req.body.values.suggestedBy,
+          conceptName: req.body.conceptName,
+          suggestedBy: req.body.suggestedBy,
         }
         
         );
@@ -86,6 +83,13 @@ const suggestTerm = async (req,res) =>{
             res.send(err);
         } 
 };
+
+
+
+const activity = async (req,res)=>{
+  res.send("hello");
+}
+
 // const suggestTermEnglish = async (req,res) =>{
 //         console.log(req.body);
         
@@ -144,6 +148,8 @@ const addSelectedTerm = async(req,res)=>{
   // catch(err){
   //   res.send(err);
   // }
+  console.log("NIGERIAN MAN");
+  console.log(req.body);
   const id = req.body._id;
   console.log(id);
   console.log("*********************************************************************")
@@ -156,9 +162,9 @@ console.log(req.body);
 // };
   const NewTerm = new Search({
     
-      categories:req.body.data.categories,
-      shortDefinition:req.body.data.shortDefinition,
-      conceptName:req.body.data.conceptName
+      categories:req.body.categories,
+      shortDefinition:req.body.shortDefinition,
+      conceptName:req.body.conceptName
 
   });
 

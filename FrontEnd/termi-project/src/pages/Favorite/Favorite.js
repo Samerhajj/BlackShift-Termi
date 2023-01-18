@@ -45,7 +45,7 @@ const Favorite  = ({initialLanguage}) =>{
          </div>
     </div>
     <div className="wrapper">
-        <button className="btn btn-primary" onClick={handle_showMore}>Show More</button>
+        <button className="btn btn-primary mt-5" onClick={handle_showMore}>Show More</button>
         {(isOpen) ?
         (
             list.map((item,index)=>{

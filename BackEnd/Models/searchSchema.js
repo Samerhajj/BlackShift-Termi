@@ -22,3 +22,9 @@ const SEARCH = mongoose.model("allconceptsdatabase", searchSchema);
 
 module.exports = SEARCH;
 
+
+
+
+
+
+    

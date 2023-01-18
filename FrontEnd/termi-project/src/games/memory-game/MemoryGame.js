@@ -18,6 +18,8 @@ import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 
 const MemoryGame = () => {
+	localStorage.setItem('currentPage', 'MemoryGame')//test
+
 	const { t, i18n } = useTranslation();
 	const [cards, setCards] = useState([]);
 	const [showScore, setShowScore] = useState(false);
@@ -30,7 +32,7 @@ const MemoryGame = () => {
 	const [pointsGained, setPointsGained] = useState(0);
 	const [showModal, setShowModal] = useState(false);
 	const steps = t('games.memory-game.step-by-step', { returnObjects: true });
-	const [category, setCategory] = useState({});
+	const [category, setCategory] = useState(JSON.parse(localStorage.getItem("profileBody"))['field']);
 	
 	function handleOpenModal() {
 	    setShowModal(true);
@@ -46,11 +48,11 @@ const MemoryGame = () => {
 	
 	const initGame = async () => {
 		// get 5 random terms from the choosen category
-		if(category){
+		if(category !== undefined){
 			let numOfTerms = 5;
-			let categoryId = category.categoryId;
+			// let categoryId = category.categoryId;
 			let numOfCards = numOfTerms * 2;
-		    const res = await GamesApi.random(numOfTerms, categoryId);
+		    const res = await GamesApi.random(numOfTerms, category);
 		    if(res.success){
 		        let terms = res.body;
 		        let allCards = [];
@@ -131,6 +133,14 @@ const MemoryGame = () => {
 		
 	};
 	
+	const changeCategory = (newCategory) => {
+		if(newCategory === undefined){
+			setCategory(undefined);
+		}else{
+			setCategory(newCategory.categoryId);
+		}
+	};
+	
 	useEffect(() => {
 		console.log(flipped);
 		if(flipped.length >=2){
@@ -198,7 +208,7 @@ const MemoryGame = () => {
 				<div className="center-button">
 					<AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
 					<div>
-						<CategorySelector initialCategory={1} categoryChanged={(newCategory) => {setCategory(newCategory)}}/>
+						<CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
 					</div>
 			    	<Modal show={showModal} onHide={() => setShowModal(false)} >
 						<Modal.Header className="mx-0" closeButton>

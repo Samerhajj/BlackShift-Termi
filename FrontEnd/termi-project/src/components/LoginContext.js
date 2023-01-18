@@ -19,6 +19,8 @@ const LoginProvider = (props) => {
     console.log(storedLogin);
     if (storedLogin) {
       console.log("in if " + storedLogin);
+            localStorage.setItem('searchCounter', 0);
+
       setLogin(storedLogin);
     }
   },[]);

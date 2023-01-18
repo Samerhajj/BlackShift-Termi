@@ -75,8 +75,12 @@ const suggestFromUser = async (values,selectedCategory) => {
     try{
         const user = JSON.parse(localStorage.getItem('profileBody'));
         values.suggestedBy = user.fullName;
+        values.selectedCategory = [selectedCategory];
         console.log(selectedCategory);
-        const res = await axios.post(suggestUserRoute, {values,selectedCategory})
+        console.log(values);
+        const res = await axios.post(suggestUserRoute, values);
+        console.log(res);
+        console.log({values,selectedCategory});
         return {body: res, success: true};
     }
     catch(err){

@@ -58,6 +58,8 @@ const handleLogout = () => {
                       // ↓  replace  ↑
                       
   }      
+  localStorage.removeItem('searchCounter');
+
                   axios.delete(logoutRoute, {
                         headers: {
                           'x-auth-token': `${localStorage.getItem('token')}`,

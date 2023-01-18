@@ -3,36 +3,22 @@ import axios from "axios";
 import { Input,Select, Button } from 'antd';
 import AdminAPI from '../../api/AdminAPI';
 import {Form, Modal} from "react-bootstrap";
-import EditModal from './EditCard/EditModal.js'
-import PropTypes from 'prop-types'
+import EditModal from './EditCard/EditModal.js';
+import PropTypes from 'prop-types';
+import LanguageMap from '../../api/LanguageAPI';
 import './Admin.css'
+import {Image } from 'react-bootstrap';
 
 // --> import Icons
+
 import { IconContext } from "react-icons";
 import {AiTwotoneEdit,AiFillDelete} from 'react-icons/ai';
 
-const SuggestCard = ({ data,setSuggestList,suggestList }) => {
-  const languages = ['english', 'arabic', 'hebrew'];
-  const [currentIndex, setCurrentIndex] = useState(0);
+const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
+    console.log(data);
+   const [currentLanguage, setLanguage] = useState(initialLanguage);
   const [show, setShow] = useState(false);
-  
-  const handlePrevSlide = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-    else{
-      setCurrentIndex(languages.length-1);
-    }
-  }
 
-  const handleNextSlide = () => {
-    if (currentIndex < languages.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-    else{
-    setCurrentIndex(0);
-    }
-  }
   
   const handleDelete = async () =>{
       const response = await AdminAPI.deleteSelectedTerm(data);
@@ -49,7 +35,7 @@ const SuggestCard = ({ data,setSuggestList,suggestList }) => {
   const handleApprove=async()=>{
     const id = data._id;
     console.log(id);
-    // const response = await AdminAPI.addSelectedTerm({_id:id});//data
+    console.log(data);
     const response = await AdminAPI.addSelectedTerm(data);
     if(response.success){
       console.log(response);
@@ -62,39 +48,58 @@ const SuggestCard = ({ data,setSuggestList,suggestList }) => {
     }
   }
   
-// const handleApprove = async()=>{
-  
-//   const respone = await.AdminAPI.addSelecterTerm()
-// }
 
-  const currentLanguage = languages[currentIndex];
+  const changeLanguage = (newLanguage) => { 
+    console.log("hi from Change Language");
+  setLanguage(newLanguage);
+};
 
 
   return (
+
     
     <div className="oneCard-e p-4">
-    
+     <div className="language-selector">
+                         {
+                Object.keys(LanguageMap).map((language) => (
+                  <div className="m-0 p-2 language-btn" key={language} onClick={() => {changeLanguage(language)}}>
+                    <Image className="img-fluid" src={LanguageMap[language].src} />
+                  </div>
+                ))
+              }
+              </div>
       <div className="d-flex justify-content-around mt-3">
+      
               <span className="edit-icon" onClick={handleShow}>
                   <IconContext.Provider value={{ size: "2rem" }}>
                       <AiTwotoneEdit/>
                   </IconContext.Provider>
               </span>
-                  <h1 className="suggest-card__title font-weight-bold">{data.conceptName[currentLanguage]}</h1>
+              
+              
+              {/*data.categories.map((category)=>
+               <div>{LanguageMap[currentLanguage].categories[category]}</div>
+               )*/}
+               
+               {data.conceptName &&(
+                  <h1 className="suggest-card__title font-weight-bold">{data.conceptName[LanguageMap[currentLanguage].name]}</h1>
+               )
+                 
+               }
               <span>
+               
                   <IconContext.Provider value={{ size: "2rem" }}>
                       <AiFillDelete onClick={handleDelete}/>
                   </IconContext.Provider>
               </span>
+             
       </div>
       
-      {
-        data.shortDefinition && (
+      {data.shortDefinition && (
           <div className="definition">
-            <p className="definition__text">{data.shortDefinition[currentLanguage]}</p>
+            <p className="definition__text">{data.shortDefinition[LanguageMap[currentLanguage].name]}</p>
           </div>
-        )
-      }
+        )}
       
       {/*
       {
@@ -115,14 +120,14 @@ const SuggestCard = ({ data,setSuggestList,suggestList }) => {
     }
     */}
       <h6 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h6>
-      <button className="btn btn-danger" onClick={handleNextSlide}>Next</button>
-      <button className="btn btn-success" onClick={handlePrevSlide}>Prev</button>
+     
       
       <button className="btn" onClick={handleEditCard}>send to edit</button>
         <button className="btn" onClick={handleApprove}>Approve to database</button>
       
       {(show)&&(<EditModal show={show} setShow={setShow} />)}
     </div>
+    
   );
   
   function handleShow () {

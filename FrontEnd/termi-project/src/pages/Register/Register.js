@@ -1,21 +1,25 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import RegisterHook from './RegisterHook';
+import axios from 'axios';
 // --> styles
 // import styles from "../styles/RegisterPage.css";
 import styles from "./RegisterPage.module.css";
 
 // --> APIs
 import AuthAPI from '../../api/AuthAPI';
+import LanguageMap from '../../api/LanguageAPI';
 
 const Register = () =>{
-  
-  const navigate = useNavigate();
-  const {t} = useTranslation();
-  const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",field:"",favorite:[]});
-  const { errors, validate } = RegisterHook(); // use the custom hook
+    // localStorage.setItem('currentPage', 'Register')//test
 
+  const navigate = useNavigate();
+  const {t, i18n} = useTranslation();
+  // const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",field:"",favorite:[]});
+  const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",gender : "",field:"",favorite:[]});
+  const { errors, validate } = RegisterHook(); // use the custom hook
+  const [category,setCategory] = useState([]);
 {
   // Handle the button click to register
   //   const handleSubmit = async () => {
@@ -28,6 +32,23 @@ const Register = () =>{
   //     }
   // };
 } 
+useEffect(()=>{
+  const fetchCategory= async () => {
+										// const res = await axios.get("http://dir.y2022.kinneret.cc:7013/category");
+										// console.log(res.data);
+       const res = await axios.get("http://dir.y2022.kinneret.cc:7013/category");
+        console.log(res.data);
+        let temp = [];
+        
+        res.data.map((item)=>{
+          temp.push(item);
+        });
+        setCategory([...temp]);
+        console.log(category);
+                    
+								   }
+fetchCategory();	
+},[])
 const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validate(data); // validate the data
@@ -87,14 +108,22 @@ const handleSubmit = async (e) => {
               {errors.email && <p className="text-danger">{errors.email}</p>}
           </div>
           
+          {/* onChange={(e)=>setData({...data,gender:e.target.value})} */}
+          
+          
           
         <select
             style={{ width: 200 }}
           className={`form-select w-100 ${errors.field ? 'is-invalid' : ''}`}
+          onChange={(e)=>setData({...data,gender:e.target.value})}
           >
+            <option value="gender">gender</option>
             <option value="male">male</option>
             <option value="female">female</option>
+            <option value="other">other</option>
       </select>
+      
+      
           <div className="form-group my-3">
             <input
               type="password"
@@ -114,10 +143,16 @@ const handleSubmit = async (e) => {
             onChange={(e)=>setData({...data,field:e.target.value})}
           >
             <option value="Select">{t('register.select_category')}</option>
-            <option value="Programming">{t('register.option_one')}</option>
-            <option value="Medicine">{t('register.option_two')}</option>
-            <option value="Human_Resources">{t('register.option_three')}</option>
+            <option value="1">{t('register.option_one')}</option>
+            {/*<option value="2">{t('register.option_two')}</option>*/}
+            <option value="0">{t('register.option_three')}</option>
       </select>
+      
+    
+      
+      
+      
+      
           
         <select 
             style={{ width: 200}}
@@ -132,7 +167,9 @@ const handleSubmit = async (e) => {
             <option value="Arabic">{t('register.lang_ar')}</option>
             <option value="Hebrew">{t('register.lang_he')}</option>
       </select>
-          
+
+      
+      
           
           <div className="form-group">
             <button

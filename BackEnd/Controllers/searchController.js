@@ -16,7 +16,8 @@ const searchTerm = async(req,res)=>{
         "$text": {
           "$search": term
           
-        }
+        },
+        "categories": { $in : [categoryNum] }
       }).sort( 
         { score: { $meta : 'textScore' } }
       );
@@ -43,25 +44,31 @@ const searchTerm = async(req,res)=>{
 const autoCompleteTerm = async(req,res) =>{
   let input = req.body.input;
   let language = req.body.language;
+  let category = req.body.category;
   
-  
-  // {"conceptName": 1} => filters the fields and returns the fields with the value of 1.
-  console.log(input + " " + language);
-  // let respones = await Search.find({"conceptName.english": {'$regex': "^"+term ,$options:'i'}},{"conceptName": 1});
-  let respones = await Search.find({
-            "$text": {
-            "$search": input
-            }
-          }).sort( 
-            { score: { $meta : 'textScore' } }
-          );
-          
-  // Fix this to be done within the query itself
-  let temp = [];
-  respones.forEach((item)=>{
-      temp.push(item.conceptName[language]);
-  });
-  res.send(temp);
+  if(input != null && category != null){
+    // {"conceptName": 1} => filters the fields and returns the fields with the value of 1.
+    console.log(input + " " + language);
+    // let respones = await Search.find({"conceptName.english": {'$regex': "^"+term ,$options:'i'}},{"conceptName": 1});
+    let categoryNum = parseInt(category);
+    let respones = await Search.find({
+              "$text": {
+                "$search": input
+              },
+              "categories": { $in : [categoryNum] }
+            }).sort( 
+              { score: { $meta : 'textScore' } }
+            );
+            
+    // Fix this to be done within the query itself
+    let temp = [];
+    respones.forEach((item)=>{
+        temp.push(item.conceptName[language]);
+    });
+    res.send(temp);
+  }else{
+    res.status(400).send("Missing data");
+  }
   // let respones = await Search.aggregate([
   //       {
   //         "$search": {
@@ -202,7 +209,7 @@ const addNewCategories = async (req,res) =>{
 
 const getCategorie = async (req,res)=>{
   // const cats = [0,1];
-  const cats  = req.body
+  const cats  = req.body.categoryIds
   
   console.log("*****(((((((((((((((((((((((((((((((((((**")
 

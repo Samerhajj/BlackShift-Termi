@@ -3,6 +3,8 @@ import axios from "axios";
 const getAllSuggestedTerms = async (termId) => {
     try{
          const res = await axios.get("http://dir.y2022.kinneret.cc:7013/user/allsuggestedterms");
+         console.log("=>>>>>>");
+         console.log(res.data);
          return {body: res.data, success: true};
     }
     catch(err){
@@ -15,7 +17,7 @@ const addSelectedTerm = async (data)=>{
     // not implemented
     try{
         // const res = await axios.put(process.env.React_App_BaseURL + "user" + '/' + "approve-term",{_id:term_id});
-        const res = await axios.put(process.env.React_App_BaseURL + "user" + '/' + "approve-term",{data});
+        const res = await axios.put(process.env.React_App_BaseURL + "user" + '/' + "approve-term",data);
         console.log(res);
         return {body: res, success: true};
     }

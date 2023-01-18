@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import CategoryApi from '../api/CategoryAPI';
 
 const CategorySelector = (props) => {
-    const [selectedCategory, setSelectedCategory] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState(props.initialCategory);
     const [categories, setCategories] = useState([]);
     
     useEffect(() => {

@@ -2,8 +2,8 @@ import React,{useState} from "react";
 import { Form, Input,Select, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 import UserAPI from './../api/UserAPI';
-import {Modal} from "react-bootstrap";
-
+import {Modal ,Tab ,Row} from "react-bootstrap";
+import Tabs from './SuggestConceptPage/Tabs'
 const { Option } = Select;
 const layout = {
   labelCol: { span: 8 },
@@ -24,6 +24,8 @@ const validateMessages = {
   },
 };
 const SuggestConceptPage=()=>{
+      localStorage.setItem('currentPage', 'SuggestConceptPage')//test
+
   
 const validateUrl = (rule, value, callback) => {
   if (!value) {
@@ -69,21 +71,28 @@ const [form] = Form.useForm();
 const englishOptions = [
   { value: 0, label: 'human resources' },
   { value: 1, label: 'software engineering' },
-  { value: 'medicine', label: 'medicine' },
 ];
 const arabicOptions = [
   { value: 0, label: 'الموارد البشرية' },
   { value: 1, label: 'برمجة' },
-  { value: 'medicine', label: 'طب' },
 ];
 const hebrewOptions = [
   { value: 0, label: 'משאבי אנוש' },
   { value: 1, label: 'תִכנוּת' },
-  { value: 'medicine', label: 'רפואה' },
 ];
 
 
   const onFinish = async(values)=> {
+   
+      values.shortDefinition = {
+     english: values['shortDefinition-english'],
+     arabic: values['shortDefinition-arabic'],
+     hebrew: values['shortDefinition-hebrew']
+  };
+   delete values['shortDefinition-english'];
+ delete values['shortDefinition-arabic'];
+ delete values['shortDefinition-hebrew'];
+  console.log(values);
     const res = await UserAPI.suggestFromUser(values,selectedCategory);
    
     console.log(res);
@@ -99,17 +108,24 @@ const hebrewOptions = [
     //concept names have to be Select
     return (
         <>
-    <div className="banner banner_profile">
+    <div className="banner banner_note">
         <div className="wrapper">
           <div className="banner_content">
-            <h1 className="pulsing-element">
-              <strong>Suggest Concept...</strong>
+            <h1 className="">
+              <strong><h3>Suggest Concept...</h3></strong>
             </h1>
           </div>
         </div>
     </div>
     
     <div className="wrapper">
+    
+    
+    {/*<Tabs/>*/}
+    
+    
+    {
+    
      <Form {...layout}  form ={form} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                       <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
@@ -120,20 +136,10 @@ const hebrewOptions = [
                     </Button>
                   </Form.Item>
             
-                  {/* <Form.Item label="URL" name="ReadMore" rules={[{ validator: validateUrl }]}>
-                    <Input />
-                  </Form.Item>*/}
+                  
                     <Form.Item label="Category (English)" rules={[{ required: true, message: 'Please select a category' },
                     { whitespace: true, message: 'Category cannot be empty' }]}>
-                      {/* <Select
-                        placeholder="Select a category"
-                        value={selectedCategory}
-                        onChange={(value) => setSelectedCategory(value)}>
-                          
-                        <Option value="human resources">Human Resources</Option>
-                        <Option value="medicine">Medicine</Option>
-                        <Option value="software engineering">Software Engineering</Option>
-                      </Select>*/}
+                     
                       
                       <Select
                          name="category"
@@ -158,16 +164,7 @@ const hebrewOptions = [
                   
                   <Form.Item label="Category (Hebrew)" rules={[{ required: true, message: 'Please select a category' }, 
                   { whitespace: true, message: 'Category cannot be empty' }]}>
-                    {/*<Select
-                      value={selectedCategory}
-                      onChange={(value) => setSelectedCategory(value)}
-                      placeholder="Select a category">
-                      
-                      <Option value="human resources">שאבי אנוש</Option>
-                      <Option value="medicine">רפואה</Option>
-                      <Option value="software engineering">תִכנוּת</Option>
-                      
-                    </Select>*/}
+                    
                      <Select
                      name="category"
                       value={selectedCategory}
@@ -209,17 +206,10 @@ const hebrewOptions = [
                     <Input.TextArea />
                   </Form.Item>
                   
-                   {/* 
-                   <Form.Item name="longDefinition-english" label="Long Definition (English)" rules={[{ required: true }]}>
-                    <Input.TextArea />
-                  </Form.Item>
-                   <Form.Item name="longDefinition-arabic" label="Long Definition (Arabic)" rules={[{ required: true }]}>
-                    <Input.TextArea />
-                  </Form.Item>
-                   <Form.Item name="longDefinition-hebrew" label="Long Definition (Hebrew)" rules={[{ required: true }]}>
-                    <Input.TextArea />
-                  </Form.Item>*/}
-        </Form>
+        </Form>}
+        
+
+        
         </div>
         
     </>

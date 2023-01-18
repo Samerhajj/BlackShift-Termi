@@ -10,7 +10,8 @@ import "./../styles/ProfilePage.css";
 import profileAPI from "../api/ProfileAPI";
 
 const ProfilePage =  () => {
-  
+  localStorage.setItem('currentPage', 'ProfilePage')//test
+
   let avatarGenerator = new AvatarGenerator();
   let avatarImageUrl = avatarGenerator.generateRandomAvatar('random13213');
   console.log(avatarImageUrl);
@@ -408,14 +409,23 @@ function handleChange(event) {
                   
                   
                    <div className="row">
-                    <div className="col-md-6">
+                      <div className="col-md-6">
                       <label>Preferred language</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p className="font-for-profile"> {x.language}</p>
-                    </div>
+                      </div>
+                      <div className="col-md-6">
+                        <p className="font-for-profile"> {x.language}</p>
+                      </div>
                     </div>
                     
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label>gender</label>
+                      </div>
+                      <div className="col-md-6">
+                        <p className="font-for-profile">{x.gender}</p>
+                      </div>
+                  </div>
+                  
                     <div className="row">
                       <div className="col-md-6">
                         <label>Points</label>

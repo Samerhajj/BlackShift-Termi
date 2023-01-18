@@ -15,4 +15,4 @@ const getAllCategories = async ()=>{
     }
 };
 
-export default {getAllCategories};
+export default {getAllCategories}; 

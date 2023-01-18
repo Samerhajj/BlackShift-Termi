@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import LanguageMap from '../api/LanguageAPI';
+// import { useLocation } from 'react-router-dom';
 
 const LanguageSelector = () => {
   
@@ -13,7 +14,25 @@ const LanguageSelector = () => {
     
     React.useEffect(() =>{
         document.body.dir = i18n.dir(selectedLanguage);
+        
+        
+//         let location = useLocation();
+//   console.log(location.pathname);
+//   return <div>The current URL is: {location.pathname}</div>;
+        
+        
+      console.log(`current language is : ${selectedLanguage} `)
+      const current = new Date();
+      const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()} ${current.toLocaleTimeString()}`;
+      console.log("The data and the hour that the user change the language")
+      console.log(date);
+
+        
     }, [selectedLanguage]);
+    
+
+    
+    
     
     return(
       <div className="d-flex gap-1">

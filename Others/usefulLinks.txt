@@ -49,3 +49,12 @@ JSON Pretty Print :
                     then u can git add commit push
                     
                     REMEMBER TO GENERATE TOKEN SO U CAN ACTUALLY ACCESS THE REPO
+                    SAMER TOKEN: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
+                    
+                    JERIES TOKEN : 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
+                    
+
+
+Our icons in this app from : 
+                            https://react-icons.github.io/react-icons/search?q=delete  
+https://www.techsmith.com/blog/extract-text-from-image/

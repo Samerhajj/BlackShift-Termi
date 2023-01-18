@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import axios from "axios";
 import { useNavigate} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 // --> components
 import SuggestCard from './SuggestCard';
 
@@ -13,11 +14,17 @@ const ViewSuggestions = ()=> {
     
  const navigate = useNavigate();
  const [suggestList,setSuggestList] = useState([]);
+    const { i18n } = useTranslation();
 
  // --> functions
  const handleGetAllSuggest = async() =>{
     const response = await AdminAPI.getAllSuggestedTerms();
       if(response.success){
+                    console.log("**********************");
+
+          console.log(response.body);
+                    console.log("**********************");
+
         setSuggestList([...response.body])
      }
      else{
@@ -28,9 +35,9 @@ const ViewSuggestions = ()=> {
     navigate('/admin');
   };
 
-useEffect(()=>{
-    handleGetAllSuggest();
-},[])
+// useEffect(()=>{
+//     handleGetAllSuggest();
+// },[])
 return (
     <div>
     <div className="banner banner_admin">
@@ -54,7 +61,7 @@ return (
                {
                  suggestList.map((item,index)=>{
                    console.log(item);
-                   return(<SuggestCard key={index} data={item} suggestList={suggestList} setSuggestList={setSuggestList}/>)
+                   return(<SuggestCard key={index} data={item} suggestList={suggestList} setSuggestList={setSuggestList} initialLanguage={i18n.language}/>)
                  })
                }
                </div>

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const suggestSchema = new mongoose.Schema({
-  categories:String,  
+  categories:Array,  
   shortDefinition:Object,
   lastEdited:{
     type: Date,

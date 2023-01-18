@@ -10,6 +10,7 @@ const DynamicTitleRoute = ({title,element})=> {
   useEffect(() => {
     //if (isProtectedRoute) {
       document.title = title;
+      console.log(location.pathname);
 //    }
   }, [title]);
   return element;

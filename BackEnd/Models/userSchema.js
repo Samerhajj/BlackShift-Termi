@@ -23,6 +23,7 @@ const UserSchema = new mongoose.Schema({
   field:String,
   email: String,
   password: String,
+  gender:String,
   favorite : [],
   points: {
     type: Number,
