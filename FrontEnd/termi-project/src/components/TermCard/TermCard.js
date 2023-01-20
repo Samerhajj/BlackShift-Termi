@@ -4,7 +4,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import LanguageMap from "../../api/LanguageAPI";
 import style from "./TermCard.css";
 import Image from 'react-bootstrap/Image';
-
+import json2csv from 'json2csv';
+import fileDownload from 'js-file-download';
 // --> APIs
 import UserApi from '../../api/UserAPI';
 
@@ -48,10 +49,75 @@ const TermCard = (props) =>{
     };
     
     
-    const changeLanguage = (newLanguage) => {
-        setLanguage(newLanguage);
-    };
+    // const changeLanguage = (newLanguage) => {
+    //     setLanguage(newLanguage);
+    // };
     
+    
+//     const changeLanguage222 = async(newLanguage) => {
+//         setLanguage(newLanguage);
+
+//         const page  = document.title;
+// 		const isCounterChanged = false;
+//         const response = await UserAPI.languageChanged("concept language changed",page,isCounterChanged);
+//         console.log(response);
+//         if(response.success){
+            
+//           }else{
+//             console.log(response.message);
+//           }
+//     };
+    
+    
+//send if he changed the termcard language and what card he changed and to what language he changed
+let data = JSON.parse(localStorage.getItem("termCardLanguage")) || [];
+
+
+const changeLanguage = async (newLanguage) => {
+    if(newLanguage!==language){
+        const res = await UserApi.languageChanged("Change concept language",document.title,false,newLanguage,language);
+    if(res.success){
+        console.log(res);
+    }else{
+        console.log(res.message);
+    }
+    setLanguage(newLanguage);
+    data = data.concat({term: props.term.conceptName["english"], language: newLanguage});
+    localStorage.setItem("termCardLanguage", JSON.stringify(data));
+
+    }
+};
+
+
+const exportData = () => {
+    // Get the data from Local Storage
+    data = JSON.parse(localStorage.getItem("termCardLanguage")) || [];
+    // Define the fields that you want to include in the CSV file
+    const fields = ['term', 'language'];
+    // Define the options for the json2csv parser
+    const opts = { fields };
+    // Convert the data to CSV format
+    const csv = json2csv.parse(data, opts);
+    // Download the CSV file
+    fileDownload(csv, "termCardChanges.csv");
+};
+//<button onClick={exportData}>Download CSV</button>
+
+
+// const exportData = () => {
+//     // Define the fields that you want to include in the CSV file
+//     const fields = ['termId', 'language'];
+//     // Define the options for the json2csv parser
+//     const opts = { fields };
+//     // Convert the data to CSV format
+//     const csv = json2csv.parse(data, opts);
+//     // Create a link to download the CSV file
+//     const link = document.createElement('a');
+//     link.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+//     link.download = 'data.csv';
+//     link.click();
+// }
+  
     return(
         <div className="term-card" dir="ltr">
        
@@ -115,6 +181,8 @@ const TermCard = (props) =>{
                     </div>
                 </div>
             </div>
+            <div>
+    </div>
         </div>
     );
 };

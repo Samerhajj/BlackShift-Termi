@@ -45,13 +45,31 @@ James's story is just one example of the many success stories that have come out
     },
   ];
   
-  useEffect(() => {
-  const interval = setInterval(() => {
-    setCurrentSlide((currentSlide + 1) % slides.length);
-  }, 10000);
+//   useEffect(() => {
+//   const interval = setInterval(() => {
+//     setCurrentSlide((currentSlide + 1) % slides.length);
+//   }, 10000);
 
-  return () => clearInterval(interval);
-}, [currentSlide]);
+//   return () => clearInterval(interval);
+// }, [currentSlide]);
+
+//               <audio id="my-music" src={christmasSong}></audio>
+//           <button id="play-button">Play Music</button>
+//              <div className="carousel-container">
+//       {slides.map((slide, index) => (
+//         <div
+//           className={`slide ${index === currentSlide ? 'active' : ''}`}
+//           key={index}
+//         >
+//           <img src={slide.image} alt={slide.title} />
+//           <div className="slide-content">
+//             <h2>{slide.title}</h2>
+//             <p><h2>{slide.content}</h2></p>
+//           </div>
+         
+//         </div>
+//       ))}
+//     </div>
 
     return (
         <>
@@ -90,23 +108,6 @@ James's story is just one example of the many success stories that have come out
                     <p>{t('home.game-content')}</p>
                 </div>
               </div>
-               <audio id="my-music" src={christmasSong}></audio>
-          <button id="play-button">Play Music</button>
-             <div className="carousel-container">
-      {slides.map((slide, index) => (
-        <div
-          className={`slide ${index === currentSlide ? 'active' : ''}`}
-          key={index}
-        >
-          <img src={slide.image} alt={slide.title} />
-          <div className="slide-content">
-            <h2>{slide.title}</h2>
-            <p><h2>{slide.content}</h2></p>
-          </div>
-         
-        </div>
-      ))}
-    </div>
             </div>          
         </>
     );

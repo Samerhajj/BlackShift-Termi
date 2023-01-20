@@ -11,8 +11,7 @@ import TermCard from '../components/TermCard/TermCard';
 import { useNavigate} from 'react-router-dom';
 import CategorySelector from "../components/CategorySelector";
 const TermsPage = () =>{
-      localStorage.setItem('currentPage', 'TermsPage')//test
-
+//   localStorage.setItem('currentPage', document.title)//test
 const { t, i18n } = useTranslation();
 const [searchedTerm, setSearchedTerm] = useState("");
 const [category, setCategory] = useState(JSON.parse(localStorage.getItem("profileBody"))['field']);
@@ -33,8 +32,6 @@ const [showResult, setShowResult] = useState(false);
         navigate('/admin');
     };
   
-
-    
     
     
     /*Adding Modal to redirect user to concept add page
@@ -215,9 +212,11 @@ const [showResult, setShowResult] = useState(false);
                 <div className='wrapper'>
                     <div className="banner_content fade-in-element">
                         <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
-                        <div>
-        					<CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
-        				</div>
+                       <div class="small-category-selector">
+                                <div class="flex-container">
+                                    <CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+                                </div>
+                            </div>
                         <div className="search-box">
                             <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
                             <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm)}}></i>

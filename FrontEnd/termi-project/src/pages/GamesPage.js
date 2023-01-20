@@ -8,7 +8,7 @@ import {handleOpenModal} from "../games/backward-definition/BackDefinition";
 import { useTranslation } from 'react-i18next';
 
 const GamesPage = () => {
-  localStorage.setItem('currentPage', 'GamesPage')//test
+  // localStorage.setItem('currentPage', 'GamesPage')//test
 
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -26,9 +26,9 @@ const GamesPage = () => {
       </div>
       
       
-     <Container className="d-flex flex-wrap mt-3" style={{ gap: "10px" }}>
-       {Object.keys(games).map((game) => (
-    <Card key={game} style={{ width: "18rem" }}>
+   <Container className="d-flex flex-wrap mt-3" style={{ gap: "10px" }}>
+   {Object.keys(games).map((game) => (
+    <Card key={game} className="text-center mx-auto" style={{ width: "18rem" }}>
       <Card.Img className="p-5" variant="top" src={games[game].img} />
       <Card.Body>
         <Card.Title>{games[game].title}</Card.Title>
@@ -44,7 +44,6 @@ const GamesPage = () => {
         >
           Play Game
         </Button>
-        <Button variant="light" >?</Button>
        
       </div>
     </Card>

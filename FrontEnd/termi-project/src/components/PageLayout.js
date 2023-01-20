@@ -9,7 +9,7 @@ import christmas from "../images/about-christmas.png";
 import village from "../images/celebarte-church.png";
 import Image from 'react-bootstrap/Image';
 import Snowfall from 'react-snowfall'
-
+import Footer from './Footer';
 
 const PageLayout = ()=>{
     
@@ -42,4 +42,15 @@ const PageLayout = ()=>{
 //     children: PropTypes.node.isRequired,
 // }
 
-export default PageLayout;
+export default PageLayout; 
+/*
+<footer>
+                <div className="wrapper cf">
+                    <div className="wrapper">
+                        {/*<Image className="img-fluid " src={christmas}/>
+                        <Image className="img-fluid " src={village}/>
+                         
+                    </div>
+               
+                </div>
+            </footer>*/

@@ -9,7 +9,13 @@ const { favorites,
         suggestTerm,
         getAllSuggestedTerms,
         deleteOneSuggest,
-        addSelectedTerm
+        addSelectedTerm,
+        handleLanguageChange,
+        deleteLog,
+        getAllLogs,
+        handleLanguageChange2,
+        getAllLogsSearchGames,
+        deleteLog2
 } = require("../Controllers/userController");
 
 
@@ -121,10 +127,25 @@ router.delete("/deleteonesuggest",deleteOneSuggest);
 
 router.put("/approve-term",addSelectedTerm);
 
+router.post("/active-lag",handleLanguageChange);
+
+router.delete("/delete-log",deleteLog);
+
+router.get("/get-all-logs",getAllLogs);
+
+
+
+//handleLanguageChange2
+router.post("/active-game-search",handleLanguageChange2)
+router.delete("/delete-game-search",deleteLog2)
+router.get("/get-all-search-game-logs",getAllLogsSearchGames)
+
+
 module.exports = router;
 
 
-
+// --> Delete all the logs 
+//http://dir.y2022.kinneret.cc:7013/user/delete-log 
 
 
 

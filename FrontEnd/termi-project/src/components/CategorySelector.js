@@ -36,7 +36,8 @@ const CategorySelector = (props) => {
         <select 
             id="category"
             value={selectedCategory}
-            className="form-select"
+            className="selectpicker show-menu-arrow form-control mb-2 "
+            data-style="btn-primary"
             title="Category"
             onChange={(e)=>{onCategoryChange(e.target.value)}}>
             <option value="Category">Category</option>

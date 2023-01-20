@@ -52,3 +52,15 @@ h1 {
   min-width:80px;
   max-height: 50%;
 }
+.icon-selector-container {
+    position: relative;
+}
+
+.icon-selector-container .category-selector {
+    position: absolute;
+    top: -50px; /* adjust as needed */
+    z-index: 1;
+}
+.icon-center{
+  margin-left:25%
+}

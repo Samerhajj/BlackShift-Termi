@@ -24,9 +24,7 @@ const validateMessages = {
   },
 };
 const SuggestConceptPage=()=>{
-      localStorage.setItem('currentPage', 'SuggestConceptPage')//test
 
-  
 const validateUrl = (rule, value, callback) => {
   if (!value) {
     callback();

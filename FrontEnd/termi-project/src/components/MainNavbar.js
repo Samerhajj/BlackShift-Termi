@@ -19,7 +19,7 @@ import {logoutRoute} from '../api/ApiRoutes';
 
 // --> import Icons
 import { IconContext } from "react-icons";
-import {IoGameController, IoPersonCircle, IoDocument, IoSearch, IoLogOut,IoLogIn,AiOutlineHome} from 'react-icons/io5';
+import {IoGameController, IoPersonCircle, IoInformationCircleSharp, IoSearch, IoLogOut,IoLogIn,AiOutlineHome} from 'react-icons/io5';
 
 // --> import LoginContext
 import { LoginContext } from './LoginContext';
@@ -58,7 +58,6 @@ const handleLogout = () => {
                       // ↓  replace  ↑
                       
   }      
-  localStorage.removeItem('searchCounter');
 
                   axios.delete(logoutRoute, {
                         headers: {
@@ -136,27 +135,7 @@ const handleLogout = () => {
                   </IconContext.Provider>
                 </Link>
               </li>
-              
-              
-              <li>
-                <Link to={'/note'} className={location && location.pathname ==='note' ?  'active': 'nav-link'}>
-                  {/*<i className="fa fa-regular fa-comment">*/}
-                  <IconContext.Provider value={{ size: "2rem" }}>
-                    <IoDocument/>
-                  </IconContext.Provider>
-                  {/*<img src={santa} alt="santa_note"/>*/}
-                </Link>
-              </li>
-              
-              
-    
-              
-        
-              
-              
-              
-              
-              
+            
               <li><Link to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
                   {/*<img className="game_icon"  src={gamepad_icon}/>*/}
                   <IconContext.Provider value={{ size: "2rem" }}>
@@ -165,6 +144,17 @@ const handleLogout = () => {
                    {/*{t('navbar.games')}*/}
                    </Link>
               </li>
+              
+               <li>
+                <Link to={'/about'} className={location && location.pathname ==='about' ?  'active': 'nav-link'}>
+                  {/*<i className="fa fa-regular fa-comment">*/}
+                  <IconContext.Provider value={{ size: "2rem" }}>
+                    <IoInformationCircleSharp/>
+                  </IconContext.Provider>
+                  {/*<img src={santa} alt="santa_note"/>*/}
+                </Link>
+              </li>
+              
               
                </Fragment>
               )

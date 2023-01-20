@@ -16,6 +16,7 @@
     "express": "^4.18.2",
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
+    "moment-timezone": "^0.5.40",
     "mongodb": "^4.12.1",
     "mongoose": "^6.7.4",
     "mongoose-encryption": "^2.1.2",

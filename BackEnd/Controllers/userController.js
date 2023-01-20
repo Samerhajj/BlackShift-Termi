@@ -1,6 +1,9 @@
 const User = require("../Models/userSchema");
 const Search = require("../Models/searchSchema");
 const Suggest = require("../Models/suggestSchema");
+const UserActivity = require("../Models/activitySchema");
+const UserActivity2 = require("../Models/activitySchema2");
+
 var ObjectID = require('mongodb').ObjectID;
 
 const favorites = async (req,res) =>{
@@ -62,6 +65,10 @@ const addFavorite = async (req,res) =>{
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
 
+
+
+
+
 const suggestTerm = async (req,res) =>{
         console.log("->>>>" + req.body);
         
@@ -84,10 +91,113 @@ const suggestTerm = async (req,res) =>{
         } 
 };
 
+const handleLanguageChange = async(req,res) => {
+  try{
+    // const time = Date.now();
+    const currentLanguage = req.body.cLang;//pLang
+    const previousLanguage = req.body.pLang;
+    await UserActivity.create({
+        currentConceptLang: req.body.currentConceptLang,
+        previousConceptLang:req.body.previousConceptLang,
+        lastScore:req.body.points,
+        activity: req.body.activity,
+        origin: req.body.page,
+        email: req.body.email,
+        currentLanguage: currentLanguage,
+        previousLanguage:previousLanguage,
+        searchCount:req.body.sCount
+    }, (error, currentLanguage) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(currentLanguage);
+        }
+    });
+    console.log(req.body);
+    res.send("nice");
+    
+  }
+  catch(err){
+    res.send({msg:err});
+  }
+};
 
 
+
+//***************************************************************************
+const handleLanguageChange2 = async(req,res) => {
+  try{
+    await UserActivity2.create({
+        currentConceptLang: req.body.currentConceptLang,
+        previousConceptLang:req.body.previousConceptLang,
+        lastScore:req.body.points,
+        activity: req.body.activity,
+        origin: req.body.page,
+        email: req.body.email,
+        previousGame:req.body.previousGame,
+        currentGame:req.body.currentGame,
+        searchCount:req.body.searchCount,
+        searchCategory: req.body.category,
+        lastScoreBeforeSwitchGame: req.body.lastScoreBeforeSwitchGame,
+        timePlayed:req.body.timePlayed
+    }, (error, currentLanguage) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(currentLanguage);
+        }
+    });
+    console.log(req.body);
+    res.send("nice");
+    
+  }
+  catch(err){
+    res.send({msg:err});
+  }
+};
+const getAllLogsSearchGames = async (req,res) =>{
+  const fetch = await UserActivity2.find({});
+  res.send(fetch);
+}
+// delete all logs
+const deleteLog2 = async (req,res)=>{
+ try{
+  await UserActivity2.deleteMany({});
+  res.send("done");
+ }
+ catch(err){
+   res.send({msg:err})
+ }   
+}
+//***************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+// delete all logs
+const deleteLog = async (req,res)=>{
+ try{
+  await UserActivity.deleteMany({});
+  res.send("done");
+ }
+ catch(err){
+   res.send({msg:err})
+ }   
+}
 const activity = async (req,res)=>{
   res.send("hello");
+}
+const getAllLogs = async (req,res) =>{
+  const fetch = await UserActivity.find({});
+  res.send(fetch);
 }
 
 // const suggestTermEnglish = async (req,res) =>{
@@ -148,7 +258,6 @@ const addSelectedTerm = async(req,res)=>{
   // catch(err){
   //   res.send(err);
   // }
-  console.log("NIGERIAN MAN");
   console.log(req.body);
   const id = req.body._id;
   console.log(id);
@@ -167,6 +276,8 @@ console.log(req.body);
       conceptName:req.body.conceptName
 
   });
+  
+  
 
 const resTerm = await NewTerm.save();
 
@@ -186,6 +297,13 @@ module.exports = {favorites,
                   getAllSuggestedTerms,
                   addSelectedTerm,
                   deleteOneSuggest,
+                  activity,
+                  handleLanguageChange,
+                  deleteLog,
+                  getAllLogs,
+                  handleLanguageChange2,
+                  getAllLogsSearchGames,
+                  deleteLog2
                   
 };
 

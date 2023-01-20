@@ -20,7 +20,7 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 import AdminSuggestionPage from "./pages/AdminPage/ViewSuggestions";
 import AddTermAdmin from "./pages/AdminPage/AddTermAdmin";
 import Top10 from "./pages/AdminPage/Top10";
-
+import Footer from './components/Footer';
 
 //Layouts
 import PageLayout from "./components/PageLayout";
@@ -63,6 +63,7 @@ function App() {
   
   const [login, setLogin] = React.useState(localStorage.getItem('login') || false);
   return (
+    
         <LoginProvider value={{ login, setLogin }}>
     <Router>
       <Routes>
@@ -90,12 +91,14 @@ function App() {
           <Route path="/admin/suggestions" element={<DynamicTitleRoute title="User Suggestions" element={<AdminSuggestionPage/>} />}/>
           <Route path="/admin/add-term" element={<DynamicTitleRoute title="Admin Add Term" element={<AddTermAdmin/>} />}/>
           <Route path="/admin/top-10" element={<DynamicTitleRoute title="Top 10 Concepts" element={<Top10/>} />}/>
-
           
-        </Route>
+  
+          </Route>
       </Routes>
     </Router>
+    
   </LoginProvider>
+  
   
   );
 }

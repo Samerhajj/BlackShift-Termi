@@ -91,7 +91,6 @@ const tokenG = async (req, res) => {
   //verify the refresh token and decode its payload
   try{
     const decoded=jwt.verify(refreshToken, process.env.SECRET);
-    
     //check if refresh token is in-memory store
     if(!refreshToken.includes(refreshToken)){
         return res.status(401).send({ msg: 'Invalid x-refresh-token provided' });

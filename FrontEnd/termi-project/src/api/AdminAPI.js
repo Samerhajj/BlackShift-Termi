@@ -51,5 +51,17 @@ const top10 = async () =>{
     }
 }
 
+const fetchAllLogs = async ()=>{
+    try{
+        const res = await axios.get(process.env.React_App_BaseURL + "user" + "/" + "get-all-logs")
+        return {body: res.data, success: true};
 
-export default {getAllSuggestedTerms,deleteSelectedTerm,top10,addSelectedTerm};
+    }catch(err){
+        console.log(err);
+        return {success: false, message: err.message};
+       
+    }
+}
+
+
+export default {getAllSuggestedTerms,deleteSelectedTerm,top10,addSelectedTerm,fetchAllLogs};

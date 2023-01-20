@@ -1,7 +1,10 @@
 import React,{useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
+import AdminAPI from "../../api/AdminAPI";
 import axios from 'axios'
+import json2csv from 'json2csv';
+import fileDownload from 'js-file-download';
 // --> components
 import './Admin.css'
 
@@ -27,7 +30,25 @@ const AdminPage=()=> {
       setIsResultShown(!isResultShown);
     }, 350);
   };
-
+  
+  
+  
+  
+  const getAllUsersLogs = async () => {
+  const res = await AdminAPI.fetchAllLogs();
+  if (res.success) {
+    const fields = Object.keys(res.body[0]);
+    const opts = { fields };
+    try {
+      const csv = json2csv.parse(res.body, opts);
+      fileDownload(csv, 'users_logs.csv');
+    } catch (err) {
+      console.error(err);
+    }
+  } else {
+    console.log(res.message);
+  }
+};
 
 return (
     <div>
@@ -72,7 +93,9 @@ return (
                     <button className="su-button mb-2" onClick={
                     ()=> navigate('/games')}
                     >{t('Adminwords.Games')}</button>
-
+                    <button className="su-button mb-2" onClick={
+                    ()=> getAllUsersLogs()}
+                    >Get Data</button>
                 </div>
             <div>
         </div>

@@ -18,7 +18,7 @@ import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 
 const MemoryGame = () => {
-	localStorage.setItem('currentPage', 'MemoryGame')//test
+	// localStorage.setItem('currentPage', 'MemoryGame')//test
 
 	const { t, i18n } = useTranslation();
 	const [cards, setCards] = useState([]);
@@ -127,6 +127,7 @@ const MemoryGame = () => {
 		if(response.success)
 		{
 			console.log("points UPDATEd");
+			localStorage.setItem("points",points);
 		}else{
 			console.log(response.message);
 		}
@@ -206,9 +207,11 @@ const MemoryGame = () => {
 				</div>
 			) : (
 				<div className="center-button">
-					<AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
-					<div>
-						<CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+					<div className="icon-selector-container">
+						   <CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+						    	<div className="icon-center">
+						    <AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
+						</div>
 					</div>
 			    	<Modal show={showModal} onHide={() => setShowModal(false)} >
 						<Modal.Header className="mx-0" closeButton>

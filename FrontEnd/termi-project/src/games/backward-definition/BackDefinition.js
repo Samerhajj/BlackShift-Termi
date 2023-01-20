@@ -10,10 +10,9 @@ import CategorySelector from "../../components/CategorySelector";
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
-
+import axios from 'axios';
 export default function App() {
-	  localStorage.setItem('currentPage', 'BackDefinition')//test
-
+	  //localStorage.setItem('currentPage', 'BackDefinition')//test
 	const { t, i18n } = useTranslation();
 	const [questions, setQuestions] = useState([]);
 	const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -189,10 +188,15 @@ export default function App() {
 		
 	const [showModal, setShowModal] = useState(false);
 	const finishGame = async()=>{
+		// let prev_point = localStorage.getItem("points");
+		
+		
 		setShowScore(true);
 		//tStart(false);
 		let points=0;
 		points=score*10;
+
+		
 		console.log(points);
 		console.log(score);
 		setPoints(points);
@@ -201,9 +205,19 @@ export default function App() {
 			if(response.success)
 			{
 				console.log("points UPDATEd");
+				localStorage.setItem("points",points);
+				
+				
+				// let new_point = localStorage.getItem("points");
+				// const data = {prev_point,new_point}//prev_point - last , new_point - new
+				// const res = await axios.post("http://dir.y2022.kinneret.cc:7013/user/active-game-search",data);
+
+				
+				
 			}else{
 				console.log(response.message);
 			}
+			
 	}
 	function handleOpenModal() {
 	    setShowModal(true);
@@ -211,7 +225,9 @@ export default function App() {
 		
 	const minutes = Math.floor(elapsedTime / 60);
 	const seconds = elapsedTime % 60;
-		
+	const timePlayed = `min ${minutes} | sec ${seconds}`;
+	localStorage.setItem("timePlayed",timePlayed);
+	//NEED TO SEND	
 	return (
 		<>
 		
@@ -253,9 +269,12 @@ export default function App() {
 				) : (
 					<div className="center-button ">
 					{/*<button className="circle-button"   onClick={handleOpenModal}><img src={play_Icon}/></button>*/}
-					<AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
-					<div>
-						<CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+					
+						<div className="icon-selector-container">
+						   <CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+						    	<div className="icon-center">
+						    <AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
+						</div>
 					</div>
 					<Modal show={showModal} onHide={() => setShowModal(false)} >
 					  <Modal.Header className="mx-0" closeButton>

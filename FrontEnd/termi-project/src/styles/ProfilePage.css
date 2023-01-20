@@ -2,3 +2,12 @@
     width:20px;
     height:20px;
 }
+.small-btn {
+    width: 30%;
+    height: 13%;
+    float: left;
+    margin-left:10%;
+}
+.responsive-avatar{
+    margin-left: 40%;
+}

@@ -32,6 +32,7 @@
   
   import React, { useEffect, useRef } from 'react';
 
+import { useTranslation } from 'react-i18next';//new
 
 /*In this version of the code, the children property
 of the mobileMenuRef.current element is used to access
@@ -42,12 +43,17 @@ to use querySelectorAll and simplifies the code.
 function hamburgerLogic() {
   const hamburgerRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const { i18n } = useTranslation();//new
+
+
 
   useEffect(() => {
     const toggleHamburger = () => {
       hamburgerRef.current.classList.toggle('active');
       mobileMenuRef.current.classList.toggle('active');
-      console.log('HELLO');
+      localStorage.setItem("previousLanguage",i18n.language)//new
+      console.log(`previous Language is ${i18n.language}`)
+      // console.log('HELLO');
     };
 
     Array.from(mobileMenuRef.current.children).forEach((child) => {

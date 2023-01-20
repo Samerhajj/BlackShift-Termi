@@ -56,3 +56,16 @@
 .autocomplete-item:hover{
     background-color: #e7dbfc;
 }
+.small-category-selector {
+    width: 50%;
+    margin-left:25%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

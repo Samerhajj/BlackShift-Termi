@@ -10,7 +10,7 @@ import "./../styles/ProfilePage.css";
 import profileAPI from "../api/ProfileAPI";
 
 const ProfilePage =  () => {
-  localStorage.setItem('currentPage', 'ProfilePage')//test
+  // localStorage.setItem('currentPage', document.title)//test
 
   let avatarGenerator = new AvatarGenerator();
   let avatarImageUrl = avatarGenerator.generateRandomAvatar('random13213');
@@ -167,7 +167,7 @@ function handleChange(event) {
               <div className="profile-img">
                 <Image src={avatarImageUrl}/>
               </div>
-              <Button onClick={handleOpenModalAvatar}>Edit Avatar</Button>
+              <Button className="small-btn" onClick={handleOpenModalAvatar}>Edit Avatar</Button>
               <Modal show={showModalAvatar} onHide={handleCloseModalAvatar}>
                 <Modal.Header closeButton>
                   <Modal.Title>Edit Profile</Modal.Title>
@@ -224,36 +224,7 @@ function handleChange(event) {
               </Modal>
             </div>
 
-            <div className="col-md-6">
-              <div className="profile-head">
-                <h5>{x.fullName}</h5>
-                <h6>{x.field}</h6>
-                <p className="profile-rating mt-3 mb-5">
-                  Rankings: <span>10/10</span>
-                </p>
-                <div>
-                    <img className="chevron" alt="gold chevron" src={goldChevron}/>
-                    <img className="chevron" alt="gold chevron" src={goldChevron}/>
-                    <img className="chevron" alt="gold chevron"src={goldChevron}/>
-                    <img className="chevron" alt="gold chevron"src={goldChevron}/>
-                    <img className="chevron" alt="gold chevron"src={goldChevron}/>
-                    <img className="chevron" alt="gold chevron"src={goldChevron}/>
-                    <img className="chevron" alt="gold chevron"src={goldChevron}/>
-                    <img className="chevron" alt="gold chevron"src={goldChevron}/>
-                    <img className="chevron" alt="gold chevron" src={goldChevron}/>
-                </div>
-                <div>
-                    <img className="chevron" alt="silver chevron" src={silverChevron}/>
-                    <img className="chevron" alt="silver chevron" src={silverChevron}/>
-                    <img className="chevron" alt="silver chevron"src={silverChevron}/>
-                    <img className="chevron" alt="silver chevron" src={silverChevron}/>
-                </div>
-                <div>
-                    <img className="chevron" alt="brown chevron" src={brownChevron}/>
-                    <img className="chevron" alt="brown chevron" src={brownChevron}/>
-                </div>
-              </div>
-            </div>
+           
 
             <div className="col-md-2">
             <button className="btn btn-warning" onClick={() => {handleClick()}}>Favorites</button>
