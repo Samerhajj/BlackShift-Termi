@@ -143,5 +143,8 @@
         "myNote" : "ملاحظتي",
         "title":"عنوان الملاحظة",
         "body": "المحتوى"
+    },
+    "category-selector":{
+        "category": "الفئة"
     }
 }

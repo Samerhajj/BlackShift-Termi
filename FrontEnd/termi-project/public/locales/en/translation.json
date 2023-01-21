@@ -137,5 +137,8 @@
         "myNote" : "MY NOTE",
         "title":"Note Title",
         "body": "body"
+    },
+    "category-selector":{
+        "category": "Category"
     }
 }
