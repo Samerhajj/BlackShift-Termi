@@ -32,7 +32,7 @@ import WordleGame from "./games/wordle/Wordle";
 import Hangman from "./games/hangman/hangman";
 import MemoryGame from "./games/memory-game/MemoryGame";
 import CrosswordGame from "./games/crossword-game/Crossword";
-import React from "react";
+import React,{useEffect} from "react";
 import withAuth from './pages/Logic/withAuth';
 import withNotAuth from './pages/Logic/withNotAuth';
 import withAdminAuth from './pages/Logic/withAdminAuth';
@@ -42,7 +42,6 @@ function App() {
   // --> wrapped components to check if you have the legitimacy to reach specific pages
   const WProfilePage = withAuth(ProfilePage);
   const WGamesPage = withAuth(GamesPage);
-  const WNote = withAuth(Note);
   const WWordleGame = withAuth(WordleGame);
   const WHangman = withAuth(Hangman);
   const WBackDefinitionGame = withAuth(BackDefinitionGame);
@@ -59,48 +58,48 @@ function App() {
   const WAdminSuggestionPage = withAdminAuth(AdminSuggestionPage,'admin');
   const WAddTermAdmin = withAdminAuth(AddTermAdmin,'admin');
   const WTop10 = withAdminAuth(Top10,'admin');
+  const WNote = withAdminAuth(Note,'admin');
 
   
-  const [login, setLogin] = React.useState(localStorage.getItem('login') || false);
+const [login, setLogin] = React.useState(localStorage.getItem('login') || false);
+const [userData, setUserData] = React.useState({});
+
+ console.log(userData);
+  {/*<LoginProvider value={{ login, setLogin,userData,setUserData}}>*/}
   return (
     
-        <LoginProvider value={{ login, setLogin }}>
     <Router>
       <Routes>
           <Route element={<PageLayout/>}>
-          <Route path="/about" element={<DynamicTitleRoute title="About | Termi" element={<HomePage/>} />}/>
-          <Route path="/" element={<DynamicTitleRoute title="Search" element={<TermsPage/>} />}/>
-          <Route path="/login" element={<DynamicTitleRoute title="Login" element={<WLogin/>} />}/>
-          <Route path="/register" element={<DynamicTitleRoute title="Register" element={<WRegister/>} />}/>
-          <Route path="/forgotpassword" element={<DynamicTitleRoute title="Forgot Password" element={<WForgotPassword/>} />}/>
-          <Route path="/profile" element={<DynamicTitleRoute title="Profile" element={<WProfilePage/>} />}/>
-          
-          <Route path="/games" element={<DynamicTitleRoute title="Games" element={<WGamesPage/>}/>}/>
-          <Route path="/games/back-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
-          <Route path="/games/wordle" element={<DynamicTitleRoute title="Wordle" element={<WWordleGame/>} />}/>
-          <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
-          <Route path="/games/crossword-game" element={<DynamicTitleRoute title="Crossword Game" element={<WCrosswordGame/>} />}/>
-          
-          <Route path="/games/hangman" element={<DynamicTitleRoute title="Hangman" element={<WHangman/>} />}/>
-          <Route path="/note" element={<DynamicTitleRoute title="Notes" element={<WNote/>} />}/>
-          <Route path="/favorite" element={<DynamicTitleRoute title="favorite" element={<WFavorite/>} />}/>
-          <Route path="/suggest" element={<DynamicTitleRoute title="suggestions" element={<WSuggestConceptPage/>} />}/>
-          <Route path="/newgame" element={<DynamicTitleRoute title="NewGame" element={<CardGame/>} />}/>
-          <Route path="*" element={<DynamicTitleRoute title="Error" element={<ErrorPage/>} />}/>
-          <Route path="/admin" element={<DynamicTitleRoute title="Admin" element={<AdminPage/>} />}/>
-          <Route path="/admin/suggestions" element={<DynamicTitleRoute title="User Suggestions" element={<AdminSuggestionPage/>} />}/>
-          <Route path="/admin/add-term" element={<DynamicTitleRoute title="Admin Add Term" element={<AddTermAdmin/>} />}/>
-          <Route path="/admin/top-10" element={<DynamicTitleRoute title="Top 10 Concepts" element={<Top10/>} />}/>
-          
-  
+            <Route path="/about" element={<DynamicTitleRoute title="About | Termi" element={<HomePage/>} />}/>
+            <Route path="/" element={<DynamicTitleRoute title="Search" element={<TermsPage/>} />}/>
+            <Route path="/login" element={<DynamicTitleRoute title="Login" element={<WLogin/>} />}/>
+            <Route path="/register" element={<DynamicTitleRoute title="Register" element={<WRegister/>} />}/>
+            <Route path="/forgotpassword" element={<DynamicTitleRoute title="Forgot Password" element={<WForgotPassword/>} />}/>
+            <Route path="/profile" element={<DynamicTitleRoute title="Profile" element={<WProfilePage/>} />}/>
+            
+            <Route path="/games" element={<DynamicTitleRoute title="Games" element={<WGamesPage/>}/>}/>
+            <Route path="/games/back-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
+            <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
+            <Route path="/games/wordle" element={<DynamicTitleRoute title="Wordle" element={<WWordleGame/>} />}/>
+            <Route path="/games/crossword-game" element={<DynamicTitleRoute title="Crossword Game" element={<WCrosswordGame/>} />}/>
+            <Route path="/games/hangman" element={<DynamicTitleRoute title="Hangman" element={<WHangman/>} />}/>
+            
+            <Route path="/note" element={<DynamicTitleRoute title="Notes" element={<WNote/>} />}/>
+            <Route path="/favorite" element={<DynamicTitleRoute title="Favorite" element={<WFavorite/>} />}/>
+            <Route path="/suggest" element={<DynamicTitleRoute title="Suggest Concept" element={<WSuggestConceptPage/>} />}/>
+            <Route path="/newgame" element={<DynamicTitleRoute title="NewGame" element={<CardGame/>} />}/>
+            <Route path="*" element={<DynamicTitleRoute title="Error" element={<ErrorPage/>} />}/>
+            <Route path="/admin" element={<DynamicTitleRoute title="Admin" element={<WAdminPage/>} />}/>
+            <Route path="/admin/suggestions" element={<DynamicTitleRoute title="User Suggestions" element={<WAdminSuggestionPage/>} />}/>
+            <Route path="/admin/add-term" element={<DynamicTitleRoute title="Admin Add Term" element={<WAddTermAdmin/>} />}/>
+            <Route path="/admin/top-10" element={<DynamicTitleRoute title="Top 10 Concepts" element={<WTop10/>} />}/>
           </Route>
       </Routes>
     </Router>
     
-  </LoginProvider>
-  
-  
   );
+  {/*</LoginProvider>*/}
 }
 export default App;
 
