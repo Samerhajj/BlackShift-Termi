@@ -49,11 +49,11 @@ const top10 = async () =>{
         console.log(err);
         return {success: false, message: err.message};
     }
-}
+};
 
 const fetchAllLogs = async ()=>{
     try{
-        const res = await axios.get(process.env.React_App_BaseURL + "user" + "/" + "get-all-logs")
+        const res = await axios.get(process.env.React_App_BaseURL + "user" + "/" + "get-all-logs");
         return {body: res.data, success: true};
 
     }catch(err){
@@ -61,7 +61,6 @@ const fetchAllLogs = async ()=>{
         return {success: false, message: err.message};
        
     }
-}
+};
 
-
-export default {getAllSuggestedTerms,deleteSelectedTerm,top10,addSelectedTerm,fetchAllLogs};
+export default {getAllSuggestedTerms, deleteSelectedTerm, top10, addSelectedTerm, fetchAllLogs};
