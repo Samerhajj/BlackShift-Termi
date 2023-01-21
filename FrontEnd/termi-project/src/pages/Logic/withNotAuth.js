@@ -15,6 +15,7 @@ const withNotAuth = (WrappedComponent) => {
 
       }
     }, [token]);
+    
     if (token) {
       return null;
     }
