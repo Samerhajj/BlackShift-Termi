@@ -4,22 +4,18 @@ import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector'; // component
 import 'font-awesome/css/font-awesome.min.css';
 import logoImg from '../images/terminewlogo.png';
-// import logout_w from '../images/logout_w.png';
-// import gamepad_icon from '../images/gamepad_icon.png';
-// import search from '../images/iconimg/search.png';
-// import searchE from '../images/iconimg/searchE.png';
-// import style from './style.css';
-// import santa from '../images/santa_note.png';
 import GoToTop from './backTopPage';
 import PropTypes from "prop-types";
 import HamburgerLogic from './hamburgerLogic'; // component
 import HandleScroll from './handleScroll'; // component
 import axios from "axios";
 import {logoutRoute} from '../api/ApiRoutes';
-
+//import {useDispatch} from 'react-redux';
+//import { clearUserProfile } from '../redux/actions/userDataActions';
+//import {persistor} from "../redux/store";
 // --> import Icons
 import { IconContext } from "react-icons";
-import {IoGameController, IoPersonCircle, IoInformationCircleSharp, IoSearch, IoLogOut,IoLogIn,AiOutlineHome} from 'react-icons/io5';
+import {IoGameController, IoPersonCircle, IoInformationCircleSharp, IoSearch, IoLogOut,IoLogIn} from 'react-icons/io5';
 
 // --> import LoginContext
 import { LoginContext } from './LoginContext';
@@ -29,66 +25,38 @@ const MainNavbar = ({setTitle,location}) => {
   // --> hooks
   const { t } = useTranslation();
   const navigate = useNavigate();
-
+// const dispatch=useDispatch();
   
   const { login, setLogin } = useContext(LoginContext);
   // --> functions
-const handleLogout = () => {
-  {
-                      // navigate("/login");
-                      // axios.delete('http://dir.y2022.kinneret.cc:7013/user/logout', {
-                      //   headers: {
-                      //     'x-auth-token': `${localStorage.getItem('token')}`,
-                      //     'x-refresh-token' : `${localStorage.getItem('refreshToken')}`
-                      //   }
-                      // })
-                      //   .then(res => {
-                      //     if (res.status === 200) {
-                      //       // Token was successfully deleted from the server
-                      //       console.log("deleted successfully")
-                      //     } else {
-                      //       // There was an error deleting the token
-                      //       console.error("error");
-                      //     }
-                      //   })
-                      //   .catch(error => {
-                      //     console.error(error);
-                      //   });
-                      
-                      // ↓  replace  ↑
-                      
-  }      
-
-                  axios.delete(logoutRoute, {
-                        headers: {
-                          'x-auth-token': `${localStorage.getItem('token')}`,
-                          'x-refresh-token' : `${localStorage.getItem('refreshToken')}`
-                        }
-                      })
-                        .then(res => {
-                          if (res.status === 200) {
-                            // Token was successfully deleted from the server
-                            console.log("deleted successfully")
-                          } else {
-                            // There was an error deleting the token
-                            console.error("error");
-                          }
-                        })
-                        .catch(error => {
-                          console.error(error);
-                        });
-                          
-                        
-                        
-                        
-                        
-                        
-
+  const handleLogout = () => {
+  axios.delete(logoutRoute, {
+        headers: {
+          'x-auth-token': `${localStorage.getItem('token')}`,
+          'x-refresh-token' : `${localStorage.getItem('refreshToken')}`
+        }
+      })
+        .then(res => {
+          if (res.status === 200) {
+            // Token was successfully deleted from the server
+          //  dispatch(clearUserProfile());
+           //  persistor.purge();
+            console.log("deleted successfully")
+          } else {
+            // There was an error deleting the token
+            console.error("error");
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+                       
     // --> remove the login and the token from the localStorage and set the value of the context to false
       
     localStorage.setItem('login', false);
     localStorage.removeItem('profileBody');
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
     setLogin(false);
   };
 
@@ -119,7 +87,6 @@ const handleLogout = () => {
             <ul>
               <li>
                 <Link to={'/'} className={location && location.pathname==='terms' ? 'active' : 'nav-link'}>
-                      {/*<img src={searchE} className="game_icon" alt="search"/>*/}
                   <IconContext.Provider value={{ size: "2rem" }}>
                     <IoSearch/>
                   </IconContext.Provider>
@@ -127,31 +94,26 @@ const handleLogout = () => {
               </li>
             {localStorage.getItem('login') ==='true' ?(
              <Fragment>
-              <li>
-                <Link to={'/profile'} className={location && location.pathname ==='profile' ?  'active': 'nav-link'}>
-                  {/*<i className="fa fa-user fa-2x"></i>*/}
-                  <IconContext.Provider value={{ size: "2rem" }}>
-                    <IoPersonCircle/>
-                  </IconContext.Provider>
-                </Link>
-              </li>
             
-              <li><Link to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
-                  {/*<img className="game_icon"  src={gamepad_icon}/>*/}
+              <li>
+                <Link to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
                   <IconContext.Provider value={{ size: "2rem" }}>
                     <IoGameController/>
                   </IconContext.Provider>
-                   {/*{t('navbar.games')}*/}
                    </Link>
               </li>
-              
-               <li>
+              <li>
                 <Link to={'/about'} className={location && location.pathname ==='about' ?  'active': 'nav-link'}>
-                  {/*<i className="fa fa-regular fa-comment">*/}
                   <IconContext.Provider value={{ size: "2rem" }}>
                     <IoInformationCircleSharp/>
                   </IconContext.Provider>
-                  {/*<img src={santa} alt="santa_note"/>*/}
+                </Link>
+              </li>
+              <li>
+                <Link to={'/profile'} className={location && location.pathname ==='profile' ?  'active': 'nav-link'}>
+                  <IconContext.Provider value={{ size: "2rem" }}>
+                    <IoPersonCircle/>
+                  </IconContext.Provider>
                 </Link>
               </li>
               
@@ -159,20 +121,20 @@ const handleLogout = () => {
                </Fragment>
               )
               :(  
-              <li>
-                <Link to={'/register'} className={location && location.pathname==='register' ? 'active' : 'nav-link'}>
-                  {t('navbar.register')}
-                </Link>
-              </li>
+                <li>
+                  <Link to={'/register'} className={location && location.pathname==='register' ? 'active' : 'nav-link'}>
+                    {t('navbar.register')}
+                  </Link>
+                </li>
               )}
               {login === 'false' ? (
-              <li>
-              <Link to={'/login'} className={location && location.pathname==='login' ? 'active' : 'nav-link'}>
-                   <IconContext.Provider value={{ size: "2rem" }}>
-                    <IoLogIn/>
-                  </IconContext.Provider>
-              </Link>
-              </li>
+                <li>
+                  <Link to={'/login'} className={location && location.pathname==='login' ? 'active' : 'nav-link'}>
+                      <IconContext.Provider value={{ size: "2rem" }}>
+                        <IoLogIn/>
+                      </IconContext.Provider>
+                  </Link>
+                </li>
               ):(
                <li>
                {/*<Link to={'/login'}
@@ -189,8 +151,6 @@ const handleLogout = () => {
 
                    
                   <a className="nav-link" href="login" onClick={(event) => {handleLogout();}}>
-                    {/*<img className="logout_icon"  src={logout_w}/>*/}
-                    {/*{t('navbar.logout')}*/}
                     <IconContext.Provider value={{ size: "2rem" }}>
                       <IoLogOut/>
                     </IconContext.Provider>

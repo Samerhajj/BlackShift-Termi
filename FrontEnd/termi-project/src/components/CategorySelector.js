@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 
 // Translate
 import { useTranslation } from 'react-i18next';
+import LanguageMap from '../api/LanguageAPI';
 
 // APIs
 import CategoryApi from '../api/CategoryAPI';
 
 const CategorySelector = (props) => {
+    const { i18n, t } = useTranslation();
     const [selectedCategory, setSelectedCategory] = useState(props.initialCategory);
     const [categories, setCategories] = useState([]);
     
@@ -36,17 +38,20 @@ const CategorySelector = (props) => {
         <select 
             id="category"
             value={selectedCategory}
-            className="selectpicker show-menu-arrow form-control mb-2 "
+            className="selectpicker show-menu-arrow form-control mb-2"
             data-style="btn-primary"
             title="Category"
             onChange={(e)=>{onCategoryChange(e.target.value)}}>
-            <option value="Category">Category</option>
+            <option value="Category">{t("category-selector.category")}</option>
             {
-                categories.map((category, index) => (
-                    <option key={index} value={index}>{category.categoryName["english"]}</option>
-                ))
+                categories.map((category, index) => {
+                let categoryName = category.categoryName[LanguageMap[i18n.language].name];
+                let uppercaseName = categoryName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+                return (
+                    <option key={index} value={index}>{uppercaseName}</option>
+                )})
             }
         </select>
     );
 };
-export default CategorySelector;
+export default React.memo(CategorySelector);
