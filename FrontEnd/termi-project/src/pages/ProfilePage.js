@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useContext} from "react";
 import Image from "react-bootstrap/Image";
 import { Modal, Button } from "react-bootstrap";
 import AvatarGenerator from "./Logic/AvatarGenerator";
@@ -8,19 +8,30 @@ import silverChevron from "../images/Games/Chevron/silverChevron.png";
 import brownChevron from "../images/Games/Chevron/brownChevron.png";
 import "./../styles/ProfilePage.css";
 import profileAPI from "../api/ProfileAPI";
+import {LoginContext} from "./../components/LoginContext";
+// import {useSelector,useDispatch} from 'react-redux';
+// import { updateUserProfile } from '../redux/actions/userDataActions';
+// --> import Icons
+import { IconContext } from "react-icons";
+import { AiTwotoneStar } from "react-icons/ai";
 
 const ProfilePage =  () => {
+  const user = useContext(LoginContext);
+console.log(user);
+  //const userData = useSelector(state => state.data);
+  
+ // console.log(user.userData.searchCounter);
+   //  const dispatch=useDispatch();
   // localStorage.setItem('currentPage', document.title)//test
 
   let avatarGenerator = new AvatarGenerator();
   let avatarImageUrl = avatarGenerator.generateRandomAvatar('random13213');
-  console.log(avatarImageUrl);
   const [showModal, setShowModal] = useState(false);
-   const [showModalAvatar, setShowModalAvatar] = useState(false);
-   const [showPasswordModal,setShowPasswordModal]=useState(false);
-   const [showPasswordError, setShowPasswordError] = useState(false);
-  const [points,setPoints]=useState(0);
- const navigate = useNavigate();
+  const [showModalAvatar, setShowModalAvatar] = useState(false);
+  const [showPasswordModal,setShowPasswordModal]=useState(false);
+  const [showPasswordError, setShowPasswordError] = useState(false);
+  // const [points,setPoints]=useState(0);
+  const navigate = useNavigate();
   function handleOpenModal() {
     setShowModal(true);
   }
@@ -36,33 +47,40 @@ const ProfilePage =  () => {
    setShowPasswordModal(true);
  }
  
- const fetchPoints=async()=>{
-  const response = await profileAPI.getGamePoints();
-  if (response.success){
-    setPoints(response.body.points);
-    console.log(response.body.points);
+// const fetchPoints=async()=>{
+//   const response = await profileAPI.getGamePoints();
+//   if (response.success){
+//     setPoints(response.body.points);
+//     console.log(response.body.points);
     
-}
- else {
-    console.log("Error getting points:", response.message);
-  }
-}
+// }
+// else {
+//     console.log("Error getting points:", response.message);
+//   }
+// };
 
- useEffect(()=>{
-   fetchPoints();
- },[])
+// useEffect(()=>{
+//   fetchPoints();
+// },[]);
  
 
 
-
- let x = JSON.parse(localStorage.getItem('profileBody'));
-const [formValues, setFormValues] = useState({
-  fullName: x.fullName,
-  email: x.email,
-  phone: x.phone,
-  field: x.field,
-  language: x.language
-});
+// let x = JSON.parse(localStorage.getItem('profileBody'));
+// const [formValues, setFormValues] = useState({
+//   fullName: x.fullName,
+//   email: x.email,
+//   phone: x.phone,
+//   field: x.field,
+//   language: x.language
+// });
+  const [formValues, setFormValues] = useState({
+    fullName: user.userData.fullName,
+    email: user.userData.email,
+    phone: user.userData.phone,
+    field: user.userData.field,
+    language: user.userData.language
+  });
+  
   //--> function to close the modal
   function handleCloseModal() {
     setShowModal(false);
@@ -80,29 +98,57 @@ const [formValues, setFormValues] = useState({
     event.preventDefault();
   //get values from the form field
     // send request to update the profile information in the backend
-     try {
-    const response = await profileAPI.updateProfile(formValues);
-    if (response.success) {
-      // update the profile data in localStorage
-      localStorage.setItem('profileBody', JSON.stringify({
-        fullName: formValues['fullName'],
-        email: formValues['email'],
-        phone: formValues['phone'],
-        field: formValues['field'],
-        language: formValues['language']
-        // image:formValues['image']
-      }));
-      // close the modal
-      setShowModal(false);
-    } else {
-      console.log('Error updating profile: ' + response.message);
+    try {
+       //this is the normal one we had
+       //now with redux!
+        const response = await profileAPI.updateProfile(formValues);
+        if (response.success) {
+          //   user.setUserData({
+          //   ...LoginContext.userData,
+          //   fullName: formValues['fullName'],
+          //   email: formValues['email'],
+          //   phone: formValues['phone'],
+          //   field: formValues['field'],
+          //   language: formValues['language']
+          // });
+          
+          user.setUserData({...user.userData,
+            fullName: formValues['fullName'],
+            email: formValues['email'],
+            phone: formValues['phone'],
+            field: formValues['field'],
+            language: formValues['language']});
+            
+          localStorage.setItem('profileBody', JSON.stringify(user.userData));
+       
+          // update the profile data in localStorage
+          // localStorage.setItem('profileBody', JSON.stringify({
+          //   fullName: formValues['fullName'],
+          //   email: formValues['email'],
+          //   phone: formValues['phone'],
+          //   field: formValues['field'],
+          //   language: formValues['language']
+          //   // image:formValues['image']
+          // }));
+          // dispatch(updateUserProfile({
+          //           fullName: formValues['fullName'],
+          //           email: formValues['email'],
+          //           phone: formValues['phone'],
+          //           field: formValues['field'],
+          //           language: formValues['language']
+          //       }));
+          // dispatch(updateUserProfile(response.body));
+          // close the modal
+        setShowModal(false);
+      } else {
+        console.log('Error updating profile: ' + response.message);
+      }
+    } catch (error) {
+      console.log('Error updating profile: ' + error.message);
     }
-  } catch (error) {
-    console.log('Error updating profile: ' + error.message);
   }
-}
-
-async function handleSavePasswordChanges(event) {
+  
+  async function handleSavePasswordChanges(event) {
   event.preventDefault();
   const currentProfile = JSON.parse(localStorage.getItem('profileBody'));
   if(currentProfile.password!==formValues.currentPassword){
@@ -133,8 +179,20 @@ async function handleSavePasswordChanges(event) {
   }
 }
 
- 
 
+
+async function getSearchCount(e){
+  e.preventDefault()
+    const response = await profileAPI.getSearchCount();
+  if (response.success){
+      console.log(response.body);
+    
+}
+ else {
+    console.log("Error :", response.message);
+  }
+}
+ 
 function handleChange(event) {
   // get the field name and value from the event target
   const fieldName = event.target.name;
@@ -161,13 +219,28 @@ function handleChange(event) {
         </div>
       </div>
       <div className="container emp-profile mt-2">
-        <form method="">
           <div className="row">
             <div className="col-md-4">
-              <div className="profile-img">
-                <Image src={avatarImageUrl}/>
+            
+            
+            <div className="d-flex justify-content-end position-absolute" >
+                  <IconContext.Provider value={{ size: "4rem" ,
+                                                 color: 'red',
+                                                 strokeWidth: "5",
+                                                 
+                  }}>
+                    <AiTwotoneStar/>
+                  </IconContext.Provider>
+            </div>
+            
+              <div className="profile-img d-flex justify-content-center">
+                 <Image src={avatarImageUrl} style={{width: '30%', height: '30%'}} />
+                   <div className="small-button">
+                   
+                    {/*<Button onClick={handleOpenModalAvatar}>Edit Avatar</Button>*/}
               </div>
-              <Button className="small-btn" onClick={handleOpenModalAvatar}>Edit Avatar</Button>
+            
+              </div>
               <Modal show={showModalAvatar} onHide={handleCloseModalAvatar}>
                 <Modal.Header closeButton>
                   <Modal.Title>Edit Profile</Modal.Title>
@@ -226,10 +299,12 @@ function handleChange(event) {
 
            
 
-            <div className="col-md-2">
-            <button className="btn btn-warning" onClick={() => {handleClick()}}>Favorites</button>
-            <Button className="btn btn-primary mb" onClick={() => {handleOpenModal()}}>Edit Profile</Button>
-
+            <div className="col-md-2 mt-3">
+            
+              <div className="small-button">
+              <button className="btn btn-warning" onClick={() => {handleClick()}}>Favorites</button>
+              <Button className=""  onClick={() => {handleOpenModal()}}>Edit Profile</Button>
+              </div>
                 
 
       <Modal show={showModal} onHide={handleCloseModal}>
@@ -290,7 +365,9 @@ function handleChange(event) {
             </div>
           </div>
 
-  <Button onClick={handleOpenPasswordModal}>Change Password</Button>
+          <div className="small-button">
+           <Button onClick={handleOpenPasswordModal}>Change Password</Button>
+           </div>
               <Modal show={showPasswordModal} onHide={handleClosePasswordModal}>
                 <Modal.Header closeButton>
                   <Modal.Title>Change Password</Modal.Title>
@@ -336,16 +413,7 @@ function handleChange(event) {
                 </Modal.Footer>
               </Modal>
           <div className="row">
-            {/*<div className="col-md-4">
-              <div className="profile-work">
-                <p>Work LINK</p>
-                <a href="https://en.wikipedia.org/wiki/Lionel_Messi" target="_messi">
-                  Messi
-                </a>
-                <br />
-              </div>
-            </div>*/}
-
+           
             <div className="col-md-7 pl-5 about-info">
               <div className="tab-content profile-tab" id="myTabContent">
                 <div
@@ -355,10 +423,18 @@ function handleChange(event) {
                   aria-labelledby="home-tab">
                     <div className="row">
                       <div className="col-md-6">
+                        <label>FullName</label>
+                      </div>
+                      <div className="col-md-6">
+                        <p className="font-for-profile">{user.userData.fullName}</p>
+                      </div>
+                  </div>
+                    <div className="row">
+                      <div className="col-md-6">
                         <label>Email</label>
                       </div>
                       <div className="col-md-6">
-                        <p className="font-for-profile">{x.email}</p>
+                        <p className="font-for-profile">{user.userData.email}</p>
                       </div>
                   </div>
                   <div className="row">
@@ -366,7 +442,7 @@ function handleChange(event) {
                       <label>Category</label>
                     </div>
                     <div className="col-md-6 ">
-                      <p className="font-for-profile">{x.field}</p>
+                      <p className="font-for-profile">{user.userData.field}</p>
                     </div>
                   </div>
                   <div className="row">
@@ -374,7 +450,7 @@ function handleChange(event) {
                       <label>Phone Number</label>
                     </div>
                     <div className="col-md-6">
-                      <p className="font-for-profile"> {x.phone}</p>
+                      <p className="font-for-profile"> {user.userData.phone}</p>
                     </div>
                   </div>
                   
@@ -384,7 +460,7 @@ function handleChange(event) {
                       <label>Preferred language</label>
                       </div>
                       <div className="col-md-6">
-                        <p className="font-for-profile"> {x.language}</p>
+                        <p className="font-for-profile"> {user.userData.language}</p>
                       </div>
                     </div>
                     
@@ -393,7 +469,7 @@ function handleChange(event) {
                         <label>gender</label>
                       </div>
                       <div className="col-md-6">
-                        <p className="font-for-profile">{x.gender}</p>
+                        <p className="font-for-profile">{user.userData.gender}</p>
                       </div>
                   </div>
                   
@@ -402,12 +478,19 @@ function handleChange(event) {
                         <label>Points</label>
                       </div>
                       <div className="col-md-6">
-                        <p className="font-for-profile">{points}</p>
+                        <p className="font-for-profile">{user.userData.points}</p>
                       </div>
                   </div>
                   
-                  
-                  
+                    <div className="row">
+                      <div className="col-md-6">
+                        <label>Search Counter</label>
+                      </div>
+                      <div className="col-md-6">
+                        <p className="font-for-profile">{user.userData.searchCounter}</p>
+                      </div>
+                  </div>
+                  <button onClick={(e)=>getSearchCount}>Click to get number of search</button>
                     {/*<div className="col-md-6">
                       <a href="#" onClick={handleClick}>Favorites</a>
                     </div>*/}
@@ -416,7 +499,7 @@ function handleChange(event) {
               </div>
             </div>
           </div>
-        </form>
+      
       </div>
     </>
     );

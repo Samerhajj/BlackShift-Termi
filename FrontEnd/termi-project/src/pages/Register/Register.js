@@ -58,6 +58,7 @@ const handleSubmit = async (e) => {
     }
     // If there are no errors, make the API call
     const response = await AuthAPI.register({data:data});
+    
     if(response.success){
         navigate('/login');
     }

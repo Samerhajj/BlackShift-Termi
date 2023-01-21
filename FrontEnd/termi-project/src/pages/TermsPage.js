@@ -11,22 +11,17 @@ import TermCard from '../components/TermCard/TermCard';
 import { useNavigate} from 'react-router-dom';
 import CategorySelector from "../components/CategorySelector";
 const TermsPage = () =>{
-//   localStorage.setItem('currentPage', document.title)//test
-const { t, i18n } = useTranslation();
-const [searchedTerm, setSearchedTerm] = useState("");
-const [category, setCategory] = useState(JSON.parse(localStorage.getItem("profileBody"))['field']);
-const [suggestions, setSuggestions] = useState([]);
-const [inputLanguage, setInputLanguage] = useState(i18n.language);
-const navigate = useNavigate();
-const [resultTerm, setResultTerm] = useState({});
-const [resultLanguage, setResultLanguage] = useState(i18n.language);
-const [showResult, setShowResult] = useState(false);
-    
-    
-    
+    const { t, i18n } = useTranslation();
+    const [searchedTerm, setSearchedTerm] = useState("");
+    const [category, setCategory] = useState(); // need fix
+    const [suggestions, setSuggestions] = useState([]);
+    const [inputLanguage, setInputLanguage] = useState(i18n.language);
+    const navigate = useNavigate();
+    const [resultTerm, setResultTerm] = useState({});
+    const [resultLanguage, setResultLanguage] = useState(i18n.language);
+    const [showResult, setShowResult] = useState(false);
     const [isAdmin,setIsAdmin] = useState(false);
 
-    //         // setIsAdmin(true);
     
     function handleAdminPanel(){
         navigate('/admin');
@@ -64,12 +59,13 @@ const [showResult, setShowResult] = useState(false);
                     // console.log(categoryResult);
                     //let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
                     let favorite=[];
+                    
                     if (localStorage.getItem("profileBody") !== null) {
                         favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
                          
                     }
                     console.log(categoryResult);
-                     setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),category:category,categoryNames:categoryResult});
+                     setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),categoryNames:categoryResult});
                     setResultLanguage(inputLanguage);
                     setShowResult(true);
                     setInputLanguage(i18n.language);
@@ -104,6 +100,7 @@ const [showResult, setShowResult] = useState(false);
 			setCategory(newCategory.categoryId);
 		}
 	};
+	
     const autoComplete = async () => {
         if(category !== undefined)
         {
@@ -140,7 +137,6 @@ const [showResult, setShowResult] = useState(false);
     };
     
     const selectAutoCompleteTerm = (term)=>{
-        // setSearchedTerm(term);
         search(term);
     };
     
@@ -196,12 +192,11 @@ const [showResult, setShowResult] = useState(false);
     },[i18n.language]);
     
     useEffect(()=>{
-    const role = localStorage.getItem('role');
-    if(role == 'admin'){
-        setIsAdmin(true);
-        
-    }
-    },[])
+        const role = localStorage.getItem('role');
+            if(role == 'admin'){
+                setIsAdmin(true);
+            }
+        },[])
     
 
 
@@ -212,11 +207,6 @@ const [showResult, setShowResult] = useState(false);
                 <div className='wrapper'>
                     <div className="banner_content fade-in-element">
                         <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
-                       <div class="small-category-selector">
-                                <div class="flex-container">
-                                    <CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
-                                </div>
-                            </div>
                         <div className="search-box">
                             <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
                             <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm)}}></i>
@@ -234,6 +224,11 @@ const [showResult, setShowResult] = useState(false);
                                 null
                             }
                         </div>
+                        <div class="flex-container">
+                            <div class="small-category-selector">
+                                <CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -246,7 +241,7 @@ const [showResult, setShowResult] = useState(false);
             }
             
             { showResult ? 
-               <TermCard category={resultTerm.category} categorys={resultTerm.categoryNames} term={resultTerm.term} isSearch={true} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
+               <TermCard categorys={resultTerm.categoryNames} term={resultTerm.term} isSearch={true} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
 
                 :
                 null
