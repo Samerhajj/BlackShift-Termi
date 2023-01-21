@@ -57,15 +57,18 @@
     background-color: #e7dbfc;
 }
 .small-category-selector {
-    width: 50%;
-    margin-left:25%;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    width: 90%;
+    margin-top: 10px;
 }
 .flex-container {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+@media only screen and (max-width: 767px) {
+    .small-category-selector {
+        width: 80%;
+    }
 }
