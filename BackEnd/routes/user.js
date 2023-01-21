@@ -15,7 +15,11 @@ const { favorites,
         getAllLogs,
         handleLanguageChange2,
         getAllLogsSearchGames,
-        deleteLog2
+        deleteLog2,
+        incrementSearchCount,
+        getUserData,
+        gameSearchActivity,
+        clearGameSearchActivity
 } = require("../Controllers/userController");
 
 
@@ -134,11 +138,21 @@ router.delete("/delete-log",deleteLog);
 router.get("/get-all-logs",getAllLogs);
 
 
-
 //handleLanguageChange2
 router.post("/active-game-search",handleLanguageChange2)
 router.delete("/delete-game-search",deleteLog2)
 router.get("/get-all-search-game-logs",getAllLogsSearchGames)
+
+
+
+router.post("/inc-search-counter",incrementSearchCount);
+
+
+router.get("/getUserData",getUserData)
+
+
+router.post("/gameSearchActivity",gameSearchActivity);
+router.delete("/clearGameSearchActivity",clearGameSearchActivity);
 
 
 module.exports = router;

@@ -20,7 +20,8 @@ const register = async (req, res) => {
   try {
     const foundUser = await User.findOne({ email: email });//somthing here 
     if (foundUser) {
-      return res.send("Username Already exists");
+      // return res.send("Username Already exists");
+         return res.status(409).json("Email Already Exists");
     }
   } catch (err) {
     return res.status(500).json({err});
@@ -28,10 +29,10 @@ const register = async (req, res) => {
   // Create a new user
   // const newUser = new User({fullName, phone, language, field, email, password});
   const newUser = new User({fullName, phone, language, field, email, password,gender});
-  const payload = {id: newUser.id};
-  const token = jwt.sign({email}, process.env.SECRET,{expiresIn: "1h"});
+  const payload = { id: newUser._id, email: newUser.email };
+  const token = jwt.sign(payload, process.env.SECRET,{expiresIn: "24h"});
   //req.session.jwt = token;
-    // Set the authorization header
+    // Set the authorization header 
   // res.set('Authorization', `Bearer ${token}`);
   // Save the user to the database
   try {
@@ -60,10 +61,10 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'Incorrect password' });
     }
 
-    const payload = { id: foundUser.email};
+    const payload = { id: foundUser._id, email: foundUser.email };
     
     // Send JWT access token
-    const token = await jwt.sign({email}, process.env.SECRET,{expiresIn:'1h'});
+    const token = await jwt.sign(payload, process.env.SECRET,{expiresIn:'24h'});
     
     // Refresh Token
     const refreshToken = await jwt.sign( { email },process.env.SECRET,{expiresIn: "50m"});  
@@ -72,9 +73,8 @@ const login = async (req, res) => {
     refreshTokens.push(refreshToken);
          
   
-  res.header('x-auth-token', token);
-  res.header('x-refresh-token', refreshToken);
-  res.send({token,refreshToken});
+  res.json({token, refreshToken});
+//res.send({message:"logged in successfully"});
   });
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
