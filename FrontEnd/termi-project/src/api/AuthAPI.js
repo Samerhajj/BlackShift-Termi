@@ -6,10 +6,13 @@ const login = async (loginData) =>{
 
       try{
           // --> send a req to the server and chack if the user is found
-          const res = await axios.post(loginRoute, loginData);
+          //const res = await axios.post(loginRoute, loginData);
+           const res = await axios.post(loginRoute, loginData,{headers: { 'Authorization': `${localStorage.getItem('token')}`}});
           
+          console.log(res.headers);
           // --> assign the values that we got from the backend
           const token = res.data.token;
+          console.log(token);
           const refreshToken = res.data.refreshToken;
           
           // --> set the access token & refresh token in the localStorage
@@ -18,7 +21,7 @@ const login = async (loginData) =>{
           
           // --> privateRoute
           const profile_body = await axios.get(privateRoute, {
-          headers: { 'token': `${localStorage.getItem('token')}`}});
+          headers: { 'x-auth-token': `${localStorage.getItem('token')}`}});
             
           localStorage.setItem('profileBody',JSON.stringify(profile_body.data) );//this work
           
@@ -26,7 +29,8 @@ const login = async (loginData) =>{
           console.log(localStorage.getItem('profileBody'))
           
           // --> to set default header which will be sent with every request you make.
-          axios.defaults.headers.common['token']=localStorage.getItem('token');
+         // axios.defaults.headers.common['token']=localStorage.getItem('token');
+         axios.defaults.headers.common['token']=`Bearer ${localStorage.getItem('token')}`;
           
           // --> change the status to login in the localStorage
           localStorage.setItem('login', true);
@@ -49,9 +53,14 @@ const login = async (loginData) =>{
 const register = async (registerData) =>{
     try{
         const res = await axios.post(registerRoute, registerData);
+        
+
         return {body: res.data, success: true};
     }
     catch(err){
+        if(err.response.status === 409) {
+            return {success: false, message: "Email Already Exists"};
+        }
         console.log(err);
         return {success: false, message: err.message};
     }    

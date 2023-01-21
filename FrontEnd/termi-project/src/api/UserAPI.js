@@ -127,9 +127,22 @@ const languageChanged = async (activity,page,isCounterChanged,currentConceptLang
     }
 };
 
+const getUserData = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const res = await axios.get("http://dir.y2022.kinneret.cc:7013/user/getUserData", {
+          headers: { 'x-auth-token': token }
+        });
+        return {body: res.data, success: true};
+      } catch (err) {
+        console.log(err);
+        return {success: false};
+      }
+    }
+};
 
-
-export default {favorites, deleteFavorite, addFavorite,suggestFromUser,languageChanged};
+export default {favorites, deleteFavorite, addFavorite,suggestFromUser,languageChanged,getUserData};
 
 
     // const email = "m7md@gmail.com";// comment this 

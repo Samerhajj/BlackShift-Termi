@@ -1,5 +1,5 @@
 import axios from "axios";
-import { searchRoute, autocompleteRoute } from '../api/ApiRoutes';
+import { searchRoute, autocompleteRoute,SearchActiviyUserRoute } from '../api/ApiRoutes';
 
 const allCloseResults = [];
 
@@ -7,9 +7,23 @@ const closestResult = {};
 
 const search = async (term, category) =>{
     try{
-        let query = {params: {term: term, category: category}};
+        console.log("right category :");
         console.log(category);
-        const res = await axios.get(searchRoute, query);
+        console.log("right category :");
+        // let query = {params: {term: term, category: category}};
+        const res = await axios.post(searchRoute, {term: term, category: category, activity: "Concept search"},
+        {
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+        }});
+        //"http://dir.y2022.kinneret.cc:7013/user/gameSearchActivity"
+        //we need to improve this code ↓
+        // const respond = await axios.post(SearchActiviyUserRoute,{activity,category}
+        // ,{
+        //     headers: {
+        //         'x-auth-token': localStorage.getItem('token')
+        // }});
+        
         // If the server returns a status error
         if(res.status != 200){
             return {success: false, message: res.statusText};
@@ -24,7 +38,11 @@ const search = async (term, category) =>{
             
             console.log(closestResult['categories'])
             const ur = "http://dir.y2022.kinneret.cc:7013/search/returnAllCategories";
-            const categoryNames = await axios.post(ur,closestResult['categories']);
+            const categoryNames = await axios.post(ur,{categoryIds:closestResult['categories']},{
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+            }
+        });
             console.log("*****(((((((((((((((((((((((((((((((((((**")
             console.log(categoryNames);
             console.log("*****((((((((((((((((((((((((((((((((((**")
@@ -57,7 +75,5 @@ const autocomplete = async (input, language,category)=>{
         }
     }
 };
-
-
 
 export default {search, autocomplete, closestResult, allCloseResults};

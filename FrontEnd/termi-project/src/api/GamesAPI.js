@@ -1,11 +1,25 @@
 import axios from "axios";
-import { randomRoute } from '../api/ApiRoutes';
+import { randomRoute, SearchActiviyUserRoute, updatePointsRoute } from '../api/ApiRoutes';
 
 
-const random = async (numOfTerms, category)=>{
+const random = async (numOfTerms, category,gameName)=>{
     try{
         let params = {params: {numOfTerms: numOfTerms, category: category}};
         const res = await axios.get(randomRoute, params);
+        
+        // const activity = "Game started";
+        // const respond = await axios.post(SearchActiviyUserRoute,{activity,category,gameName}
+        // ,{
+        //     headers: {
+        //         'x-auth-token': localStorage.getItem('token')
+        // }});
+        
+        // const res = await axios.get(randomRoute, params,{
+        //     headers: {
+        //         'x-auth-token': localStorage.getItem('token')
+        // }
+        // });
+
         console.log(res);
         return {body: res.data, success: true};
     }catch(e){
@@ -17,10 +31,22 @@ const random = async (numOfTerms, category)=>{
     }
 };
 
-const updatePoints=async(_id,points)=>{
+const updatePoints=async(_id,points,gameName,category)=>{
     try{
-        const response = await axios.put('http://dir.y2022.kinneret.cc:7013/profile/updatePoints',{_id,points});
+        const activity = "Game over";
+        const response = await axios.put(updatePointsRoute,
+        {_id,points,gameName,category,activity},
+        {
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+        }});
         console.log(response);
+        
+        // const respond = await axios.post(SearchActiviyUserRoute,{activity,category,gameName}
+        // ,{
+        //     headers: {
+        //         'x-auth-token': localStorage.getItem('token')
+        // }});
         return { success: true };
        } 
     catch (error)
