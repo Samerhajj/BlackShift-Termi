@@ -60,7 +60,6 @@ export default function App() {
 	          setDisabled(false);
 	        } else {
 	          finishGame();
-	          
 	        }
 	      }, 10000);// wait for 10 seconds before moving on
 	    }
@@ -72,7 +71,7 @@ export default function App() {
 			let numOfTerms = 10;
 			// let categoryId = category.categoryId;
 			let numOfCards = numOfTerms * 2;
-		    const res = await GamesApi.random(numOfTerms, category);
+		    const res = await GamesApi.random(numOfTerms, category,"Definition Game");
 			// get 10 random terms from category 0
 	        if(res.success){
 		        let terms = res.body;
@@ -126,10 +125,10 @@ export default function App() {
 				setStart(true);
 				setDisabled(false);
 				setMessage("");
-			        }else{
-			    		alert(res.message);
-					    }
-					}
+	        }else{
+	    		alert(res.message);
+			    }
+			}
 		else{
 			alert("Must choose a category first");
 		}
@@ -187,6 +186,7 @@ export default function App() {
 		};
 		
 	const [showModal, setShowModal] = useState(false);
+	
 	const finishGame = async()=>{
 		// let prev_point = localStorage.getItem("points");
 		
@@ -201,7 +201,7 @@ export default function App() {
 		console.log(score);
 		setPoints(points);
 		const {_id} = JSON.parse(localStorage.getItem('profileBody'));
-			const response =await GamesApi.updatePoints(_id,points)
+			const response =await GamesApi.updatePoints(_id,points,"Definition Game")
 			if(response.success)
 			{
 				console.log("points UPDATEd");

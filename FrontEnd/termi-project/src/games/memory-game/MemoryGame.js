@@ -52,7 +52,7 @@ const MemoryGame = () => {
 			let numOfTerms = 5;
 			// let categoryId = category.categoryId;
 			let numOfCards = numOfTerms * 2;
-		    const res = await GamesApi.random(numOfTerms, category);
+		    const res = await GamesApi.random(numOfTerms, category,'Memory Game');
 		    if(res.success){
 		        let terms = res.body;
 		        let allCards = [];
@@ -123,10 +123,11 @@ const MemoryGame = () => {
 		setShowScore(true);
 		const {_id} = JSON.parse(localStorage.getItem('profileBody'));
 		console.log(_id);
-		const response = await GamesApi.updatePoints(_id,points)
+		const response = await GamesApi.updatePoints(_id,points,'Memory Game',category)
 		if(response.success)
 		{
 			console.log("points UPDATEd");
+			
 			localStorage.setItem("points",points);
 		}else{
 			console.log(response.message);
