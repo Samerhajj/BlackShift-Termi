@@ -1,5 +1,6 @@
 const User = require("../Models/userSchema");
-
+const jwt = require("jsonwebtoken");
+const {gameSearchActivity} = require("./UserFolder/tracker/gameSearchActivity");
 
 const changeProfile = async(req,res)=>{
    const updatedProfile = req.body;
@@ -63,11 +64,19 @@ const changePassword = async(req, res) => {
 
 const updatePoints = async(req,res)=>{
   try{
+    const token = req.headers['x-auth-token'];
+    const activity = req.body.activity;
+    const category = req.body.category;
+    const gameName = req.body.gameName;
     const userId=req.body._id;
     const points=req.body.points;
+    
     //find the user
     const updatedUser = await User.findByIdAndUpdate(userId,{$inc: {points:
       points}},{new:true});
+      
+    gameSearchActivity(token, activity, category,gameName);
+      
     res.status(200).json({
       success:true,
       message:"updated points successfully",
@@ -88,25 +97,53 @@ const updatePoints = async(req,res)=>{
 
 
 
-const getGamePoints =async(req,res)=>{
-  try{
-      const userId=req.body._id;
-      const user=await User.findById(userId);
-      res.status(200).json({
-        success:true,
-        points:user.points,
-      });
-
-  }
- catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error getting points",
-      error,
+const getGamePoints = async (req, res) => {
+  const token = req.headers["x-auth-token"];
+  console.log(token)
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.SECRET);
+    console.log(decoded);
+     const user = await User.findById(decoded.id);
+   
+    // Your code to get game points here
+    res.send({
+      points: user.points
     });
- }
-}
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: 'Invalid token'
+    });
+  }
+};
 
+
+// const getUserData = async (req, res) => {
+//   const token = req.headers["x-auth-token"];
+//   console.log(token)
+//   let decoded;
+//   try {
+//     decoded = jwt.verify(token, process.env.SECRET);
+//     console.log(decoded);
+//     const user = await User.findById(decoded.id);
+//     console.log(user);
+   
+//     // Your code to get game points here
+//     res.send({
+//       data:user
+//     });
+//   } catch (error) {
+//     res.status(401).json({
+//       success: false,
+//       message: 'Invalid token'
+//     });
+//   }
+// };
+
+  
+  
+ 
 module.exports = { changeProfile,changePassword ,updatePoints,getGamePoints};
 
 

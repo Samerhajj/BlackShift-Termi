@@ -6,6 +6,6 @@ const {changeProfile,changePassword,updatePoints,getGamePoints} = require("../Co
 router.put('/edit',changeProfile);
 router.put("/change-password", changePassword);
 router.put("/updatePoints",updatePoints);
-router.post("/getPoints",getGamePoints);
-
+router.get("/getPoints",getGamePoints);
+//router.get("/getData",getUserData);
 module.exports=router;

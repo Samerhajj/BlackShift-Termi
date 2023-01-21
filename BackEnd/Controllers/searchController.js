@@ -1,36 +1,44 @@
 const Search = require("../Models/searchSchema");
 const User = require("../Models/userSchema");
 const Category = require("../Models/categorySchema");
+const {gameSearchActivity} = require("./UserFolder/tracker/gameSearchActivity");
+const jwt = require("jsonwebtoken");
 
 const searchTerm = async(req,res)=>{
   try{
-    console.log(req.query);
-    let term = req.query.term.trim();
-    let category = req.query.category;
-    let language = req.query.language;
+          // fullToken = req.headers["x-auth-token"];
+
+    console.log(req.body);
+    let term = req.body.term.trim();
+    let category = req.body.category;
+    let activity = req.body.activity;
+    let language = req.body.language;
+    let token = req.headers["x-auth-token"];
     
     if(term != null && category != null){
       let categoryNum = parseInt(category);
-      
       let respond = await Search.find({
         "$text": {
           "$search": term
-          
         },
         "categories": { $in : [categoryNum] }
       }).sort( 
         { score: { $meta : 'textScore' } }
       );
-      Search.updateOne({ _id: respond[0]._id }, { $inc: { searchCount: 1 } }, function(error,res) {
-        if (error) {
-          console.log(error);
-        }
-        else{
-          console.log(res);
-        }
-      });
       console.log(respond);
-      console.log(respond[0]['categories'])
+      if(respond.length != 0){
+        Search.updateOne({ _id: respond[0]._id }, { $inc: { searchCount: 1 } }, function(error,res) {
+          
+          if (error) {
+            console.log(error);
+          }
+          else{
+            console.log(res);
+          }
+        });
+      }
+      gameSearchActivity(token, req.body.activity, category);
+
       res.send(respond);
     }else{
       res.status(400).send("Missing data");
@@ -117,7 +125,8 @@ const getRandomConcepts = async(req,res)=>{
         generatedIndexs.set(randIndex);
         randomTerms[i] = terms[randIndex];
       }
-      
+      // const token = req.headers['x-auth-token'];
+      // gameSearchActivity(token, req.body.activity, category,req.body.gameName);
       res.send(randomTerms);
       
       // Search.aggregate([
@@ -208,13 +217,25 @@ const addNewCategories = async (req,res) =>{
 }
 
 const getCategorie = async (req,res)=>{
-  // const cats = [0,1];
-  const cats  = req.body.categoryIds
+  const token = req.headers["x-auth-token"];
+  // console.log(`this is the token : \n ${token}`)
+      let decoded;
+      try{
+          decoded = jwt.verify(token, process.env.SECRET);
+          const user = await User.findByIdAndUpdate({_id :decoded.id},{$inc: { searchCounter: 1 }});
+          console.log("Update the search count");
+      }
+      catch(err){
+        console.log("Not auth");
+      }
   
-  console.log("*****(((((((((((((((((((((((((((((((((((**")
+  // const cats = [0,1];
+  const cats  = req.body.categoryIds;
+  
+  // console.log("*****(((((((((((((((((((((((((((((((((((**")
 
-  console.log(req.body);
-        console.log("*****(((((((((((((((((((((((((((((((((((**")
+  // console.log(req.body);
+  //       console.log("*****(((((((((((((((((((((((((((((((((((**")
 
   // const catName = await Category.find({ 'categoryId': { $in: req.body.categoryName} })
   // res.send(catName);
@@ -243,10 +264,6 @@ const getCategorie = async (req,res)=>{
   // res.send(cat_res[0]['categoryName']);
 
 }
-
-
-
-
 
 module.exports = {autoCompleteTerm,
                   searchTerm,

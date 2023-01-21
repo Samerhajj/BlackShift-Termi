@@ -3,7 +3,7 @@ const Search = require("../Models/searchSchema");
 const Suggest = require("../Models/suggestSchema");
 const UserActivity = require("../Models/activitySchema");
 const UserActivity2 = require("../Models/activitySchema2");
-
+const jwt = require("jsonwebtoken");
 var ObjectID = require('mongodb').ObjectID;
 
 const favorites = async (req,res) =>{
@@ -64,11 +64,6 @@ const addFavorite = async (req,res) =>{
   }
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
 const suggestTerm = async (req,res) =>{
         console.log("->>>>" + req.body);
         
@@ -90,7 +85,7 @@ const suggestTerm = async (req,res) =>{
             res.send(err);
         } 
 };
-
+//-------------------------------------------------------------------------------------------------------------------------------------
 const handleLanguageChange = async(req,res) => {
   try{
     // const time = Date.now();
@@ -121,10 +116,7 @@ const handleLanguageChange = async(req,res) => {
     res.send({msg:err});
   }
 };
-
-
-
-//***************************************************************************
+//-------------------------------------------------------------------------------------------------------------------------------------
 const handleLanguageChange2 = async(req,res) => {
   try{
     await UserActivity2.create({
@@ -155,10 +147,12 @@ const handleLanguageChange2 = async(req,res) => {
     res.send({msg:err});
   }
 };
+//-------------------------------------------------------------------------------------------------------------------------------------
 const getAllLogsSearchGames = async (req,res) =>{
   const fetch = await UserActivity2.find({});
   res.send(fetch);
 }
+//-------------------------------------------------------------------------------------------------------------------------------------
 // delete all logs
 const deleteLog2 = async (req,res)=>{
  try{
@@ -169,19 +163,7 @@ const deleteLog2 = async (req,res)=>{
    res.send({msg:err})
  }   
 }
-//***************************************************************************
-
-
-
-
-
-
-
-
-
-
-
-
+//-------------------------------------------------------------------------------------------------------------------------------------
 // delete all logs
 const deleteLog = async (req,res)=>{
  try{
@@ -192,42 +174,16 @@ const deleteLog = async (req,res)=>{
    res.send({msg:err})
  }   
 }
+//-------------------------------------------------------------------------------------------------------------------------------------
 const activity = async (req,res)=>{
   res.send("hello");
 }
+//-------------------------------------------------------------------------------------------------------------------------------------
 const getAllLogs = async (req,res) =>{
   const fetch = await UserActivity.find({});
   res.send(fetch);
 }
-
-// const suggestTermEnglish = async (req,res) =>{
-//         console.log(req.body);
-        
-//         const newSuggest = await new Suggest({
-//           categories: req.body.selectedCategory,
-//           shortDefinition:{
-//             english:req.body.values['shortDefinition-english']
-//           },
-//           lastEdited: Date.now(),
-//           conceptName: req.body.values.conceptName,
-//           suggestedBy: req.body.values.suggestedBy,
-//         }
-        
-//         );
-//         try{
-//             await newSuggest.save();
-//             res.send(newSuggest);
-//         }
-//         catch(err){
-//             res.send(err);
-//         } 
-// };
-
-
-
-        
-
-
+//-------------------------------------------------------------------------------------------------------------------------------------
 const getAllSuggestedTerms = async (req,res) =>{
   try{
       const response = await Suggest.find();
@@ -237,7 +193,7 @@ const getAllSuggestedTerms = async (req,res) =>{
        res.send(err);
   }
 }
-
+//-------------------------------------------------------------------------------------------------------------------------------------
 const deleteOneSuggest = async (req,res)=>{
   try{
       const response = await Suggest.deleteOne({ "_id": req.body.suggestId});
@@ -250,7 +206,7 @@ const deleteOneSuggest = async (req,res)=>{
         console.log(err);
   }
 }
-
+//-------------------------------------------------------------------------------------------------------------------------------------
 const addSelectedTerm = async(req,res)=>{
   // try{
     
@@ -288,6 +244,84 @@ res.send(req.body)
 
   }
 //------------------------------------------------------------------------------------------------------------------------------------
+const incrementSearchCount = async (req,res)=>{
+  const token = req.headers["x-auth-token"];
+  console.log(token)
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.SECRET);
+    console.log(decoded);
+     const user = await User.findByIdAndUpdate({_id :decoded.id},{$inc: { searchCounter: 1 }});
+    // console.log(user);
+     
+     
+   console.log(user);
+    res.send({
+      msg: user
+    });
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: 'Invalid token'
+    });
+  }
+}
+//------------------------------------------------------------------------------------------------------------------------------------
+const gameSearchActivity = async (req,res)=>{
+  const token = req.headers["x-auth-token"];
+  console.log(token)
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.SECRET);
+    console.log(decoded);
+    const user = await User.findById(decoded.id);
+        await UserActivity2.create({
+        currentScore:user.points,
+        activity: req.body.activity,
+        email: user.email,
+        category:req.body.category,
+        searchCounter:user.searchCounter
+    });
+    res.send(user);
+    console.log(user);
+  }
+  catch (error) {
+    res.status(401).json({
+      success: false,
+      message: 'Invalid token'
+    });
+  }    
+}
+
+const clearGameSearchActivity = async (req,res)=>{
+  const res1 = await UserActivity2.deleteMany({});
+  res.send("done");
+}
+
+
+const getUserData = async (req, res) => {
+  const token = req.headers["x-auth-token"];
+  console.log(token)
+  let decoded;
+  try {
+    decoded = jwt.verify(token, process.env.SECRET);
+    console.log(decoded);
+     const user = await User.findById(decoded.id);
+     console.log(user);
+   
+    // Your code to get game points here
+    res.send({
+      data:user
+    });
+  } catch (error) {
+    res.status(401).json({
+      success: false,
+      message: 'Invalid token'
+    });
+  }
+};
+
+
 
 module.exports = {favorites,
                   deleteFavorite,
@@ -303,10 +337,58 @@ module.exports = {favorites,
                   getAllLogs,
                   handleLanguageChange2,
                   getAllLogsSearchGames,
-                  deleteLog2
-                  
+                  deleteLog2,
+                  incrementSearchCount,
+                  getUserData,
+                  gameSearchActivity,
+                  clearGameSearchActivity
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const suggestTermEnglish = async (req,res) =>{
+//         console.log(req.body);
+        
+//         const newSuggest = await new Suggest({
+//           categories: req.body.selectedCategory,
+//           shortDefinition:{
+//             english:req.body.values['shortDefinition-english']
+//           },
+//           lastEdited: Date.now(),
+//           conceptName: req.body.values.conceptName,
+//           suggestedBy: req.body.values.suggestedBy,
+//         }
+        
+//         );
+//         try{
+//             await newSuggest.save();
+//             res.send(newSuggest);
+//         }
+//         catch(err){
+//             res.send(err);
+//         } 
+// };
 
 {
 //process.env.ACCESS_TOKEN_SECRET

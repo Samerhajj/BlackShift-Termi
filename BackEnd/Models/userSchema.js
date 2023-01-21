@@ -1,21 +1,6 @@
 const mongoose = require("mongoose");
 const encrypt = require("mongoose-encryption"); //new level 2
 
-
-// const UserSchema = new mongoose.Schema({
-//   fullName:String,
-//   phone:String,
-//   language:String,
-//   field:String,
-//   email: String,
-//   password: String,
-// });
-
-// Gender : Object,
-
-
-
-// replace ↓↑
 const UserSchema = new mongoose.Schema({
   fullName:String,
   phone:String,
@@ -28,6 +13,14 @@ const UserSchema = new mongoose.Schema({
   points: {
     type: Number,
     default: 0
+  },
+  searchCounter: {
+    type: Number,
+    default: 0
+  },
+  role: {
+    type: String,
+    default: "default user"
   }
 });
 

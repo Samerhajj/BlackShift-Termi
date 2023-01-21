@@ -11,7 +11,7 @@ getCategorie
 } = require("../Controllers/searchController");
 router.use(express.json());
 
-router.get("/",searchTerm);
+router.post("/",searchTerm);
 
 router.post("/auto-complete", autoCompleteTerm);
 

@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
-// const moment = require('moment');
-const moment = require('moment-timezone');
-
 
 const activitySchema2 = new mongoose.Schema({
     email: String,
+    gameName:{
+        type: String,
+        default: null,
+        enum: ["Definition Game","Memory Game",null]
+    },
+
     currentDate:{
         type:String,
         default: ()=>{
@@ -21,38 +24,23 @@ const activitySchema2 = new mongoose.Schema({
     },
     activity:{
         type: String,
-        default: null
+        default: null,
+        enum: ["Game started","Game over","Concept search"]
     },
-    origin: {
-        type: String,
-        default: null
-    },
-    previousGame:{
-        type:String,
-        default: null
-    },
-    currentGame:{
-        type:String,
-        default: null
-    },
-    searchCount: {
-        type: Number,
+    currentScore:{
+         type: Number,
         default: 0
-  },
-   category:{
+    },
+    category:{
        type:String,
        default:null 
    },
-   lastScoreBeforeSwitchGame:{
-       type:Number,
-       default:0
-   },
-   timePlayed:{
-       type:String,
-       default:null
-   }
+    searchCounter: {
+        type: Number,
+        default: 0
+  },
+   
 });
 const USERACTIVITY2 = mongoose.model("allusersactivity2database", activitySchema2);
-// lan 
 module.exports = USERACTIVITY2;
 
