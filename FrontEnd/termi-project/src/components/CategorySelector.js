@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 // Translate
 import { useTranslation } from 'react-i18next';
@@ -8,28 +8,42 @@ import LanguageMap from '../api/LanguageAPI';
 // APIs
 import CategoryApi from '../api/CategoryAPI';
 
+// Components
+import {LoginContext} from "./../components/LoginContext";
+
 const CategorySelector = (props) => {
+    const user = useContext(LoginContext);
     const { i18n, t } = useTranslation();
-    const [selectedCategory, setSelectedCategory] = useState(props.initialCategory);
+    const [selectedCategory, setSelectedCategory] = useState(-1);
     const [categories, setCategories] = useState([]);
     
-    useEffect(() => {
-        const getCategories = async () =>{
-            const res = await CategoryApi.getAllCategories();
-            if(res.success){
-                const categories = res.body;
-                setCategories(categories);
-                const index = categories.findIndex(cat => cat.categoryId == props.initialCategory);
+    const getCategories = async () =>{
+        const res = await CategoryApi.getAllCategories();
+        if(res.success){
+            const categories = res.body;
+            setCategories(categories);
+            if(user.userData === undefined){
+                setSelectedCategory(-1);
+            }else{
+                const index = categories.findIndex(cat => cat.categoryId == parseInt(user.userData.field, 10));
                 setSelectedCategory(index);
                 console.log(categories);
-            }else{
-                console.log(res.message);
             }
-        };
+        }else{
+            console.log(res.message);
+        }
+    };
+    
+    useEffect(() => {
         getCategories();
-    }, []);
+    }, [user]);
+    
+    useEffect(() => {
+        onCategoryChange(selectedCategory);
+    }, [selectedCategory]);
     
     const onCategoryChange = (newCategory) => {
+        console.log("Category Changed " + categories[newCategory]);
         setSelectedCategory(newCategory);
         props.categoryChanged(categories[newCategory]);
     };
@@ -42,7 +56,7 @@ const CategorySelector = (props) => {
             data-style="btn-primary"
             title="Category"
             onChange={(e)=>{onCategoryChange(e.target.value)}}>
-            <option value="Category">{t("category-selector.category")}</option>
+            <option value={-1}>{t("category-selector.category")}</option>
             {
                 categories.map((category, index) => {
                 let categoryName = category.categoryName[LanguageMap[i18n.language].name];
