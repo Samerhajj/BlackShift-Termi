@@ -1,10 +1,12 @@
 import React,{useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
-import AdminAPI from "../../api/AdminAPI";
+import AdminAPI from '../../api/AdminAPI';
+import {numberOfWordsInTheApp} from './../../api/ApiRoutes'
 import axios from 'axios'
 import json2csv from 'json2csv';
 import fileDownload from 'js-file-download';
+
 // --> components
 import './Admin.css'
 
@@ -22,7 +24,9 @@ const AdminPage=()=> {
   const [counRes,setCountRes] = useState();
 
   const handleClick = async() => {
-    const count_res = await axios.get('http://dir.y2022.kinneret.cc:7013/counter');
+    // const count_res = await axios.get('http://dir.y2022.kinneret.cc:7013/counter');
+    const count_res = await axios.get(numberOfWordsInTheApp);
+
     console.log(count_res.data['result']);
     setCountRes(count_res.data['result']);
     setIsFlapped(!isFlapped);
@@ -32,7 +36,7 @@ const AdminPage=()=> {
   };
   
   
-  
+  //
   
   const getAllUsersLogs = async () => {
   const res = await AdminAPI.fetchAllLogs();
@@ -49,7 +53,37 @@ const AdminPage=()=> {
     console.log(res.message);
   }
 };
-
+//AdminAPI.fetchAllSearchGameLogs
+const getAllUsersSearchGameLogs = async () => {
+  const res = await AdminAPI.fetchAllSearchGameLogs();
+  if (res.success) {
+    res.body.forEach(log => {
+      switch (log.category) {
+        case "0":
+          log.category = "human resources";
+          break;
+        case "1":
+          log.category = "software engineering";
+          break;
+        case "2":
+          log.category = "medic";
+          break;
+        default:
+          log.category = null;
+      }
+    });
+    const fields = Object.keys(res.body[0]);
+    const opts = { fields };
+    try {
+      const csv = json2csv.parse(res.body, opts);
+      fileDownload(csv, 'User_Search_Log.csv');
+    } catch (err) {
+      console.error(err);
+    }
+  } else {
+    console.log(res.message);
+  }
+};
 return (
     <div>
     <div className="banner banner_admin">
@@ -95,7 +129,10 @@ return (
                     >{t('Adminwords.Games')}</button>
                     <button className="su-button mb-2" onClick={
                     ()=> getAllUsersLogs()}
-                    >Get Data</button>
+                    >Get Data Switch  Language Activity Logs</button>
+                    <button className="su-button mb-2" onClick={
+                    ()=> getAllUsersSearchGameLogs()}
+                    >Get User Search Game Logs</button>
                 </div>
             <div>
         </div>
