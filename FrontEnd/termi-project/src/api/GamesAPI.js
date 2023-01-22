@@ -4,21 +4,16 @@ import { randomRoute, SearchActiviyUserRoute, updatePointsRoute } from '../api/A
 
 const random = async (numOfTerms, category,gameName)=>{
     try{
-        let params = {params: {numOfTerms: numOfTerms, category: category}};
-        const res = await axios.get(randomRoute, params);
+        // let params = {params: {numOfTerms: numOfTerms, category: category}};
+        // const res = await axios.get(randomRoute, params);
         
-        // const activity = "Game started";
-        // const respond = await axios.post(SearchActiviyUserRoute,{activity,category,gameName}
-        // ,{
-        //     headers: {
-        //         'x-auth-token': localStorage.getItem('token')
-        // }});
-        
-        // const res = await axios.get(randomRoute, params,{
-        //     headers: {
-        //         'x-auth-token': localStorage.getItem('token')
-        // }
-        // });
+        const activity = "Game started";
+        const res = await axios.post(randomRoute,{
+            numOfTerms: numOfTerms, category: category,activity,gameName}
+        ,{
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+        }});
 
         console.log(res);
         return {body: res.data, success: true};
@@ -41,12 +36,6 @@ const updatePoints=async(_id,points,gameName,category)=>{
                 'x-auth-token': localStorage.getItem('token')
         }});
         console.log(response);
-        
-        // const respond = await axios.post(SearchActiviyUserRoute,{activity,category,gameName}
-        // ,{
-        //     headers: {
-        //         'x-auth-token': localStorage.getItem('token')
-        // }});
         return { success: true };
        } 
     catch (error)
