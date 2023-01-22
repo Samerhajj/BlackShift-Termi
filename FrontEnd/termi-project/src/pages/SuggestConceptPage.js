@@ -13,6 +13,9 @@ const tailLayout = {
   wrapperCol: { span: 8, span: 16 },
 };
 
+
+
+
 const validateMessages = {
   required: '${label} is required!',
   types: {
@@ -34,33 +37,22 @@ const validateUrl = (rule, value, callback) => {
     callback();
   }
 };
-{
-//   const onFinish = values => {
-//       const user = JSON.parse(localStorage.getItem('profileBody'));
-//     values.suggestedBy = user.fullName;
-    
-//     //Combine the values of short definitions into a single object,
-//       values.shortDefinition = {
-//     english: values['shortDefinition-english'],
-//     arabic: values['shortDefinition-arabic'],
-//     hebrew: values['shortDefinition-hebrew']
-//   };
-//   //combine the values of long definitions into a single object,
-//   values.longDefinition = {
-//     english: values['longDefinition-english'],
-//     arabic: values['longDefinition-arabic'],
-//     hebrew: values['longDefinition-hebrew']
-//   };
-//   //delete the withstand values from the original fields after combining , we dont need em
-//   delete values['shortDefinition-english'];
-// delete values['shortDefinition-arabic'];
-// delete values['shortDefinition-hebrew'];
-// delete values['longDefinition-english'];
-// delete values['longDefinition-arabic'];
-// delete values['longDefinition-hebrew'];
-//   console.log(values);
-//   };
-} 
+
+const [englishNameEntered, setEnglishNameEntered] = useState(false);
+const [arabicNameEntered, setArabicNameEntered] = useState(false);
+const [hebrewNameEntered, setHebrewNameEntered] = useState(false);
+
+const handleEnglishNameChange = (e) => {
+  setEnglishNameEntered(e.target.value.length > 0);
+};
+
+const handleArabicNameChange = (e) => {
+  setArabicNameEntered(e.target.value.length > 0);
+};
+
+const handleHebrewNameChange = (e) => {
+  setHebrewNameEntered(e.target.value.length > 0);
+};
 
 // --> 
 const [selectedCategory, setSelectedCategory] = useState("");
@@ -102,6 +94,13 @@ const hebrewOptions = [
       console.log(res.message);
     }
   }
+  
+  const checkConceptName = (_, value) => {
+  if (!value.conceptNameEnglish && !value.conceptNameArabic && !value.conceptNameHebrew) {
+    return Promise.reject("At least one concept name is required.");
+  }
+  return Promise.resolve();
+};
 
     //concept names have to be Select
     return (
@@ -176,34 +175,36 @@ const hebrewOptions = [
                   
                    <Form.Item name={['conceptName', 'english']} 
                    label="Concept Name (English)" 
-                   rules={[{ required: true }]}>
-                    <Input />
+                   rules={[{ required: false }]}>
+                   <Input onChange={handleEnglishNameChange} />
                   </Form.Item>
                   
-                  <Form.Item name={['conceptName', 'arabic']} label="Concept Name (Arabic)" rules={[{ required: true }]}>
-                    <Input />
-                  </Form.Item>
-                  
-                  
-                  <Form.Item name={['conceptName', 'hebrew']} label="Concept Name (Hebrew)" rules={[{ required: true }]}>
-                    <Input />
+                  <Form.Item name={['conceptName', 'arabic']} label="Concept Name (Arabic)" rules={[{ required: false }]}>
+                  <Input onChange={handleArabicNameChange} />
                   </Form.Item>
                   
                   
+                  <Form.Item name={['conceptName', 'hebrew']} label="Concept Name (Hebrew)" rules={[{ required: false }]}>
+                    <Input onChange={handleHebrewNameChange} />
+                  </Form.Item>
+                  
+                   {englishNameEntered && (
                   <Form.Item name="shortDefinition-english" label="Short Definition (English)" rules={[{ required: true }]}>
                     <Input.TextArea />
                   </Form.Item>
+                   )}
                   
-                  
+                    {arabicNameEntered && (
                   <Form.Item name="shortDefinition-arabic" label="Short Definition (Arabic)" rules={[{ required: true }]}>
                     <Input.TextArea />
                   </Form.Item>
+                  )}
                   
-                  
+                   {hebrewNameEntered && (
                    <Form.Item name="shortDefinition-hebrew" label="Short Definition (Hebrew)" rules={[{ required: true }]}>
                     <Input.TextArea />
                   </Form.Item>
-                  
+                  )}
         </Form>}
         
 
