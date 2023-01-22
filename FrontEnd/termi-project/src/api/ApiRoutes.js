@@ -23,6 +23,14 @@ const addFavoriteRoute = process.env.React_App_BaseURL + "user" + "/" + "add-fav
 const suggestUserRoute = process.env.React_App_BaseURL + "user" + "/" + "suggest-term";
 const SearchActiviyUserRoute = process.env.React_App_BaseURL + "user" + "/" + "gameSearchActivity";
 
+// Admin Routes
+const numberOfWordsInTheApp = process.env.React_App_BaseURL + "counter";
+const allsuggestedterms = process.env.React_App_BaseURL + "user" + "/" + "allsuggestedterms";
+const approveTerm = process.env.React_App_BaseURL + "user" + '/' + "approve-term";
+const deleteTerm = process.env.React_App_BaseURL + "user" + "/" + "deleteonesuggest";
+const AllChangeLanguageLogs = process.env.React_App_BaseURL + "user" + "/" + "get-all-logs";
+const AllSearchGameLogs = process.env.React_App_BaseURL + "user" + "/" + "get-all-search-game-logs";
+// Others
 const displayMytermsRoute1 = process.env.React_App_User_Favorite_DISPLAY_MYTERMS;
 
 export {searchRoute,
@@ -40,5 +48,11 @@ export {searchRoute,
         top10,
         allCategoriesRoute,
         SearchActiviyUserRoute,
-        updatePointsRoute
+        updatePointsRoute,
+        numberOfWordsInTheApp,
+        allsuggestedterms,
+        approveTerm,
+        deleteTerm,
+        AllChangeLanguageLogs,
+        AllSearchGameLogs
 };
