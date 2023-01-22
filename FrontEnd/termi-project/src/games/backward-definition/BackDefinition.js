@@ -27,7 +27,7 @@ export default function App() {
 	const [elapsedTime, setElapsedTime] = useState(0);
 	const [timeLeft, setTimeLeft] = useState(30);
 	const [points,setPoints]=useState(0);
-	const [category, setCategory] = useState(JSON.parse(localStorage.getItem("profileBody"))['field']);
+	const [category, setCategory] = useState();
 	//useIntervaal
 	useInterval(() => {
 	    setElapsedTime(elapsedTime + 1);
@@ -219,6 +219,7 @@ export default function App() {
 			}
 			
 	}
+	
 	function handleOpenModal() {
 	    setShowModal(true);
 	  }
@@ -271,9 +272,9 @@ export default function App() {
 					{/*<button className="circle-button"   onClick={handleOpenModal}><img src={play_Icon}/></button>*/}
 					
 						<div className="icon-selector-container">
-						   <CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
-						    	<div className="icon-center">
-						    <AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
+							<CategorySelector categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+							<div className="icon-center">
+							<AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
 						</div>
 					</div>
 					<Modal show={showModal} onHide={() => setShowModal(false)} >
