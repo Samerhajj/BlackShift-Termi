@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useContext} from "react";
 import Image from "react-bootstrap/Image";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button ,Col,Row} from "react-bootstrap";
 import AvatarGenerator from "./Logic/AvatarGenerator";
 import { useNavigate} from 'react-router-dom';
 import goldChevron from "../images/Games/Chevron/goldChevron.png";
@@ -25,7 +25,7 @@ console.log(user);
   // localStorage.setItem('currentPage', document.title)//test
 
   let avatarGenerator = new AvatarGenerator();
-  let avatarImageUrl = avatarGenerator.generateRandomAvatar('random13213');
+  let avatarImageUrl = avatarGenerator.generateRandomAvatar("random123");
   const [showModal, setShowModal] = useState(false);
   const [showModalAvatar, setShowModalAvatar] = useState(false);
   const [showPasswordModal,setShowPasswordModal]=useState(false);
@@ -118,7 +118,7 @@ console.log(user);
             phone: formValues['phone'],
             field: formValues['field'],
             language: formValues['language']});
-            
+           //const Avatar=formValues['AvatarURL'];
           localStorage.setItem('profileBody', JSON.stringify(user.userData));
        
           // update the profile data in localStorage
@@ -147,6 +147,7 @@ console.log(user);
       console.log('Error updating profile: ' + error.message);
     }
   }
+  
   
   async function handleSavePasswordChanges(event) {
   event.preventDefault();
@@ -178,8 +179,6 @@ console.log(user);
     }
   }
 }
-
-
 
 async function getSearchCount(e){
   e.preventDefault()
@@ -218,72 +217,76 @@ function handleChange(event) {
           </div>
         </div>
       </div>
-      <div className="container emp-profile mt-2">
-          <div className="row">
-            <div className="col-md-4">
+       
             
             
-            <div className="d-flex justify-content-end position-absolute" >
-                  <IconContext.Provider value={{ size: "4rem" ,
+          
+                  {/*<IconContext.Provider value={{ size: "4rem" ,
                                                  color: 'red',
                                                  strokeWidth: "5",
                                                  
                   }}>
                     <AiTwotoneStar/>
-                  </IconContext.Provider>
-            </div>
+                  </IconContext.Provider>*/}
+          
             
-              <div className="profile-img d-flex justify-content-center">
-                 <Image src={avatarImageUrl} style={{width: '30%', height: '30%'}} />
-                   <div className="small-button">
-                   
-                    {/*<Button onClick={handleOpenModalAvatar}>Edit Avatar</Button>*/}
-              </div>
+<div className="container">
+             
+<Row >
+  <Col xs={5} xl={4}>
+        <div class="avatar-container">
+          <Image src={avatarImageUrl} />
+        </div>
+  </Col>
+  <Col xs={6} xl={8} className="mt-1">
+        <div class="">
+
+          <div class="">
+                <span className="d-flex lab_nextAvatar">Name : {formValues.fullName}</span>
+          </div>
+          
+          <div class="">
+                <span className="d-flex lab_nextAvatar">Gender : {user.userData.gender}</span>
+          </div>
+          <div class="">
+                <span className="d-flex lab_nextAvatar">Category : {user.userData.field}</span>
+          </div>
+
+        </div>
+  </Col>
+
+</Row>
+{/*<Row>
+  <div class="buttons-container">
+    <Button class="favorites-button" onClick={() => {handleClick()}}>Favorites</Button>
+    <Button onClick={() => {handleOpenModal()}}>Edit Profile</Button>
+    <Button onClick={() => {handleOpenPasswordModal()}}>Change Password</Button>
+  </div>
+</Row>*/}
+</div>
+
+                 {/*   <Button onClick={handleOpenModalAvatar}>Edit Avatar</Button>
+              
             
-              </div>
+              
               <Modal show={showModalAvatar} onHide={handleCloseModalAvatar}>
                 <Modal.Header closeButton>
-                  <Modal.Title>Edit Profile</Modal.Title>
+                  <Modal.Title>Edit Avatar</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <form>
-                    <div className="form-group">
-                      <label>
-                        Full Name
-                      </label>
-                      <input type="text" onChange={handleChange}   name="fullName" className="form-control" value=
-                      {formValues.fullName}/>
-                    </div>
+                     <div style={{display: "block"}}>
+                <label>Link:</label>
+                <a href={"https://getavataaars.com/"} target="_blank" style={{textDecoration: "underline"}}>
+                  https://getavataaars.com/
+                </a>
+              </div>
+              <div style={{display: "block"}}>
+                <label>Copy the URL and Paste it:</label>
+                <input type="text" name="AvatarURL" className="form-control" value={formValues.AvatarURL}/>
+              </div>
                       
-                    <div className="form-group">
-                      <label>
-                        Email
-                      </label>
-                      <input type="email" onChange={handleChange} name="email" className="form-control" value=
-                      {formValues.email}/>
-                    </div>
                     
-                    <div className="form-group">
-                      <label>
-                        Phone Number
-                      </label>
-                      <input type="text" onChange={handleChange} name="phone" className="form-control" value=
-                      {formValues.phone}/>
-                    </div>
-                    <div className="form-group">
-                      <label>
-                        Category
-                      </label>
-                      <input type="text" onChange={handleChange} name="field" className="form-control" value=
-                      {formValues.field}/>
-                    </div>
-                    <div className="form-group">
-                      <label>
-                        Preferred Language
-                      </label>
-                      <input type="text" onChange={handleChange} name="language" className="form-control" value=
-                      {formValues.language}/>
-                    </div>
                   </form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -295,16 +298,14 @@ function handleChange(event) {
                   </Button>
                 </Modal.Footer>
               </Modal>
-            </div>
+            */}
 
            
 
-            <div className="col-md-2 mt-3">
+          
             
-              <div className="small-button">
-              <button className="btn btn-warning" onClick={() => {handleClick()}}>Favorites</button>
-              <Button className=""  onClick={() => {handleOpenModal()}}>Edit Profile</Button>
-              </div>
+              
+              
                 
 
       <Modal show={showModal} onHide={handleCloseModal}>
@@ -313,42 +314,41 @@ function handleChange(event) {
         </Modal.Header>
         <Modal.Body>
          <form>
-          <div className="form-group">
+        
             <label>
             Full Name
             </label>
             <input type="text" onChange={handleChange}   name="fullName" className="form-control" value=
             {formValues.fullName}/>
-            </div>
             
-            <div className="form-group">
+            
+            
             <label>
             Email
             </label>
             <input type="email" onChange={handleChange} name="email" className="form-control" value=
             {formValues.email}/>
-            </div>
-             <div className="form-group">
+            
+            
             <label>
             Phone Number
             </label>
             <input type="text" onChange={handleChange} name="phone" className="form-control" value=
             {formValues.phone}/>
-            </div>
-             <div className="form-group">
+            
+            
             <label>
             Category
             </label>
             <input type="text" onChange={handleChange} name="field" className="form-control" value=
             {formValues.field}/>
-            </div>
-             <div className="form-group">
+            
             <label>
             Preferred Language
             </label>
             <input type="text" onChange={handleChange} name="language" className="form-control" value=
             {formValues.language}/>
-            </div>
+            
             
             </form>
             
@@ -362,12 +362,10 @@ function handleChange(event) {
           </Button>
         </Modal.Footer>
       </Modal>
-            </div>
-          </div>
+            
+          
 
-          <div className="small-button">
-           <Button onClick={handleOpenPasswordModal}>Change Password</Button>
-           </div>
+         
               <Modal show={showPasswordModal} onHide={handleClosePasswordModal}>
                 <Modal.Header closeButton>
                   <Modal.Title>Change Password</Modal.Title>
@@ -377,29 +375,29 @@ function handleChange(event) {
                     {showPasswordError && (
                     <div className="error-message">Make sure you enter the same password</div>
                   )}
-                    <div className="form-group">
+                
                       <label>
                        Current Password
                       </label>
                       <input type="password" onChange={handleChange}   name="currentPassword" className="form-control" value=
                       {formValues.currentPassword} minLength="6"/>
-                    </div>
+                    
                       
-                    <div className="form-group">
+                    
                       <label>
                       New Password
                       </label>
                       <input type="password" onChange={handleChange} name="newPassword" className="form-control" value=
                       {formValues.newPassword} minLength="6"/>
-                    </div>
                     
-                    <div className="form-group">
+                    
+                    
                       <label>
                         New Password
                       </label>
                       <input type="password" onChange={handleChange} name="validatePassword" className="form-control" value=
                       {formValues.validatePassword} minLength="6"/>
-                    </div>
+                  
                   
                   </form>
                 </Modal.Body>
@@ -414,93 +412,65 @@ function handleChange(event) {
               </Modal>
           <div className="row">
            
-            <div className="col-md-7 pl-5 about-info">
-              <div className="tab-content profile-tab" id="myTabContent">
-                <div
-                  className="tab-pane fade show active"
-                  id="home"
-                  role="tabpanel"
-                  aria-labelledby="home-tab">
-                    <div className="row">
-                      <div className="col-md-6">
+          
                         <label>FullName</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p className="font-for-profile">{user.userData.fullName}</p>
-                      </div>
-                  </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Email</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p className="font-for-profile">{user.userData.email}</p>
-                      </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Category</label>
-                    </div>
-                    <div className="col-md-6 ">
-                      <p className="font-for-profile">{user.userData.field}</p>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6">
-                      <label>Phone Number</label>
-                    </div>
-                    <div className="col-md-6">
-                      <p className="font-for-profile"> {user.userData.phone}</p>
-                    </div>
-                  </div>
-                  
-                  
-                   <div className="row">
-                      <div className="col-md-6">
-                      <label>Preferred language</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p className="font-for-profile"> {user.userData.language}</p>
-                      </div>
-                    </div>
                     
-                    <div className="row">
-                      <div className="col-md-6">
+                      
+                        <p className="font-for-profile">{user.userData.fullName}</p>
+                    
+                
+                   =
+                        <label>Email</label>
+                    
+                    
+                        <p className="font-for-profile">{user.userData.email}</p>
+                      
+                  
+                 
+                      <label>Category</label>
+                  
+                   
+                      <p className="font-for-profile">{user.userData.field}</p>
+                    
+                  
+                  
+                      <label>Phone Number</label>
+                    
+                      <p className="font-for-profile"> {user.userData.phone}</p>
+                  
+                  
+                  
+                  
+                      <label>Preferred language</label>
+                      
+                    
+                        <p className="font-for-profile"> {user.userData.language}</p>
+                      
+                    
+                   
                         <label>gender</label>
-                      </div>
-                      <div className="col-md-6">
+                      
                         <p className="font-for-profile">{user.userData.gender}</p>
-                      </div>
-                  </div>
                   
-                    <div className="row">
-                      <div className="col-md-6">
+                  
+                    
                         <label>Points</label>
-                      </div>
-                      <div className="col-md-6">
+                      
                         <p className="font-for-profile">{user.userData.points}</p>
-                      </div>
-                  </div>
+                      
                   
-                    <div className="row">
-                      <div className="col-md-6">
+                   
                         <label>Search Counter</label>
-                      </div>
-                      <div className="col-md-6">
+                     
+                    
                         <p className="font-for-profile">{user.userData.searchCounter}</p>
-                      </div>
-                  </div>
+                      
                   <button onClick={(e)=>getSearchCount}>Click to get number of search</button>
                     {/*<div className="col-md-6">
                       <a href="#" onClick={handleClick}>Favorites</a>
                     </div>*/}
                  
-                </div>
-              </div>
-            </div>
-          </div>
-      
-      </div>
+             </div>
     </>
     );
 }

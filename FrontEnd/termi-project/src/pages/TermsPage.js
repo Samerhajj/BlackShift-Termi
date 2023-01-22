@@ -10,6 +10,7 @@ import LanguageMap from '../api/LanguageAPI';
 import TermCard from '../components/TermCard/TermCard';
 import { useNavigate} from 'react-router-dom';
 import CategorySelector from "../components/CategorySelector";
+
 const TermsPage = () =>{
     const { t, i18n } = useTranslation();
     const [searchedTerm, setSearchedTerm] = useState("");
@@ -226,7 +227,7 @@ const TermsPage = () =>{
                         </div>
                         <div class="flex-container">
                             <div class="small-category-selector">
-                                <CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+                                <CategorySelector categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
                             </div>
                         </div>
                     </div>
@@ -241,7 +242,7 @@ const TermsPage = () =>{
             }
             
             { showResult ? 
-               <TermCard categorys={resultTerm.categoryNames} term={resultTerm.term} isSearch={true} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
+               <TermCard categories={resultTerm.categoryNames} term={resultTerm.term} isSearch={true} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
 
                 :
                 null
