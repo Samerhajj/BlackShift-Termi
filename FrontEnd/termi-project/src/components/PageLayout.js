@@ -28,11 +28,12 @@ const PageLayout = ()=>{
                     <div className="wrapper">
                         {/*<Image className="img-fluid " src={christmas}/>
                         <Image className="img-fluid " src={village}/>*/}
-                         
+                        
                     </div>
                
                 </div>
             </footer>
+
        </div>
         
     );

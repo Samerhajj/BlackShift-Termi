@@ -84,7 +84,6 @@ const changeLanguage = async (newLanguage) => {
     setLanguage(newLanguage);
     data = data.concat({term: props.term.conceptName["english"], language: newLanguage});
     localStorage.setItem("termCardLanguage", JSON.stringify(data));
-
     }
 };
 
@@ -145,7 +144,7 @@ const exportData = () => {
                     
                     {
                     (isSearch)  &&
-                        props.categorys.data.map((item, index)=>{
+                        props.categories.data.map((item, index)=>{
                             return(<div key={index} className="category-tag">{item[LanguageMap[language].name]}</div>);
                         })
                     }
