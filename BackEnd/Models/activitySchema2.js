@@ -33,7 +33,7 @@ const activitySchema2 = new mongoose.Schema({
     },
     category:{
        type:String,
-       default:null 
+       default:null
    },
     searchCounter: {
         type: Number,
@@ -43,4 +43,6 @@ const activitySchema2 = new mongoose.Schema({
 });
 const USERACTIVITY2 = mongoose.model("allusersactivity2database", activitySchema2);
 module.exports = USERACTIVITY2;
+
+
 

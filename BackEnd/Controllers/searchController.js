@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken");
 
 const searchTerm = async(req,res)=>{
   try{
-          // fullToken = req.headers["x-auth-token"];
-
     console.log(req.body);
     let term = req.body.term.trim();
     let category = req.body.category;
@@ -99,13 +97,19 @@ const autoCompleteTerm = async(req,res) =>{
 
 const getRandomConcepts = async(req,res)=>{
   try{
-    let numOfTerms = parseInt(req.query.numOfTerms, 10);
-    let category = parseInt(req.query.category, 10);
+    // let numOfTerms = parseInt(req.query.numOfTerms, 10);
+    // let category = parseInt(req.query.category, 10);
+    
+    const numOfTerms = parseInt(req.body.numOfTerms, 10);
+    let category = parseInt(req.body.category, 10);
+    
     if(numOfTerms > 0 && category != null){
       // let terms = await Search.aggregate([
       //   { categories: category },
       //   { $sample: { size: numOfTerms } }
       // ]);
+      
+      
       
       let terms = await Search.find({categories: category});
       let randomTerms = [];
@@ -125,8 +129,8 @@ const getRandomConcepts = async(req,res)=>{
         generatedIndexs.set(randIndex);
         randomTerms[i] = terms[randIndex];
       }
-      // const token = req.headers['x-auth-token'];
-      // gameSearchActivity(token, req.body.activity, category,req.body.gameName);
+      const token = req.headers['x-auth-token'];
+      gameSearchActivity(token, req.body.activity, category,req.body.gameName);
       res.send(randomTerms);
       
       // Search.aggregate([

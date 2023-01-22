@@ -15,7 +15,7 @@ router.post("/",searchTerm);
 
 router.post("/auto-complete", autoCompleteTerm);
 
-router.get("/random", getRandomConcepts);
+router.post("/random", getRandomConcepts);
 
 router.post("/display-myterms",getAllTermList);
 
