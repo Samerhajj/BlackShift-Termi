@@ -17,8 +17,10 @@ const Favorite  = ({initialLanguage}) =>{
     const handle_showMore = async () => {
         const response = await UserAPI.favorites();
         if (response.success) {
-          setList([...response.body]);
-          setIsOpen(!isOpen);
+            console.log("OUT:::");
+            console.log(response.body);
+            setList([...response.body]);
+            setIsOpen(!isOpen);
         } else {
           alert(response.message);
         }
@@ -50,7 +52,7 @@ const Favorite  = ({initialLanguage}) =>{
         (
             list.map((item,index)=>{
                 {/*return(<FavCard key={index} index={index} data={item} list={list} setList={setList} initialLanguage={language} changeLanguage={changeLanguage}/>);*/}
-                return(<TermCard key={index} initialLanguage="en" isFavorite={true} term={item} setParentList={setList}/>);
+                return(<TermCard key={index} initialLanguage="en" isFavorite={true} term={item} setParentList={setList} categories={item.categories}/>);
             }) 
         )
         : 
