@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
@@ -7,12 +7,15 @@ import LanguageMap from '../api/LanguageAPI';
 import axios from 'axios';
 import UserAPI from '../api/UserAPI';
 
+import { LoginContext } from './LoginContext';
+
 const LanguageSelector = () => {
 console.log(document.title)
-   const [buttonStyle, setButtonStyle] = useState({});
+    const {userData} = useContext(LoginContext);
+    const [buttonStyle, setButtonStyle] = useState({});
     const selectedLanguage = Cookies.get("i18next") || "en";
     const { i18n } = useTranslation();
-     const [previousLanguage, setPreviousLanguage] = useState(selectedLanguage);
+    const [previousLanguage, setPreviousLanguage] = useState(selectedLanguage);
 
   // React.useEffect(() =>{
   //     document.body.dir = i18n.dir(selectedLanguage);
@@ -124,7 +127,7 @@ console.log(document.title)
 
    async function fun(){
           const page  = document.title;
-          const response = await UserAPI.languageChanged("Change Language",page);
+          const response = await UserAPI.languageChanged(userData.email,"Change Language",page);
           console.log(response);
           if(response.success){
               localStorage.setItem("searchCounter",0 ,true);

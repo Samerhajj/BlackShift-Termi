@@ -5,6 +5,7 @@
     border-radius: 10px;
     background-color: white;
     padding: 10px;
+    z-index: 0;
     margin:50px auto;
     -webkit-box-shadow: 0px 0px 6px 2px rgba(0, 0, 100, 0.3);
     -moz-box-shadow: 0px 0px 6px 2px rgba(0, 0, 100, 0.3);
@@ -46,7 +47,12 @@
   }
 }
 
-.trem-text{
+.term-text{
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
     padding-bottom: 10px;
     font-size: 45px;
     background: -webkit-linear-gradient(blue,purple);
@@ -114,6 +120,13 @@ body[dir="rtl"] .read-url:hover{
     margin-left: auto;
     cursor: pointer;
 }
+.edit-admin{
+    height: 30px;
+    width: 30px;
+    margin-left: auto;
+    cursor: pointer;
+    margin-right: 6px;
+}
 
 .language-btn{
     width: 25%;
@@ -134,4 +147,10 @@ body[dir="rtl"] .read-url:hover{
     box-shadow: inset -5px 5px 26px #d4d4d4,
                 inset 5px -5px 26px #ffffff
     
+}
+
+@media (max-width: 500px) {
+    .term-text{
+        font-size: 10vw;
+    }
 }

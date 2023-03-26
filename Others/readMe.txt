@@ -27,3 +27,37 @@ You want to kill a process :
         // ↓  replace  ↑
 ----------------------------------------------------------------------------
 if you want to type a comment please use --> 
+
+----------------------------------------------------------------------------
+Admin Login:
+            email : admin@gmail.com
+            password : admin12
+            
+http://dir.y2022.kinneret.cc:7024/admin
+----------------------------------------------------------------------------
+
+|request| 
+| body  |
+|  url  |
+________________________________________________________________________________
+// login request (this will return the token)
+POST
+{ "email":"m7md@gmail.com", "password":"123456"}
+http://dir.y2022.kinneret.cc:7013/auth/login
+________________________________________________________________________________
+// delete all activitySchema
+DELETE
+http://dir.y2022.kinneret.cc:7013/user/delete-log
+________________________________________________________________________________
+// delete all activitySchema2
+DELETE
+http://dir.y2022.kinneret.cc:7013/user/clearGameSearchActivity
+________________________________________________________________________________
+// get all activitySchema elements
+GET
+http://dir.y2022.kinneret.cc:7013/user/get-all-logs
+________________________________________________________________________________
+// get all activitySchema2 elements
+GET
+http://dir.y2022.kinneret.cc:7013/user/get-all-search-game-logs
+________________________________________________________________________________

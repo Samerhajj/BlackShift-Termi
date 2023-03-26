@@ -35,7 +35,7 @@
     },
     "search":{
         "title": "שלוט בחיפושים שלך",
-        "search_placeholder": "מה המונח שאתה מחפש ?",
+        "search_placeholder": "חפש מושג",
         "suggested_by": "הוצע על ידי",
         "short_definition": "הגדרה קצרה",
         "long_definition": "הגדרה ארוכה",
@@ -63,6 +63,14 @@
             "goBack": "חזור אחורה",
             "description": "משחק מילים בו אתה בוחר מילה נכונה מרשימה מונחת בהגדרה ומרוויח נקודות עבור תשובות נכונות",
             "continueToGame": "המשך למשחק",
+              "scoretitle":"תוצאה",
+            "et":"זמן שחלף",
+            "pg":"נקודות שנצברו",
+            "timere":"זמן נותר",
+            "seconds":"שניות",
+            "wronganswer":"התשובה הנכונה הייתה",
+            "correctanswer":"תשובה נכונה",
+            "timeout":"נגמר הזמן",
             "step-by-step": [
                         {
                             "id": "צעד 1",
@@ -102,6 +110,9 @@
             "goBack": "חזור אחורה",
             "description":"משחק מילים בו אתה בוחר הגדרה ובוחר את המונח הנכון עבור זה ואת הנקודות עבור תשובות נכונות",
             "continueToGame": "המשך למשחק",
+            "score":"תוצאה",
+            "not":"מספר נסיונות",
+            "pg":"נקודות שנצברו",
             "step-by-step": [
                         {
                         "id": "step1",
@@ -128,6 +139,7 @@
                  		"text": "בסוף המשחק, ניצפה הציון שלך."
                      	}
                     ]
+                    
         }
     },
     "note":{
@@ -139,6 +151,54 @@
     },
     "category-selector":{
         "category": "קטגוריה"
-    }
+    },
+    
+    
+    "suggest_concept_page":{
+        "suggest_title":"דף ההצעות",
+        "category_he":"(קטגוריה (עברית",
+        "category_en":"קטגוריה (אנגלית)",
+        "category_ar" :"קטגוריה (ערבית)",
+        "c_name_he"  :"מושג (עברית)",
+        "c_name_en"  :"מושג (אנגלית)",
+        "c_name_ar"  :"מושג (ערבית)",
+        "s_def-he"   :"הגדרה קצרה (עברית)",
+        "s_def-en"   :"הגדרה קצרה (אנגלית)",
+        "s_def-ar"   :"הגדרה קצרה (ערבית)",
+        "sbtn":"תציע",
+        "rbtn":"איפוס"
+    
+    },
+            "profile":{
+            "title-first":"דף",
+            "title-last":" משתמש",
+            "name":"שם",
+            "gender":"מין",
+            "categories":"קטגוריה",
+            "phone":"טלפון",
+            "email":"דואר ",
+            "points":"נקודות",
+            "search-counter":"מספר חיפושים",
+            "sugges-counter":"מספר הצעות",
+            "mfullname":"שם מלא",
+            "mphonenumber":"מספר טלפון",
+            "mcategory":"קטגוריה",
+            "mplanguage":"שפה מועדפת",
+            "mcpassword":"סיסמה נוכחית",
+            "mnpassword":"סיסמה חדשה",
+            "mvpassword":"לאמת סיסמה",
+            "mclose":"סגור",
+            "msavechanges":"שמירת שינויים",
+            "medit":"עריכת פרופיל",
+            "mpassword":"עריכת סיסמה"
+        },
+         "favorite":{
+            "favtitle":"מועדפים",
+            "smbtn":"להציג עוד"
+        }
+         ,"searchTimes":{
+            "search":"חפשו",
+            "times":"פעמים"
+        }
     
 }

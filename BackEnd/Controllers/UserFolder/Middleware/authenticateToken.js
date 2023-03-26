@@ -6,6 +6,7 @@ const authToken = async (req, res, next) => {
   const token = req.header("x-auth-token");
 
 console.log(token);
+console.log("This is the token");
   // If token not found, set error on request and call next middleware/route handler
   if (!token) {
     req.error = {

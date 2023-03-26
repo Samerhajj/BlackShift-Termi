@@ -4,7 +4,8 @@ import { useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 // --> components
 import SuggestCard from './SuggestCard';
-
+import Accordion from 'react-bootstrap/Accordion';
+import {Row,Col} from 'react-bootstrap/';
 // --> APIs
 import AdminAPI from '../../api/AdminAPI';
 
@@ -15,6 +16,7 @@ const ViewSuggestions = ()=> {
  const navigate = useNavigate();
  const [suggestList,setSuggestList] = useState([]);
     const { i18n } = useTranslation();
+const [expanded, setExpanded] = useState(false);
 
  // --> functions
  const handleGetAllSuggest = async() =>{
@@ -34,6 +36,7 @@ const ViewSuggestions = ()=> {
   const handleAdminPanel = () => {
     navigate('/admin');
   };
+  
 
 // useEffect(()=>{
 //     handleGetAllSuggest();
@@ -50,18 +53,58 @@ return (
         </div>
       </div>
                     <div className="admin-sg">
-               
-                    <button className="su-button mb-2" onClick={handleGetAllSuggest}>View Suggestions</button>
-                    <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
+                        <button className="su-button mb-2" onClick={handleGetAllSuggest}>View Suggestions</button>
+                        <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
+                    </div>
                     
-               </div>
+                   
                <div className="container d-flex justify-content-center">
 
                <div className="mt-5">
                {
                  suggestList.map((item,index)=>{
                    console.log(item);
-                   return(<SuggestCard key={index} data={item} suggestList={suggestList} setSuggestList={setSuggestList} initialLanguage={i18n.language}/>)
+                   return(
+                   
+                   <>
+                   <Row className="d-flex">
+                   
+                   
+
+                   <Col xs={12} xl={12}>
+                    <Accordion className="my-3 "  className="accordion-header  ">
+                        
+                                                               
+
+                                    <Accordion.Item  eventKey="0">
+                                     <Accordion.Header className="btnAdmin"><h2 className="btnadmin ">
+                                                {JSON.stringify(item.conceptName).length > 20 ? 
+                                                    JSON.stringify(item.conceptName).substring(0, 20) + '...' : 
+                                                    JSON.stringify(item.conceptName)}
+                                                <strong className="font-weight-bold"></strong>
+                                            </h2>
+                                            {JSON.stringify(item.conceptName) && 
+                                                <span className="expand-text" onClick={() => setExpanded(!expanded)}>
+                                                    
+                                                </span>}
+                                            </Accordion.Header>
+                                            
+                                        
+                                        <Accordion.Body>
+                                            {expanded && <div className="expanded-text">{JSON.stringify(item.conceptName)}</div>}
+                                            <SuggestCard key={index} data={item} suggestList={suggestList} setSuggestList={setSuggestList} initialLanguage={i18n.language}/>
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                         
+                                    
+
+                        
+                    </Accordion>  </Col>
+
+                  
+</Row>
+
+</>)
                  })
                }
                </div>
@@ -71,5 +114,7 @@ return (
     
 }
 
-
+//    {JSON.stringify(item.conceptName).length > 24 ? 
+                      //                          JSON.stringify(item.conceptName).substring(0, 24) + '...' : 
+                        //                        JSON.stringify(item.conceptName)}
 export default ViewSuggestions;

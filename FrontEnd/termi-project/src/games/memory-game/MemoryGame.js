@@ -1,8 +1,10 @@
 // React
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 
 // Components
 import CategorySelector from "../../components/CategorySelector";
+import {LoginContext} from "../../components/LoginContext";
+import {CategoriesContext} from "../../components/CategoryContext";
 
 // Translate
 import { useTranslation } from 'react-i18next';
@@ -16,10 +18,14 @@ import "./MemoryGame.css";
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
+import GameHistoryAPI from '../../api/GameHistoryAPI';
+
 
 const MemoryGame = () => {
 	// localStorage.setItem('currentPage', 'MemoryGame')//test
 
+	const {userData, setUserData} = useContext(LoginContext);
+	const { categories } = useContext(CategoriesContext);
 	const { t, i18n } = useTranslation();
 	const [cards, setCards] = useState([]);
 	const [showScore, setShowScore] = useState(false);
@@ -32,7 +38,7 @@ const MemoryGame = () => {
 	const [pointsGained, setPointsGained] = useState(0);
 	const [showModal, setShowModal] = useState(false);
 	const steps = t('games.memory-game.step-by-step', { returnObjects: true });
-	const [category, setCategory] = useState(JSON.parse(localStorage.getItem("profileBody"))['field']);
+	const [category, setCategory] = useState(userData.field);
 	
 	function handleOpenModal() {
 	    setShowModal(true);
@@ -121,14 +127,22 @@ const MemoryGame = () => {
 		points = Math.floor((numOfCards/numOfTries) * 100);
 		setPointsGained(points);//GamesApi//not putting in pointsGained
 		setShowScore(true);
-		const {_id} = JSON.parse(localStorage.getItem('profileBody'));
-		console.log(_id);
-		const response = await GamesApi.updatePoints(_id,points,'Memory Game',category)
+		const response = await GamesApi.updatePoints(userData._id,points,'Memory Game',category);
+        // const gameData = {
+        //     userId: userData._id,
+        //     gameName: 'Memory Game',
+        //     score: points
+        // };
+        
+		// const send = await GamesApi.
 		if(response.success)
 		{
-			console.log("points UPDATEd");
-			
+			setUserData({...userData, points: userData.points + points});
 			localStorage.setItem("points",points);
+			
+			const addToHistory = await GameHistoryAPI.updateGameHistory(userData._id, 'Memory Game', points);
+         
+          
 		}else{
 			console.log(response.message);
 		}
@@ -136,11 +150,7 @@ const MemoryGame = () => {
 	};
 	
 	const changeCategory = (newCategory) => {
-		if(newCategory === undefined){
-			setCategory(undefined);
-		}else{
-			setCategory(newCategory.categoryId);
-		}
+		setCategory(newCategory);
 	};
 	
 	useEffect(() => {
@@ -165,14 +175,14 @@ const MemoryGame = () => {
 					<div className="banner_content"></div>
 				</div>
 			</div>
-			<h1>Memory Game</h1>
+			<h1>{t('games.memory-game.title')}</h1>
 			{start ? (
 				<div>
 					{showScore ? (
 						<div className="score-box">
-							<h2>Score</h2>
-							<h4>Number of tries: {numOfTries}</h4>
-							<h4>Points gained: +{pointsGained} points</h4>
+							<h2>{t('games.memory-game.score')}</h2>
+							<h4>{t('games.memory-game.not')} of tries: {numOfTries}</h4>
+							<h4>{t('games.memory-game.pg')} gained: +{pointsGained} points</h4>
 							<MdOutlineReplay className="icon-button" onClick={() => {restartGame()}}/>
 						 </div>
 					) : (
@@ -209,7 +219,7 @@ const MemoryGame = () => {
 			) : (
 				<div className="center-button">
 					<div className="icon-selector-container">
-						   <CategorySelector initialCategory={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+						   <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
 						    	<div className="icon-center">
 						    <AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
 						</div>

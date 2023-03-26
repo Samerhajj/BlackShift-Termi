@@ -7,7 +7,6 @@ import ronaldo from "../images/ronaldo.png";
 import gamesIcon from "../images/gamepad-solid.svg";
 import christmasSong from "../images/christmas-song.mp3";
 
-
 const HomePage = () => {
     const { t } = useTranslation();
     const audioElement = document.getElementById('my-music');
@@ -45,31 +44,6 @@ James's story is just one example of the many success stories that have come out
     },
   ];
   
-//   useEffect(() => {
-//   const interval = setInterval(() => {
-//     setCurrentSlide((currentSlide + 1) % slides.length);
-//   }, 10000);
-
-//   return () => clearInterval(interval);
-// }, [currentSlide]);
-
-//               <audio id="my-music" src={christmasSong}></audio>
-//           <button id="play-button">Play Music</button>
-//              <div className="carousel-container">
-//       {slides.map((slide, index) => (
-//         <div
-//           className={`slide ${index === currentSlide ? 'active' : ''}`}
-//           key={index}
-//         >
-//           <img src={slide.image} alt={slide.title} />
-//           <div className="slide-content">
-//             <h2>{slide.title}</h2>
-//             <p><h2>{slide.content}</h2></p>
-//           </div>
-         
-//         </div>
-//       ))}
-//     </div>
 
     return (
         <>
@@ -85,6 +59,7 @@ James's story is just one example of the many success stories that have come out
                 </div>
             </div>
             <div className="wrapper">
+            
               <div className="box_process cf" dir="ltr">  
                 <div className="box">
                     <span style={{backgroundColor: '#9824C6'}}>
@@ -114,3 +89,30 @@ James's story is just one example of the many success stories that have come out
 };
 
 export default HomePage;
+
+//   useEffect(() => {
+//   const interval = setInterval(() => {
+//     setCurrentSlide((currentSlide + 1) % slides.length);
+//   }, 10000);
+
+//   return () => clearInterval(interval);
+// }, [currentSlide]);
+
+//               <audio id="my-music" src={christmasSong}></audio>
+//           <button id="play-button">Play Music</button>
+//              <div className="carousel-container">
+//       {slides.map((slide, index) => (
+//         <div
+//           className={`slide ${index === currentSlide ? 'active' : ''}`}
+//           key={index}
+//         >
+//           <img src={slide.image} alt={slide.title} />
+//           <div className="slide-content">
+//             <h2>{slide.title}</h2>
+//             <p><h2>{slide.content}</h2></p>
+//           </div>
+         
+//         </div>
+//       ))}
+//     </div>
+

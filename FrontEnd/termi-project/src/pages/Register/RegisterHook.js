@@ -24,7 +24,12 @@ const RegisterHook = (initialState) => {
     } else if (!validator.isEmail(data.email)) {
       newErrors.email = 'Email is not valid';
     }
-
+    
+    // Validate gender
+    if (!data.gender) {
+      newErrors.gender = 'Gender is required';
+    }
+    
     // Validate password
     if (!data.password) {
       newErrors.password = 'Password is required';

@@ -15,7 +15,8 @@ import {logoutRoute} from '../api/ApiRoutes';
 //import {persistor} from "../redux/store";
 // --> import Icons
 import { IconContext } from "react-icons";
-import {IoGameController, IoPersonCircle, IoInformationCircleSharp, IoSearch, IoLogOut,IoLogIn} from 'react-icons/io5';
+import {IoGameController, IoPersonCircle, IoInformationCircleSharp, IoSearch, IoLogOut, IoLogIn, IoAddCircle} from 'react-icons/io5';
+import {MdAdminPanelSettings} from 'react-icons/md';
 
 // --> import LoginContext
 import { LoginContext } from './LoginContext';
@@ -27,7 +28,7 @@ const MainNavbar = ({setTitle,location}) => {
   const navigate = useNavigate();
 // const dispatch=useDispatch();
   
-  const { login, setLogin } = useContext(LoginContext);
+  const { login, setLogin ,userData} = useContext(LoginContext);
   // --> functions
   const handleLogout = () => {
   axios.delete(logoutRoute, {
@@ -54,7 +55,7 @@ const MainNavbar = ({setTitle,location}) => {
     // --> remove the login and the token from the localStorage and set the value of the context to false
       
     localStorage.setItem('login', false);
-    localStorage.removeItem('profileBody');
+    // localStorage.removeItem('profileBody');
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
     setLogin(false);
@@ -92,23 +93,32 @@ const MainNavbar = ({setTitle,location}) => {
                   </IconContext.Provider>
                 </Link>
               </li>
-            {localStorage.getItem('login') ==='true' ?(
+            {login ?(
              <Fragment>
-            
               <li>
                 <Link to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
                   <IconContext.Provider value={{ size: "2rem" }}>
                     <IoGameController/>
                   </IconContext.Provider>
-                   </Link>
+                 </Link>
               </li>
               <li>
-                <Link to={'/about'} className={location && location.pathname ==='about' ?  'active': 'nav-link'}>
+                <Link to={'/suggest'} className={location && location.pathname==='suggest' ? 'active' : 'nav-link'}>
                   <IconContext.Provider value={{ size: "2rem" }}>
-                    <IoInformationCircleSharp/>
+                    <IoAddCircle/>
                   </IconContext.Provider>
-                </Link>
+                 </Link>
               </li>
+              {userData.role &&( userData.role === "admin" &&(
+                  <li>
+                    <Link to={'/admin'} className={location && location.pathname==='admin' ? 'active' : 'nav-link'}>
+                        <IconContext.Provider value={{ size: "2rem" }}>
+                          <MdAdminPanelSettings/>
+                        </IconContext.Provider>
+                    </Link>
+                  </li>
+               ))}
+              
               <li>
                 <Link to={'/profile'} className={location && location.pathname ==='profile' ?  'active': 'nav-link'}>
                   <IconContext.Provider value={{ size: "2rem" }}>
@@ -116,9 +126,7 @@ const MainNavbar = ({setTitle,location}) => {
                   </IconContext.Provider>
                 </Link>
               </li>
-              
-              
-               </Fragment>
+              </Fragment>
               )
               :(  
                 <li>
@@ -127,7 +135,7 @@ const MainNavbar = ({setTitle,location}) => {
                   </Link>
                 </li>
               )}
-              {login === 'false' ? (
+              {!login ? (
                 <li>
                   <Link to={'/login'} className={location && location.pathname==='login' ? 'active' : 'nav-link'}>
                       <IconContext.Provider value={{ size: "2rem" }}>
@@ -137,19 +145,6 @@ const MainNavbar = ({setTitle,location}) => {
                 </li>
               ):(
                <li>
-               {/*<Link to={'/login'}
-                  className={location && location.pathname==='logout' ? 'active' : 'nav-link'}
-                  onClick={handleLogout}>
-                  {t('navbar.logout')}</Link>*/}
-               
-               
-                {/*<button  onClick={(event) => {
-                handleLogout();
-              }}>
-                {t('navbar.logout')}
-              </button>*/}
-
-                   
                   <a className="nav-link" href="login" onClick={(event) => {handleLogout();}}>
                     <IconContext.Provider value={{ size: "2rem" }}>
                       <IoLogOut/>
@@ -157,7 +152,6 @@ const MainNavbar = ({setTitle,location}) => {
                   </a>
                 </li>
               )}
-            
               <li>
                 <LanguageSelector/>
               </li>
@@ -287,3 +281,14 @@ export default MainNavbar;
       </div>
       
     </Navbar>*/}
+    
+    
+    {/* TO ADD About Page you can add this code
+    <li>
+                <Link to={'/about'} className={location && location.pathname ==='about' ?  'active': 'nav-link'}>
+                  <IconContext.Provider value={{ size: "2rem" }}>
+                    <IoInformationCircleSharp/>
+                  </IconContext.Provider>
+                </Link>
+              </li>
+              */}

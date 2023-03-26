@@ -1,5 +1,5 @@
 // import "./BackDefinition.css";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from "react-bootstrap";
 import useInterval from "./useInterval";
@@ -7,12 +7,20 @@ import { MdOutlineReplay } from "react-icons/md";
 import { AiFillPlayCircle } from "react-icons/ai";
 import "./BackDefinition.css";
 import CategorySelector from "../../components/CategorySelector";
+import {LoginContext} from "../../components/LoginContext";
+import {CategoriesContext} from "../../components/CategoryContext";
+
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
+import GameHistoryAPI from '../../api/GameHistoryAPI';
 import axios from 'axios';
 export default function App() {
 	  //localStorage.setItem('currentPage', 'BackDefinition')//test
+	const {userData, setUserData} = useContext(LoginContext);
+	// const { categories } = useContext(CategoriesContext);
+          
+	console.log(userData);
 	const { t, i18n } = useTranslation();
 	const [questions, setQuestions] = useState([]);
 	const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -23,18 +31,29 @@ export default function App() {
 	const steps = t('games.backword-definition.step-by-step', { returnObjects: true });
 	const [buttonColor, setButtonColor] = useState(null);
 	const [disabled, setDisabled] = useState(false);
+	
 	// Timer
 	const [elapsedTime, setElapsedTime] = useState(0);
 	const [timeLeft, setTimeLeft] = useState(30);
 	const [points,setPoints]=useState(0);
-	const [category, setCategory] = useState();
+	// console.log("9999999999999999999999999999")
+	// console.log(
+	// 	categories.find(category => category.categoryId == userData.field) && (categories.find(category => category.categoryId == userData.field).categoryName[LanguageMap[i18n.language].name])
+
+	// 	)
+	// console.log("9999999999999999999999999999")
+
+	const [category, setCategory] = useState(userData.field);
+	
+	
+	
 	//useIntervaal
 	useInterval(() => {
 	    setElapsedTime(elapsedTime + 1);
 	    setTimeLeft(timeLeft - 1);
 	    if(timeLeft===0)
 	    {
-	    	  const nextQuestion = currentQuestion + 1;
+			const nextQuestion = currentQuestion + 1;
 	        if (nextQuestion < questions.length) {
 	          setCurrentQuestion(nextQuestion);
 	          setTimeLeft(30);
@@ -48,20 +67,20 @@ export default function App() {
 	
 	useEffect(() => {
 	    if (timeLeft === 0) {
-	    		const correctAnswer = questions[currentQuestion].answerOptions.find(option => option.isCorrect).answerText[LanguageMap[i18n.language].name];
-	      setDisabled(true);
-	      setMessage('Time\'s up! The correct answer was: ' + correctAnswer);
-	      setTimeout(() => {
-	        const nextQuestion = currentQuestion + 1;
-	        if (nextQuestion < questions.length) {
-	          setCurrentQuestion(nextQuestion);
-	          setTimeLeft(30);
-	          setMessage(null);
-	          setDisabled(false);
-	        } else {
-	          finishGame();
-	        }
-	      }, 10000);// wait for 10 seconds before moving on
+			const correctAnswer = questions[currentQuestion].answerOptions.find(option => option.isCorrect).answerText[LanguageMap[i18n.language].name];
+			setDisabled(true);
+			setMessage(t('games.backword-definition.timeout')+'!'+t('games.backword-definition.correctanswer') +' : '+ correctAnswer);
+			setTimeout(() => {
+		        const nextQuestion = currentQuestion + 1;
+		        if (nextQuestion < questions.length) {
+		          setCurrentQuestion(nextQuestion);
+		          setTimeLeft(30);
+		          setMessage(null);
+		          setDisabled(false);
+		        } else {
+		          finishGame();
+		        }
+	      }, 1000);// wait for 10 seconds before moving on
 	    }
 	  }, [timeLeft, currentQuestion]);
 	  
@@ -135,90 +154,75 @@ export default function App() {
 	};
 		
 	const changeCategory = (newCategory) => {
-		if(newCategory === undefined){
-			setCategory(undefined);
-		}else{
-			setCategory(newCategory.categoryId);
-		}
+		setCategory(newCategory);
 	};
 	
 	const handleAnswerOptionClick = (event,isCorrect) => {
-			setDisabled(true);
-			console.log(questions[currentQuestion]);
+		
+		setDisabled(true);
 		const correctAnswer = questions[currentQuestion].answerOptions.find(option => option.isCorrect).answerText[LanguageMap[i18n.language].name];
-	    console.log(event.target);
+		
 		if (isCorrect) {
-	    setScore(score + 1);
-	    setMessage("Correct Answer");
-	    event.target.classList.add('btn-success');
-	    
-	  } else {
-	    event.target.classList.add('btn-danger');
-	    setMessage(' The correct answer was: ' + correctAnswer);
-	  }
-	  setTimeout(() => {
-	  	
-	    // reset the classes of the answer options
-	    event.target.classList.remove('btn-success');
-	    event.target.classList.remove('btn-danger');
-	     setButtonColor(null);
-	    setDisabled(false);
-	  }, 1000); // 1000 milliseconds
+		    setScore(score + 1);
+		    setMessage(t('games.backword-definition.correctanswer'));
+		    event.target.classList.add('btn-success');
+		} else {
+			event.target.classList.add('btn-danger');
+			
+			setMessage(t('games.backword-definition.wronganswer')+' : ' + correctAnswer);
+		}
+		
+		setTimeout(() => {
+			// reset the classes of the answer options
+			event.target.classList.remove('btn-success');
+			event.target.classList.remove('btn-danger');
+			setButtonColor(null);
+			setDisabled(false);
+		}, 1000); // 1000 milliseconds
 	
-			const nextQuestion = currentQuestion + 1;
-				setTimeout(()=>{
-					if (nextQuestion < questions.length) {
-						// stopTimer();
-						// setTimer(30);
-						// startTimer();
-				setCurrentQuestion(nextQuestion);
-				
-			} else {
-			finishGame();
-				
-				
-				// stopTimer();
-			}
-			//reset timer and message
-			setTimeLeft(30);
-			setMessage('');
-			},1000);
-		};
+		const nextQuestion = currentQuestion + 1;
+			setTimeout(()=>{
+				if (nextQuestion < questions.length) {
+					// stopTimer();
+					// setTimer(30);
+					// startTimer();
+			setCurrentQuestion(nextQuestion);
+			
+		} else {
+		finishGame();
+			
+			
+			// stopTimer();
+		}
+		//reset timer and message
+		setTimeLeft(30);
+		setMessage('');
+		},1000);
+	};
 		
 	const [showModal, setShowModal] = useState(false);
 	
 	const finishGame = async()=>{
 		// let prev_point = localStorage.getItem("points");
-		
-		
 		setShowScore(true);
 		//tStart(false);
 		let points=0;
 		points=score*10;
-
 		
 		console.log(points);
 		console.log(score);
 		setPoints(points);
-		const {_id} = JSON.parse(localStorage.getItem('profileBody'));
-			const response =await GamesApi.updatePoints(_id,points,"Definition Game")
-			if(response.success)
-			{
-				console.log("points UPDATEd");
-				localStorage.setItem("points",points);
-				
-				
-				// let new_point = localStorage.getItem("points");
-				// const data = {prev_point,new_point}//prev_point - last , new_point - new
-				// const res = await axios.post("http://dir.y2022.kinneret.cc:7013/user/active-game-search",data);
-
-				
-				
-			}else{
-				console.log(response.message);
-			}
-			
-	}
+		// const {_id} = JSON.parse(localStorage.getItem('profileBody'));
+		const response =await GamesApi.updatePoints(userData._id,points,"Definition Game")
+		if(response.success)
+		{
+			setUserData({...userData, points: userData.points + points});
+			localStorage.setItem("points",points);
+			const addToHistory = await GameHistoryAPI.updateGameHistory(userData._id, 'Backward', points);
+		}else{
+			console.log(response.message);
+		}
+	};
 	
 	function handleOpenModal() {
 	    setShowModal(true);
@@ -237,19 +241,20 @@ export default function App() {
 					<div className="banner_content"></div>
 				</div>
 			</div>
-			<h1>Backword Definitions</h1>
+			<h1> {t('games.backword-definition.title')}</h1>
 			{start ? (
 				<div className="box">
 					{showScore ? (
 						<div className="score-box">
-							<h2>Score</h2>
+							<h2>{t('games.backword-definition.scoretitle')}</h2>
 							<h4>{t('games.backword-definition.score', {score: score, questionsLength: questions.length})}</h4>
-							<h4>Elapsed time: {minutes}:{seconds}</h4>
-							<h4>Points gained: +{points} points</h4>
+							<h4>{t('games.backword-definition.et')}: {minutes}:{seconds}</h4>
+							<h4>{t('games.backword-definition.pg')}: +{points} points</h4>
 							<MdOutlineReplay className="icon-button" onClick={() => {initGame()}}/>
 						</div>
 					) : (
 						<div className="m-5">
+						<h1></h1>
 							<div>
 								<div>
 									<span>{t('games.backword-definition.question-info', {currentQuestion: currentQuestion + 1})}</span> / {questions.length}
@@ -257,7 +262,7 @@ export default function App() {
 								<div>{questions[currentQuestion].questionText[LanguageMap[i18n.language].name]}</div>
 							</div>
 							<div className="flex d-flex flex-wrap" >
-							<div>Time remaining: {timeLeft} seconds</div>
+							<div>{t('games.backword-definition.timere')}: {timeLeft} {t('games.backword-definition.seconds')}</div>
 								{questions[currentQuestion].answerOptions.map((answerOption,index) => (
 								<button className="btn btn-primary mb-2" disabled={disabled}  key={index} onClick={(event) => handleAnswerOptionClick(event, answerOption.isCorrect)}>{answerOption.answerText[LanguageMap[i18n.language].name]}</button>
 								))}
@@ -266,13 +271,13 @@ export default function App() {
 							</div>
 						</div>
 					)}
-				</div>
+				</div> 
 				) : (
 					<div className="center-button ">
 					{/*<button className="circle-button"   onClick={handleOpenModal}><img src={play_Icon}/></button>*/}
 					
 						<div className="icon-selector-container">
-							<CategorySelector categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+							<CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
 							<div className="icon-center">
 							<AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
 						</div>

@@ -1,22 +1,18 @@
-import React,{useState} from 'react';
-import axios from "axios";
-import { useNavigate} from 'react-router-dom';
+import React,{useState, useContext} from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 import { Form, Input,Select, Button } from 'antd';
-// --> components
-import SuggestCard from './SuggestCard';
 
 // --> APIs
 import AdminAPI from '../../api/AdminAPI';
 
+// --> Contexts 
+import { CategoriesContext } from "../../components/CategoryContext";
+import { LoginContext } from "../../components/LoginContext";
+
 import './Admin.css'
 
-const { Option } = Select;
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  labelCol: { span: 8 }
 };
 
 const validateMessages = {
@@ -29,10 +25,15 @@ const validateMessages = {
     range: '${label} must be between ${min} and ${max}',
   },
 };
+
 const AddTermAdmin=()=> {
     
-    const navigate = useNavigate();
-
+  const { categories } = useContext(CategoriesContext);
+  const { userData } = useContext(LoginContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
+  console.log(userData);
 
   const validateUrl = (rule, value, callback) => {
   if (!value) {
@@ -43,38 +44,33 @@ const AddTermAdmin=()=> {
     callback();
   }
 };
-  const onFinish = values => {
-      const user = JSON.parse(localStorage.getItem('profileBody'));
-    values.suggestedBy = user.fullName;
-      values.shortDefinition = {
-    english: values['shortDefinition-english'],
-    arabic: values['shortDefinition-arabic'],
-    hebrew: values['shortDefinition-hebrew']
-  };
-   values.longDefinition = {
-    english: values['longDefinition-english'],
-    arabic: values['longDefinition-arabic'],
-    hebrew: values['longDefinition-hebrew']
-  };
-  delete values['shortDefinition-english'];
-delete values['shortDefinition-arabic'];
-delete values['shortDefinition-hebrew'];
-delete values['longDefinition-english'];
-delete values['longDefinition-arabic'];
-delete values['longDefinition-hebrew'];
-   console.log(values);
+  const onFinish = async(values) => {
+    values['categories'] = [values.selectedCategory];
+    values['suggestedBy'] = location.state ? location.state.suggestedBy : userData.fullName;
+    
+    delete values['selectedCategory'];
+            values['_id'] = location.state['_id'];
+
+    console.log(values);
+    const response = await AdminAPI.addSelectedTerm(values);
+    if(response.success){
+      console.log(response);
+      if(location.state && location.state['_id']){
+        values['_id'] = location.state['_id'];
+        await AdminAPI.deleteSelectedTerm(values);
+        navigate('/admin/suggestions');
+      }
+      navigate('/admin');
+    }
+    else{
+      alert(response.message);
+    }
   };
   
-   const [selectedCategory, setSelectedCategory] = useState("");
-
-const handleCategoryChange = (value) => {
-  setSelectedCategory(value);
-};
-const [form] = Form.useForm();
-const onReset = () => {
-  form.resetFields();
-  setSelectedCategory("");
-};
+  const [form] = Form.useForm();
+  const onReset = () => {
+    form.resetFields();
+  };
 
 
 return (
@@ -88,95 +84,103 @@ return (
           </div>
         </div>
       </div>
-               <div className="container d-flex justify-content-center">
-
-                 <div className="admin-sg goAndChange">
-                    <button className="su-button mb-2 " onClick={handleAdminPanel}>Back To Panel</button>
-                </div>
-
+        <div className="container d-flex justify-content-center mb-2">
+           <div className="admin-sg goAndChange">
+              <button className="su-button" onClick={handleAdminPanel}>Back To Panel</button>
           </div>
+        </div>
            <div className="wrapper">
-     <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-      <Form.Item label="URL" name="ReadMore" rules={[{ validator: validateUrl }]}>
-        <Input />
-      </Form.Item>
-       <Form.Item label="Category (English)">
+     <Form {...layout} name="nest-messages" form ={form} onFinish={onFinish} initialValues={location.state} validateMessages={validateMessages}>
+          <Form.Item label="Category (English)" name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
+            <Select
+              name="categoryEN"
+              placeholder="Select a category">
+              {
+                  categories.map((category, index) => {
+                  let categoryName = category.categoryName["english"];
+                  let uppercaseName = categoryName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+                  return (
+                      <Select.Option key={index} value={category.categoryId}>{uppercaseName}</Select.Option>
+                  )})
+              }
+            </Select>
+          </Form.Item>
+          
+          <Form.Item label="Category (Arabic)" name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
           <Select
-            placeholder="Select a category"
-            value={selectedCategory}
-            onChange={(value) => setSelectedCategory(value)}
-          >
-            <Option value="human resources">Human Resources</Option>
-            <Option value="medicine">Medicine</Option>
-            <Option value="software engineering">Software Engineering</Option>
+            name="categoryAR"
+            placeholder="Select a category">
+            {
+                categories.map((category, index) => {
+                let categoryName = category.categoryName["arabic"];
+                return (
+                    <Select.Option key={index} value={category.categoryId}>{categoryName}</Select.Option>
+                )})
+            }
           </Select>
         </Form.Item>
-        <Form.Item label="Category (Arabic)">
-        <Select
-          value={selectedCategory}
-        onChange={(value) => setSelectedCategory(value)}
-          placeholder="Select a category"
-        >
-          <Option value="human resources">الموارد البشرية</Option>
-          <Option value="medicine">طب</Option>
-          <Option value="software engineering">برمجة</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="Category (Hebrew)">
-        <Select
-          value={selectedCategory}
-         onChange={(value) => setSelectedCategory(value)}
-          placeholder="Select a category"
-        >
-          <Option value="human resources">שאבי אנוש</Option>
-          <Option value="medicine">רפואה</Option>
-          <Option value="software engineering">תִכנוּת</Option>
-        </Select>
-      </Form.Item>
+        
+        <Form.Item label="Category (Hebrew)" name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
+           <Select
+            name="categoryHE"
+            placeholder="Select a category">
+            {
+                categories.map((category, index) => {
+                let categoryName = category.categoryName["hebrew"];
+                return (
+                    <Select.Option key={index} value={category.categoryId}>{categoryName}</Select.Option>
+                )})
+            }
+          </Select>
+        </Form.Item>
+        
       <Form.Item name={['conceptName', 'english']} label="Concept Name (English)" rules={[{ required: true }]}>
-        <Input />
+        <Input/>
       </Form.Item>
       <Form.Item name={['conceptName', 'arabic']} label="Concept Name (Arabic)" rules={[{ required: true }]}>
-        <Input />
+        <Input/>
       </Form.Item>
       <Form.Item name={['conceptName', 'hebrew']} label="Concept Name (Hebrew)" rules={[{ required: true }]}>
-        <Input />
+        <Input/>
       </Form.Item>
-       <Form.Item name="shortDefinition-english" label="Short Definition (English)" rules={[{ required: true }]}>
-        <Input.TextArea />
+       <Form.Item name={['shortDefinition', 'english']} label="Short Definition (English)" rules={[{ required: true }]}>
+        <Input.TextArea/>
       </Form.Item>
-      <Form.Item name="shortDefinition-arabic" label="Short Definition (Arabic)" rules={[{ required: true }]}>
-        <Input.TextArea />
+      <Form.Item name={['shortDefinition', 'arabic']} label="Short Definition (Arabic)" rules={[{ required: true }]}>
+        <Input.TextArea/>
       </Form.Item>
-       <Form.Item name="shortDefinition-hebrew" label="Short Definition (Hebrew)" rules={[{ required: true }]}>
-        <Input.TextArea />
+       <Form.Item name={['shortDefinition', 'hebrew']} label="Short Definition (Hebrew)" rules={[{ required: true }]}>
+        <Input.TextArea/>
       </Form.Item>
-       <Form.Item name="longDefinition-english" label="Long Definition (English)" rules={[{ required: true }]}>
-        <Input.TextArea />
+       <Form.Item name={['longDefinition', 'english']} label="Long Definition (English)" rules={[{ required: true }]}>
+        <Input.TextArea/>
       </Form.Item>
-       <Form.Item name="longDefinition-arabic" label="Long Definition (Arabic)" rules={[{ required: true }]}>
-        <Input.TextArea />
+       <Form.Item name={['longDefinition', 'arabic']} label="Long Definition (Arabic)" rules={[{ required: true }]}>
+        <Input.TextArea/>
       </Form.Item>
-       <Form.Item name="longDefinition-hebrew" label="Long Definition (Hebrew)" rules={[{ required: true }]}>
-        <Input.TextArea />
+       <Form.Item name={['longDefinition', 'hebrew']} label="Long Definition (Hebrew)" rules={[{ required: true }]}>
+        <Input.TextArea/>
       </Form.Item>
-       <Form.Item {...tailLayout}>
-<Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
-  Suggest
-</Button>
- <Button type="danger" onClick={onReset}>
-    Reset
-  </Button>
-</Form.Item>
-        </Form>
+      <Form.Item label="URL"  name="readMore" rules={[{ validator: validateUrl }]}>
+        <Input/>
+      </Form.Item>
+       <Form.Item>
+        <Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
+          Suggest
+        </Button>
+         <Button type="danger" onClick={onReset}>
+            Reset
+          </Button>
+        </Form.Item>
+      </Form>
         </div>
         
     </div>
-    )
+    );
   function handleAdminPanel(){
     navigate('/admin');
   };
-}
+};
 
 
 export default AddTermAdmin;

@@ -9,20 +9,48 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./i18nextInit";
-//import {getUserData} from "./api/UserAPI";
-///blackshift/FrontEnd/termi-project/src/api/UserAPI.js
-///blackshift/FrontEnd/termi-project/src/index.js
 import UserAPI from "./api/UserAPI";
-// import { store, persistor } from './redux/store';
-// import { Provider } from 'react-redux';
-// import { PersistGate } from 'redux-persist/integration/react'
 
+
+
+// import AddToHomescreen from 'react-add-to-homescreen';
 
 import LoginProvider from "./components/LoginContext";
+import CategoriesProvider from "./components/CategoryContext";
+
+
 const MyComponent = React.lazy(() => new Promise(resolve => {
     // UserAPI.getUserData().then((data) => {
     //     console.log(data);
     // });
+  console.log("hello there from index")
+    
+    
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    // Token is not found in local storage
+    // Handle the error accordingly
+  } else {
+    const tokenParts = token.split('.');
+    if (tokenParts.length !== 3) {
+      // Invalid token format
+      // Handle the error accordingly
+    } else {
+      const decodedToken = JSON.parse(atob(tokenParts[1]));
+      const expirationDate = new Date(decodedToken.exp * 1000);
+      if (expirationDate <= new Date()) {
+        // Token is expired, remove it from local storage
+        localStorage.removeItem('token');
+      } else {
+        // Token is still valid, proceed with the application logic
+      }
+    }
+  }
+    
+
+
+    
     setTimeout(() => {
       resolve(import('./App'));
     }, 1500);
@@ -44,11 +72,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
     <React.StrictMode>
+    
      <LoginProvider>
-      {/*login={localStorage.getItem('login')}
-      userData={data.body.data}>*/}
-      <Wrapper/>
-        </LoginProvider>
+       <CategoriesProvider>
+          <Wrapper/>
+        </CategoriesProvider>
+      </LoginProvider>
     </React.StrictMode>
 
 );

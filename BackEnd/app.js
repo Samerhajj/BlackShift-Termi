@@ -56,6 +56,7 @@ app.use("/note",require("./routes/note"));
 // mount the profile routes at the '/profile' path
 app.use("/profile", require("./routes/profile"));
 app.use("/category", require("./routes/category"));
+app.use("/gameHistory", require("./routes/gameHistory"));
 // Set staic folder
 
 // app.use(express.static("public"));
@@ -77,6 +78,17 @@ app.get("/counter",async (req,res)=>{
   catch(err){
     console.log(err);
     res.send(err);
+  }
+})
+
+
+app.get("/return_all_terms",async (req,res)=>{
+  try{
+  const result = await Search.find();
+  res.send(result)
+    
+  }catch(err){
+    
   }
 })
 

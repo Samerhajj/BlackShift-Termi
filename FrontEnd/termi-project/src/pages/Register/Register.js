@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect, useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import RegisterHook from './RegisterHook';
@@ -11,44 +11,48 @@ import styles from "./RegisterPage.module.css";
 import AuthAPI from '../../api/AuthAPI';
 import LanguageMap from '../../api/LanguageAPI';
 
-const Register = () =>{
-    // localStorage.setItem('currentPage', 'Register')//test
+// --> Contexts
+import { CategoriesContext } from "../../components/CategoryContext";
 
+const Register = () =>{
   const navigate = useNavigate();
   const {t, i18n} = useTranslation();
   // const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",field:"",favorite:[]});
   const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",gender : "",field:"",favorite:[]});
   const { errors, validate } = RegisterHook(); // use the custom hook
-  const [category,setCategory] = useState([]);
-{
-  // Handle the button click to register
-  //   const handleSubmit = async () => {
-  //     const response = await AuthAPI.register({data:data});
-  //     if(response.success){
-  //       navigate('/login');
-  //     }
-  //     else{
-  //         alert(response.message);
-  //     }
-  // };
-} 
-useEffect(()=>{
-  const fetchCategory= async () => {
-										// const res = await axios.get("http://dir.y2022.kinneret.cc:7013/category");
-										// console.log(res.data);
-       const res = await axios.get("http://dir.y2022.kinneret.cc:7013/category");
-        console.log(res.data);
-        let temp = [];
+  const { categories } = useContext(CategoriesContext);
+  
+//   const [category,setCategory] = useState([]);
+// {
+//   // Handle the button click to register
+//   //   const handleSubmit = async () => {
+//   //     const response = await AuthAPI.register({data:data});
+//   //     if(response.success){
+//   //       navigate('/login');
+//   //     }
+//   //     else{
+//   //         alert(response.message);
+//   //     }
+//   // };
+// } 
+// useEffect(()=>{
+//   const fetchCategory= async () => {
+// 										// const res = await axios.get("http://dir.y2022.kinneret.cc:7013/category");
+// 										// console.log(res.data);
+//       const res = await axios.get("http://dir.y2022.kinneret.cc:7013/category");
+//         console.log(res.data);
+//         let temp = [];
         
-        res.data.map((item)=>{
-          temp.push(item);
-        });
-        setCategory([...temp]);
-        console.log(category);
+//         res.data.map((item)=>{
+//           temp.push(item);
+//         });
+//         setCategory([...temp]);
+//         console.log(category);
                     
-								   }
-fetchCategory();	
-},[])
+// 								   }
+// fetchCategory();	
+// },[])
+
 const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validate(data); // validate the data
@@ -109,16 +113,12 @@ const handleSubmit = async (e) => {
               {errors.email && <p className="text-danger">{errors.email}</p>}
           </div>
           
-          {/* onChange={(e)=>setData({...data,gender:e.target.value})} */}
-          
-          
-          
         <select
             style={{ width: 200 }}
-          className={`form-select w-100 ${errors.field ? 'is-invalid' : ''}`}
+          className={`form-select w-100 ${errors.gender ? 'is-invalid' : ''}`}
           onChange={(e)=>setData({...data,gender:e.target.value})}
           >
-            <option value="gender">gender</option>
+            <option value="" disabled selected>gender</option>
             <option value="male">male</option>
             <option value="female">female</option>
             <option value="other">other</option>
@@ -137,24 +137,21 @@ const handleSubmit = async (e) => {
           
         <select
             style={{ width: 200 }}
-          className={`form-select w-100 ${errors.field ? 'is-invalid' : ''}`}
+            className={`form-select w-100 ${errors.field ? 'is-invalid' : ''}`}
             aria-label="Default select example"
             id="field"
             title={errors.field}
-            onChange={(e)=>setData({...data,field:e.target.value})}
-          >
-            <option value="Select">{t('register.select_category')}</option>
-            <option value="1">{t('register.option_one')}</option>
-            {/*<option value="2">{t('register.option_two')}</option>*/}
-            <option value="0">{t('register.option_three')}</option>
-      </select>
-      
-    
-      
-      
-      
-      
-          
+            onChange={(e)=>setData({...data,field:e.target.value})}>
+            <option value="" disabled selected>{t('register.select_category')}</option>
+            {
+                categories.map((category, index) => {
+                let categoryName = category.categoryName[LanguageMap[i18n.language].name];
+                let uppercaseName = categoryName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+                return (
+                    <option key={index} value={category.categoryId}>{uppercaseName}</option>
+                )})
+            }
+        </select>
         <select 
             style={{ width: 200}}
            className={`form-select w-100 mt-3 ${errors.language ? 'is-invalid' : ''}`}
@@ -163,7 +160,7 @@ const handleSubmit = async (e) => {
             title={errors.language}
             onChange={(e)=>setData({...data,language:e.target.value})}
           >
-            <option value="Select">{t('register.select_lang')}</option>
+            <option value="" disabled selected>{t('register.select_lang')}</option>
             <option value="English">{t('register.lang_en')}</option>
             <option value="Arabic">{t('register.lang_ar')}</option>
             <option value="Hebrew">{t('register.lang_he')}</option>

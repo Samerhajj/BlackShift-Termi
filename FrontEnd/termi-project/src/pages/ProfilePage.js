@@ -3,34 +3,54 @@ import Image from "react-bootstrap/Image";
 import { Modal, Button ,Col,Row} from "react-bootstrap";
 import AvatarGenerator from "./Logic/AvatarGenerator";
 import { useNavigate} from 'react-router-dom';
-import goldChevron from "../images/Games/Chevron/goldChevron.png";
-import silverChevron from "../images/Games/Chevron/silverChevron.png";
-import brownChevron from "../images/Games/Chevron/brownChevron.png";
 import "./../styles/ProfilePage.css";
 import profileAPI from "../api/ProfileAPI";
 import {LoginContext} from "./../components/LoginContext";
+import MyTable from "./MyTable";
+import { VictoryScatter,VictoryLegend, VictoryChart, VictoryAxis ,VictoryTooltip,VictoryLabel,VictoryLine} from 'victory';
+
+// import Chart from 'chart.js';
+
 // import {useSelector,useDispatch} from 'react-redux';
 // import { updateUserProfile } from '../redux/actions/userDataActions';
 // --> import Icons
 import { IconContext } from "react-icons";
-import { AiTwotoneStar } from "react-icons/ai";
+import { AiTwotoneStar,AiFillStar } from "react-icons/ai";
+import {IoPersonCircle} from 'react-icons/io5';
+import { BsGenderAmbiguous } from 'react-icons/bs';
+import{MdEmail,MdCategory,MdPassword,MdBorderColor} from 'react-icons/md';
+import {AiFillMobile} from "react-icons/ai";
+import { VscActivateBreakpoints } from "react-icons/vsc";
+import { BiSearchAlt,BiConversation } from "react-icons/bi";
+
+import ChangePassModal from './Profile/ChangePassModal';//new
+import EditProfileModal from './Profile/EditProfileModal';//new
+
+import { CategoriesContext } from "../components/CategoryContext";
+import { useTranslation } from 'react-i18next';
+import LanguageMap from "../api/LanguageAPI";
+import GameHistoryAPI from "../api/GameHistoryAPI";
 
 const ProfilePage =  () => {
+  const { categories } = useContext(CategoriesContext);
   const user = useContext(LoginContext);
-console.log(user);
   //const userData = useSelector(state => state.data);
-  
+  console.log(user)
  // console.log(user.userData.searchCounter);
    //  const dispatch=useDispatch();
   // localStorage.setItem('currentPage', document.title)//test
-
+  const { t, i18n } = useTranslation();
   let avatarGenerator = new AvatarGenerator();
   let avatarImageUrl = avatarGenerator.generateRandomAvatar("random123");
   const [showModal, setShowModal] = useState(false);
   const [showModalAvatar, setShowModalAvatar] = useState(false);
   const [showPasswordModal,setShowPasswordModal]=useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
-  // const [points,setPoints]=useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+  const [points,setPoints]=useState(0);
+  const [searchCounter,setSearchCounter]=useState(0);
+  const [suggestCounter,setSuggestCounter]=useState(0);
+  
   const navigate = useNavigate();
   function handleOpenModal() {
     setShowModal(true);
@@ -42,103 +62,91 @@ console.log(user);
     navigate('/favorite');
   };
  
+ const [gamesData, setGamesData] = useState([]);
+
+const gameColors = {
+  'Memory Game': 'blue',
+  'Backward': 'red',
+  'Other Game': 'green'
+}
+
+async function fetchData() {
+  setIsLoading(true);
+  const res = await GameHistoryAPI.getGameHistory();
+  const gamesData = res.body.games;
+
+  // Create an object to store gameName and their corresponding scores
+  const gamesScores = {};
+  gamesData.forEach((game) => {
+    if (gamesScores[game.gameName]) {
+      gamesScores[game.gameName].push(game.score);
+    } else {
+      gamesScores[game.gameName] = [game.score];
+    }
+  });
+
+  // Format the data for Victory
+  const chartData = Object.entries(gamesScores).map(([gameName, scores], index) => ({
+    x: index + 1,
+    y: scores,
+    label: gameName,
+  }));
+
+  setGamesData(chartData);
+  setIsLoading(false);
+}
+
+
+  
+ console.log(gamesData);
+
+// const chartOptions = {
+//     scales: {
+//         y: {
+//             beginAtZero: true
+//         }
+//     }
+// };
+
+ 
  function handleOpenPasswordModal()
  {
    setShowPasswordModal(true);
  }
- 
-// const fetchPoints=async()=>{
-//   const response = await profileAPI.getGamePoints();
-//   if (response.success){
-//     setPoints(response.body.points);
-//     console.log(response.body.points);
-    
-// }
-// else {
-//     console.log("Error getting points:", response.message);
-//   }
-// };
-
-// useEffect(()=>{
-//   fetchPoints();
-// },[]);
- 
-
-
-// let x = JSON.parse(localStorage.getItem('profileBody'));
-// const [formValues, setFormValues] = useState({
-//   fullName: x.fullName,
-//   email: x.email,
-//   phone: x.phone,
-//   field: x.field,
-//   language: x.language
-// });
   const [formValues, setFormValues] = useState({
     fullName: user.userData.fullName,
     email: user.userData.email,
     phone: user.userData.phone,
     field: user.userData.field,
-    language: user.userData.language
+    language: user.userData.language,
+    gender:user.userData.gender
   });
   
-  //--> function to close the modal
-  function handleCloseModal() {
+//--> function to close the modal
+function handleCloseModal() {
     setShowModal(false);
   }
   
-  function handleCloseModalAvatar() {
+function handleCloseModalAvatar() {
     setShowModalAvatar(false);
   }
   
-  function handleClosePasswordModal(){
+function handleClosePasswordModal(){
     setShowPasswordModal(false);
   }
   
-  async function handleSaveChanges(event) {
+async function handleSaveChanges(event) {
     event.preventDefault();
-  //get values from the form field
-    // send request to update the profile information in the backend
     try {
-       //this is the normal one we had
-       //now with redux!
+      console.log(formValues);
         const response = await profileAPI.updateProfile(formValues);
         if (response.success) {
-          //   user.setUserData({
-          //   ...LoginContext.userData,
-          //   fullName: formValues['fullName'],
-          //   email: formValues['email'],
-          //   phone: formValues['phone'],
-          //   field: formValues['field'],
-          //   language: formValues['language']
-          // });
-          
           user.setUserData({...user.userData,
             fullName: formValues['fullName'],
-            email: formValues['email'],
             phone: formValues['phone'],
             field: formValues['field'],
+            gender: formValues['gender'],
             language: formValues['language']});
-           //const Avatar=formValues['AvatarURL'];
-          localStorage.setItem('profileBody', JSON.stringify(user.userData));
-       
-          // update the profile data in localStorage
-          // localStorage.setItem('profileBody', JSON.stringify({
-          //   fullName: formValues['fullName'],
-          //   email: formValues['email'],
-          //   phone: formValues['phone'],
-          //   field: formValues['field'],
-          //   language: formValues['language']
-          //   // image:formValues['image']
-          // }));
-          // dispatch(updateUserProfile({
-          //           fullName: formValues['fullName'],
-          //           email: formValues['email'],
-          //           phone: formValues['phone'],
-          //           field: formValues['field'],
-          //           language: formValues['language']
-          //       }));
-          // dispatch(updateUserProfile(response.body));
-          // close the modal
         setShowModal(false);
       } else {
         console.log('Error updating profile: ' + response.message);
@@ -148,11 +156,9 @@ console.log(user);
     }
   }
   
-  
-  async function handleSavePasswordChanges(event) {
+async function handleSavePasswordChanges(event) {
   event.preventDefault();
-  const currentProfile = JSON.parse(localStorage.getItem('profileBody'));
-  if(currentProfile.password!==formValues.currentPassword){
+  if(user.userData.password!==formValues.currentPassword){
     alert("Make sure you have the current password right");
   }else{
     // Compare newPassword and validatePassword
@@ -165,8 +171,7 @@ console.log(user);
         const response = await profileAPI.changePassword(formValues);
         if (response.success) {
           // Update password in local storage
-          currentProfile.password = formValues.newPassword;
-          localStorage.setItem('profileBody', JSON.stringify(currentProfile));
+          user.userData.password = formValues.newPassword;
           setShowPasswordModal(false);
           // Show pop-up message
           alert('Successfully changed your password');
@@ -180,18 +185,6 @@ console.log(user);
   }
 }
 
-async function getSearchCount(e){
-  e.preventDefault()
-    const response = await profileAPI.getSearchCount();
-  if (response.success){
-      console.log(response.body);
-    
-}
- else {
-    console.log("Error :", response.message);
-  }
-}
- 
 function handleChange(event) {
   // get the field name and value from the event target
   const fieldName = event.target.name;
@@ -204,275 +197,187 @@ function handleChange(event) {
   });
 }
 
- console.log("type");
- console.log(typeof(x));
   return (
     <>
       <div className="banner banner_profile">
-        <div className="wrapper">
+        <div className="wrapper h-3">
           <div className="banner_content">
             <h1>
-              <strong>Profile </strong> Page
+              <strong>{t('profile.title-first')}</strong> {t('profile.title-last')}
+                       
+                      
+                       <div className="d-flex justify-content-center "><Image src={avatarImageUrl} /></div>
+                       
+
             </h1>
           </div>
         </div>
       </div>
-       
-            
-            
+      
+      <div className="wrapper">
+       <div className="box_process cf" dir="ltr">  
+             <div onClick={(e)=>{handleClick(e)}}  className="star-profile-fav">
+     
+          <IconContext.Provider value={{ size: "2.2rem" }}>
+          <Button id="change-left-m-button-profile-1" className="p-0 send-to-front "  onClick={(e)=>{handleClick(e)}} >
+          <AiFillStar className=""/>
+            </Button>
+          </IconContext.Provider> 
           
-                  {/*<IconContext.Provider value={{ size: "4rem" ,
-                                                 color: 'red',
-                                                 strokeWidth: "5",
-                                                 
-                  }}>
-                    <AiTwotoneStar/>
-                  </IconContext.Provider>*/}
-          
-            
-<div className="container">
-             
-<Row >
-  <Col xs={5} xl={4}>
-        <div class="avatar-container">
-          <Image src={avatarImageUrl} />
-        </div>
-  </Col>
-  <Col xs={6} xl={8} className="mt-1">
-        <div class="">
+      </div>
+     
+                 <div onClick={() => {handleOpenModal()}} className="star-profile-fav">
+          <Button id="change-left-m-button-profile-2" className="p-0 send-to-front">
+          <IconContext.Provider value={{ size: "2.2rem" }}>
+          <MdBorderColor className=""/>
+          </IconContext.Provider> 
+          </Button>
+      </div>
+              <div onClick={() => {handleOpenPasswordModal()}} className="star-profile-fav">
+         <Button id="change-left-m-button-profile-3" className="p-0 send-to-front">
+          <IconContext.Provider value={{ size: "2.2rem" }}>
+          <MdPassword className=""/>
+          </IconContext.Provider> 
+          </Button>
+      </div>
+             </div>
+      <div className="box-process cf">
+        <div className="icon-text-container">
+      <IconContext.Provider value={{ size: "2.5rem" }}>
+              <IoPersonCircle className="margin-for-profile"/>
+             <h3 className="text-margin"> {t('profile.name')}:</h3> <div className="text_data">{user.userData.fullName}</div>
+              {/*<span className="span-in-profile">Name : <span className="inner-span">{user.userData.fullName}</span></span>*/}
+      </IconContext.Provider>  
+      </div>
+  {/*</div>
+      
+  <div>*/}
+ <div className="box-process cf">
+      <div className="icon-text-container">
+      <IconContext.Provider value={{ size: "2.5rem" }}>
+            <BsGenderAmbiguous className="bigger-icon margin-for-profile"/>
+          <h3 className="text-margin"> {t('profile.gender')}:</h3> <div className="text_data">{user.userData.gender}</div>
+      </IconContext.Provider>  
+      </div>
+     </div>
+ {/* </div>
 
-          <div class="">
-                <span className="d-flex lab_nextAvatar">Name : {formValues.fullName}</span>
-          </div>
-          
-          <div class="">
-                <span className="d-flex lab_nextAvatar">Gender : {user.userData.gender}</span>
-          </div>
-          <div class="">
-                <span className="d-flex lab_nextAvatar">Category : {user.userData.field}</span>
-          </div>
-
-        </div>
-  </Col>
-
-</Row>
-{/*<Row>
-  <div class="buttons-container">
-    <Button class="favorites-button" onClick={() => {handleClick()}}>Favorites</Button>
-    <Button onClick={() => {handleOpenModal()}}>Edit Profile</Button>
-    <Button onClick={() => {handleOpenPasswordModal()}}>Change Password</Button>
-  </div>
-</Row>*/}
-</div>
-
-                 {/*   <Button onClick={handleOpenModalAvatar}>Edit Avatar</Button>
-              
-            
-              
-              <Modal show={showModalAvatar} onHide={handleCloseModalAvatar}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Edit Avatar</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <form>
-                     <div style={{display: "block"}}>
-                <label>Link:</label>
-                <a href={"https://getavataaars.com/"} target="_blank" style={{textDecoration: "underline"}}>
-                  https://getavataaars.com/
-                </a>
-              </div>
-              <div style={{display: "block"}}>
-                <label>Copy the URL and Paste it:</label>
-                <input type="text" name="AvatarURL" className="form-control" value={formValues.AvatarURL}/>
-              </div>
-                      
-                    
-                  </form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleCloseModalAvatar}>
-                    Close
-                  </Button>
-                  <Button variant="primary" onClick={handleSaveChanges}>
-                    Save Changes
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-            */}
-
+  <div>*/}
+    <div className="icon-text-container">
+      <IconContext.Provider value={{ size: "2.5rem" }}>
+            <MdCategory className="bigger-icon margin-for-profile"/>
            
+              <h3 className="text-margin">{t('profile.categories')}: </h3> <div className="text_data">{categories.find(category => category.categoryId == user.userData.field) && (categories.find(category => category.categoryId == user.userData.field).categoryName[LanguageMap[i18n.language].name])}
+          </div>
+      </IconContext.Provider>
+      </div>
+          <div className="icon-text-container">
+       <IconContext.Provider value={{ size: "2.5rem" }}>
+          <AiFillMobile className="bigger-icon margin-for-profile"/>
+         <h3 className="text-margin"> {t('profile.phone')}:</h3> <div className="text_data">{user.userData.phone}</div>
+      </IconContext.Provider>
+</div>
+    <div className="icon-text-container">
+        <IconContext.Provider value={{ size: "2.5rem" }}>
+          <MdEmail className="bigger-icon margin-for-profile"/>
+         <h3 className="text-margin"> {t('profile.email')}:</h3> <div className="text_data">{user.userData.email}</div>
+        </IconContext.Provider>
+        </div>
 
-          
-            
-              
-              
-                
+    <div className="icon-text-container">
+        <IconContext.Provider value={{ size: "2.5rem" }}>
+          <VscActivateBreakpoints className="bigger-icon margin-for-profile"/>
+         <h3 className="text-margin"> {t('profile.points')}: </h3> <div className="text_data">{user.userData.points}</div>
+        </IconContext.Provider>
+</div>
+    <div className="icon-text-container">
+        <IconContext.Provider value={{ size: "2.5rem" }}>
+          <BiSearchAlt className="bigger-icon margin-for-profile"/>
+         <h3 className="text-margin"> {t('profile.search-counter')}:</h3> <div className="text_data">{user.userData.searchCounter}</div>
+        </IconContext.Provider>
+</div>
+    <div className="icon-text-container">
+        <IconContext.Provider value={{ size: "2.5rem" }}>
+          <BiConversation className="bigger-icon margin-for-profile"/>
+       <h3 className="text-margin"> {t('profile.sugges-counter')}:</h3> <div className="text_data">{user.userData.suggestConceptCounter}</div>
+        </IconContext.Provider>
+ 
+      </div>
+    
+      </div>
+      </div>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Profile</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-         <form>
-        
-            <label>
-            Full Name
-            </label>
-            <input type="text" onChange={handleChange}   name="fullName" className="form-control" value=
-            {formValues.fullName}/>
-            
-            
-            
-            <label>
-            Email
-            </label>
-            <input type="email" onChange={handleChange} name="email" className="form-control" value=
-            {formValues.email}/>
-            
-            
-            <label>
-            Phone Number
-            </label>
-            <input type="text" onChange={handleChange} name="phone" className="form-control" value=
-            {formValues.phone}/>
-            
-            
-            <label>
-            Category
-            </label>
-            <input type="text" onChange={handleChange} name="field" className="form-control" value=
-            {formValues.field}/>
-            
-            <label>
-            Preferred Language
-            </label>
-            <input type="text" onChange={handleChange} name="language" className="form-control" value=
-            {formValues.language}/>
-            
-            
-            </form>
-            
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSaveChanges}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-            
-          
+
+
+      
+
+    
+      
+          <EditProfileModal 
+                        showModal={showModal}
+                        handleCloseModal={handleCloseModal}
+                        handleChange={handleChange}
+                        formValues={formValues}
+                        handleSaveChanges={handleSaveChanges}
+                        />
+         <ChangePassModal 
+                          showPasswordModal={showPasswordModal}
+                          handleClosePasswordModal={handleClosePasswordModal}
+                          showPasswordError={showPasswordError}
+                          handleChange={handleChange}
+                          formValues={formValues}
+                          handleSavePasswordChanges={handleSavePasswordChanges}
+                        />
 
          
-              <Modal show={showPasswordModal} onHide={handleClosePasswordModal}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Change Password</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <form>
-                    {showPasswordError && (
-                    <div className="error-message">Make sure you enter the same password</div>
-                  )}
-                
-                      <label>
-                       Current Password
-                      </label>
-                      <input type="password" onChange={handleChange}   name="currentPassword" className="form-control" value=
-                      {formValues.currentPassword} minLength="6"/>
-                    
-                      
-                    
-                      <label>
-                      New Password
-                      </label>
-                      <input type="password" onChange={handleChange} name="newPassword" className="form-control" value=
-                      {formValues.newPassword} minLength="6"/>
-                    
-                    
-                    
-                      <label>
-                        New Password
-                      </label>
-                      <input type="password" onChange={handleChange} name="validatePassword" className="form-control" value=
-                      {formValues.validatePassword} minLength="6"/>
-                  
-                  
-                  </form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClosePasswordModal}>
-                    Close
-                  </Button>
-                  <Button variant="primary" onClick={handleSavePasswordChanges}>
-                    Change Password
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-          <div className="row">
            
-          
-                        <label>FullName</label>
-                    
-                      
-                        <p className="font-for-profile">{user.userData.fullName}</p>
-                    
+  <button onClick={fetchData}>GET DATA</button>
+  
+   <div className="wrapper">
+  {isLoading ? (
+    <p>Loading...</p>
+  ) : (
+<VictoryChart margin={{ top: 30, bottom: 30, left: 30, right: 30 }}>
+  <VictoryAxis label="Game Number" />
+  <VictoryAxis dependentAxis label="Score" />
+  {gamesData.map(game => (
+    <VictoryLine
+      key={game.label}
+      data={game.y.map((score, i) => ({
+        x: i + 1,
+        y: score,
+        label: game.label
+      }))}
+      style={{ data: { stroke: gameColors[game.label] } }}
+    />
+  ))}
+  <VictoryLegend
+    x={0}
+    y={0}
+    title="Games"
+    centerTitle
+    orientation="horizontal"
+    data={gamesData.map(game => ({ name: game.label, symbol: { fill: gameColors[game.label] } }))}
+  />
+</VictoryChart>
+
+
+     
+  )}
+
+{console.log(gamesData)}
                 
-                   =
-                        <label>Email</label>
-                    
-                    
-                        <p className="font-for-profile">{user.userData.email}</p>
-                      
-                  
-                 
-                      <label>Category</label>
-                  
-                   
-                      <p className="font-for-profile">{user.userData.field}</p>
-                    
-                  
-                  
-                      <label>Phone Number</label>
-                    
-                      <p className="font-for-profile"> {user.userData.phone}</p>
-                  
-                  
-                  
-                  
-                      <label>Preferred language</label>
-                      
-                    
-                        <p className="font-for-profile"> {user.userData.language}</p>
-                      
-                    
-                   
-                        <label>gender</label>
-                      
-                        <p className="font-for-profile">{user.userData.gender}</p>
-                  
-                  
-                    
-                        <label>Points</label>
-                      
-                        <p className="font-for-profile">{user.userData.points}</p>
-                      
-                  
-                   
-                        <label>Search Counter</label>
-                     
-                    
-                        <p className="font-for-profile">{user.userData.searchCounter}</p>
-                      
-                  <button onClick={(e)=>getSearchCount}>Click to get number of search</button>
-                    {/*<div className="col-md-6">
-                      <a href="#" onClick={handleClick}>Favorites</a>
-                    </div>*/}
-                 
              </div>
+ 
+            
     </>
     );
 }
 
+// <VictoryScatter
+//   data={data}
+//   labelComponent={<VictoryLabel renderInPortal={false} />}
+//   labels={({ datum }) => `x: ${datum.x}, y: ${datum.y}`}
 export default ProfilePage;
+
+  

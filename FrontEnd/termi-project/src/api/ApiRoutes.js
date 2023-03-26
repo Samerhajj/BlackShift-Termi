@@ -7,11 +7,17 @@ const randomRoute = process.env.React_App_BaseURL + "search" + "/" + "random";
 const updatePointsRoute = process.env.React_App_BaseURL + "profile" + "/"  + "updatePoints";
 const top10 = process.env.React_App_BaseURL + "search" + "/" + "get-top10";
 
+//profile + game
+const gameHistoryUpdate = process.env.React_App_BaseURL + "gameHistory" + "/" + "updateGameHistory";
+
+const getGameHistoryUpdate = process.env.React_App_BaseURL + "gameHistory" + "/" + "getGameHistory";
+
 // Auth Routes
 const loginRoute = process.env.React_App_BaseURL + "auth" + "/" + "login";
 const privateRoute = process.env.React_App_BaseURL + "auth" + "/" + "private";
 const registerRoute = process.env.React_App_BaseURL + "auth" + "/" + "register";
 const logoutRoute = process.env.React_App_BaseURL + "auth" + "/" + "logout";
+const forgotPasswordRoute = process.env.React_App_BaseURL + "auth" + "/" + "forgotpassword";
 
 // Category Routes
 const allCategoriesRoute = process.env.React_App_BaseURL + "category";
@@ -54,5 +60,8 @@ export {searchRoute,
         approveTerm,
         deleteTerm,
         AllChangeLanguageLogs,
-        AllSearchGameLogs
+        AllSearchGameLogs,
+        gameHistoryUpdate,
+        getGameHistoryUpdate,
+        forgotPasswordRoute
 };

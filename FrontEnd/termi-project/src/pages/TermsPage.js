@@ -1,6 +1,5 @@
-import React,{useState, useEffect,useRef} from 'react';
-import Card from 'react-bootstrap/Card';
-import Accordion from 'react-bootstrap/Accordion';
+import React,{useState, useEffect,useRef,useContext} from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import 'font-awesome/css/font-awesome.min.css';
 import styles from '../styles/TermsPage.css';
@@ -10,68 +9,62 @@ import LanguageMap from '../api/LanguageAPI';
 import TermCard from '../components/TermCard/TermCard';
 import { useNavigate} from 'react-router-dom';
 import CategorySelector from "../components/CategorySelector";
-
+import {LoginContext} from "../components/LoginContext";
 const TermsPage = () =>{
+    const [searchParams, setSearchParams] = useSearchParams();
     const { t, i18n } = useTranslation();
+    const {login, userData, setUserData } = useContext(LoginContext);
     const [searchedTerm, setSearchedTerm] = useState("");
-    const [category, setCategory] = useState(); // need fix
+    const [category, setCategory] = useState();
     const [suggestions, setSuggestions] = useState([]);
     const [inputLanguage, setInputLanguage] = useState(i18n.language);
     const navigate = useNavigate();
     const [resultTerm, setResultTerm] = useState({});
     const [resultLanguage, setResultLanguage] = useState(i18n.language);
     const [showResult, setShowResult] = useState(false);
-    const [isAdmin,setIsAdmin] = useState(false);
-
-    
-    function handleAdminPanel(){
-        navigate('/admin');
-    };
-  
-    
-    
-    /*Adding Modal to redirect user to concept add page
-    */
-    const[show,setShow]=useState(false);
+    const [show,setShow]=useState(false);
     const handleClose=()=>setShow(false);
-    
+    const termCardRef = useRef(null);
     const handleClick = () => {
-    navigate('/suggest');
+        navigate('/suggest');
     };
     
-    const search = async (term) => {
-        console.log(category);
+
+    const search = async (term, lang, category) => {
         if(category !== undefined){
             setShowResult(false);
             
             if(term != ""){
-                const res = await SearchApi.search(term, category);
+                const res = await SearchApi.search(term, lang, category);
+                console.log(res);
                 if(res.success){
                     
-                    
+                    // MUST REMOVE
                     var attempts = (parseInt(localStorage.getItem('searchCounter'))+1);
                     localStorage.setItem("searchCounter",attempts );
                     
+			        setUserData({...userData, searchCounter: userData.searchCounter + 1});
                     
                     let closestResult = res.body['closestResult'];
                     closestResult = Object.assign({}, closestResult, { category });
                     let categoryResult = res.body['categoryNames'];
-                    // categoryResult = Array.from(categoryResult).filter((cat) => cat.categoryId == category);
-                    // console.log(categoryResult);
-                    //let favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
                     let favorite=[];
                     
-                    if (localStorage.getItem("profileBody") !== null) {
-                        favorite = JSON.parse(localStorage.getItem("profileBody"))['favorite'];
-                         
+                    if (login && userData.favorite) {
+                        favorite = userData.favorite;
                     }
-                    console.log(categoryResult);
-                     setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),categoryNames:categoryResult});
+                    setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),categoryNames:categoryResult});
                     setResultLanguage(inputLanguage);
                     setShowResult(true);
                     setInputLanguage(i18n.language);
                     
-                   
+                    setSearchParams({
+                        term: term,
+                        lang: lang,
+                        category: category
+                    });
+                    console.log(searchParams)
+                    
                     // if(closestResult.categoryId == category) 
                 //     {
                 //     setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),category:category,categoryNames:categoryResult});
@@ -95,27 +88,22 @@ const TermsPage = () =>{
     };
     
 	const changeCategory = (newCategory) => {
-		if(newCategory === undefined){
-			setCategory(undefined);
-		}else{
-			setCategory(newCategory.categoryId);
-		}
+		setCategory(newCategory);
 	};
 	
     const autoComplete = async () => {
         if(category !== undefined)
         {
             setShowResult(false);
-        let input = searchedTerm;
-        const res = await SearchApi.autocomplete(input, LanguageMap[inputLanguage].name,category);
-        console.log(res);
-        if(res.success){
-            console.log(res.body);
-            setSuggestions(res.body);
-        }else{
-            alert(res.message);
-        }
-        
+            let input = searchedTerm;
+            const res = await SearchApi.autocomplete(input, LanguageMap[inputLanguage].name,category);
+            console.log(res);
+            if(res.success){
+                console.log(res.body);
+                setSuggestions(res.body);
+            }else{
+                alert(res.message);
+            }
         {
         // if the length of the text less than 3 no need to see any result
         // if(input.length < 1){
@@ -138,7 +126,7 @@ const TermsPage = () =>{
     };
     
     const selectAutoCompleteTerm = (term)=>{
-        search(term);
+        search(term, LanguageMap[inputLanguage].name, category);
     };
     
     const checkInputLang = (s)=>{
@@ -169,10 +157,10 @@ const TermsPage = () =>{
     
     const handleEnterClick = (event) => {
         if(event.code == "Enter"){
-            search(searchedTerm);
+            search(searchedTerm, LanguageMap[inputLanguage].name, category);
         }
     };
-    
+
     useEffect(() => {
         let timeout = 0;
         if(searchedTerm.length < 1){
@@ -180,7 +168,7 @@ const TermsPage = () =>{
         }else{
             timeout = setTimeout(() => {
                 autoComplete();
-            }, 400);
+            }, 400);// here we will call the autoComplete() after 400ms
         }
         return () => {
             clearTimeout(timeout);
@@ -189,81 +177,98 @@ const TermsPage = () =>{
     
     // Listen to change language and act accordingly
     useEffect(()=>{
+        setSuggestions([]);
+        setSearchedTerm("");
         setInputLanguage(i18n.language);
     },[i18n.language]);
     
-    useEffect(()=>{
-        const role = localStorage.getItem('role');
-            if(role == 'admin'){
-                setIsAdmin(true);
-            }
-        },[])
+    useEffect(() => {
+       if(userData.field == undefined){
+           setCategory(0);
+       }else{
+           setCategory(userData.field);
+       }
+    }, [userData.field]);
     
+    useEffect(() => {
+        let term = searchParams.get("term");
+        let lang = searchParams.get("lang");
+        let category = searchParams.get("category");
+        if(term && lang && category){
+            search(term, lang, category);
+        }
+    }, []);
+    
+    useEffect(() => {
+        if (showResult && termCardRef.current) {                    
+            termCardRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [showResult]);
+  
 
-
-
-    return(
-        <>
-            <div className="banner banner_home">
-                <div className='wrapper'>
-                    <div className="banner_content fade-in-element">
-                        <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
-                        <div className="search-box">
-                            <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
-                            <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm)}}></i>
-                            { suggestions.length != 0 ? 
-                                <div className="autocomplete-box">
-                                    {
-                                        suggestions.map((item,index) => {
-                                            return(
-                                                <div className="autocomplete-item" key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item)}>{item}</div>
-                                            );
-                                        })
-                                    }
-                                </div>
-                                :
-                                null
-                            }
-                        </div>
-                        <div class="flex-container">
-                            <div class="small-category-selector">
-                                <CategorySelector categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+return(
+    <>
+        <div className="banner banner_home">
+            <div className='wrapper'>
+                <div className="banner_content fade-in-element">
+                    <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
+                    <div className="search-box">
+                        <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
+                        <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm, LanguageMap[inputLanguage].name, category)}}></i>
+                        { suggestions.length != 0 ? 
+                            <div className="autocomplete-box">
+                                {
+                                    suggestions.map((item,index) => {
+                                        return(
+                                            <div className="autocomplete-item" key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item)}>{item}</div>
+                                        );
+                                    })
+                                }
                             </div>
+                            :
+                            null
+                        }
+                    </div>
+                    <div className="flex-container">
+                        <div className="small-category-selector">
+                            <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            {   isAdmin && (
-                 <div className="admin-sg goAndChange">
-                    <button className="su-button mb-2 " onClick={handleAdminPanel}>Back To Panel</button>
-                </div>
-                )
-            }
-            
-            { showResult ? 
-               <TermCard categories={resultTerm.categoryNames} term={resultTerm.term} isSearch={true} isFavorite={resultTerm.isFav} initialLanguage={resultLanguage}/>
+        </div>
+        
+        {showResult ? (
+            <div ref={termCardRef}>
+              <TermCard
+                role = {userData.role}
+                categories={resultTerm.categoryNames}
+                term={resultTerm.term}
+                isSearch={true}
+                isFavorite={resultTerm.isFav}
+                initialLanguage={resultLanguage}
+              />
+            </div>
+          ) : null}
+        
 
-                :
-                null
-            }
-            
-            <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>Add Concept</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>If you would like to suggest a concept, please press Suggest Concept</Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                  Close
-                </Button>
-                <Button variant="primary" onClick={handleClick}>
-                  Suggest Concept
-                </Button>
-              </Modal.Footer>
-            </Modal>
-        </>
-    );
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Concept</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>If you would like to suggest a concept, please press Suggest Concept</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClick}>
+              Suggest Concept
+            </Button>
+          </Modal.Footer>
+        </Modal>
+         
+    </>
+);
 };
 
 export default TermsPage;

@@ -5,24 +5,13 @@ const allCloseResults = [];
 
 const closestResult = {};
 
-const search = async (term, category) =>{
+const search = async (term, language, category) =>{
     try{
-        console.log("right category :");
-        console.log(category);
-        console.log("right category :");
-        // let query = {params: {term: term, category: category}};
-        const res = await axios.post(searchRoute, {term: term, category: category, activity: "Concept search"},
+        const res = await axios.post(searchRoute, {term: term, category: category, activity: "Concept search", language: language},
         {
             headers: {
                 'x-auth-token': localStorage.getItem('token')
         }});
-        //"http://dir.y2022.kinneret.cc:7013/user/gameSearchActivity"
-        //we need to improve this code ↓
-        // const respond = await axios.post(SearchActiviyUserRoute,{activity,category}
-        // ,{
-        //     headers: {
-        //         'x-auth-token': localStorage.getItem('token')
-        // }});
         
         // If the server returns a status error
         if(res.status != 200){
@@ -33,16 +22,16 @@ const search = async (term, category) =>{
             Object.assign(allCloseResults, res.data);
             // Take the closest term
             Object.assign(closestResult, res.data[0], {category: category});
-
+            console.log(res.data[0]);
             
             
             console.log(closestResult['categories'])
             const ur = "http://dir.y2022.kinneret.cc:7013/search/returnAllCategories";
             const categoryNames = await axios.post(ur,{categoryIds:closestResult['categories']},{
-            headers: {
-                'x-auth-token': localStorage.getItem('token')
-            }
-        });
+                headers: {
+                    'x-auth-token': localStorage.getItem('token')
+                }
+            });
             console.log("*****(((((((((((((((((((((((((((((((((((**")
             console.log(categoryNames);
             console.log("*****((((((((((((((((((((((((((((((((((**")
@@ -51,13 +40,13 @@ const search = async (term, category) =>{
             return {body: {closestResult,categoryNames}, success: true};
         }else{
             // Add the alert to suggest the searched term
-            return {success: false, message: "Term doesn't exist, would you like to suggest it ?"};
+            return {success: false, error:false, message: "Term doesn't exist, would you like to suggest it ?"};
         }
     }catch(e){
         if(e.response){
-            return {success: false, message: e.response.data};
+            return {success: false, error:false, message: e.response.data};
         }else{
-            return {success: false, message: e.message};
+            return {success: false, error:true, message: e.message};
         }
     }
 };

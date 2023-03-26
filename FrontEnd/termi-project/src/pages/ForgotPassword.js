@@ -1,11 +1,27 @@
-import React from "react"
-
+import React, { useState } from "react";
+import axios from "axios";
 // --> useTranslation we use it to be able to translate in react-i18next
 import { useTranslation } from 'react-i18next';
-
+import AuthAPI from '../api/AuthAPI';
 
 const ForgotPassword = () =>{
  const {t} = useTranslation();
+  const [email, setEmail] = useState("");
+
+   const handleResetPassword = async () => {
+    try {
+      const res = await AuthAPI.forgotPassword({email})
+    
+     
+    } catch (err) {
+    console.log(err);
+    }
+  };
+  
+   const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  }
+
  return (
   <>
    <div className="banner banner_login">
@@ -23,8 +39,10 @@ const ForgotPassword = () =>{
              type="email"
              name="user_email"
              id="user_email"
+             onChange={handleEmailChange}
+             value={email}
              placeholder={t('forgot_password.email')}/>
-             <button className="d-block btn btn-primary mt-5 w-100">{t('forgot_password.reset_password')}</button>
+             <button onClick={handleResetPassword} className="d-block btn btn-primary mt-5 w-100">{t('forgot_password.reset_password')}</button>
              </div>
        </div>
        </>

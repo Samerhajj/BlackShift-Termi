@@ -3,27 +3,45 @@ const User = require("../Models/userSchema");
 const Category = require("../Models/categorySchema");
 const {gameSearchActivity} = require("./UserFolder/tracker/gameSearchActivity");
 const jwt = require("jsonwebtoken");
+const sanitize = require('mongo-sanitize');
 
 const searchTerm = async(req,res)=>{
   try{
-    console.log(req.body);
-    let term = req.body.term.trim();
+    let term = req.body.term;
     let category = req.body.category;
     let activity = req.body.activity;
     let language = req.body.language;
     let token = req.headers["x-auth-token"];
     
-    if(term != null && category != null){
+    console.log(term + " " + category + " " + language);
+    
+    if(term != null && category != null && language != null){
       let categoryNum = parseInt(category);
+      
+      // let respond = await Search.find({
+      //   "$text": {
+      //     "$search": term
+      //   },
+      //   "categories": { $in : [categoryNum] }
+      // }).sort( 
+      //   { score: { $meta : 'textScore' } }
+      // );
+      
+      // To avoid SQL injection
+      let sanitizedTerm = sanitize(term
+                                  .trim()
+                                  .replace("(", "\\(")
+                                  .replace(")", "\\)")
+                                  .replace("/", "\\/"));
+      console.log(term + " != " + sanitizedTerm);
+      
       let respond = await Search.find({
-        "$text": {
-          "$search": term
-        },
+        [`conceptName.${language}`]: {'$regex': "^"+ sanitizedTerm +"\\s*$" ,$options:'i'},
         "categories": { $in : [categoryNum] }
-      }).sort( 
-        { score: { $meta : 'textScore' } }
-      );
-      console.log(respond);
+      });
+      
+      console.log(respond[0]);
+      
       if(respond.length != 0){
         Search.updateOne({ _id: respond[0]._id }, { $inc: { searchCount: 1 } }, function(error,res) {
           
@@ -52,19 +70,34 @@ const autoCompleteTerm = async(req,res) =>{
   let language = req.body.language;
   let category = req.body.category;
   
-  if(input != null && category != null){
+  if(input != null && category != null && language != null){
     // {"conceptName": 1} => filters the fields and returns the fields with the value of 1.
     console.log(input + " " + language);
     // let respones = await Search.find({"conceptName.english": {'$regex': "^"+term ,$options:'i'}},{"conceptName": 1});
     let categoryNum = parseInt(category);
+    
+    //Sanitaze the input before the query
+    let sanitizedInput = sanitize(input
+                                  .trim()
+                                  .replace("(", "\\(")
+                                  .replace(")", "\\)")
+                                  .replace("/", "\\/"));
+    
     let respones = await Search.find({
-              "$text": {
-                "$search": input
-              },
-              "categories": { $in : [categoryNum] }
-            }).sort( 
-              { score: { $meta : 'textScore' } }
-            );
+      [`conceptName.${language}`]: {'$regex': "^"+sanitizedInput ,$options:'i'},
+      "categories": { $in : [categoryNum] }
+    }).limit(10);
+    
+    console.log(respones);
+    
+    // let respones = await Search.find({
+    //           "$text": {
+    //             "$search": input
+    //           },
+    //           "categories": { $in : [categoryNum] }
+    //         }).sort( 
+    //           { score: { $meta : 'textScore' } }
+    //         );
             
     // Fix this to be done within the query itself
     let temp = [];
@@ -164,7 +197,17 @@ const getAllTermList = async (req,res) =>{
 //   res.send("hi");
   res.send(resSe);
 
+} // this function for return all the fav list
+
+const getAllSuggestList = async (req,res) =>{
+  const resSe = await Search.find({ _id: { $in: req.body.suggestions} })
+  res.send(resSe);
+
 }
+
+
+
+
 
 const suggestTerm = async (req,res) =>{
   console.log(req.body);
@@ -276,5 +319,6 @@ module.exports = {autoCompleteTerm,
                   suggestTerm,
                   getTop10,
                   addNewCategories,
-                  getCategorie
+                  getCategorie,
+                  getAllSuggestList
 };

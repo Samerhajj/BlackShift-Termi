@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import { useTranslation } from 'react-i18next';
 import Accordion from 'react-bootstrap/Accordion';
 import LanguageMap from "../../api/LanguageAPI";
@@ -6,47 +6,73 @@ import style from "./TermCard.css";
 import Image from 'react-bootstrap/Image';
 import json2csv from 'json2csv';
 import fileDownload from 'js-file-download';
+import { useNavigate } from "react-router-dom";
+
 // --> APIs
 import UserApi from '../../api/UserAPI';
 
 // --> Import Icons
 import {BsStarFill, BsStar} from 'react-icons/bs';
-
+import { LoginContext } from '../LoginContext';
+import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
 //
-import PropTypes from 'prop-types';
-
+// import PropTypes from 'prop-types';
+import { IconContext } from "react-icons";
+import {AiTwotoneEdit} from 'react-icons/ai';
 
 const TermCard = (props) =>{
+    console.log(props.term);
     const { t } = useTranslation();
     const [language, setLanguage] = useState(props.initialLanguage);
     const [isFav, setIsFav] = useState(props.isFavorite);
     const [isSearch,setIsSearch] = useState(props.isSearch);
+    const {userData,setUserData} = useContext(LoginContext);
+    const navigate = useNavigate();
 
+    
     const handle_starsClick = async() =>{
         if(!isFav){
-            const res = await UserApi.addFavorite(props.term._id);
+            const res = await UserApi.addFavorite(props.term._id,userData._id);
             if(res.success){
                 if(props.setParentList){
                     props.setParentList([...res.body.updatedList]);
                 }else{
                     setIsFav(res.body.isAdded);
                 }
+                setUserData({...userData,favorite: res.body.updatedList});
             }else{
                 alert(res.message);
             }
         }else{
-            const res = await UserApi.deleteFavorite(props.term._id);
+            const res = await UserApi.deleteFavorite(props.term._id,userData._id);
             if(res.success){
                 if(props.setParentList){
                     props.setParentList([...res.body.updatedList]);
                 }else{
                     setIsFav(!res.body.isDeleted);
                 }
+                setUserData({...userData,favorite: res.body.updatedList});
             }else{
                 alert(res.message);
             }
         }
     };
+    
+      const handleFacebookShare = () => {
+    // handle facebook share
+    console.log("Testing facebook click");
+  };
+
+  const handleTwitterShare = () => {
+    // handle twitter share
+     console.log("Testing twitter click");
+  };
+
+  const handleLinkedinShare = () => {
+    // handle linkedin share
+     console.log("Testing linkedin click");
+  };
+
     
     
     // const changeLanguage = (newLanguage) => {
@@ -75,7 +101,7 @@ let data = JSON.parse(localStorage.getItem("termCardLanguage")) || [];
 
 const changeLanguage = async (newLanguage) => {
     if(newLanguage!==language){
-        const res = await UserApi.languageChanged("Change concept language",document.title,false,newLanguage,language);
+        const res = await UserApi.languageChanged(userData.email,"Change concept language",document.title,false,newLanguage,language);
     if(res.success){
         console.log(res);
     }else{
@@ -100,6 +126,36 @@ const exportData = () => {
     // Download the CSV file
     fileDownload(csv, "termCardChanges.csv");
 };
+
+const handleCardEdit = () =>{
+    let term = props.term;
+    navigate("/admin/add-term", {
+        state: {
+          _id: term._id,
+          selectedCategory: term.categories ? term.categories[0]: undefined,
+          conceptName:{
+            english: term.conceptName ? term.conceptName.english: undefined,
+            arabic: term.conceptName ? term.conceptName.arabic: undefined,
+            hebrew: term.conceptName ? term.conceptName.hebrew: undefined,
+          },
+          shortDefinition:{
+            english: term.shortDefinition ? term.shortDefinition.english: undefined,
+            arabic: term.shortDefinition ? term.shortDefinition.arabic: undefined,
+            hebrew: term.shortDefinition ? term.shortDefinition.hebrew: undefined,
+          },
+          longDefinition:{
+            english: term.longDefinition ? term.longDefinition.english: undefined,
+            arabic: term.longDefinition ? term.longDefinition.arabic: undefined,
+            hebrew: term.longDefinition ? term.longDefinition.hebrew: undefined,
+          },
+          suggestedBy: term.suggestedBy,
+          readMore: term.readMore
+        }
+    });
+    
+}
+
+
 //<button onClick={exportData}>Download CSV</button>
 
 
@@ -119,7 +175,7 @@ const exportData = () => {
   
     return(
         <div className="term-card" dir="ltr">
-       
+
             <div className="language-selector">
                 {
                     Object.keys(LanguageMap).map((language) => (
@@ -127,7 +183,7 @@ const exportData = () => {
                             <Image className="img-fluid" src={LanguageMap[language].src}/>
                         </div>
                     ))
-                }
+                } 
             </div>
             <div className="term-box">
                 <div className="categories-box">
@@ -159,10 +215,22 @@ const exportData = () => {
                         ) : (null)
                     }
                 </div>
+                {
+                    props.role === "admin" &&
+                     (<div className="edit-admin" onClick = {handleCardEdit}   > 
+                  <IconContext.Provider value={{ size: "2rem" }}>
+                      <AiTwotoneEdit/>
+                  </IconContext.Provider>
+                  </div>)
+
+                }
+                       
+                  
+                  
                 <div className="definitions-box">
-                <div className="search-count">Searched {props.term.searchCount} times</div>
-                    <h3 className="trem-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
-                    <Accordion className="my-3" defaultActiveKey="0">
+                <div className="search-count">{t('searchTimes.search')} {props.term.searchCount} {t('searchTimes.times')}</div>
+                    <h3 className="term-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
+                    <Accordion className="my-3 go-back-in-term-card" defaultActiveKey="0">
                         <Accordion.Item eventKey="0">
                             <Accordion.Header><h2><strong className="font-weight-bold">{t('.')}</strong></h2></Accordion.Header>
                             <Accordion.Body dir={LanguageMap[language].dir}>{props.term.shortDefinition[LanguageMap[language].name]}</Accordion.Body>
@@ -174,10 +242,16 @@ const exportData = () => {
                             }
                         </Accordion.Item>
                     </Accordion>
+                    
                 <div>
                     <a className="read-url" href={props.term.readMore}>{t('search.read_more')}</a>
                         <p className="suggestedby-text">{t('search.suggested_by')} {props.term.suggestedBy}</p>
                     </div>
+                       <div className="d-flex justify-content-between align-items-center">
+       <FaFacebook size={32} onClick={handleFacebookShare} />
+      <FaTwitter size={32} onClick={handleTwitterShare} />
+      <FaLinkedin size={32} onClick={handleLinkedinShare} />
+      </div>
                 </div>
             </div>
             <div>
@@ -187,20 +261,12 @@ const exportData = () => {
 };
 
 //   initialLanguage: ,need to be added
-TermCard.propTypes = {
-  isFavorite: PropTypes.bool,
-  term: PropTypes.object,
-  searchCount: PropTypes.number.isRequired
-}
+// TermCard.propTypes = {
+//   isFavorite: PropTypes.bool,
+//   term: PropTypes.object,
+//   searchCount: PropTypes.number.isRequired
+// }
 
 
 export default TermCard;
 
-
-                    // {
-                    //     props.categorys.map((item)=>{
-                    //         return(
-                    //         <h1>nigga</h1>
-                    //         );
-                    //     })
-                    // }

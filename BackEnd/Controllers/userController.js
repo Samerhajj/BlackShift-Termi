@@ -25,6 +25,7 @@ const favorites = async (req,res) =>{
     console.log(err);
   }
 };
+
 //-------------------------------------------------------------------------------------------------------------------------------------
 const deleteFavorite = async(req,res) =>{
   try{
@@ -43,6 +44,7 @@ const deleteFavorite = async(req,res) =>{
 //-------------------------------------------------------------------------------------------------------------------------------------
 const deleteFavorite1 = async(req,res) =>{
   try{
+    console.log(req.body);
     const deleteResponse = await User.findByIdAndUpdate(req.body.personId,{ $pull: { favorite: req.body.termId }},{ new: true });
     const findResponse = await Search.find({ _id: { $in: deleteResponse.favorite} });
     res.send(findResponse);
@@ -67,16 +69,34 @@ const addFavorite = async (req,res) =>{
 const suggestTerm = async (req,res) =>{
         console.log("->>>>" + req.body);
         
+        User.findByIdAndUpdate({_id:req.body._id},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
+          
+          if (error) {
+            console.log(error);
+          }
+          else{
+            console.log(res);
+          }
+        });
+        
          const newSuggest = await new Suggest({
           categories: req.body.selectedCategory,
-          
           shortDefinition:req.body.shortDefinition,
           lastEdited: Date.now(),
           conceptName: req.body.conceptName,
           suggestedBy: req.body.suggestedBy,
+          longDefinition: req.body.longDefinition
         }
-        
         );
+        const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
+
+        console.log("______________________________")
+        console.log(newSuggest['_id'].toString());
+        console.log(response);
+        // console.log(newSuggest);
+        console.log("______________________________")
+
+
         try{
             await newSuggest.save();
             res.send(newSuggest);
@@ -207,42 +227,89 @@ const deleteOneSuggest = async (req,res)=>{
   }
 }
 //-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+// const addSelectedTerm = async(req,res)=>{
+//   // try{
+    
+//   // }
+//   // catch(err){
+//   //   res.send(err);
+//   // }
+  
+//   console.log(req.body);
+//   const id = req.body._id;
+//   console.log(id);
+//   console.log("*********************************************************************")
+//   console.log(req.body);
+//   console.log("*********************************************************************")
+// //   const termData={
+// //   categories:req.body.categories,
+// //   shortDefinition:req.body.shortDefinition,
+// //   conceptName:req.body.conceptName
+// // };
+//   const NewTerm = new Search({
+//       categories:req.body.categories,
+//       conceptName:req.body.conceptName,
+//       shortDefinition:req.body.shortDefinition,
+//       longDefinition:req.body.longDefinition,
+//       readMore:req.body.readMore,
+//       suggestedBy:req.body.suggestedBy
+//   });
+  
+  
+
+// const resTerm = await NewTerm.save();
+
+// res.send(req.body)
+//   // const response = await Search.findOneAndUpdate({_id:id}, termData, {upsert: true, new: true});
+//   // console.log(response);
+//   // res.send(response);
+
+
+
+
+
+
+
+//   }
+
+
+
+// Admin add selection Term
 const addSelectedTerm = async(req,res)=>{
-  // try{
-    
-  // }
-  // catch(err){
-  //   res.send(err);
-  // }
-  console.log(req.body);
-  const id = req.body._id;
-  console.log(id);
-  console.log("*********************************************************************")
-console.log(req.body);
- console.log("*********************************************************************")
-//   const termData={
-//   categories:req.body.categories,
-//   shortDefinition:req.body.shortDefinition,
-//   conceptName:req.body.conceptName
-// };
-  const NewTerm = new Search({
-    
-      categories:req.body.categories,
-      shortDefinition:req.body.shortDefinition,
-      conceptName:req.body.conceptName
+    const id = req.body._id;
+    const existingTerm = await Search.findOne({ _id: id });
+    if (existingTerm) {
+        // Update the existing term
+        existingTerm.categories = req.body.categories;
+        existingTerm.conceptName = req.body.conceptName;
+        existingTerm.shortDefinition = req.body.shortDefinition;
+        existingTerm.longDefinition = req.body.longDefinition;
+        existingTerm.readMore = req.body.readMore;
+        existingTerm.suggestedBy = req.body.suggestedBy;
+        await existingTerm.save();
+        res.send(existingTerm);
+    } else {
+        // Create a new term
+        const newTerm = new Search({
+            categories:req.body.categories,
+            conceptName:req.body.conceptName,
+            shortDefinition:req.body.shortDefinition,
+            longDefinition:req.body.longDefinition,
+            readMore:req.body.readMore,
+            suggestedBy:req.body.suggestedBy
+        });
+        const savedTerm = await newTerm.save();
+        res.send(savedTerm);
+    }
+}
 
-  });
-  
-  
-
-const resTerm = await NewTerm.save();
-
-res.send(req.body)
-  // const response = await Search.findOneAndUpdate({_id:id}, termData, {upsert: true, new: true});
-  // console.log(response);
-  // res.send(response);
-
-  }
 //------------------------------------------------------------------------------------------------------------------------------------
 const incrementSearchCount = async (req,res)=>{
   const token = req.headers["x-auth-token"];
@@ -292,16 +359,15 @@ const gameSearchActivity = async (req,res)=>{
     });
   }    
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------
 const clearGameSearchActivity = async (req,res)=>{
   const res1 = await UserActivity2.deleteMany({});
   res.send("done");
 }
-
-
+//------------------------------------------------------------------------------------------------------------------------------------
 const getUserData = async (req, res) => {
   const token = req.headers["x-auth-token"];
-  console.log(token)
+ // console.log(token)
   let decoded;
   try {
     decoded = jwt.verify(token, process.env.SECRET);
@@ -314,14 +380,33 @@ const getUserData = async (req, res) => {
       data:user
     });
   } catch (error) {
+    console.log("EMPTY");
     res.status(401).json({
       success: false,
       message: 'Invalid token'
     });
   }
 };
+//------------------------------------------------------------------------------------------------------------------------------------
+const findUserByEmail = async (req,res)=>{
+  const me = "admin@gmail.com";
+  const response = await User.findOne({email:"m7md@gmail.com"});
+  res.send(response);
+}
 
 
+const suggestion = async (req,res) =>{
+  try{
+    console.log(req.body);
+
+    const res_user =  await User.findOne({email:req.body.email});
+    console.log(res_user.suggestion);
+    res.send(res_user.suggestion);
+  }
+  catch(err){
+    console.log(err);
+  }
+};
 
 module.exports = {favorites,
                   deleteFavorite,
@@ -341,7 +426,9 @@ module.exports = {favorites,
                   incrementSearchCount,
                   getUserData,
                   gameSearchActivity,
-                  clearGameSearchActivity
+                  clearGameSearchActivity,
+                  findUserByEmail,
+                  suggestion
 };
 
 

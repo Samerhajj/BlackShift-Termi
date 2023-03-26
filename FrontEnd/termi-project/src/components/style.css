@@ -278,7 +278,7 @@ ul {
 
 /*BOX PROCSS*/
 .box_process {
-    padding-top: 100px;
+    padding-top: 25px;
     padding-bottom: 250px;
     display: flex;
 }
@@ -578,7 +578,8 @@ header .mobile_menu nav ul li a.active:after {
 }
 .banner.banner_profile{
     /*background-image: url(../images/mountains.svg);*/
-    background-image: url(../images/subtle-prism.svg);
+    /*background-image: url(../images/subtle-prism.svg);*/
+    background-image: url(../images/SVGBackground/radiant-gradient.svg);
     min-width: auto;
     min-height: auto;
     padding-bottom: 8vh;
@@ -1088,7 +1089,7 @@ header .mobile_menu nav ul li a.active:after {
 
     .box_process {
         margin-bottom: 0;
-        display: block;
+        display: flex;
     }
 
     .face_img {
@@ -1274,17 +1275,17 @@ header .mobile_menu nav ul li a.active:after {
     }
     
     .box_process .box span img {
-        max-width: 50px;
+        max-width: 20px;
     }
 
     .box_process .box span {
-        width: 90px;
+        width: 10px;
         height: 90px;
         margin-top: -40px;
     }
 
     .box_process .box:last-child, .box_process .box {
-        width: 100%;
+        width: 40%;
     }
 
     .box_process .box h2 {
@@ -1307,7 +1308,7 @@ header .mobile_menu nav ul li a.active:after {
     }
     
     .box_process {
-        padding-bottom: 80px;
+        padding-bottom: 30px;
     }
 }
 @media (max-width: 340px) {
@@ -1377,3 +1378,20 @@ header .mobile_menu nav ul li a.active:after {
     color:green;
     font-weight: bold;
 }
+
+
+ul-in-stick-footer {
+    display: inline-block;
+     list-style-type: none;
+}
+
+li-in-stick-footer {
+    display: inline-block;
+}
+/*.go-back-in-term-card:active,*/
+/*.go-back-in-term-card:focus,*/
+/*.go-back-in-term-card:hover*/
+/*{*/
+/*        z-index: 1;*/
+
+/*}*/

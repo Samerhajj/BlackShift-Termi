@@ -35,7 +35,7 @@
     },
     "search":{
         "title": "سيطر على بحث",
-        "search_placeholder": "ما هو المصطلح الذي تبحث عنه ؟",
+        "search_placeholder": "ابحث عن مصطلح",
         "suggested_by": "مقترح من قبل",
         "short_definition": "تعريف قصير",
         "long_definition": "تعريف طويل",
@@ -64,7 +64,14 @@
             "modalTitle": "تعليمات",
             "description": "لعبة كلمات حيث تختار الكلمة الصحيحة من القائمة المعطاة وتحصل على نقاط للإجابات الصحيحة",
             "continueToGame": "متابعة اللعبة",
-                        
+             "scoretitle":"نتيجة",
+            "et":"الوقت المنقضي",
+            "pg":"النقاط المكتسبة",
+            "timere":"وقت المتبقي",
+            "seconds":"ثواني",
+            "wronganswer":"الإجابة الصحيحة كانت",
+            "correctanswer":"إجابة صحيحة",
+            "timeout":"إنتهى الوقت",
               "step-by-step": [
          	{
          		"id": "step1",
@@ -105,7 +112,10 @@
             "goBack": "عودة",
             "description":"لعبة الكلمات حيث تختار التعريف وتختار المصطلح الصحيح له وتحصل على نقاط للإجابات الصحيحة",
             "continueToGame": "الإستمرار لللعب",
-                        
+            "score":"نتيجة",
+            "not":"عدد المحاولات",
+            "pg":"النقاط المكتسبة",
+            
               "step-by-step": [
          	{
          		"id": "step1",
@@ -132,8 +142,7 @@
                 "text": "في نهفي نهاية اللعبة ، سيتم عرض نتيجتك.."
                 }
              ]
-            
-            
+
         }
         
     },
@@ -146,5 +155,51 @@
     },
     "category-selector":{
         "category": "الفئة"
-    }
+    },
+    
+    "suggest_concept_page":{
+        "suggest_title":"صفحة المصطلحات",
+        "category_he":"الفئة (عبري)",
+        "category_en":"الفئة (انجليزي)",
+        "category_ar" :"الفئة (عربي)",
+        "c_name_he"  :"مصطلح (عبري)",
+        "c_name_en"  :"مصطلح (انجليزي)",
+        "c_name_ar"  :"مصطلح (عربي)",
+        "s_def-he"   :"تعريف قصير (عبري)",
+        "s_def-en"   :"تعريف قصير (انجليزي)",
+        "s_def-ar"   :"تعريف قصير (عربي)",
+        "sbtn":"اقترح",
+          "rbtn":"اعادة تعيين"
+    },
+            "profile":{
+            "title-first":"صفحة ",
+            "title-last":"الشخصية",
+            "name":"اسم",
+            "gender":"جنس",
+            "categories":"فئة",
+            "phone":"هاتف",
+            "email":"بريد ",
+            "points":"نقاط",
+            "search-counter":"عدد البحث",
+            "sugges-counter":"عدد الاقترحات",
+            "mfullname":"اسم كامل",
+            "mphonenumber":"نمرة الهاتف",
+            "mcategory":"فئة",
+            "mplanguage":"لغة المرغوبة",
+            "mcpassword":"كلمة مرور الحالية",
+            "mnpassword":"كلمة المرور الجديدة",
+            "mvpassword":"تاكيد كلمة المرور",
+            "mclose":"اغلاق",
+            "msavechanges":"حفظ التغييرات",
+            "medit":"تغيير البروفايل",
+            "mpassword":"تغيير كلمة المرور"
+        },
+         "favorite":{
+            "favtitle":"المفضلات",
+            "smbtn":"إظهار المزيد"
+        }
+         ,"searchTimes":{
+            "search":"تم البحث",
+            "times":"مرات"
+        }
 }

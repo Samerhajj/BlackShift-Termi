@@ -14,8 +14,10 @@ const changeProfile = async(req,res)=>{
       // update the user document with the new profile information
       user.fullName = updatedProfile.fullName;
       user.phone = updatedProfile.phone;
+      // user.email = updatedProfile.email;
       user.field = updatedProfile.field;
       user.language = updatedProfile.language;
+      user.gender = updatedProfile.gender;
 
       // save the updated user document to the database
       user.save((error) => {
@@ -108,7 +110,9 @@ const getGamePoints = async (req, res) => {
    
     // Your code to get game points here
     res.send({
-      points: user.points
+      points: user.points,
+      searchCounter:user.searchCounter,
+      suggestConceptCounter:user.suggestConceptCounter
     });
   } catch (error) {
     res.status(401).json({

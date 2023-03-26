@@ -19,7 +19,9 @@ const { favorites,
         incrementSearchCount,
         getUserData,
         gameSearchActivity,
-        clearGameSearchActivity
+        clearGameSearchActivity,
+        findUserByEmail,
+        suggestion
 } = require("../Controllers/userController");
 
 
@@ -51,6 +53,8 @@ const { favorites,
  *          description: A list of the user's favorite terms.
  */
 router.post("/favorites", favorites);
+router.post("/suggestion",suggestion); // new
+
 
 router.put("/delete-favorite", deleteFavorite1);
 
@@ -154,6 +158,9 @@ router.get("/getUserData",getUserData)
 router.post("/gameSearchActivity",gameSearchActivity);
 router.delete("/clearGameSearchActivity",clearGameSearchActivity);
 
+
+//
+router.get("/findUserByEmail",findUserByEmail);
 
 module.exports = router;
 

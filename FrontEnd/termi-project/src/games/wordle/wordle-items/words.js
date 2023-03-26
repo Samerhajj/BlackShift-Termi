@@ -2233,7 +2233,6 @@ export const WORDS = [
     'gazes',
     'dowel',
     'calms',
-    'bitch',
     'scowl',
     'gulps',
     'coded',

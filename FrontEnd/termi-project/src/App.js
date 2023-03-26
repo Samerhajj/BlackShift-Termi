@@ -1,38 +1,32 @@
 import './App.css';
-import {BrowserRouter as Router, Routes, Route,Navigate} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import React,{useEffect} from "react";
+// import CardGame from "./pages/NewGame/CardGame";
 
 //Pages
-import Login from "./pages/Login/Login";
-// import Register from "./pages/Register";
-import Register from "./pages/Register/Register";// edit
-
-import TermsPage from "./pages/TermsPage";
-import GamesPage from "./pages/GamesPage";
-import HomePage from "./pages/HomePage";
-import ProfilePage from "./pages/ProfilePage";
-import ErrorPage from "./pages/ErrorPage";
-import ForgotPassword from "./pages/ForgotPassword";
-import SuggestConceptPage from "./pages/SuggestConceptPage";
-import Note from "./pages/Note/Note";
-import CardGame from "./pages/NewGame/CardGame";
-import Favorite from "./pages/Favorite/Favorite";
-import AdminPage from "./pages/AdminPage/AdminPage";
-import AdminSuggestionPage from "./pages/AdminPage/ViewSuggestions";
-import AddTermAdmin from "./pages/AdminPage/AddTermAdmin";
-import Top10 from "./pages/AdminPage/Top10";
-import Footer from './components/Footer';
+import {Login,  Register, TermsPage,  ProfilePage,
+        ErrorPage,  HomePage, GamesPage,  ForgotPassword,
+        SuggestConceptPage, Favorite, Note, Top10,
+        AdminSuggestionPage,  AdminPage,  AddTermAdmin,UserSuggestions,ResetPasswordPage
+        
+} from "./pages/PageIndex";
 
 //Layouts
 import PageLayout from "./components/PageLayout";
 import DynamicTitleRoute from "./components/DynamicTitleRoute";
 
 //Games
-import BackDefinitionGame from "./games/backward-definition/BackDefinition";
+
+import {BackDefinitionGame, Hangman} from "./games/GameIndex.js"
+
+// import BackDefinitionGame from "./games/backward-definition/BackDefinition";
 import WordleGame from "./games/wordle/Wordle";
-import Hangman from "./games/hangman/hangman";
+// import Hangman from "./games/hangman/hangman";
 import MemoryGame from "./games/memory-game/MemoryGame";
 import CrosswordGame from "./games/crossword-game/Crossword";
-import React,{useEffect} from "react";
+
+
+
 import withAuth from './pages/Logic/withAuth';
 import withNotAuth from './pages/Logic/withNotAuth';
 import withAdminAuth from './pages/Logic/withAdminAuth';
@@ -66,8 +60,11 @@ const [userData, setUserData] = React.useState({});
 
  console.log(userData);
   {/*<LoginProvider value={{ login, setLogin,userData,setUserData}}>*/}
+  
+
   return (
-    
+    <>
+
     <Router>
       <Routes>
           <Route element={<PageLayout/>}>
@@ -81,25 +78,31 @@ const [userData, setUserData] = React.useState({});
             <Route path="/games" element={<DynamicTitleRoute title="Games" element={<WGamesPage/>}/>}/>
             <Route path="/games/back-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
             <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
-            <Route path="/games/wordle" element={<DynamicTitleRoute title="Wordle" element={<WWordleGame/>} />}/>
+            <Route path="/reset-password/:token" element={<DynamicTitleRoute title="Reset Password" element={<ResetPasswordPage/>} />}/>
+            {/*<Route path="/games/wordle" element={<DynamicTitleRoute title="Wordle" element={<WWordleGame/>} />}/>
             <Route path="/games/crossword-game" element={<DynamicTitleRoute title="Crossword Game" element={<WCrosswordGame/>} />}/>
-            <Route path="/games/hangman" element={<DynamicTitleRoute title="Hangman" element={<WHangman/>} />}/>
+            <Route path="/games/hangman" element={<DynamicTitleRoute title="Hangman" element={<WHangman/>} />}/>*/}
             
-            <Route path="/note" element={<DynamicTitleRoute title="Notes" element={<WNote/>} />}/>
+            {/*<Route path="/note" element={<DynamicTitleRoute title="Notes" element={<WNote/>} />}/>
+            <Route path="/newgame" element={<DynamicTitleRoute title="NewGame" element={<CardGame/>} />}/>*/}
+            
+            <Route path="*" element={<DynamicTitleRoute title="Error" element={<ErrorPage/>} />}/>
             <Route path="/favorite" element={<DynamicTitleRoute title="Favorite" element={<WFavorite/>} />}/>
             <Route path="/suggest" element={<DynamicTitleRoute title="Suggest Concept" element={<WSuggestConceptPage/>} />}/>
-            <Route path="/newgame" element={<DynamicTitleRoute title="NewGame" element={<CardGame/>} />}/>
-            <Route path="*" element={<DynamicTitleRoute title="Error" element={<ErrorPage/>} />}/>
             <Route path="/admin" element={<DynamicTitleRoute title="Admin" element={<WAdminPage/>} />}/>
             <Route path="/admin/suggestions" element={<DynamicTitleRoute title="User Suggestions" element={<WAdminSuggestionPage/>} />}/>
             <Route path="/admin/add-term" element={<DynamicTitleRoute title="Admin Add Term" element={<WAddTermAdmin/>} />}/>
             <Route path="/admin/top-10" element={<DynamicTitleRoute title="Top 10 Concepts" element={<WTop10/>} />}/>
+            
+            
+            <Route path="/UserSuggestions/UserSuggestions" element={<DynamicTitleRoute title="User Suggestions" element={<UserSuggestions/>} />}/>
+
           </Route>
       </Routes>
     </Router>
-    
+<br/><br/><br/><br/><br/><br/>
+    </>
   );
-  {/*</LoginProvider>*/}
 }
 export default App;
 

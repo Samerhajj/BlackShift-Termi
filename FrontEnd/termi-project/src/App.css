@@ -41,3 +41,19 @@
   }
 }
 
+.col-has-all-profile-item{
+  /*margin-left: 10px;*/
+}
+.right-buttons-in-first-col{
+  margin-bottom: 5px;
+  /*width:50%;*/
+  display: block;
+
+
+}
+.rights-button-in-profile{
+}
+.span-in-profile{
+  font-family: monospace;
+  
+}

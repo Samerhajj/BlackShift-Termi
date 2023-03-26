@@ -32,6 +32,7 @@ function Tabs() {
     const tailLayout = {
     //   wrapperCol: { span: 8, span: 16 },
     };
+    console.log("IN TABS")
   const toggleTab = (index) => {
     setToggleState(index);
   };

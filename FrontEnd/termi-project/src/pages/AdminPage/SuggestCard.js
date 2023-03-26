@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import LanguageMap from '../../api/LanguageAPI';
 import './Admin.css'
 import {Image } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 // --> import Icons
 
@@ -15,9 +16,8 @@ import { IconContext } from "react-icons";
 import {AiTwotoneEdit,AiFillDelete} from 'react-icons/ai';
 
 const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
-    console.log(data);
-   const [currentLanguage, setLanguage] = useState(initialLanguage);
-  const [show, setShow] = useState(false);
+    const [currentLanguage, setLanguage] = useState(initialLanguage);
+    const navigate = useNavigate();
 
   
   const handleDelete = async () =>{
@@ -36,17 +36,43 @@ const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
     const id = data._id;
     console.log(id);
     console.log(data);
-    const response = await AdminAPI.addSelectedTerm(data);
-    if(response.success){
-      console.log(response);
-      const response = await AdminAPI.deleteSelectedTerm(data);
-      setSuggestList(suggestList.filter((item) => item['_id']!==id));
+    // const response = await AdminAPI.addSelectedTerm(data);
+    // if(response.success){
+    //   console.log(response);
+    //   const response = await AdminAPI.deleteSelectedTerm(data);
+    //   setSuggestList(suggestList.filter((item) => item['_id']!==id));
 
     }
-    else{
-      alert(response.message);
-    }
-  }
+    // else{
+    //   alert(response.message);
+    //}
+ // }
+  
+  const handleEdit=()=>{
+    navigate("/admin/add-term", {
+        state: {
+          _id: data._id,
+          selectedCategory: data.categories ? data.categories[0]: undefined,
+          conceptName:{
+            english: data.conceptName ? data.conceptName.english: undefined,
+            arabic: data.conceptName ? data.conceptName.arabic: undefined,
+            hebrew: data.conceptName ? data.conceptName.hebrew: undefined,
+          },
+          shortDefinition:{
+            english: data.shortDefinition ? data.shortDefinition.english: undefined,
+            arabic: data.shortDefinition ? data.shortDefinition.arabic: undefined,
+            hebrew: data.shortDefinition ? data.shortDefinition.hebrew: undefined,
+          },
+          longDefinition:{
+            english: data.longDefinition ? data.longDefinition.english: undefined,
+            arabic: data.longDefinition ? data.longDefinition.arabic: undefined,
+            hebrew: data.longDefinition ? data.longDefinition.hebrew: undefined,
+          },
+          suggestedBy: data.suggestedBy,
+          readMe: data.readMore
+        }
+    });
+  };
   
 
   const changeLanguage = (newLanguage) => { 
@@ -70,24 +96,17 @@ const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
               </div>
       <div className="d-flex justify-content-around mt-3">
       
-              <span className="edit-icon" onClick={handleShow}>
+              <span className="edit-icon" onClick={()=>{handleEdit()}}>
                   <IconContext.Provider value={{ size: "2rem" }}>
                       <AiTwotoneEdit/>
                   </IconContext.Provider>
               </span>
               
-              
-              {/*data.categories.map((category)=>
-               <div>{LanguageMap[currentLanguage].categories[category]}</div>
-               )*/}
-               
                {data.conceptName &&(
                   <h1 className="suggest-card__title font-weight-bold">{data.conceptName[LanguageMap[currentLanguage].name]}</h1>
-               )
-                 
+                  )
                }
               <span>
-               
                   <IconContext.Provider value={{ size: "2rem" }}>
                       <AiFillDelete onClick={handleDelete}/>
                   </IconContext.Provider>
@@ -100,50 +119,18 @@ const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
             <p className="definition__text">{data.shortDefinition[LanguageMap[currentLanguage].name]}</p>
           </div>
         )}
-      
-      {/*
-      {
-        data.longDefinition && (
-          <div className="definition">
-            <p className="definition__text">{data.longDefinition[currentLanguage]}</p>
-          </div>
-        )
-      }
-      */}
-      {/*
-      {
-       data.lastEditedDisplayable && (
-    <div className="last-edited">
-      <h1 style={{fontStyle: 'italic', fontWeight: 'bold'}} className="last-edited__text">Last edited: {data.lastEditedDisplayable}</h1>
-    </div>
-    )
-    }
-    */}
       <h6 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h6>
-     
-      
-      <button className="btn" onClick={handleEditCard}>send to edit</button>
-        <button className="btn" onClick={handleApprove}>Approve to database</button>
-      
-      {(show)&&(<EditModal show={show} setShow={setShow} />)}
+    {/*  <button className="btn" onClick={handleApprove}>Approve to database</button>*/}
     </div>
     
   );
-  
-  function handleShow () {
-    setShow(true)
-  };
-  function handleEditCard() {
-    console.log("handleEditCard")
-    // not implemented
-  }
-}
+};
 
 SuggestCard.propTypes = {
   suggestList: PropTypes.array,
   data: PropTypes.object,
   setList: PropTypes.func
-}
+};
 
 export default SuggestCard;
 

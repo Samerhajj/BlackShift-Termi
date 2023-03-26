@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Form, Modal,Button} from "react-bootstrap";
 import PropTypes from 'prop-types'
 
-const EditModal = ({show,setShow}) =>{
+const EditModal = ({show,setShow,data}) =>{
       const handleClose = () => setShow(false);
     return(
         <Modal show={show} onHide={handleClose}>
@@ -12,10 +12,10 @@ const EditModal = ({show,setShow}) =>{
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Conecpt Name</Form.Label>
+              <Form.Label>Concept Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Conecpt Name"
+                placeholder="Concept Name"
                 autoFocus
               />
             </Form.Group>

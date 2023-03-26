@@ -35,7 +35,7 @@
     },
     "search":{
         "title": "Control Your Search",
-        "search_placeholder": "What's the term you're looking for ?",
+        "search_placeholder": "Search for a term",
         "suggested_by": "suggested by",
         "short_definition": "Short Definition",
         "long_definition": "Long Definition",
@@ -63,6 +63,14 @@
                "goBack": "Go Back",
                "description":"Word game where you choose correct word from list given definition and earn points for correct answers",
                 "continueToGame": "Continue To Game",
+                "scoretitle":"Score",
+                "et":"Elapsed Time",
+                 "pg":"Points Gained",
+                 "timere":"Time remaining",
+                 "seconds":"Seconds",
+                 "wronganswer":"The correct Answer was",
+                 "correctanswer":"Correct!",
+                 "timeout":"TIME OUT",
              "step-by-step": [
              	{
              		"id": "step1",
@@ -101,6 +109,9 @@
                "goBack": "Go Back",
                "description":"Word game where you choose definition and choose the correct term for it and earn points for correct answers",
                 "continueToGame": "Continue To Game",
+                        "score":"Score",
+                        "not":"Number of Tries",
+                        "pg":"Points Gained",
              "step-by-step": [
              	{
              		"id": "step1",
@@ -129,6 +140,7 @@
              	}
              ]
         }
+
         
     },
     "note":{
@@ -140,5 +152,51 @@
     },
     "category-selector":{
         "category": "Category"
-    }
+    },
+      "suggest_concept_page":{
+          "suggest_title":"Suggest Page",
+            "category_he":"Category (Hebrew)",
+            "category_en":"Category (English)",
+            "category_ar" :"Category (Arabic)",
+            "c_name_he"  :"Concept (Hebrew)",
+            "c_name_en"  :"Concept (English)",
+            "c_name_ar"  :"Concept (Arabic)",
+            "s_def-he"   :"Short definition (Hebrew)",
+            "s_def-en"   :"Short definition (English)",
+            "s_def-ar"   :"Short definition (Arabic)",
+            "sbtn":"Suggest",
+            "rbtn":"Reset"
+        },
+        "profile":{
+            "title-first":"Profile",
+            "title-last":"page",
+            "name":"Name",
+            "gender":"Gender",
+            "categories":"Category",
+            "phone":"Phone",
+            "email":"Email",
+            "points":"Points",
+            "search-counter":"Search Counter",
+            "sugges-counter":"Suggest Counter",
+            "mfullname":"Full Name",
+            "mphonenumber":"Phone Number",
+            "mcategory":"Category",
+            "mplanguage":"Preferred Language",
+            "mcpassword":"Current Password",
+            "mnpassword":"New Password",
+            "mvpassword":"Validate Password",
+            "mclose":"Close",
+            "msavechanges":"Save Changes",
+            "medit":"Edit Profile",
+            "mpassword":"Change"
+        },
+        
+             "favorite":{
+            "favtitle":"Favourite",
+            "smbtn":"Show More"
+        }
+        ,"searchTimes":{
+            "search":"Searched",
+            "times":"Times"
+        }
 }

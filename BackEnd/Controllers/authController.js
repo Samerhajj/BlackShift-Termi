@@ -1,6 +1,8 @@
 const User = require("../Models/userSchema");
 const { validationResult } = require('express-validator');
 const jwt = require("jsonwebtoken");
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
 let refreshTokens = [];
 //-------------------------------------------------------------------------------------------------------------------------------------
@@ -165,6 +167,80 @@ const privateAccess = async(req,res) =>{
         res.send("error");
     }
 }
+
+const forgotPassword = async(req,res)=>{
+  try{
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).json({ message: 'User with provided email not found.' });
+    }
+    console.log(user);
+   // Generate a password reset token
+    const token = await user.generatePasswordResetToken(user);
+
+    // Create a nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'termishift@gmail.com',
+        pass: 'cdhzxscoempowrwy'
+      }
+    });
+
+    // Define the email options
+    const mailOptions = {
+      from: 'termishift@gmail.com',
+      to: user.email,
+      subject: 'Password reset request',
+      text: `Please click on the following link to reset your password: http://dir.y2022.kinneret.cc:7024/reset-password/${token}`
+    };
+  
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal server error.' });
+      } else {
+        console.log(`Email sent: ${info.response}`);
+        return res.status(200).json({ message: 'Password reset email sent successfully.' });
+      }
+    });
+  }
+   catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Internal server error.' });
+  }
+}
+
+const resetPassword = async (req, res) => {
+  try {
+    const { token, password } = req.body;
+    console.log("THis is my body");
+      console.log(req.body);
+    if (!token || !password) {
+      return res.status(400).json({ message: 'Token and password are required.' });
+    }
+
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+console.log(hashedToken);
+    const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } });
+    
+    if (!user) {
+      return res.status(404).json({ message: 'Password reset token is invalid or has expired.' });
+    }
+    console.log(user);
+    user.password = password;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+
+    await user.save();
+
+    return res.status(200).json({ message: 'Password has been reset successfully.' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Internal server error.' });
+  }
+}
 //-------------------------------------------------------------------------------------------------------------------------------------
 
-module.exports = {register,login,logout,tokenG,privateAccess};
+module.exports = {register,login,logout,tokenG,privateAccess,forgotPassword,resetPassword};

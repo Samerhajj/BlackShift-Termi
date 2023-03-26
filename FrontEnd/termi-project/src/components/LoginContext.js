@@ -20,6 +20,7 @@ const LoginProvider = (props) => {
         });
         console.log("****UPDATED DATA*****");
         console.log(res.data.data);
+        setLogin(true);
         setUserData(res.data.data);
       } catch (err) {
         console.log(err);
@@ -30,21 +31,11 @@ const LoginProvider = (props) => {
    
   // --> The first time to load the page we get the login from the localStorage
     useEffect(() => {
-        const storedLogin = localStorage.getItem('login');
-        
-        if(storedLogin == null){
-          localStorage.setItem('login', false)
-        }
-        
-        // --> if the status of login = true → set the value in the context to true
-        // make a call to your backend to retrieve the user data
-          // using the JWT token stored in local storage
-          // once you have the user data, update the state
-          // and pass it down to the context
-        console.log(storedLogin);
-      if (storedLogin) {
+      
+      
+      if (login) {
           localStorage.setItem('searchCounter', 0);
-          setLogin(storedLogin);
+         // // setLogin(storedLogin);
           // --> make a request to the backend to get the user data
           getUserData();
         }
@@ -52,8 +43,8 @@ const LoginProvider = (props) => {
       
     useEffect(() => {
       getUserData();
-    }, [localStorage.getItem('token')]);
-
+    }, [login]);
+//[localStorage.getItem('token')]
 
   // --> the values that we provide is {login , setLogin}
   return (

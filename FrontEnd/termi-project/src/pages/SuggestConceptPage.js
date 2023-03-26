@@ -1,21 +1,18 @@
-import React,{useState} from "react";
+import React,{useState, useContext} from "react";
 import { Form, Input,Select, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
+
+// APIs
 import UserAPI from './../api/UserAPI';
-import {Modal ,Tab ,Row} from "react-bootstrap";
-import Tabs from './SuggestConceptPage/Tabs'
-const { Option } = Select;
+import SearchApi from '../api/SearchAPI';
+import LanguageMap from '../api/LanguageAPI';
+// Contexts
+import { LoginContext } from '../components/LoginContext';
+import { CategoriesContext } from "../components/CategoryContext";
+
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
+  labelCol: { span: 8}
 };
-const tailLayout = {
-  wrapperCol: { span: 8, span: 16 },
-};
-
-
-
-
 const validateMessages = {
   required: '${label} is required!',
   types: {
@@ -26,203 +23,198 @@ const validateMessages = {
     range: '${label} must be between ${min} and ${max}',
   },
 };
+
 const SuggestConceptPage=()=>{
+  
+  	const { t, i18n } = useTranslation();
 
-const validateUrl = (rule, value, callback) => {
-  if (!value) {
-    callback();
-  } else if (!/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/.test(value)) {
-    callback('Invalid URL');
-  } else {
-    callback();
-  }
-};
-
-const [englishNameEntered, setEnglishNameEntered] = useState(false);
-const [arabicNameEntered, setArabicNameEntered] = useState(false);
-const [hebrewNameEntered, setHebrewNameEntered] = useState(false);
-
-const handleEnglishNameChange = (e) => {
-  setEnglishNameEntered(e.target.value.length > 0);
-};
-
-const handleArabicNameChange = (e) => {
-  setArabicNameEntered(e.target.value.length > 0);
-};
-
-const handleHebrewNameChange = (e) => {
-  setHebrewNameEntered(e.target.value.length > 0);
-};
-
-// --> 
-const [selectedCategory, setSelectedCategory] = useState("");
-const [form] = Form.useForm();
-
-const englishOptions = [
-  { value: 0, label: 'human resources' },
-  { value: 1, label: 'software engineering' },
-];
-const arabicOptions = [
-  { value: 0, label: 'الموارد البشرية' },
-  { value: 1, label: 'برمجة' },
-];
-const hebrewOptions = [
-  { value: 0, label: 'משאבי אנוש' },
-  { value: 1, label: 'תִכנוּת' },
-];
-
+  
+  const { userData, setUserData } = useContext(LoginContext);
+  const { categories } = useContext(CategoriesContext);
+  const [englishNameEntered, setEnglishNameEntered] = useState(false);
+  const [arabicNameEntered, setArabicNameEntered] = useState(false);
+  const [hebrewNameEntered, setHebrewNameEntered] = useState(false);
+  
+  const handleEnglishNameChange = (e) => {
+    setEnglishNameEntered(e.target.value.length > 0);
+  };
+  
+  const handleArabicNameChange = (e) => {
+    setArabicNameEntered(e.target.value.length > 0);
+  };
+  
+  const handleHebrewNameChange = (e) => {
+    setHebrewNameEntered(e.target.value.length > 0);
+  };
+  
+  // --> 
+  const [form] = Form.useForm();
 
   const onFinish = async(values)=> {
-   
-      values.shortDefinition = {
-     english: values['shortDefinition-english'],
-     arabic: values['shortDefinition-arabic'],
-     hebrew: values['shortDefinition-hebrew']
+    let searchRes;
+    if(englishNameEntered){
+      searchRes = await SearchApi.search(values.conceptName.english, "english", values.selectedCategory);
+    }else if(arabicNameEntered){
+      searchRes = await SearchApi.search(values.conceptName.arabic, "arabic", values.selectedCategory);
+    }else{
+      searchRes = await SearchApi.search(values.conceptName.hebrew, "hebrew", values.selectedCategory);
+    }
+    
+    if(!searchRes.success && searchRes.error == false){
+      values.suggestedBy=userData.fullName;
+      values._id = userData._id;
+      // console.log(userData['suggestion'])
+      const res = await UserAPI.suggestFromUser(values);
+     values.suggestion = userData['suggestion'];
+      console.log(res);
+      if(res.success){
+  			setUserData({...userData, suggestConceptCounter: userData.suggestConceptCounter + 1});
+      }
+      else{
+        console.log(res.message);
+      }
+      onReset();
+    }else{
+      alert("Concept already exists");
+    }
   };
-   delete values['shortDefinition-english'];
- delete values['shortDefinition-arabic'];
- delete values['shortDefinition-hebrew'];
-  console.log(values);
-    const res = await UserAPI.suggestFromUser(values,selectedCategory);
-   
-    console.log(res);
-    if(res.success){
-      form.resetFields();
-      setSelectedCategory("");
-    }
-    else{
-      console.log(res.message);
-    }
-  }
   
   const checkConceptName = (_, value) => {
-  if (!value.conceptNameEnglish && !value.conceptNameArabic && !value.conceptNameHebrew) {
+    // console.log(form);
+    // let enValue = form.getFieldValue(["conceptName", "english"]);
+    // let arValue = form.getFieldValue(["conceptName", "arabic"]);
+    // let heValue = form.getFieldValue(["conceptName", "hebrew"]);
+    
+    // if(enValue == undefined || enValue == ""){
+    //   console.log("reset en");
+    //   form.resetField(["conceptName", "english"]);
+    // }
+    
+    // if(arValue == undefined || arValue == ""){
+    //   console.log("reset ar");
+    //   form.resetField(["conceptName", "arabic"]);
+    // }
+    
+    // if(heValue == undefined || heValue == ""){
+    //   console.log("reset he");
+    //   form.resetField(["conceptName", "hebrew"]);
+    // }
+    
+    if (englishNameEntered || arabicNameEntered || hebrewNameEntered) {
+      return Promise.resolve();
+    }
     return Promise.reject("At least one concept name is required.");
-  }
-  return Promise.resolve();
 };
 
-    //concept names have to be Select
     return (
         <>
     <div className="banner banner_note">
         <div className="wrapper">
           <div className="banner_content">
             <h1 className="">
-              <strong><h3>Suggest Concept...</h3></strong>
+              <strong><h3>{t('suggest_concept_page.suggest_title')}</h3></strong>
             </h1>
           </div>
         </div>
     </div>
     
     <div className="wrapper">
-    
-    
-    {/*<Tabs/>*/}
-    
-    
     {
-    
-     <Form {...layout}  form ={form} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-                      <Form.Item {...tailLayout}>
-                  <Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
-                    Suggest
-                  </Button>
-                   <Button type="danger" onClick={onReset}>
-                      Reset
-                    </Button>
-                  </Form.Item>
-            
-                  
-                    <Form.Item label="Category (English)" rules={[{ required: true, message: 'Please select a category' },
-                    { whitespace: true, message: 'Category cannot be empty' }]}>
-                     
-                      
-                      <Select
-                         name="category"
-                        placeholder="Select a category"
-                        value={selectedCategory}
-                        onChange={(value) => setSelectedCategory(value)}
-                        options={englishOptions}>
-                      </Select>
-                    </Form.Item>
-                    
-                    
-                    <Form.Item label="Category (Arabic)" rules={[{ required: true, message: 'Please select a category' }, { whitespace: true, message: 'Category cannot be empty' }]}>
-                   
-                    <Select
-                      name="category"
-                      value={selectedCategory}
-                      onChange={(value) => setSelectedCategory(value)}
-                      placeholder="Select a category"
-                      options={arabicOptions}>
-                    </Select>
-                  </Form.Item>
-                  
-                  <Form.Item label="Category (Hebrew)" rules={[{ required: true, message: 'Please select a category' }, 
-                  { whitespace: true, message: 'Category cannot be empty' }]}>
-                    
-                     <Select
-                     name="category"
-                      value={selectedCategory}
-                      onChange={(value) => setSelectedCategory(value)}
-                      placeholder="Select a category"
-                      options={hebrewOptions}>
-                    </Select>
-                    
-                  </Form.Item>
-                  
-                  
-                   <Form.Item name={['conceptName', 'english']} 
-                   label="Concept Name (English)" 
-                   rules={[{ required: false }]}>
-                   <Input onChange={handleEnglishNameChange} />
-                  </Form.Item>
-                  
-                  <Form.Item name={['conceptName', 'arabic']} label="Concept Name (Arabic)" rules={[{ required: false }]}>
-                  <Input onChange={handleArabicNameChange} />
-                  </Form.Item>
-                  
-                  
-                  <Form.Item name={['conceptName', 'hebrew']} label="Concept Name (Hebrew)" rules={[{ required: false }]}>
-                    <Input onChange={handleHebrewNameChange} />
-                  </Form.Item>
-                  
-                   {englishNameEntered && (
-                  <Form.Item name="shortDefinition-english" label="Short Definition (English)" rules={[{ required: true }]}>
-                    <Input.TextArea />
-                  </Form.Item>
-                   )}
-                  
-                    {arabicNameEntered && (
-                  <Form.Item name="shortDefinition-arabic" label="Short Definition (Arabic)" rules={[{ required: true }]}>
-                    <Input.TextArea />
-                  </Form.Item>
-                  )}
-                  
-                   {hebrewNameEntered && (
-                   <Form.Item name="shortDefinition-hebrew" label="Short Definition (Hebrew)" rules={[{ required: true }]}>
-                    <Input.TextArea />
-                  </Form.Item>
-                  )}
-        </Form>}
+     <Form {...layout} className="mt-5"  form ={form} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+          <Form.Item label={t('suggest_concept_page.category_en')}  name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
+            <Select
+              name="categoryEN"
+              placeholder="Select a category">
+              {
+                  categories.map((category, index) => {
+                  let categoryName = category.categoryName["english"];
+                  let uppercaseName = categoryName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+                  return (
+                      <Select.Option key={index} value={category.categoryId}>{uppercaseName}</Select.Option>
+                  )})
+              }
+            </Select>
+          </Form.Item>
+          
+          <Form.Item label={t('suggest_concept_page.category_ar')}name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
+          <Select
+            name="categoryAR"
+            placeholder="Select a category">
+            {
+                categories.map((category, index) => {
+                let categoryName = category.categoryName["arabic"];
+                return (
+                    <Select.Option key={index} value={category.categoryId}>{categoryName}</Select.Option>
+                )})
+            }
+          </Select>
+        </Form.Item>
+        <Form.Item label={t('suggest_concept_page.category_he')} name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
+           <Select
+            name="categoryHE"
+            placeholder="Select a category">
+            {
+                categories.map((category, index) => {
+                let categoryName = category.categoryName["hebrew"];
+                return (
+                    <Select.Option key={index} value={category.categoryId}>{categoryName}</Select.Option>
+                )})
+            }
+          </Select>
+        </Form.Item>
         
-
+        <Form.Item name={['conceptName', 'english']} label={t('suggest_concept_page.c_name_en')} rules={[{validator: (_, value) => checkConceptName(_, value)}]}>
+          <Input onChange={handleEnglishNameChange} />
+        </Form.Item>
         
+        <Form.Item name={['conceptName', 'arabic']} label={t('suggest_concept_page.c_name_ar')} rules={[{validator: (_, value) => checkConceptName(_, value)}]}>
+          <Input onChange={handleArabicNameChange} />
+        </Form.Item>
+        
+        
+        <Form.Item name={['conceptName', 'hebrew']} label={t('suggest_concept_page.c_name_he')} rules={[{validator: (_, value) => checkConceptName(_, value)}]}>
+          <Input onChange={handleHebrewNameChange} />
+        </Form.Item>
+          
+         {englishNameEntered && (
+        <Form.Item name={['shortDefinition', 'english']} label={t('suggest_concept_page.s_def-en')} rules={[{ required: true }]}>
+          <Input.TextArea />
+        </Form.Item>
+         )}
+        
+          {arabicNameEntered && (
+        <Form.Item name={['shortDefinition', 'arabic']} label={t('suggest_concept_page.s_def-ar')} rules={[{ required: true }]}>
+          <Input.TextArea />
+        </Form.Item>
+        )}
+        
+         {hebrewNameEntered && (
+         <Form.Item name={['shortDefinition', 'hebrew']} label={t('suggest_concept_page.s_def-he')} rules={[{ required: true }]}>
+          <Input.TextArea />
+        </Form.Item>
+        )}
+        
+        <Form.Item>
+          <Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
+            {t('suggest_concept_page.sbtn')}
+          </Button>
+        <Button type="danger" onClick={onReset}>
+             {t('suggest_concept_page.rbtn')}
+          </Button>
+        </Form.Item>
+      </Form>}
         </div>
         
     </>
         );
         
-  function handleCategoryChange(value){
-    setSelectedCategory(value);
-  };
-
   function onReset() {
     form.resetFields();
-    setSelectedCategory("");
-  };
-}
+    setEnglishNameEntered(false);
+    setArabicNameEntered(false);
+    setHebrewNameEntered(false);
+  }
+};
 
 
 export default SuggestConceptPage;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { logoutRoute, loginRoute, registerRoute, privateRoute} from '../api/ApiRoutes';
+import { logoutRoute, loginRoute, registerRoute, privateRoute,forgotPasswordRoute} from '../api/ApiRoutes';
 
 
 const login = async (loginData) =>{
@@ -23,10 +23,10 @@ const login = async (loginData) =>{
           const profile_body = await axios.get(privateRoute, {
           headers: { 'x-auth-token': `${localStorage.getItem('token')}`}});
             
-          localStorage.setItem('profileBody',JSON.stringify(profile_body.data) );//this work
+        //   localStorage.setItem('profileBody',JSON.stringify(profile_body.data) );//this work
           
           // localStorage.setItem('profileBody',JSON.parse(profile_body.data) );
-          console.log(localStorage.getItem('profileBody'))
+        //   console.log(localStorage.getItem('profileBody'))
           
           // --> to set default header which will be sent with every request you make.
          // axios.defaults.headers.common['token']=localStorage.getItem('token');
@@ -53,8 +53,6 @@ const login = async (loginData) =>{
 const register = async (registerData) =>{
     try{
         const res = await axios.post(registerRoute, registerData);
-        
-
         return {body: res.data, success: true};
     }
     catch(err){
@@ -66,5 +64,19 @@ const register = async (registerData) =>{
     }    
 }
 
+const forgotPassword = async (email) =>{
+    try{
+        const res = await axios.post(forgotPasswordRoute, email );
+        return {body: res, success: true};
+    }
+    catch(err){
+        if(err.response.status === 409) {
+            return {success: false, message: "Email Already Exists"};
+        }
+        console.log(err);
+        return {success: false, message: err.message};
+    }    
+}
 
-export default {login,register};
+
+export default {login,register,forgotPassword};

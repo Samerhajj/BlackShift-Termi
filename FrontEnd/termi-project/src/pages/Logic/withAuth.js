@@ -12,13 +12,13 @@ const withAuth = (WrappedComponent) => {
        localStorage.setItem("login",false);
        console.log(props);
       }
-    }, [token]);
+    }, [token]);//end of useEffect
     if (!token) {
      localStorage.setItem("login",false);
      return null;
     }
     return <WrappedComponent {...props} />;
-  }
+  }//end of return
 };
 
 export default withAuth;

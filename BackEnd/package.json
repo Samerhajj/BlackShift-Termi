@@ -17,9 +17,11 @@
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
     "moment-timezone": "^0.5.40",
+    "mongo-sanitize": "^1.1.0",
     "mongodb": "^4.12.1",
     "mongoose": "^6.7.4",
     "mongoose-encryption": "^2.1.2",
+    "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
     "swagger-jsdoc": "^6.2.7",
     "swagger-ui-express": "^4.6.0"
