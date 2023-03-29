@@ -31,6 +31,13 @@ function ResetPasswordPage() {
   };
   
   return (
+    <>
+      <div className="banner banner_login">
+      <div className="wrapper">
+      <div className="banner_content ">
+      </div>
+      </div>
+      </div>
     <div>
       <h1>Password Reset</h1>
       {error && <div>{error}</div>}
@@ -48,6 +55,7 @@ function ResetPasswordPage() {
         <button type="submit">Reset Password</button>
       </form>
     </div>
+    </>
   );
 }
 

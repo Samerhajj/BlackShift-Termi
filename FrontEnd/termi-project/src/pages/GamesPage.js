@@ -14,7 +14,8 @@ const GamesPage = () => {
   const navigate = useNavigate();
   const games = {
     0: { title: t('games.backword-definition.title'), description:t('games.backword-definition.description'), path:"/games/back-definition", img: GameImg },
-    1: { title:t('games.memory-game.title'), description:t('games.memory-game.description'), path:"/games/memory-game", img: GameImg }
+    1: { title:t('games.memory-game.title'), description:t('games.memory-game.description'), path:"/games/memory-game", img: GameImg },
+    2: { title:t('games.memory-game.title'), description:t('games.memory-game.description'), path:"/games/hangman-game", img: GameImg },
   };
   return (
     

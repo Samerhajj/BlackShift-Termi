@@ -46,7 +46,41 @@ export default function App() {
 	const [category, setCategory] = useState(userData.field);
 	
 	
-	
+	const HIGH_SCORE_ACHIEVEMENT = {
+  name: "High Score",
+  description: "Achieve a high score in the Backward Definition game.",
+  points: 20,
+    check: function(score) {
+    if (score >= 2) {
+      alert(`You earned the "${this.name}" achievement!`);
+    }
+    }
+};
+
+const CATEGORY_MASTER_ACHIEVEMENT = {
+  name: "Category Master",
+  description: "Complete the Backward Definition game in each category.",
+  points: 50,
+  
+     check: function(score) {
+    if (score >= 5) {
+      alert(`You earned the "${this.name}" achievement!`);
+    }
+    }
+};
+
+const SPEED_DEMON_ACHIEVEMENT = {
+  name: "Speed Demon",
+  description: "Complete the Backward Definition game in under 5 minutes.",
+  points: 100,
+      check: function(score) {
+    if (score >= 10) {
+      alert(`You earned the "${this.name}" achievement!`);
+    }
+    }
+};
+
+
 	//useIntervaal
 	useInterval(() => {
 	    setElapsedTime(elapsedTime + 1);
@@ -161,16 +195,18 @@ export default function App() {
 		
 		setDisabled(true);
 		const correctAnswer = questions[currentQuestion].answerOptions.find(option => option.isCorrect).answerText[LanguageMap[i18n.language].name];
-		
+	
 		if (isCorrect) {
 		    setScore(score + 1);
 		    setMessage(t('games.backword-definition.correctanswer'));
+	
 		    event.target.classList.add('btn-success');
 		} else {
 			event.target.classList.add('btn-danger');
 			
 			setMessage(t('games.backword-definition.wronganswer')+' : ' + correctAnswer);
 		}
+			    		    	HIGH_SCORE_ACHIEVEMENT.check(score);
 		
 		setTimeout(() => {
 			// reset the classes of the answer options
@@ -211,6 +247,7 @@ export default function App() {
 		
 		console.log(points);
 		console.log(score);
+	
 		setPoints(points);
 		// const {_id} = JSON.parse(localStorage.getItem('profileBody'));
 		const response =await GamesApi.updatePoints(userData._id,points,"Definition Game")

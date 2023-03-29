@@ -27,15 +27,22 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     default: "default user"
+  },
+  passwordResetToken :{
+    type: String,
+    default: undefined
+  },
+  passwordResetExpires :{
+    type: String,
+    default:undefined
   }
 });
 
-UserSchema.methods.generatePasswordResetToken = function(user) {
-  console.log(user);
+UserSchema.methods.generatePasswordResetToken = function() {
   const token = crypto.randomBytes(20).toString('hex');
-  user.passwordResetToken = crypto.createHash('sha256').update(token).digest('hex');
-  user.passwordResetExpires = Date.now() + 3600000; // Token expires in 1 hour
-  console.log(user.passwordResetToken);
+  this.passwordResetToken = crypto.createHash('sha256').update(token).digest('hex');
+  this.passwordResetExpires = Date.now() + 3600000; // Token expires in 1 hour
+  console.log(this.passwordResetToken);
   return token;
 };
 

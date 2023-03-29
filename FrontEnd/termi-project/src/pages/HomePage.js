@@ -83,6 +83,7 @@ James's story is just one example of the many success stories that have come out
                     <p>{t('home.game-content')}</p>
                 </div>
               </div>
+              <h2>hello there</h2>
             </div>          
         </>
     );

@@ -21,7 +21,7 @@ import {BackDefinitionGame, Hangman} from "./games/GameIndex.js"
 
 // import BackDefinitionGame from "./games/backward-definition/BackDefinition";
 import WordleGame from "./games/wordle/Wordle";
-// import Hangman from "./games/hangman/hangman";
+ //import Hangman from "./games/hangman/hangman";
 import MemoryGame from "./games/memory-game/MemoryGame";
 import CrosswordGame from "./games/crossword-game/Crossword";
 
@@ -78,6 +78,7 @@ const [userData, setUserData] = React.useState({});
             <Route path="/games" element={<DynamicTitleRoute title="Games" element={<WGamesPage/>}/>}/>
             <Route path="/games/back-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
             <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
+            <Route path="/games/hangman-game" element={<DynamicTitleRoute title="Hangman Game" element={<WHangman/>} />}/>
             <Route path="/reset-password/:token" element={<DynamicTitleRoute title="Reset Password" element={<ResetPasswordPage/>} />}/>
             {/*<Route path="/games/wordle" element={<DynamicTitleRoute title="Wordle" element={<WWordleGame/>} />}/>
             <Route path="/games/crossword-game" element={<DynamicTitleRoute title="Crossword Game" element={<WCrosswordGame/>} />}/>

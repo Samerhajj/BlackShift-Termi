@@ -30,7 +30,8 @@ const register = async (req, res) => {
   }
   // Create a new user
   // const newUser = new User({fullName, phone, language, field, email, password});
-  const newUser = new User({fullName, phone, language, field, email, password,gender});
+  const newUser = new User({fullName, phone, language, field, email, password,gender,passwordResetToken: undefined,
+  passwordResetExpires: undefined});
   const payload = { id: newUser._id, email: newUser.email };
   const token = jwt.sign(payload, process.env.SECRET,{expiresIn: "24h"});
   //req.session.jwt = token;
@@ -39,7 +40,7 @@ const register = async (req, res) => {
   // Save the user to the database
   try {
     await newUser.save();
-  } catch (err) {
+  } catch (err) { 
     console.log(err);
     console.log("error here");
   }
@@ -177,7 +178,9 @@ const forgotPassword = async(req,res)=>{
     console.log(user);
    // Generate a password reset token
     const token = await user.generatePasswordResetToken(user);
-
+    await user.save();
+    console.log("i am the user");
+    console.log(user.passwordResetToken);
     // Create a nodemailer transporter
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
@@ -223,8 +226,11 @@ const resetPassword = async (req, res) => {
 
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 console.log(hashedToken);
-    const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } });
-    
+   const user = await User.findOne({
+  passwordResetToken: hashedToken,
+  passwordResetExpires: { $gt: Date.now() }
+
+});
     if (!user) {
       return res.status(404).json({ message: 'Password reset token is invalid or has expired.' });
     }
@@ -234,7 +240,7 @@ console.log(hashedToken);
     user.passwordResetExpires = undefined;
 
     await user.save();
-
+    console.log("Changed password");
     return res.status(200).json({ message: 'Password has been reset successfully.' });
   } catch (err) {
     console.error(err);
