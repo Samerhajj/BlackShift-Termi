@@ -4,16 +4,11 @@
 
 # start the Frontend :
 
-    ```
+   
     cd /blackshift/FrontEnd/termi-project
     npm start
-    
-    ```
-    
-    ---
-    
-    # start the Backend :
-    ```
+  
+# start the Backend :
+
     cd /blackshift/BackEnd
     node app.js
-    ```
