@@ -139,9 +139,18 @@
              		"text": "At the end of the game, your score will be displayed."
              	}
              ]
+        },
+        "hangman-game":{
+            "start-game": "Start Game",
+              "modalTitle": "Instruction",
+              "title":"Hangman Game",
+               "goBack": "Go Back",
+               "description":"Hangman game description goes here",
+                "continueToGame": "Continue To Game",
+                        "score":"Score",
+                        "not":"Number of Tries",
+                        "pg":"Points Gained",
         }
-
-        
     },
     "note":{
         "delete" : "Delete",
