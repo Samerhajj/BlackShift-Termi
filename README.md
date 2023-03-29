@@ -13,3 +13,7 @@
     
     cd /blackshift/BackEnd
     node app.js
+
+# The design in the project :
+* [react-bootstrap](https://react-bootstrap.github.io/getting-started/introduction/)
+* [getbootstrap](https://getbootstrap.com/docs/3.3/components/)
