@@ -149,7 +149,7 @@
               "modalTitle": "Instruction",
               "title":"Hangman Game",
                "goBack": "Go Back",
-               "description":"Hangman game description goes here",
+               "description":"Hangman description goes here",
                 "continueToGame": "Continue To Game",
                         "score":"Score",
                         "not":"Number of Tries",
