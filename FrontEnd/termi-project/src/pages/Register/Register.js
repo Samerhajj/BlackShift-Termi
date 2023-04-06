@@ -21,6 +21,8 @@ const Register = () =>{
   const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",gender : "",field:"",favorite:[]});
   const { errors, validate } = RegisterHook(); // use the custom hook
   const { categories } = useContext(CategoriesContext);
+   const [registered, setRegistered] = useState(false); // new state variable
+
   
 //   const [category,setCategory] = useState([]);
 // {
@@ -64,7 +66,7 @@ const handleSubmit = async (e) => {
     const response = await AuthAPI.register({data:data});
     
     if(response.success){
-        navigate('/login');
+       setRegistered(true);//set to
     }
     else{
         alert(response.message);
@@ -81,6 +83,11 @@ const handleSubmit = async (e) => {
         </div>
       </div>
     <div className={`${styles.class_card_register} wrapper`}>
+    {registered && (
+  <div className="alert alert-success" role="alert">
+"Thank you for registering. Please check your email inbox for further instructions on how to validate your email address so that you can log in."
+  </div>
+)}
       <div className="d-flex justify-content-center">
         <form className="login-form">
          <div className="form-group my-3">

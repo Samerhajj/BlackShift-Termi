@@ -1,11 +1,12 @@
 import styles from '../styles/HomePage.css';
 import React, { useEffect ,useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import handsHelpingIcon from "../images/Icon awesome-hands-helping.svg";
-import robotIcon from "../images/Icon awesome-robot.svg";
-import ronaldo from "../images/ronaldo.png";
-import gamesIcon from "../images/gamepad-solid.svg";
-import christmasSong from "../images/christmas-song.mp3";
+// images
+import handsHelpingIcon from "../assets/images/Icon awesome-hands-helping.svg";
+import robotIcon from "../assets/images/Icon awesome-robot.svg";
+import ronaldo from "../assets/images/ronaldo.png";
+import gamesIcon from "..//assets/images/gamepad-solid.svg";
+import christmasSong from "../assets/images/christmas-song.mp3";
 
 const HomePage = () => {
     const { t } = useTranslation();

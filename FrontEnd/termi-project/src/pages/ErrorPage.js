@@ -1,6 +1,6 @@
 import React from "react";
 import Row from 'react-bootstrap/Row';
-import page404 from "../images/page404.jpg"
+import page404 from "../assets/images/page404.jpg"
 
 // --> this page you can reach when you try to search for a page that does not exist 
 

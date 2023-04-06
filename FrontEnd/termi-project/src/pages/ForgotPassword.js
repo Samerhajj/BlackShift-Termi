@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import axios from "axios";
-// --> useTranslation we use it to be able to translate in react-i18next
 import { useTranslation } from 'react-i18next';
 import AuthAPI from '../api/AuthAPI';
 
 const ForgotPassword = () =>{
  const {t} = useTranslation();
-  const [email, setEmail] = useState("");
+ const [email, setEmail] = useState("");
+ const [requestSent, setRequestSent] = useState(false);
+ const [errorMessage, setErrorMessage] = useState("");
 
    const handleResetPassword = async () => {
     try {
       const res = await AuthAPI.forgotPassword({email})
-    
-     
+      if (res.status === 404) {
+        setErrorMessage("User not found");
+      } else {
+        setRequestSent(true);
+      }
     } catch (err) {
-    console.log(err);
+      console.log(err);
     }
   };
   
@@ -33,6 +37,12 @@ const ForgotPassword = () =>{
      <div className="d-flex justify-content-center">
            <div className="">
              <h1 className="">{t('forgot_password.forgot_password')}</h1>
+             {requestSent ? (
+              <div className="alert alert-success" role="alert">
+                {t('forgot_password.check_inbox')}
+              </div>
+             ) : (
+             <>
              <h6 className ="information-text">{t('forgot_password.text')}</h6>
              <input 
              className="form-control rounded-left"
@@ -42,12 +52,13 @@ const ForgotPassword = () =>{
              onChange={handleEmailChange}
              value={email}
              placeholder={t('forgot_password.email')}/>
+             {errorMessage && <div className="alert alert-danger" role="alert">{errorMessage}</div>}
              <button onClick={handleResetPassword} className="d-block btn btn-primary mt-5 w-100">{t('forgot_password.reset_password')}</button>
+             </>)}
              </div>
        </div>
        </>
     );
 }
-
 
 export default ForgotPassword;

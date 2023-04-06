@@ -1,67 +1,74 @@
-// --> Hooks
-import React,{useState,useContext,useEffect} from 'react';
-import { useNavigate,Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-// --> imports
-import validator from 'validator'
+import validator from 'validator';
 import { LoginContext } from '../../components/LoginContext';
-
-// --> APIs
 import AuthAPI from '../../api/AuthAPI';
-
-
-// --> style
 import 'font-awesome/css/font-awesome.min.css';
-import {Row,Col} from 'react-bootstrap';
-import LoginSytle from "../../styles/LoginStyle.css";
+import { Row, Col } from 'react-bootstrap';
+import LoginSytle from '../../styles/LoginStyle.css';
 
-const Login = () =>{
-    console.log("hi from app");
+const Login = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const [error, setError] = useState({
+    wrongPass: false,
+    validEmail: false,
+  });
+  const [token, setToken] = useState(null);
+  const [refreshToken, setRefreshToken] = useState(null);
+  const { login, setLogin } = useContext(LoginContext);
+  const [remember, setRemember] = useState(false);
+  const [rememberUsername, setRememberUsername] = useState(false);
 
-    // --> Hooks
-    const navigate = useNavigate();
-    const {t} = useTranslation();
-    const [loginData,setLoginData]=useState({email:"",password:""})
-    const [error,setError] = useState({wrongPass:false,vaildEmail:false});
-    const [token, setToken] = useState(null);
-    const [refreshToken, setRefreshToken] = useState(null);
-    
-    // --> here we get the context from LoginContext
-    const { login, setLogin } = useContext(LoginContext);
-   
- 
+  useEffect(() => {
+    const email = localStorage.getItem('rememberedEmail');
+    if (email) {
+      setLoginData({ ...loginData, email });
+      setRemember(true);
+    }
+  }, []);
 
-    const handleSubmit = async (e) => {
-        console.log("hi");
-      e.preventDefault();
-      {
-      // --> some validation in the front ,in order to prevent unnecessary requests
-       if(loginData['email']=="" && loginData['password']==""){
-         setError({...error,vaildEmail:true,wrongPass:true});
-         return;
-       }
-       if(!validator.isEmail(loginData['email'])){
-       setError({...error,vaildEmail:true});
-       return ;
-       }else{setError({...error,vaildEmail:false});}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-       if(loginData['password'].length<6){
-         setError({...error,wrongPass:true});
-         return ;
-       }
-       else{setError({...error,vaildEmail:false});}
-      }
-      const response = await AuthAPI.login(loginData);
-      
-      if(response.success){
-          // --> redirect to the homepage 
-          setLogin(true);
-          navigate("/");
-      }else{
-          alert(response.message);
-      }
-};
+    if (remember) {
+      localStorage.setItem('rememberedEmail', loginData.email);
+    } else {
+      localStorage.removeItem('rememberedEmail');
+    }
+
+    if (loginData['email'] === '' && loginData['password'] === '') {
+      setError({ ...error, validEmail: true, wrongPass: true });
+      return;
+    }
+
+    if (!validator.isEmail(loginData['email'])) {
+      setError({ ...error, validEmail: true });
+      return;
+    } else {
+      setError({ ...error, validEmail: false });
+    }
+
+    if (loginData['password'].length < 6) {
+      setError({ ...error, wrongPass: true });
+      return;
+    } else {
+      setError({ ...error, wrongPass: false });
+    }
+
+    const response = await AuthAPI.login(loginData);
+
+    if (response.success) {
+      setLogin(true);
+      navigate('/');
+    } else {
+      alert(response.message);
+    }
+  };
+
+
 
 
 
@@ -127,6 +134,11 @@ const Login = () =>{
                                           <Link to ="/forgotpassword"> {t('login.forgot_password')}</Link>
                                       </div>
                                 </div>
+                                <div className="form-group form-check">
+                                      <input type="checkbox" className="form-check-input" id="rememberUsername" checked={rememberUsername} onChange={() => setRememberUsername(!rememberUsername)} />
+                                      <label className="form-check-label" htmlFor="rememberUsername">{"Remember username"}</label>
+                                    </div>
+
                           </Row>
                       </div>
                     </form>

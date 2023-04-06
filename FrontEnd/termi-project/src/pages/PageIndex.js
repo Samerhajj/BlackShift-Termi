@@ -2,6 +2,7 @@
 
 
 // Index Page 
+export { default as ProfilePageNew } from"./ProfilePageNew/ProfilePageNew";
 export { default as Register } from"./Register/Register";
 export { default as Login } from"./Login/Login";
 export { default as Favorite } from"./Favorite/Favorite";
@@ -12,6 +13,7 @@ export { default as AddTermAdmin } from"./AdminPage/AddTermAdmin";
 export { default as AdminSuggestionPage } from"./AdminPage/ViewSuggestions";
 export { default as UserSuggestions } from"./UserSuggestions/UserSuggestions";
 export { default as ResetPasswordPage } from"./ResetPasswordPage";
+export { default as VerifyPage} from "./VerifyPage";
 
 export { default as HomePage } from"./HomePage";
 export { default as ForgotPassword } from"./ForgotPassword";

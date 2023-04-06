@@ -5,6 +5,8 @@ import AvatarGenerator from "./Logic/AvatarGenerator";
 import { useNavigate} from 'react-router-dom';
 import "./../styles/ProfilePage.css";
 import profileAPI from "../api/ProfileAPI";
+import UserAPI from "../api/UserAPI";
+
 import {LoginContext} from "./../components/LoginContext";
 import MyTable from "./MyTable";
 import { VictoryScatter,VictoryLegend, VictoryChart, VictoryAxis ,VictoryTooltip,VictoryLabel,VictoryLine} from 'victory';
@@ -197,6 +199,15 @@ function handleChange(event) {
   });
 }
 
+const handleSuggest = async () =>{
+  const response = await UserAPI.getAllSuggestList(user.userData.email);
+  if (response.success) {
+            console.log("OUT:::");
+            console.log(response.body);
+        } else {
+          alert(response.message);
+        }
+}
   return (
     <>
       <div className="banner banner_profile">
@@ -204,11 +215,7 @@ function handleChange(event) {
           <div className="banner_content">
             <h1>
               <strong>{t('profile.title-first')}</strong> {t('profile.title-last')}
-                       
-                      
                        <div className="d-flex justify-content-center "><Image src={avatarImageUrl} /></div>
-                       
-
             </h1>
           </div>
         </div>
@@ -226,7 +233,7 @@ function handleChange(event) {
           
       </div>
      
-                 <div onClick={() => {handleOpenModal()}} className="star-profile-fav">
+      <div onClick={() => {handleOpenModal()}} className="star-profile-fav">
           <Button id="change-left-m-button-profile-2" className="p-0 send-to-front">
           <IconContext.Provider value={{ size: "2.2rem" }}>
           <MdBorderColor className=""/>
@@ -368,7 +375,7 @@ function handleChange(event) {
 {console.log(gamesData)}
                 
              </div>
- 
+ <button onClick={handleSuggest}>Don't Click</button>
             
     </>
     );
