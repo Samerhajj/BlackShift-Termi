@@ -15,7 +15,6 @@ const getAllSuggestedTerms = async (termId) => {
 };
 // approve suggested term from the use
 const addSelectedTerm = async (data)=>{
-    // not implemented
     try{
         const res = await axios.put(approveTerm,data);
         console.log(res);

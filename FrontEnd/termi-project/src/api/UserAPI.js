@@ -1,5 +1,10 @@
 import axios from "axios";
-import { favoritesRoute, deleteFavoriteRoute, addFavoriteRoute,suggestUserRoute } from '../api/ApiRoutes';
+import { favoritesRoute,
+deleteFavoriteRoute,
+addFavoriteRoute,
+suggestUserRoute,
+suggestionsRoute
+} from '../api/ApiRoutes';
 
 const favorites = async (email) => {
     try{
@@ -21,8 +26,22 @@ const favorites = async (email) => {
     }   
 }
 const getAllSuggestList = async (email) => {
-
-    // to do
+    try{
+        const usr = await axios.post(suggestionsRoute, {email:email})
+        console.log("user :");
+        console.log(usr);
+        // const sugList =  await axios.post("http://dir.y2022.kinneret.cc:7013/search/getAllSuggestList", usr.data);// display all the fav
+        // let array = [];
+        // console.log(sugList)
+        // array = sugList.data;
+        return {body: usr, success: true};
+    }
+    catch(err){
+        console.log(err);
+        return {success: false, message: err.message};
+    }
+        
+        
 }
 
 // const deleteFavorite = async (list,card,data) => {
@@ -114,7 +133,7 @@ const getUserData = async () => {
     }
 };
 
-export default {favorites, deleteFavorite, addFavorite,suggestFromUser,languageChanged,getUserData};
+export default {favorites, deleteFavorite, addFavorite,suggestFromUser,languageChanged,getUserData,getAllSuggestList};
 
 {
     // const email = "m7md@gmail.com";// comment this 

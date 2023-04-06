@@ -1,9 +1,9 @@
 import React, { useContext ,Fragment} from 'react';
-import { Link ,useNavigate} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector'; // component
 import 'font-awesome/css/font-awesome.min.css';
-import logoImg from '../images/terminewlogo.png';
+import logoImg from '../assets/images/terminewlogo.png';
 import GoToTop from './backTopPage';
 import PropTypes from "prop-types";
 import HamburgerLogic from './hamburgerLogic'; // component
@@ -60,17 +60,9 @@ const MainNavbar = ({setTitle,location}) => {
     localStorage.removeItem('refreshToken');
     setLogin(false);
   };
-
-  // useEffect(() => {
-  //   console.log('useEffect called with login = ', login);
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     setLogin(true);
-  //   }
-  // }, [login]);
-
   const headerRef=HandleScroll(50,'sticky');
-  const {hamburgerRef,mobileMenuRef}=HamburgerLogic();  
+  const {hamburgerRef,mobileMenuRef}=HamburgerLogic();
+  
   return (
     <header ref={headerRef}>
       <div className="wrapper cf" dir="ltr">

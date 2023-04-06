@@ -14,8 +14,8 @@ import {CategoriesContext} from "../../components/CategoryContext";
 import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
-import axios from 'axios';
-export default function App() {
+
+const BackwordDefinition = () =>{
 	  //localStorage.setItem('currentPage', 'BackDefinition')//test
 	const {userData, setUserData} = useContext(LoginContext);
 	// const { categories } = useContext(CategoriesContext);
@@ -28,7 +28,6 @@ export default function App() {
 	const [score, setScore] = useState(0);
 	const [start, setStart] = useState(false);
 	const [message,setMessage]=useState('');
-	const steps = t('games.backword-definition.step-by-step', { returnObjects: true });
 	const [buttonColor, setButtonColor] = useState(null);
 	const [disabled, setDisabled] = useState(false);
 	
@@ -47,38 +46,38 @@ export default function App() {
 	
 	
 	const HIGH_SCORE_ACHIEVEMENT = {
-  name: "High Score",
-  description: "Achieve a high score in the Backward Definition game.",
-  points: 20,
-    check: function(score) {
-    if (score >= 2) {
-      alert(`You earned the "${this.name}" achievement!`);
-    }
-    }
-};
+	  name: "High Score",
+	  description: "Achieve a high score in the Backward Definition game.",
+	  points: 20,
+	    check: function(score) {
+	    if (score >= 2) {
+	    //  alert(`You earned the "${this.name}" achievement!`);
+	    }
+	    }
+	};
 
-const CATEGORY_MASTER_ACHIEVEMENT = {
-  name: "Category Master",
-  description: "Complete the Backward Definition game in each category.",
-  points: 50,
-  
-     check: function(score) {
-    if (score >= 5) {
-      alert(`You earned the "${this.name}" achievement!`);
-    }
-    }
-};
+	const CATEGORY_MASTER_ACHIEVEMENT = {
+	  name: "Category Master",
+	  description: "Complete the Backward Definition game in each category.",
+	  points: 50,
+	  
+	     check: function(score) {
+	    if (score >= 5) {
+	     // alert(`You earned the "${this.name}" achievement!`);
+	    }
+	    }
+	};
 
-const SPEED_DEMON_ACHIEVEMENT = {
-  name: "Speed Demon",
-  description: "Complete the Backward Definition game in under 5 minutes.",
-  points: 100,
-      check: function(score) {
-    if (score >= 10) {
-      alert(`You earned the "${this.name}" achievement!`);
-    }
-    }
-};
+	const SPEED_DEMON_ACHIEVEMENT = {
+	  name: "Speed Demon",
+	  description: "Complete the Backward Definition game in under 5 minutes.",
+	  points: 100,
+	      check: function(score) {
+	    if (score >= 10) {
+	    //  alert(`You earned the "${this.name}" achievement!`);
+	    }
+	    }
+	};
 
 
 	//useIntervaal
@@ -236,8 +235,7 @@ const SPEED_DEMON_ACHIEVEMENT = {
 		},1000);
 	};
 		
-	const [showModal, setShowModal] = useState(false);
-	
+
 	const finishGame = async()=>{
 		// let prev_point = localStorage.getItem("points");
 		setShowScore(true);
@@ -250,7 +248,7 @@ const SPEED_DEMON_ACHIEVEMENT = {
 	
 		setPoints(points);
 		// const {_id} = JSON.parse(localStorage.getItem('profileBody'));
-		const response =await GamesApi.updatePoints(userData._id,points,"Definition Game")
+		const response =await GamesApi.updatePoints(userData._id, points, "Definition Game", category)
 		if(response.success)
 		{
 			setUserData({...userData, points: userData.points + points});
@@ -261,10 +259,6 @@ const SPEED_DEMON_ACHIEVEMENT = {
 		}
 	};
 	
-	function handleOpenModal() {
-	    setShowModal(true);
-	  }
-		
 	const minutes = Math.floor(elapsedTime / 60);
 	const seconds = elapsedTime % 60;
 	const timePlayed = `min ${minutes} | sec ${seconds}`;
@@ -316,33 +310,15 @@ const SPEED_DEMON_ACHIEVEMENT = {
 						<div className="icon-selector-container">
 							<CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
 							<div className="icon-center">
-							<AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
+							<AiFillPlayCircle className="icon-button" onClick={initGame}/>
 						</div>
 					</div>
-					<Modal show={showModal} onHide={() => setShowModal(false)} >
-					  <Modal.Header className="mx-0" closeButton>
-					    <Modal.Title className="ms-auto">{t('games.backword-definition.modalTitle')}</Modal.Title>
-					  </Modal.Header>
-					  <Modal.Body> 
-					  <ul>
-					      {steps.map((step) => (
-					      <li key={step.id}>{step.text}
-					    
-					    </li>
-					      ))}
-					    </ul>
-					    </Modal.Body>
-					  <Modal.Footer>
-					   <Button variant="secondary" onClick={() => { setShowModal(false)}}>
-					     {t('games.backword-definition.goBack')}
-					    </Button>
-					    <Button variant="primary" onClick={() => { setShowModal(false); initGame(); }}>
-					     {t('games.backword-definition.continueToGame')}
-					    </Button>
-					  </Modal.Footer>
-					</Modal>
+
 				</div>
 			)}
 		</>
 	);
 }
+
+
+export default BackwordDefinition;

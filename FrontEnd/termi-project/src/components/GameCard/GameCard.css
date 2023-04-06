@@ -1,0 +1,33 @@
+.game-card {
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.game-card:hover {
+  box-shadow: 0 8px 20px 5px rgba(0,0,0,0.2);
+}
+
+.game-instructions-button{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: auto;
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+@media only screen and (max-width: 960px) {
+    .game-card {
+        width: 40%;
+    }
+    .game-instructions-button{
+        top: 5px;
+        right: 5px;
+    }
+}

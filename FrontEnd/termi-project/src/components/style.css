@@ -534,11 +534,11 @@ header .mobile_menu nav ul li a.active:after {
     min-height: 840px;
     position: relative;
     text-align: center;
-    background-image: url(../images/header_bg.svg);
+    background-image: url(../assets/images/header_bg.svg);
 }
 
 .banner > .wrapper:after {
-    background-image: url(../images/header_bottom_shape.png);
+    background-image: url(../assets/images/header_bottom_shape.png);
     position: absolute;
     content: '';
     width: 100%;
@@ -577,16 +577,16 @@ header .mobile_menu nav ul li a.active:after {
     background-position: bottom center;
 }
 .banner.banner_profile{
-    /*background-image: url(../images/mountains.svg);*/
-    /*background-image: url(../images/subtle-prism.svg);*/
-    background-image: url(../images/SVGBackground/radiant-gradient.svg);
+    /*background-image: url(../assets/images/mountains.svg);*/
+    /*background-image: url(../assets/images/subtle-prism.svg);*/
+    background-image: url(../assets/images/SVGBackground/radiant-gradient.svg);
     min-width: auto;
     min-height: auto;
     padding-bottom: 8vh;
 }
 .banner.banner_admin{
-    /*background-image: url(../images/sun-tornado _black.svg);*/
-    background-image: url(../images/SVGBackground/stackedstepshaikei.svg);
+    /*background-image: url(../assets/images/sun-tornado _black.svg);*/
+    background-image: url(../assets/images/SVGBackground/stackedstepshaikei.svg);
     min-width: auto;
     min-height: auto;
     
@@ -597,18 +597,18 @@ header .mobile_menu nav ul li a.active:after {
 
 }
 .banner.banner_game{
-    background-image: url(../images/game_bg.png);
+    background-image: url(../assets/images/game_bg.png);
   
   /*height: 500px;*/
    width: 100vw;
    /*height: 60vh;*/
-    height: 40vh;
+    height: 20vh;
 
     padding-bottom: 40vh;
     background-position: bottom center;
 }
 .banner.banner_login{
-    background-image: url(../images/blocks.svg);
+    background-image: url(../assets/images/blocks.svg);
     min-width: auto;
     min-height: auto;
     padding-bottom: 8vh;
@@ -1007,7 +1007,7 @@ header .mobile_menu nav ul li a.active:after {
     }
 
     .banner > .wrapper:after {
-        background-image: url("../images/mobile header bottom shape.svg");
+        background-image: url("../assets/images/mobile header bottom shape.svg");
         height: 180px;
         bottom: -25px;
     }

@@ -31,7 +31,8 @@
        "forgot_password":"שכחת את הסיסמא",
         "text":"הזן את האימייל שלך כדי לאפס את הסיסמה",
         "email":"דואר",
-        "reset_password":"לאפס את הסיסמה"
+        "reset_password":"לאפס את הסיסמה",
+        "check_inbox":"אנא בדקו את תיבת הדואר הנכנס שלכם לקבלת הוראות נוספות."
     },
     "search":{
         "title": "שלוט בחיפושים שלך",
@@ -54,6 +55,9 @@
         "game-content":"מזהה ומתקדם במשחקים"
     },
     "games":{
+        "playButton": "שחק המשחק",
+        "instructionsButton": "הוראות המשחק",
+        "backButton": "חזרה",
         "backword-definition":{
             "start-game": "תתחיל את המשחק",
             "question-info": "שאלה {{currentQuestion}}",
@@ -101,8 +105,7 @@
                         "text": "בסוף המשחק, יוצג הניקוד שלך."
                         }
                             ]
-        }
-        ,
+        },
         "memory-game":{
             "start-game": "התחל משחק",
             "modalTitle": "הנחיות",

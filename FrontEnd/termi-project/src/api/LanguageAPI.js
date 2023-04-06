@@ -1,6 +1,8 @@
-import uk from '../images/uk.svg';
-import sa from '../images/sa.svg';
-import il from '../images/il.svg';
+
+import uk from '../assets/images/uk.svg';
+import sa from '../assets/images/sa.svg';
+import il from '../assets/images/il.svg';
+
 
 const LanguageMap = {
     en: { name:"english", dir: "ltr" , active:true , src:uk },

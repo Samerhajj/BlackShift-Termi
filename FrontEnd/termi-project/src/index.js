@@ -23,8 +23,6 @@ const MyComponent = React.lazy(() => new Promise(resolve => {
     // UserAPI.getUserData().then((data) => {
     //     console.log(data);
     // });
-  console.log("hello there from index")
-    
     
   const token = localStorage.getItem('token');
 

@@ -28,6 +28,10 @@ const deleteFavoriteRoute = process.env.React_App_BaseURL + "user" + "/" + "dele
 const addFavoriteRoute = process.env.React_App_BaseURL + "user" + "/" + "add-favorite";
 const suggestUserRoute = process.env.React_App_BaseURL + "user" + "/" + "suggest-term";
 const SearchActiviyUserRoute = process.env.React_App_BaseURL + "user" + "/" + "gameSearchActivity";
+const suggestionsRoute = process.env.React_App_BaseURL + "user" + "/" + "suggestions";
+
+
+
 
 // Admin Routes
 const numberOfWordsInTheApp = process.env.React_App_BaseURL + "counter";
@@ -63,5 +67,6 @@ export {searchRoute,
         AllSearchGameLogs,
         gameHistoryUpdate,
         getGameHistoryUpdate,
-        forgotPasswordRoute
+        forgotPasswordRoute,
+        suggestionsRoute
 };

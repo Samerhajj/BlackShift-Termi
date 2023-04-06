@@ -31,7 +31,8 @@
         "forgot_password":"هل نسيت كلمة السر",
         "text":"أدخل بريدك الإلكتروني لإعادة تعيين كلمة المرور.",
         "email":"البريد الإلكتروني",
-        "reset_password":"إعادة تعيين كلمة المرور"
+        "reset_password":"إعادة تعيين كلمة المرور",
+        "check_inbox":"يرجى التحقق من صندوق البريد الوارد لتتبع الخطوات اللازمة."
     },
     "search":{
         "title": "سيطر على بحث",
@@ -55,6 +56,9 @@
     },
     
     "games":{
+        "playButton": "العب اللعبة",
+        "instructionsButton": "تعليمات اللعبة",
+        "backButton": "الرجوع",
         "backword-definition":{
            "start-game": "ابدأ اللعبة",
             "question-info": "سؤال {{currentQuestion}}",
@@ -155,7 +159,6 @@
                         "not":"Number of Tries",
                         "pg":"Points Gained"
         }
-        
     },
     "note":{
         "delete" : "حذف",

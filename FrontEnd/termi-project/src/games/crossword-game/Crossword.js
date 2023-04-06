@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import play_Icon from "../../images/play_Icon.svg";
+import play_Icon from "../../assets/images/play_Icon.svg";
 import "./Crossword.css";
 
 const puzzle = {

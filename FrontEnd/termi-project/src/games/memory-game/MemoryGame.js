@@ -36,13 +36,9 @@ const MemoryGame = () => {
 	const [disabled, setDisabled] = useState(false);
 	const [numOfTries, setNumOfTries] = useState(0);
 	const [pointsGained, setPointsGained] = useState(0);
-	const [showModal, setShowModal] = useState(false);
-	const steps = t('games.memory-game.step-by-step', { returnObjects: true });
 	const [category, setCategory] = useState(userData.field);
 	
-	function handleOpenModal() {
-	    setShowModal(true);
-	}
+	
 	
 	const restartGame = () => {
 		setCards([]);
@@ -127,7 +123,7 @@ const MemoryGame = () => {
 		points = Math.floor((numOfCards/numOfTries) * 100);
 		setPointsGained(points);//GamesApi//not putting in pointsGained
 		setShowScore(true);
-		const response = await GamesApi.updatePoints(userData._id,points,'Memory Game',category);
+		const response = await GamesApi.updatePoints(userData._id, points, 'Memory Game', category);
         // const gameData = {
         //     userId: userData._id,
         //     gameName: 'Memory Game',
@@ -221,29 +217,9 @@ const MemoryGame = () => {
 					<div className="icon-selector-container">
 						   <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
 						    	<div className="icon-center">
-						    <AiFillPlayCircle className="icon-button" onClick={handleOpenModal}/>
+						    	<AiFillPlayCircle className="icon-button" onClick={initGame}/>
 						</div>
 					</div>
-			    	<Modal show={showModal} onHide={() => setShowModal(false)} >
-						<Modal.Header className="mx-0" closeButton>
-							<Modal.Title className="ms-auto">{t('games.memory-game.modalTitle')}</Modal.Title>
-						</Modal.Header>
-						<Modal.Body> 
-							<ul>
-							      {steps.map((step) => (
-							      <li key={step.id}>{step.text}</li>
-							      ))}
-							</ul>
-					    </Modal.Body>
-						<Modal.Footer>
-							<Button variant="secondary" onClick={() => { setShowModal(false)}}>
-								{t('games.memory-game.goBack')}
-							</Button>
-							<Button variant="primary" onClick={() => { setShowModal(false); initGame(); }}>
-								{t('games.memory-game.continueToGame')}
-							</Button>
-						</Modal.Footer>
-					</Modal>
 			    </div>
 			    
 			)}
