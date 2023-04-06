@@ -6,6 +6,7 @@ const crypto = require('crypto');
 
 let refreshTokens = [];
 //-------------------------------------------------------------------------------------------------------------------------------------
+// Register function ,relevant path : "/register"
 const register = async (req, res) => {
   // Check if there are validation errors
   const errors = validationResult(req);
@@ -28,10 +29,20 @@ const register = async (req, res) => {
   } catch (err) {
     return res.status(500).json({err});
   }
-  // Create a new user
-  // const newUser = new User({fullName, phone, language, field, email, password});
-  const newUser = new User({fullName, phone, language, field, email, password,gender,passwordResetToken: undefined,
-  passwordResetExpires: undefined});
+   // Create a new user
+  const newUser = new User({
+    fullName, 
+    phone, 
+    language, 
+    field, 
+    email, 
+    password,
+    gender,
+    isVerified: false, // add this field to the user document
+    verificationToken: crypto.randomBytes(20).toString('hex'), // generate a verification token
+    passwordResetToken: undefined,
+    passwordResetExpires: undefined
+  });
   const payload = { id: newUser._id, email: newUser.email };
   const token = jwt.sign(payload, process.env.SECRET,{expiresIn: "24h"});
   //req.session.jwt = token;
@@ -40,15 +51,44 @@ const register = async (req, res) => {
   // Save the user to the database
   try {
     await newUser.save();
+  // send a verification email to the user
+   const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'termishift@gmail.com',
+        pass: 'cdhzxscoempowrwy'
+      }
+    });
+
+    const mailOptions = {
+       from: 'termishift@gmail.com',
+      to: newUser.email,
+      subject: 'Verify Your Account',
+      html: `
+        <h3>Hello ${fullName},</h3>
+        <p>Thank you for registering for our app. To start using the app, please verify your account by clicking the link below:</p>
+        <a href=" http://dir.y2022.kinneret.cc:7024/verify/${newUser.verificationToken}">Verify Account</a>
+        <p>The verification link will expire in 24 hours.</p>
+      `
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(`Email sent: ${info.response}`);
+      }
+    });
   } catch (err) { 
     console.log(err);
     console.log("error here");
   }
-  console.log(req.body);
+
   // Return the token
-  return res.json({token});
+  return res.json({ token });
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
+// Login function ,relevant path : "/login"
 const login = async (req, res) => {
   //const { email, password } = req.body.loginData;
      const { email, password } = req.body;
@@ -199,15 +239,16 @@ const forgotPassword = async(req,res)=>{
     };
   
     // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error(error);
-        return res.status(500).json({ message: 'Internal server error.' });
-      } else {
-        console.log(`Email sent: ${info.response}`);
-        return res.status(200).json({ message: 'Password reset email sent successfully.' });
-      }
-    });
+   transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Failed to send password reset email.' });
+  } else {
+    console.log(`Email sent: ${info.response}`);
+    return res.status(200).json({ message: 'Password reset email sent successfully.' });
+  }
+});
+
   }
    catch (err) {
     console.error(err);
@@ -247,6 +288,32 @@ console.log(hashedToken);
     return res.status(500).json({ message: 'Internal server error.' });
   }
 }
+
+//validate user
+const verifyUser = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const user = await User.findOneAndUpdate(
+      { verificationToken: token },
+      { $set: { isVerified: true } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(400).json({ error: "Invalid token" });
+    }
+
+    if (user.isVerified) { // check if user is already verified
+      return res.status(200).json({ message: "User is already verified", isVerified: true });
+    }
+
+    res.status(200).json({ message: "User verified successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 //-------------------------------------------------------------------------------------------------------------------------------------
 
-module.exports = {register,login,logout,tokenG,privateAccess,forgotPassword,resetPassword};
+module.exports = {register,login,logout,tokenG,privateAccess,forgotPassword,resetPassword,verifyUser};

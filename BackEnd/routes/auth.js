@@ -5,7 +5,7 @@ const User = require("../Models/userSchema");
 router.use(express.json());
 
 // imported from other local javaScript files
-const {register, login, logout, tokenG, privateAccess,forgotPassword,resetPassword} = require("../Controllers/authController");
+const {register, login, logout, tokenG, privateAccess,forgotPassword,resetPassword,verifyUser} = require("../Controllers/authController");
 const authToken = require("../Controllers/UserFolder/Middleware/authenticateToken");
 
 
@@ -23,5 +23,7 @@ router.post("/forgotpassword",forgotPassword);
 router.get("/private", authToken, privateAccess);
 
 router.post('/reset-password', resetPassword);
+
+router.get('/verify/:token',verifyUser)
 
 module.exports = router;

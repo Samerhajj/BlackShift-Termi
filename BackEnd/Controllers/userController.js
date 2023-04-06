@@ -25,6 +25,20 @@ const favorites = async (req,res) =>{
     console.log(err);
   }
 };
+const suggestion = async (req,res) =>{
+  try{
+    console.log("9999999999999999999999999999999");
+    console.log(req.body);
+    console.log("9999999999999999999999999999999");
+
+    const res_user =  await User.findOne({email:req.body.email});
+    console.log(res_user.suggestion);
+    res.send(res_user.suggestion);
+  }
+  catch(err){
+    console.log(err); 
+  }
+};
 
 //-------------------------------------------------------------------------------------------------------------------------------------
 const deleteFavorite = async(req,res) =>{
@@ -395,18 +409,6 @@ const findUserByEmail = async (req,res)=>{
 }
 
 
-const suggestion = async (req,res) =>{
-  try{
-    console.log(req.body);
-
-    const res_user =  await User.findOne({email:req.body.email});
-    console.log(res_user.suggestion);
-    res.send(res_user.suggestion);
-  }
-  catch(err){
-    console.log(err);
-  }
-};
 
 module.exports = {favorites,
                   deleteFavorite,

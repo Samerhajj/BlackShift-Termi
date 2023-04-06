@@ -53,7 +53,7 @@ const { favorites,
  *          description: A list of the user's favorite terms.
  */
 router.post("/favorites", favorites);
-router.post("/suggestion",suggestion); // new
+router.post("/suggestions",suggestion); // new
 
 
 router.put("/delete-favorite", deleteFavorite1);

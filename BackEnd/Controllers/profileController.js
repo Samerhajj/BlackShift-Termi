@@ -1,6 +1,7 @@
 const User = require("../Models/userSchema");
 const jwt = require("jsonwebtoken");
-const {gameSearchActivity} = require("./UserFolder/tracker/gameSearchActivity");
+const { gameSearchActivity } = require("./UserFolder/tracker/gameSearchActivity");
+const { addLeaderboardPoints } = require("./leaderboardsController");
 
 const changeProfile = async(req,res)=>{
    const updatedProfile = req.body;
@@ -77,13 +78,13 @@ const updatePoints = async(req,res)=>{
     const updatedUser = await User.findByIdAndUpdate(userId,{$inc: {points:
       points}},{new:true});
       
-    gameSearchActivity(token, activity, category,gameName);
-      
+    gameSearchActivity(token, activity, category, gameName);
+    addLeaderboardPoints(token, category, gameName, points);
+    
     res.status(200).json({
       success:true,
       message:"updated points successfully",
       updatedUser
-      
     });
     
   }
@@ -95,8 +96,7 @@ const updatePoints = async(req,res)=>{
     });
     
   }
-}
-
+};
 
 
 const getGamePoints = async (req, res) => {

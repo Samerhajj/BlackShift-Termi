@@ -185,7 +185,7 @@ const getRandomConcepts = async(req,res)=>{
 };
 
 const getAllTermList = async (req,res) =>{
-    let lista = ["6390aeba34aa753e5c961306"];
+    // let lista = ["6390aeba34aa753e5c961306"];
 
     console.log("data from body");
     console.log(req.body.list)
@@ -200,14 +200,15 @@ const getAllTermList = async (req,res) =>{
 } // this function for return all the fav list
 
 const getAllSuggestList = async (req,res) =>{
+  
   const resSe = await Search.find({ _id: { $in: req.body.suggestions} })
+  console.log("GGGG")
+  console.log(resSe)
+    console.log("GGGG")
+
   res.send(resSe);
 
 }
-
-
-
-
 
 const suggestTerm = async (req,res) =>{
   console.log(req.body);

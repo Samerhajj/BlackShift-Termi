@@ -57,6 +57,7 @@ app.use("/note",require("./routes/note"));
 app.use("/profile", require("./routes/profile"));
 app.use("/category", require("./routes/category"));
 app.use("/gameHistory", require("./routes/gameHistory"));
+app.use("/leaderboards", require("./routes/leaderboards"));
 // Set staic folder
 
 // app.use(express.static("public"));
