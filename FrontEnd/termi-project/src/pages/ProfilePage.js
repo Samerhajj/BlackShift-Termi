@@ -10,6 +10,8 @@ import UserAPI from "../api/UserAPI";
 import {LoginContext} from "./../components/LoginContext";
 import MyTable from "./MyTable";
 import { VictoryScatter,VictoryLegend, VictoryChart, VictoryAxis ,VictoryTooltip,VictoryLabel,VictoryLine} from 'victory';
+import { LineChart, Line, XAxis, YAxis, Legend, CartesianGrid, ResponsiveContainer } from 'recharts';
+
 
 // import Chart from 'chart.js';
 
@@ -344,29 +346,24 @@ const handleSuggest = async () =>{
   {isLoading ? (
     <p>Loading...</p>
   ) : (
-<VictoryChart margin={{ top: 30, bottom: 30, left: 30, right: 30 }}>
-  <VictoryAxis label="Game Number" />
-  <VictoryAxis dependentAxis label="Score" />
-  {gamesData.map(game => (
-    <VictoryLine
-      key={game.label}
-      data={game.y.map((score, i) => ({
-        x: i + 1,
-        y: score,
-        label: game.label
-      }))}
-      style={{ data: { stroke: gameColors[game.label] } }}
-    />
-  ))}
-  <VictoryLegend
-    x={0}
-    y={0}
-    title="Games"
-    centerTitle
-    orientation="horizontal"
-    data={gamesData.map(game => ({ name: game.label, symbol: { fill: gameColors[game.label] } }))}
-  />
-</VictoryChart>
+
+<ResponsiveContainer width="100%" height={400}>
+  <LineChart margin={{ top: 30, bottom: 30, left: 30, right: 30 }} data={gamesData.reduce((acc, { label, y }) => y.map((value, i) => ({ x: i + 1, [label]: value, ...acc[i] || {} })), [])}>
+    <XAxis dataKey="x" label={{ value: "Game Number", position: "insideBottom", dy: 10 }} />
+    <YAxis label={{ value: "Score", angle: -90, position: "insideLeft" }} scale="pow" exponent={0} domain={[0, 10]} />
+    <Legend />
+    {gamesData.map(game => (
+      <Line
+        key={game.label}
+        dataKey={game.label}
+        stroke={gameColors[game.label]}
+        strokeWidth={2}
+        dot={{ stroke: gameColors[game.label], strokeWidth: 2 }}
+      />
+    ))}
+  </LineChart>
+</ResponsiveContainer>
+
 
 
      
