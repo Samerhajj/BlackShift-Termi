@@ -10,6 +10,8 @@ import TermCard from '../components/TermCard/TermCard';
 import { useNavigate} from 'react-router-dom';
 import CategorySelector from "../components/CategorySelector";
 import {LoginContext} from "../components/LoginContext";
+
+
 const TermsPage = () =>{
     const [searchParams, setSearchParams] = useSearchParams();
     const { t, i18n } = useTranslation();
@@ -81,6 +83,7 @@ const TermsPage = () =>{
                     setShow(true);
                 }
             }
+            
             setSearchedTerm("");
         }else{
     		alert("Must choose a category first");
@@ -204,7 +207,21 @@ const TermsPage = () =>{
             termCardRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [showResult]);
-  
+    
+    const handleSearchFocus = async () =>{
+        if (searchedTerm.length === 0 && login) {
+          // Make API call here
+          console.log("API call made");
+          const res = await SearchApi.historySearch();
+          if(res.success){
+                setSuggestions(res.body);
+          }else{
+                alert(res.message);
+          }
+        //   setSuggestions(res);
+          console.log(res)
+        }
+    }
 
 return(
     <>
@@ -213,7 +230,7 @@ return(
                 <div className="banner_content fade-in-element">
                     <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
                     <div className="search-box">
-                        <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
+                        <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}} onFocus={handleSearchFocus}/>
                         <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm, LanguageMap[inputLanguage].name, category)}}></i>
                         { suggestions.length != 0 ? 
                             <div className="autocomplete-box">
