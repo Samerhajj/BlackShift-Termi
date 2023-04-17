@@ -65,4 +65,19 @@ const autocomplete = async (input, language,category)=>{
     }
 };
 
-export default {search, autocomplete, closestResult, allCloseResults};
+const historySearch = async() =>{
+    console.log(localStorage.getItem('token'))
+    try{
+        // {headers: {headers: { 'Authorization': `${localStorage.getItem('token')}`}}});
+        const res = await axios.post("http://dir.y2022.kinneret.cc:7013/search/historySearch",{
+            headers: {
+                'x-auth-token': localStorage.getItem('token')}
+            });
+        return {body: res.data, success: true};
+    }
+    catch(err){
+        return {success: false, message: err.message};
+    }
+}
+
+export default {search, autocomplete, closestResult, allCloseResults,historySearch};

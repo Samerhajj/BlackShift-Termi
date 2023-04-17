@@ -30,18 +30,18 @@ const getAllSuggestList = async (email) => {
         const usr = await axios.post(suggestionsRoute, {email:email})
         console.log("user :");
         console.log(usr);
-        // const sugList =  await axios.post("http://dir.y2022.kinneret.cc:7013/search/getAllSuggestList", usr.data);// display all the fav
+        // const list = await axios.post("http://dir.y2022.kinneret.cc:7013/search/display-myterms",{list:usr.data})
         // let array = [];
-        // console.log(sugList)
-        // array = sugList.data;
+        // array = list.data;
+        // console.log(array)
+        
+
         return {body: usr, success: true};
     }
     catch(err){
         console.log(err);
         return {success: false, message: err.message};
     }
-        
-        
 }
 
 // const deleteFavorite = async (list,card,data) => {

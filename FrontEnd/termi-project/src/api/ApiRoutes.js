@@ -31,6 +31,8 @@ const SearchActiviyUserRoute = process.env.React_App_BaseURL + "user" + "/" + "g
 const suggestionsRoute = process.env.React_App_BaseURL + "user" + "/" + "suggestions";
 
 
+//Leaderboard Routes
+const getGameLeaderboard = process.env.React_App_BaseURL + "leaderboards" + "/" + "games";
 
 
 // Admin Routes
@@ -68,5 +70,6 @@ export {searchRoute,
         gameHistoryUpdate,
         getGameHistoryUpdate,
         forgotPasswordRoute,
-        suggestionsRoute
+        suggestionsRoute,
+        getGameLeaderboard
 };
