@@ -154,3 +154,20 @@ body[dir="rtl"] .read-url:hover{
         font-size: 10vw;
     }
 }
+.trending-emoji {
+  font-size: 20px;
+  margin-left: 5px;
+  animation: pulse-animation 1s infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

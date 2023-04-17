@@ -1,35 +1,3 @@
-
-  // import React,{ useEffect,useRef}from 'react';
-  
-  // function hamburgerLogic() {
-  //   const hamburgerRef=useRef(null);
-  //   const mobileMenuRef=useRef(null);
-    
-  //   useEffect(() => {
-  //     const toggleHamburger = () => {
-  //         hamburgerRef.current.classList.toggle('active');
-  //         mobileMenuRef.current.classList.toggle('active');
-  //         console.log('HELLO');
-  //     };  
-      
-  //     mobileMenuRef.current.querySelectorAll('a').forEach(a=>{
-  //       a.addEventListener('click',toggleHamburger);
-  //     });
-     
-  //     hamburgerRef.current.addEventListener('click', toggleHamburger);
-      
-  //     return() => {
-  //       hamburgerRef.current.removeEventListener('click', toggleHamburger);
-      
-  //     mobileMenuRef.current.querySelectorAll('a').forEach(a=>{
-  //       a.removeEventListener('click',toggleHamburger);
-  //     });
-  //       };
-  //   }, []);
-  //   return{hamburgerRef,mobileMenuRef}
-  // }
-  // export default hamburgerLogic;
-  
   import React, { useEffect, useRef } from 'react';
 
 import { useTranslation } from 'react-i18next';//new
@@ -63,12 +31,14 @@ function hamburgerLogic() {
     hamburgerRef.current.addEventListener('click', toggleHamburger);
 
     return () => {
+         if (hamburgerRef.current) {
       hamburgerRef.current.removeEventListener('click', toggleHamburger);
 
       Array.from(mobileMenuRef.current.children).forEach((child) => {
         child.removeEventListener('click', toggleHamburger);
       });
     };
+    }
   }, []);
   return { hamburgerRef, mobileMenuRef };
 }

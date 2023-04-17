@@ -31,8 +31,11 @@ const PageLayout = ()=>{
     
     return(
         <div id="full_wrapper">
+      
             <MainNavbar/>
+            
             <div className="main">
+           
                 <Outlet/>
                 <div className="push"/>
             </div>

@@ -7,6 +7,7 @@ import Image from 'react-bootstrap/Image';
 import json2csv from 'json2csv';
 import fileDownload from 'js-file-download';
 import { useNavigate } from "react-router-dom";
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 // --> APIs
 import UserApi from '../../api/UserAPI';
@@ -14,7 +15,7 @@ import UserApi from '../../api/UserAPI';
 // --> Import Icons
 import {BsStarFill, BsStar} from 'react-icons/bs';
 import { LoginContext } from '../LoginContext';
-import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaLinkedin ,FaMicrophone} from 'react-icons/fa';
 //
 // import PropTypes from 'prop-types';
 import { IconContext } from "react-icons";
@@ -62,6 +63,12 @@ const TermCard = (props) =>{
     // handle facebook share
     console.log("Testing facebook click");
   };
+  
+   const { speak } = useSpeechSynthesis();
+
+  const handleSpeak = () => {
+     speak({ text: props.term.conceptName.english });
+  };
 
   const handleTwitterShare = () => {
     // handle twitter share
@@ -72,9 +79,28 @@ const TermCard = (props) =>{
     // handle linkedin share
      console.log("Testing linkedin click");
   };
+  
+//TRENDING CONSTS
+const today = new Date();
+const weekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+const weekEnd = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 6);
+const isTrending = props.term.searchCount >= 50 && new Date() >= weekStart && new Date() <= weekEnd;
 
-    
-    
+// Get the date of the last reset from localStorage
+const lastReset = localStorage.getItem('searchCounterReset');
+
+// Check if the last reset was today
+const today1 = new Date().toISOString().slice(0, 10);
+const needsReset = lastReset !== today;
+
+// Reset the counter if necessary
+if (needsReset) {
+  localStorage.setItem('searchCounterReset', today);
+  // Reset the hidden search counter here
+}
+
+
+
     // const changeLanguage = (newLanguage) => {
     //     setLanguage(newLanguage);
     // };
@@ -187,16 +213,12 @@ const handleCardEdit = () =>{
             </div>
             <div className="term-box">
                 <div className="categories-box">
-                    {/*
-                        props.term.categories.map((category, index) =>{
-                            return(
-                                <div key={index} className="category-tag">
-                                    {category}
-                                </div>
-                            );
-                        })
-                    */}
-                    
+                   {isTrending && (
+                          <span role="img" aria-label="trending">
+                            🔥
+                          </span>
+                        )}
+
                     
                     {
                     (isSearch)  &&
@@ -224,7 +246,14 @@ const handleCardEdit = () =>{
                   </div>)
 
                 }
-                       
+         
+    
+      <IconContext.Provider value={{ size: "2rem" }}>
+        <button onClick={handleSpeak}><FaMicrophone /></button>
+      </IconContext.Provider>
+    
+  
+    
                   
                   
                 <div className="definitions-box">

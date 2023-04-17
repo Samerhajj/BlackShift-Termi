@@ -10,7 +10,6 @@ import UserAPI from '../api/UserAPI';
 import { LoginContext } from './LoginContext';
 
 const LanguageSelector = () => {
-console.log(document.title)
     const {userData} = useContext(LoginContext);
     const [buttonStyle, setButtonStyle] = useState({});
     const selectedLanguage = Cookies.get("i18next") || "en";
