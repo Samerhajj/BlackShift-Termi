@@ -5,12 +5,15 @@ import React, {useEffect, useState, useContext} from "react";
 import CategorySelector from "../../components/CategorySelector";
 import {LoginContext} from "../../components/LoginContext";
 import {CategoriesContext} from "../../components/CategoryContext";
+import Menu from "../Menu/Menu";
+
+import "typeface-roboto";
 
 // Translate
 import { useTranslation } from 'react-i18next';
 
 // CSS and Elements
-import { MdOutlineReplay } from "react-icons/md";
+import { MdOutlineReplay,MdArrowBack } from "react-icons/md";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { Modal, Button } from "react-bootstrap";
 import "./MemoryGame.css";
@@ -20,8 +23,10 @@ import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
 
+import songTest from '../../assets/sound/christmas-song.mp3';
 
 const MemoryGame = () => {
+
 	// localStorage.setItem('currentPage', 'MemoryGame')//test
 
 	const {userData, setUserData} = useContext(LoginContext);
@@ -37,8 +42,12 @@ const MemoryGame = () => {
 	const [numOfTries, setNumOfTries] = useState(0);
 	const [pointsGained, setPointsGained] = useState(0);
 	const [category, setCategory] = useState(userData.field);
+	const gameName = 'Memory Game';
+
+ const [musicPlaying, setMusicPlaying] = useState(true);
+  const toggleMusic = () => setMusicPlaying(!musicPlaying);	
 	
-	
+
 	
 	const restartGame = () => {
 		setCards([]);
@@ -59,7 +68,7 @@ const MemoryGame = () => {
 		        let terms = res.body;
 		        let allCards = [];
 		        let answers = new Map();
-		        console.log(terms);
+		        
 		        for (var i=0;i<terms.length;i++)
 		        {
 		        	let conceptNameIndex = Math.floor(Math.random() * numOfCards);
@@ -148,7 +157,7 @@ const MemoryGame = () => {
 	const changeCategory = (newCategory) => {
 		setCategory(newCategory);
 	};
-	
+
 	useEffect(() => {
 		console.log(flipped);
 		if(flipped.length >=2){
@@ -163,15 +172,31 @@ const MemoryGame = () => {
 		}
 	}, [solved]);
 	
+function handleGoBack(){
+   setStart(false);
+  setSolved([]);
+  setFlipped([]);
+  setDisabled(false);
+  setNumOfTries(0);
+  setPointsGained(0);
+    setStart(false);
+}
+
 
 	return (
 		<>
-			<div className="banner banner_game">
-				<div className="wrapper">
-					<div className="banner_content"></div>
-				</div>
-			</div>
-			<h1>{t('games.memory-game.title')}</h1>
+	
+		   {musicPlaying && <audio src={songTest} autoPlay loop />}
+		
+		{!start && (
+  <Menu
+    selectedCategory={category}
+    gameName={gameName}
+    handleMusicToggle={toggleMusic}
+    musicPlaying={musicPlaying}
+    handleStart={initGame}
+  />
+)}
 			{start ? (
 				<div>
 					{showScore ? (
@@ -183,6 +208,9 @@ const MemoryGame = () => {
 						 </div>
 					) : (
 						<div className="memory-cards-grid">
+						 <button className="icon-button"  onClick={handleGoBack}>
+                    <MdArrowBack />
+                </button>
 							{cards.map((card,index) =>{
 								 const { feedbackClass } = flipped.find(card=>card.index ===index) || { feedbackClass: '' };
 								 return (
@@ -216,13 +244,15 @@ const MemoryGame = () => {
 				<div className="center-button">
 					<div className="icon-selector-container">
 						   <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
-						    	<div className="icon-center">
+						    	{/*<div className="icon-center">
 						    	<AiFillPlayCircle className="icon-button" onClick={initGame}/>
-						</div>
+						</div>*/}
 					</div>
 			    </div>
 			    
 			)}
+		
+	
 		</>
 	);
 };
