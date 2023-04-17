@@ -35,6 +35,7 @@ const Top10 = () =>{
     
     {
     list.map((item,index)=>{
+    //console.log(item);
         return(
         <div>
         <center>

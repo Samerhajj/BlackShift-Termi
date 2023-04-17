@@ -9,7 +9,8 @@ import {Row,Col} from 'react-bootstrap/';
 // --> APIs
 import AdminAPI from '../../api/AdminAPI';
 
-import './Admin.css'
+import './Admin.css';
+import './ViewSuggestions.css';
 
 const ViewSuggestions = ()=> {
     
@@ -33,14 +34,38 @@ const [expanded, setExpanded] = useState(false);
        alert(response.message);
      }
   }
+  
   const handleAdminPanel = () => {
     navigate('/admin');
   };
+  
+  //get the default conceptName of term
+  const getDefaultConceptName = (itemConceptName) => {
+      const enConceptName = itemConceptName['conceptName']['english'];
+      const arConceptName = itemConceptName['conceptName']['arabic'];
+      const heConceptName = itemConceptName['conceptName']['hebrew'];
+      
+      if(enConceptName != null && enConceptName.trim().length > 0)
+      {
+          return enConceptName;
+      }
+      else if(arConceptName != null && arConceptName.trim().length > 0)
+      {
+          return arConceptName;
+      }
+      else
+      {
+          return heConceptName;
+      }
+  }
+  
   
 
 // useEffect(()=>{
 //     handleGetAllSuggest();
 // },[])
+
+
 return (
     <div>
     <div className="banner banner_admin">
@@ -52,69 +77,64 @@ return (
           </div>
         </div>
       </div>
-                    <div className="admin-sg">
-                        <button className="su-button mb-2" onClick={handleGetAllSuggest}>View Suggestions</button>
-                        <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
-                    </div>
+      
+    <div className="admin-sg">
+        <button className="su-button mb-2" onClick={handleGetAllSuggest}>View Suggestions</button>
+        <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
+    </div>
                     
                    
-               <div className="container d-flex justify-content-center">
+    <div className="container d-flex justify-content-center">
 
-               <div className="mt-5">
-               {
-                 suggestList.map((item,index)=>{
-                   console.log(item);
-                   return(
-                   
-                   <>
-                   <Row className="d-flex">
-                   
-                   
-
-                   <Col xs={12} xl={12}>
-                    <Accordion className="my-3 "  className="accordion-header  ">
+        <div className="mt-5">
+        {
+            suggestList.map((item,index)=>{
+            console.log(item);
+            return(
+            <>
+                <Row className="d-flex">
+                <Col xs={12} xl={12}>
+                <Accordion className="my-3 "  className="accordion-header  ">
                         
                                                                
 
-                                    <Accordion.Item  eventKey="0">
-                                     <Accordion.Header className="btnAdmin"><h2 className="btnadmin ">
-                                                {JSON.stringify(item.conceptName).length > 20 ? 
-                                                    JSON.stringify(item.conceptName).substring(0, 20) + '...' : 
-                                                    JSON.stringify(item.conceptName)}
-                                                <strong className="font-weight-bold"></strong>
-                                            </h2>
-                                            {JSON.stringify(item.conceptName) && 
-                                                <span className="expand-text" onClick={() => setExpanded(!expanded)}>
-                                                    
-                                                </span>}
-                                            </Accordion.Header>
+                    <Accordion.Item  eventKey="0">
+                    
+                        <Accordion.Header className="btnAdmin">
+                                <h2 className="btnAcorrdion">
+                                    { getDefaultConceptName(item) }
+                                    <strong className="font-weight-bold"></strong>
+                                </h2>
+                                
+                                {JSON.stringify(item.conceptName) && 
+                                    <span className="expand-text" onClick={() => setExpanded(!expanded)}>
+                                    </span>}
+                                    
+                        </Accordion.Header>
                                             
                                         
-                                        <Accordion.Body>
-                                            {expanded && <div className="expanded-text">{JSON.stringify(item.conceptName)}</div>}
-                                            <SuggestCard key={index} data={item} suggestList={suggestList} setSuggestList={setSuggestList} initialLanguage={i18n.language}/>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                         
-                                    
-
+                        <Accordion.Body>
+                            {expanded && <div className="expanded-text">{JSON.stringify(item.conceptName)}</div>}
+                            <SuggestCard key={index} data={item} suggestList={suggestList} setSuggestList={setSuggestList} initialLanguage={i18n.language}/>
+                        </Accordion.Body>
                         
-                    </Accordion>  </Col>
+                    </Accordion.Item>
+                        
+                </Accordion>  </Col>
 
-                  
-</Row>
-
-</>)
-                 })
-               }
-               </div>
-          </div>
+                </Row>
+            </>)
+            
+            })}
+        </div>
+    </div>
     </div>
     )
     
 }
 
+
 //    {JSON.stringify(item.conceptName).length > 24 ? 
-                      //                          JSON.stringify(item.conceptName).substring(0, 24) + '...' : 
-                        //                        JSON.stringify(item.conceptName)}
+//      JSON.stringify(item.conceptName).substring(0, 24) + '...' : 
+//      JSON.stringify(item.conceptName)}
 export default ViewSuggestions;
