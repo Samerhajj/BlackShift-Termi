@@ -1,4 +1,8 @@
-.btnAcorrdion {
-  background-color: #28a745;
-  color: #fff;
+.headerAccordion {
+  text-shadow: 2px 2px black;
+    text-align: center;
+    color: white;
+    font-family:"Impact";
+    font-size: 50px;
+
 }

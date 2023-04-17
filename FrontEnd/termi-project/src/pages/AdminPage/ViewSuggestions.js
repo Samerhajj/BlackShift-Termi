@@ -9,7 +9,7 @@ import {Row,Col} from 'react-bootstrap/';
 // --> APIs
 import AdminAPI from '../../api/AdminAPI';
 
-import './Admin.css';
+import './Admin.css'
 import './ViewSuggestions.css';
 
 const ViewSuggestions = ()=> {
@@ -101,10 +101,10 @@ return (
                     <Accordion.Item  eventKey="0">
                     
                         <Accordion.Header className="btnAdmin">
-                                <h2 className="btnAcorrdion">
-                                    { getDefaultConceptName(item) }
-                                    <strong className="font-weight-bold"></strong>
-                                </h2>
+                            <h2 className="btnadmin ">
+                                { getDefaultConceptName(item) }
+                                <strong className="font-weight-bold"></strong>
+                            </h2>
                                 
                                 {JSON.stringify(item.conceptName) && 
                                     <span className="expand-text" onClick={() => setExpanded(!expanded)}>
