@@ -14,7 +14,14 @@ import LanguageMap from '../../api/LanguageAPI';
 // --> Contexts
 import { CategoriesContext } from "../../components/CategoryContext";
 
+import CheckBox from "./CheckBox";
 const Register = () =>{
+  //   const status = ["Student","works in the field","Other"];
+  //   const [checkedState, setCheckedState] = useState(
+  //   new Array(status.length).fill(false)
+  // );
+    const [selectedStatus, setSelectedStatus] = useState([]);
+  
   const navigate = useNavigate();
   const {t, i18n} = useTranslation();
   // const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",field:"",favorite:[]});
@@ -173,8 +180,7 @@ const handleSubmit = async (e) => {
             <option value="Hebrew">{t('register.lang_he')}</option>
       </select>
 
-      
-      
+
           
           <div className="form-group">
             <button
@@ -186,10 +192,11 @@ const handleSubmit = async (e) => {
             </button>
           </div>
         </form>
-        <br/><br/><br/><br/><br/><br/>
+        <br/><br/><br/>
     </div>
     </div>
     </>
     );
 }
 export default Register
+//       <CheckBox selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
