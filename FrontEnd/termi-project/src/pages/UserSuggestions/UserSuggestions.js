@@ -1,5 +1,6 @@
-import React from 'react';
-
+import React,{useState,useEffect,useContext} from 'react';
+import UserAPI from '../../api/UserAPI';
+import { LoginContext } from "../../components/LoginContext";
 
 // To do , we need to make the gui 
 
@@ -8,24 +9,51 @@ import React from 'react';
 // set the schema for the user like the fav (saving the id of the suggestion)
 
 const UserSuggestions = () => {
-    return (
-    <div>
-    <div className="banner banner_profile">
+  
+  const [list,setList]= useState([]);
+  const { userData } = useContext(LoginContext);
+    const getSuggestions = async () =>{
+        const res = await UserAPI.getAllSuggestList(userData.email);
+        if(res.success){
+            setList(res.body.data);
+        }
+        else{
+            console.log(res.message)
+        }
+    }
+    useEffect(()=>{
+        getSuggestions();
+    },[])
+    
+    
+        return(<div>
+        <div className="banner banner_admin">
         <div className="wrapper">
           <div className="banner_content">
-            <h1 className="pulsing-element">
+            <h1 className="">
               <strong>User Suggestions</strong>
             </h1>
-            </div>
           </div>
         </div>
-        
-        <h2>something</h2>
-        <h2>something</h2>
-        <h2>something</h2>
+      </div>
+      
+     <center><button className="su-button mb-2" onClick={()=>getSuggestions()}>
+   My Suggestions
+    </button></center>
 
-    </div>
-    )
+    {
+    list.map((item,index)=>{
+        return(
+        <div>
+        <center>
+                <h5>{item}</h5>
+        </center>
+        <hr></hr>
+        </div>
+        )
+    })
+    }
+    </div>)
 }
         
 export default UserSuggestions;

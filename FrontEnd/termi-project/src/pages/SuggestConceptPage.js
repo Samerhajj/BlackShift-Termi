@@ -2,7 +2,9 @@ import React,{useState, useContext} from "react";
 import { Form, Input,Select, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+import { BsLink } from "react-icons/bs";
 // APIs
+
 import UserAPI from './../api/UserAPI';
 import SearchApi from '../api/SearchAPI';
 import LanguageMap from '../api/LanguageAPI';
@@ -45,6 +47,11 @@ const SuggestConceptPage=()=>{
   
   const handleHebrewNameChange = (e) => {
     setHebrewNameEntered(e.target.value.length > 0);
+  };
+    const [longTermEntered, setLongTermEntered] = useState(false);
+  const [linkEntered, setLinkEntered] = useState(false);
+    const handleLinkChange = (e) => {
+    setLinkEntered(e.target.value.length > 0);
   };
   
   // --> 
@@ -106,6 +113,20 @@ const SuggestConceptPage=()=>{
     return Promise.reject("At least one concept name is required.");
 };
 
+  const layout = {
+    labelCol: { span: 8 },
+  };
+  const validateMessages = {
+    required: "${label} is required!",
+    types: {
+      email: "${label} is not validate email!",
+      number: "${label} is not a validate number!",
+    },
+    number: {
+      range: "${label} must be between ${min} and ${max}",
+    },
+  };
+  
     return (
         <>
     <div className="banner banner_note">
@@ -194,6 +215,31 @@ const SuggestConceptPage=()=>{
         </Form.Item>
         )}
         
+        { englishNameEntered &&(
+        <Form.Item name={['longDefinition', 'english']} label={t('suggest_concept_page.l_def-en')} rules={[{ required: false }]}>
+       <Input.TextArea />
+        </Form.Item>
+         )}
+        
+            {arabicNameEntered && (
+        <Form.Item name={['longDefinition', 'arabic']} label={t('suggest_concept_page.l_def-ar')} rules={[{ required: false }]}>
+          <Input.TextArea />
+        </Form.Item>
+        )}
+        
+         {hebrewNameEntered && (
+         <Form.Item name={['longDefinition', 'hebrew']} label={t('suggest_concept_page.l_def-he')} rules={[{ required: false }]}>
+          <Input.TextArea />
+        </Form.Item>
+        )}
+    
+
+        {(
+        <Form.Item name={['link', 'english']} label={<BsLink style={{ fontSize: '24px' }} />} rules={[{ required: false }]}>
+         <Input onChange={handleEnglishNameChange} />
+        </Form.Item>
+         )}
+
         <Form.Item>
           <Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
             {t('suggest_concept_page.sbtn')}
