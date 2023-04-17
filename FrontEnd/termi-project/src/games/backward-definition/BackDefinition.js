@@ -20,7 +20,6 @@ const BackwordDefinition = () =>{
 	const {userData, setUserData} = useContext(LoginContext);
 	// const { categories } = useContext(CategoriesContext);
           
-	console.log(userData);
 	const { t, i18n } = useTranslation();
 	const [questions, setQuestions] = useState([]);
 	const [currentQuestion, setCurrentQuestion] = useState(0);
