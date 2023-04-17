@@ -15,7 +15,7 @@
     "register":{
         "full_name":"שם מלא",
         "phone":"טלפון",
-         "email":"דואר",
+        "email":"דואר",
         "password":"סיסמא",
         "select_category":"בחר קטגוריה",
         "select_lang":"בחר שפה",
@@ -55,9 +55,8 @@
         "game-content":"מזהה ומתקדם במשחקים"
     },
     "games":{
-        "playButton": "שחק המשחק",
-        "instructionsButton": "הוראות המשחק",
-        "backButton": "חזרה",
+        "play-button": "שחק המשחק",
+        "back-button": "חזרה",
         "backword-definition":{
             "start-game": "תתחיל את המשחק",
             "question-info": "שאלה {{currentQuestion}}",
@@ -143,7 +142,47 @@
                      	}
                     ]
                     
-        }
+        },
+        "hangman-game":{
+            "start-game": "התחל משחק",
+            "modalTitle": "הנחיות",
+            "title":"משחק זיכרון",
+            "goBack": "חזור אחורה",
+            "description":"משחק מילים בו אתה בוחר הגדרה ובוחר את המונח הנכון עבור זה ואת הנקודות עבור תשובות נכונות",
+            "continueToGame": "המשך למשחק",
+            "score":"תוצאה",
+            "not":"מספר נסיונות",
+            "pg":"נקודות שנצברו",
+            "step-by-step": [
+            {
+            	"id": "step1",
+            	"text": "Click the \"Start Game\" button to begin the game."
+            },
+            {
+            	"id": "step2",
+            	"text": "Read the definition carefully and choose the word that best matches it."
+            },
+            {
+            	"id": "step3",
+            	"text": "Click on your selected answer to submit it."
+            },
+            {
+            	"id": "step4",
+            	"text": "If your answer is correct, you will receive a point. If it is incorrect, you will not receive a point."
+            },
+            {
+                "id": "step5",
+            	"text": "The game will move on to the next question automatically."
+         	},
+         	{
+            	"id": "step6",
+            	"text": "Repeat steps 2-5 until you have completed all 10 questions."
+            },
+            {
+            	"id": "step7",
+                "text": "At the end of the game, your score will be displayed."
+            }
+        ]}
     },
     "note":{
         "delete" : "מחיקה",
@@ -168,6 +207,9 @@
         "s_def-he"   :"הגדרה קצרה (עברית)",
         "s_def-en"   :"הגדרה קצרה (אנגלית)",
         "s_def-ar"   :"הגדרה קצרה (ערבית)",
+        "l_def-he"   :"הגדרה ארוכה (עברית)",
+        "l_def-en"   :"הגדרה ארוכה (אנגלית)",
+        "l_def-ar"   :"הגדרה ארוכה (ערבית)",
         "sbtn":"תציע",
         "rbtn":"איפוס"
     

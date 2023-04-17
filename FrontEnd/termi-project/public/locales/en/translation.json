@@ -55,9 +55,8 @@
         "game-content":"Identifies and progress through games"
     },
     "games":{
-        "playButton": "Play Game",
-        "instructionsButton": "Game Instructions",
-        "backButton": "Back",
+        "play-button": "Play Game",
+        "back-button": "Back",
         "backword-definition":{
             "start-game": "Start Game",
             "question-info": "Question {{currentQuestion}}",
@@ -145,15 +144,45 @@
             ]
         },
         "hangman-game":{
-            "start-game": "Start Game",
-              "modalTitle": "Instruction",
-              "title":"Hangman Game",
-               "goBack": "Go Back",
-               "description":"Hangman description goes here",
+                "start-game": "Start Game",
+                "modalTitle": "Instruction",
+                "title":"Hangman Game",
+                "goBack": "Go Back",
+                "description":"Hangman description goes here",
                 "continueToGame": "Continue To Game",
-                        "score":"Score",
-                        "not":"Number of Tries",
-                        "pg":"Points Gained"
+                "score":"Score",
+                "not":"Number of Tries",
+                "pg":"Points Gained",
+                "step-by-step": [
+                {
+                	"id": "step1",
+                	"text": "Click the \"Start Game\" button to begin the game."
+                },
+                {
+                	"id": "step2",
+                	"text": "Read the definition carefully and choose the word that best matches it."
+                },
+                {
+                	"id": "step3",
+                	"text": "Click on your selected answer to submit it."
+                },
+                {
+                	"id": "step4",
+                	"text": "If your answer is correct, you will receive a point. If it is incorrect, you will not receive a point."
+                },
+                {
+                    "id": "step5",
+                	"text": "The game will move on to the next question automatically."
+             	},
+             	{
+                	"id": "step6",
+                	"text": "Repeat steps 2-5 until you have completed all 10 questions."
+                },
+                {
+                	"id": "step7",
+                    "text": "At the end of the game, your score will be displayed."
+                }
+            ]
         }
     },
     "note":{
@@ -177,6 +206,9 @@
             "s_def-he"   :"Short definition (Hebrew)",
             "s_def-en"   :"Short definition (English)",
             "s_def-ar"   :"Short definition (Arabic)",
+            "l_def-he"   :"Long definition (Hebrew)",
+            "l_def-en"   :"Long definition (English)",
+            "l_def-ar"   :"Long definition (Arabic)",
             "sbtn":"Suggest",
             "rbtn":"Reset"
         },
