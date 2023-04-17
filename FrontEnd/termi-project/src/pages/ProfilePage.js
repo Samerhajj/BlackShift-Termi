@@ -9,7 +9,6 @@ import UserAPI from "../api/UserAPI";
 
 import {LoginContext} from "./../components/LoginContext";
 import MyTable from "./MyTable";
-import { VictoryScatter,VictoryLegend, VictoryChart, VictoryAxis ,VictoryTooltip,VictoryLabel,VictoryLine} from 'victory';
 import { LineChart, Line, XAxis, YAxis, Legend, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 
@@ -73,6 +72,10 @@ const gameColors = {
   'Backward': 'red',
   'Other Game': 'green'
 }
+
+ useEffect(() => {
+    fetchData();
+  }, []);
 
 async function fetchData() {
   setIsLoading(true);
@@ -340,7 +343,7 @@ const handleSuggest = async () =>{
 
          
            
-  <button onClick={fetchData}>GET DATA</button>
+  {/*<button onClick={fetchData}>GET DATA</button>*/}
   
    <div className="wrapper">
   {isLoading ? (
