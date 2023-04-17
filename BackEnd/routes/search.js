@@ -8,7 +8,8 @@ suggestTerm,
 getTop10,
 addNewCategories,
 getCategorie,
-getAllSuggestList
+getAllSuggestList,
+historySearch
 } = require("../Controllers/searchController");
 router.use(express.json());
 
@@ -30,4 +31,5 @@ router.post("/returnAllCategories",getCategorie);
 
 router.post("/getAllSuggestList",getAllSuggestList);
 
+router.post("/historySearch",historySearch);
 module.exports = router;

@@ -39,10 +39,35 @@ const searchTerm = async(req,res)=>{
         [`conceptName.${language}`]: {'$regex': "^"+ sanitizedTerm +"\\s*$" ,$options:'i'},
         "categories": { $in : [categoryNum] }
       });
-      
+      console.log("respond↓")
       console.log(respond[0]);
-      
+      console.log("respond↑")
+
       if(respond.length != 0){
+        let decoded;
+        try {
+          decoded = jwt.verify(token, process.env.SECRET);
+          // const user = await User.findByIdAndUpdate({_id :decoded.id},{$inc: { searchCounter: 1 }});
+          console.log("gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
+          // Await
+          await User.updateOne(
+            { _id: decoded.id },
+            {
+              $push: {
+                recentSearch: {
+                  $each: [respond[0].conceptName["english"]],
+                  $position: 0,
+                  $slice: 5
+                }
+              }
+            }
+          );
+          console.log("Update the search count");
+        } catch (err) {
+          console.log("Not auth");
+        }
+
+        
         Search.updateOne({ _id: respond[0]._id }, { $inc: { searchCount: 1 } }, function(error,res) {
           
           if (error) {
@@ -213,7 +238,7 @@ const getAllSuggestList = async (req,res) =>{
 const suggestTerm = async (req,res) =>{
   console.log(req.body);
   res.send("hello");
-}
+} // not that important
 
 const getTop10 = async (req,res)=>{
   try{
@@ -271,6 +296,7 @@ const getCategorie = async (req,res)=>{
       try{
           decoded = jwt.verify(token, process.env.SECRET);
           const user = await User.findByIdAndUpdate({_id :decoded.id},{$inc: { searchCounter: 1 }});
+          
           console.log("Update the search count");
       }
       catch(err){
@@ -313,6 +339,32 @@ const getCategorie = async (req,res)=>{
 
 }
 
+const historySearch = async (req, res) => {
+  try {
+    let token = req.body.headers["x-auth-token"];
+    console.log(JSON.stringify(token))
+    if (!token) {
+      // Return an error response if token is missing
+      return res.status(401).send("JWT token must be provided");
+    }
+    let decoded = jwt.verify(token, process.env.SECRET);
+    const user = await User.findOne({ _id: decoded.id });
+    if (user) {
+      const recentSearchValues = user.recentSearch;
+      console.log(recentSearchValues);
+      res.send(recentSearchValues);
+    } else {
+      // User not found
+      console.log("User not found");
+      res.status(404).send("User not found");
+    }
+  } catch (err) {
+    console.log(err);
+    // Return an error response with appropriate status code and error message
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 module.exports = {autoCompleteTerm,
                   searchTerm,
                   getRandomConcepts,
@@ -321,5 +373,6 @@ module.exports = {autoCompleteTerm,
                   getTop10,
                   addNewCategories,
                   getCategorie,
-                  getAllSuggestList
+                  getAllSuggestList,
+                  historySearch
 };

@@ -41,20 +41,24 @@ const getGameLeaderboard = async(req, res, next) => {
         const decoded = jwt.verify(token, process.env.SECRET);
         const userId = decoded.id;
         const category = req.query.category;
+        console.log(req.query);
+        console.log(token);
         const gameName = req.query.gameName;
         const limit = req.query.limit;
-        
         if(category != null && gameName != null){
             let categoryNum = parseInt(category, 10);
             let limitNum = parseInt(limit, 10);
             
-            // Find the leaderboard with the specified category id
             const leaderboard = await Leaderboard.aggregate([
+                                  // Find the category
                                   { $match: { categoryId: categoryNum } },
                                   { $unwind: "$games" },
+                                  // Find the Game
                                   { $match: { "games.gameName": gameName } },
                                   { $unwind: { path: "$games.leaderboard" } },
+                                  // Sort them according to the score
                                   { $sort: { "games.leaderboard.points": -1 } },
+                                  // Put add a new field with the user info according to the user's id
                                   { $lookup: {
                                       from: "userdatabases",
                                       localField: "games.leaderboard.userId",
@@ -76,6 +80,7 @@ const getGameLeaderboard = async(req, res, next) => {
                                       gameName: { $first: "$games.gameName" },
                                       leaderboard: { $push: "$games.leaderboard" } }
                                   },
+                                  // Return the wanted fields with the userRank
                                   { $project: {
                                       _id: 0,
                                       categoryId: 1,
@@ -107,6 +112,7 @@ const getGameLeaderboard = async(req, res, next) => {
                 res.status(400).json({ message:"Leaderboard is empty" });
             }else{
                 res.status(200).json(leaderboard);
+        
             }
         }else{
             res.status(400).json({ message: "Incorrect or missing data"});

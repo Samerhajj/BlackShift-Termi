@@ -48,6 +48,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: undefined,
   },
+  recentSearch: {
+    type: [String], // Array of strings
+    maxItems: 10, // Maximum number of items in the array
+    unique: true
+  },
+  status: {
+    type: [String]
+  }
 });
 
 UserSchema.methods.generatePasswordResetToken = function() {
