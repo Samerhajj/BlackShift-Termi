@@ -34,13 +34,6 @@ const BackwordDefinition = () =>{
 	const [elapsedTime, setElapsedTime] = useState(0);
 	const [timeLeft, setTimeLeft] = useState(30);
 	const [points,setPoints]=useState(0);
-	// console.log("9999999999999999999999999999")
-	// console.log(
-	// 	categories.find(category => category.categoryId == userData.field) && (categories.find(category => category.categoryId == userData.field).categoryName[LanguageMap[i18n.language].name])
-
-	// 	)
-	// console.log("9999999999999999999999999999")
-
 	const [category, setCategory] = useState(userData.field);
 	
 	
@@ -204,7 +197,7 @@ const BackwordDefinition = () =>{
 			
 			setMessage(t('games.backword-definition.wronganswer')+' : ' + correctAnswer);
 		}
-			    		    	HIGH_SCORE_ACHIEVEMENT.check(score);
+    	HIGH_SCORE_ACHIEVEMENT.check(score);
 		
 		setTimeout(() => {
 			// reset the classes of the answer options
@@ -234,7 +227,6 @@ const BackwordDefinition = () =>{
 		},1000);
 	};
 		
-
 	const finishGame = async()=>{
 		// let prev_point = localStorage.getItem("points");
 		setShowScore(true);

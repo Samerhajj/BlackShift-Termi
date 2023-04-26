@@ -6,8 +6,8 @@ import CategorySelector from "../../components/CategorySelector";
 import {LoginContext} from "../../components/LoginContext";
 import {CategoriesContext} from "../../components/CategoryContext";
 import Menu from "../Menu/Menu";
+import LanguageSelector from '../../components/LanguageSelector';
 
-import "typeface-roboto";
 
 // Translate
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,7 @@ import { MdOutlineReplay,MdArrowBack } from "react-icons/md";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { Modal, Button } from "react-bootstrap";
 import "./MemoryGame.css";
+import "typeface-roboto";
 
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
@@ -26,9 +27,6 @@ import GameHistoryAPI from '../../api/GameHistoryAPI';
 import songTest from '../../assets/sound/christmas-song.mp3';
 
 const MemoryGame = () => {
-
-	// localStorage.setItem('currentPage', 'MemoryGame')//test
-
 	const {userData, setUserData} = useContext(LoginContext);
 	const { categories } = useContext(CategoriesContext);
 	const { t, i18n } = useTranslation();
@@ -44,10 +42,8 @@ const MemoryGame = () => {
 	const [category, setCategory] = useState(userData.field);
 	const gameName = 'Memory Game';
 
- const [musicPlaying, setMusicPlaying] = useState(true);
-  const toggleMusic = () => setMusicPlaying(!musicPlaying);	
-	
-
+	const [musicPlaying, setMusicPlaying] = useState(true);
+	const toggleMusic = () => setMusicPlaying(!musicPlaying);	
 	
 	const restartGame = () => {
 		setCards([]);
@@ -72,13 +68,17 @@ const MemoryGame = () => {
 		        for (var i=0;i<terms.length;i++)
 		        {
 		        	let conceptNameIndex = Math.floor(Math.random() * numOfCards);
+		        	terms[i].conceptName.type = "concept name";
 		        	allCards.splice(conceptNameIndex, 0, terms[i].conceptName);
 		        	
 		        	let shortDefinitionIndex = Math.floor(Math.random() * numOfCards);
+		        	terms[i].shortDefinition.type = "short definition";
 		        	allCards.splice(shortDefinitionIndex, 0, terms[i].shortDefinition);
 		        	
 		        	answers.set(terms[i].conceptName.english, terms[i].shortDefinition.english);
 		        }
+		        console.log(answers)
+		        console.log(allCards)
 	        	setAnswers(answers);
 		        setCards(allCards);
 				setShowScore(false);
@@ -172,33 +172,37 @@ const MemoryGame = () => {
 		}
 	}, [solved]);
 	
-function handleGoBack(){
-   setStart(false);
-  setSolved([]);
-  setFlipped([]);
-  setDisabled(false);
-  setNumOfTries(0);
-  setPointsGained(0);
-    setStart(false);
-}
+	function handleGoBack(){
+		setStart(false);
+		setSolved([]);
+		setFlipped([]);
+		setDisabled(false);
+		setNumOfTries(0);
+		setPointsGained(0);
+		setStart(false);
+	}
 
 
 	return (
 		<>
-	
 		   {musicPlaying && <audio src={songTest} autoPlay loop />}
-		
-		{!start && (
-  <Menu
-    selectedCategory={category}
-    gameName={gameName}
-    handleMusicToggle={toggleMusic}
-    musicPlaying={musicPlaying}
-    handleStart={initGame}
-  />
-)}
+			{!start && (
+			  <Menu
+			    selectedCategory={category}
+			    gameName={gameName}
+			    handleMusicToggle={toggleMusic}
+			    musicPlaying={musicPlaying}
+			    handleStart={initGame}
+			  />
+			)}
 			{start ? (
-				<div>
+				<div dir="ltr">
+					<div className="d-flex flex-wrap justify-content-between">
+						<a className="icon-button" onClick={handleGoBack}>
+	                    	<MdArrowBack/>
+	                	</a>
+	                	<LanguageSelector/>
+	            	</div>
 					{showScore ? (
 						<div className="score-box">
 							<h2>{t('games.memory-game.score')}</h2>
@@ -207,36 +211,36 @@ function handleGoBack(){
 							<MdOutlineReplay className="icon-button" onClick={() => {restartGame()}}/>
 						 </div>
 					) : (
-						<div className="memory-cards-grid">
-						 <button className="icon-button"  onClick={handleGoBack}>
-                    <MdArrowBack />
-                </button>
-							{cards.map((card,index) =>{
-								 const { feedbackClass } = flipped.find(card=>card.index ===index) || { feedbackClass: '' };
-								 return (
-									<div key={index} className={disabled ? "memory-card disabled-memory-card" : "memory-card"}>
-									
-										{flipped.find(element => element.index == index) ? (
+						<div>
+							<div className="memory-cards-grid">
+								{cards.map((card,index) =>{
+									 const { feedbackClass } = flipped.find(card=>card.index === index) || { feedbackClass: '' };
+									 return (
+										<div key={index} className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${flipped.find(element => element.index == index) ? 'flipped' : ''}`}>
+											<div className="memory-card-inner">
 										
-											<div className={`front ${feedbackClass==='correct' ? 'correct' :''} ${feedbackClass==='incorrect' ? 'incorrect' :''}`}>
-												{card[LanguageMap[i18n.language].name]}
-											</div>
-										):(
-											<>
-												{solved.includes(index) ? (
-													<div className="front">
-														{card[LanguageMap[i18n.language].name]}
-													</div>
-												):(
-													<div className="back" onClick={() => {flip(index)}}>
-														{card[LanguageMap[i18n.language].name]}
-													</div>
-												)}
-											</>
-										)}
+											{flipped.find(element => element.index == index) ? (
+												<div className={`front ${feedbackClass==='correct' ? 'correct' :''} ${feedbackClass==='incorrect' ? 'incorrect' :''}`}>
+													{card[LanguageMap[i18n.language].name]}
+												</div>
+											):(
+												<>
+													{solved.includes(index) ? (
+														<div className="front">
+															{card[LanguageMap[i18n.language].name]}
+														</div>
+													):(
+														<div className={`back ${card.type==='concept name' ? 'concept-name-type' :'short-definition-type'}`} onClick={() => {flip(index)}}>
+															{card[LanguageMap[i18n.language].name]}
+														</div>
+													)}
+												</>
+											)}
+										</div>
 									</div>
-								)
-							})}
+									)
+								})}
+							</div>
 						</div>
 					)}
 				</div>

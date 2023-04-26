@@ -3,9 +3,8 @@
   align-items: center;
   justify-content: center;
   font-family: 'Cool Font', sans-serif;
-  
-  
 }
+
 .small-button {
   display: flex;
   padding: 0;
@@ -39,7 +38,6 @@ h1 {
   align-items: center;
   justify-content: center;
 }
-
 
 .restart-button {
   margin: 0 40px;
