@@ -15,7 +15,11 @@ const register = async (req, res) => {
   }
   // Extract the fields from the request body
   // const {fullName, phone, language, field, email, password,favorite } = req.body.data;
-  const {fullName, phone, language, field, email, password,favorite,gender } = req.body.data;
+  const {fullName, phone, language, field, email, password,favorite,gender,status } = req.body.data;
+
+  console.log("888888888888888888888888888")
+  console.log(req.body)
+    console.log("888888888888888888888888888")
 
     // const {fullName, phone, language, field, email, password,favorite } = req.body;
 
@@ -38,6 +42,7 @@ const register = async (req, res) => {
     email, 
     password,
     gender,
+    status,// new
     isVerified: false, // add this field to the user document
     verificationToken: crypto.randomBytes(20).toString('hex'), // generate a verification token
     passwordResetToken: undefined,
