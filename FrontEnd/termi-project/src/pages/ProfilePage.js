@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useContext} from "react";
 import Image from "react-bootstrap/Image";
-import { Modal, Button ,Col,Row} from "react-bootstrap";
+import { Col, Row, Nav, Tab} from "react-bootstrap";
 import AvatarGenerator from "./Logic/AvatarGenerator";
 import { useNavigate} from 'react-router-dom';
 import "./../styles/ProfilePage.css";
@@ -8,40 +8,31 @@ import profileAPI from "../api/ProfileAPI";
 import UserAPI from "../api/UserAPI";
 
 import {LoginContext} from "./../components/LoginContext";
-import MyTable from "./MyTable";
-import { LineChart, Line, XAxis, YAxis, Legend, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';
 
-
-// import Chart from 'chart.js';
-
-// import {useSelector,useDispatch} from 'react-redux';
-// import { updateUserProfile } from '../redux/actions/userDataActions';
 // --> import Icons
 import { IconContext } from "react-icons";
-import { AiTwotoneStar,AiFillStar } from "react-icons/ai";
-import {IoPersonCircle} from 'react-icons/io5';
+import { IoPersonCircle } from 'react-icons/io5';
 import { BsGenderAmbiguous } from 'react-icons/bs';
-import{MdEmail,MdCategory,MdPassword,MdBorderColor} from 'react-icons/md';
-import {AiFillMobile} from "react-icons/ai";
+import{ MdEmail, MdCategory } from 'react-icons/md';
+import { AiFillMobile } from "react-icons/ai";
 import { VscActivateBreakpoints } from "react-icons/vsc";
-import { BiSearchAlt,BiConversation } from "react-icons/bi";
+import { BiSearchAlt, BiConversation } from "react-icons/bi";
 
-import ChangePassModal from './Profile/ChangePassModal';//new
-import EditProfileModal from './Profile/EditProfileModal';//new
+import ChangePassModal from './ProfileEdit/ChangePassModal';//new
+import EditProfileModal from './ProfileEdit/EditProfileModal';//new
 
 import { CategoriesContext } from "../components/CategoryContext";
+import Leaderboard from "../components/Leaderboard/Leaderboard";
 import { useTranslation } from 'react-i18next';
 import LanguageMap from "../api/LanguageAPI";
 import GameHistoryAPI from "../api/GameHistoryAPI";
 
+
 const ProfilePage =  () => {
   const { categories } = useContext(CategoriesContext);
   const user = useContext(LoginContext);
-  //const userData = useSelector(state => state.data);
   console.log(user)
- // console.log(user.userData.searchCounter);
-   //  const dispatch=useDispatch();
-  // localStorage.setItem('currentPage', document.title)//test
   const { t, i18n } = useTranslation();
   let avatarGenerator = new AvatarGenerator();
   let avatarImageUrl = avatarGenerator.generateRandomAvatar("random123");
@@ -49,7 +40,7 @@ const ProfilePage =  () => {
   const [showModalAvatar, setShowModalAvatar] = useState(false);
   const [showPasswordModal,setShowPasswordModal]=useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [points,setPoints]=useState(0);
   const [searchCounter,setSearchCounter]=useState(0);
   const [suggestCounter,setSuggestCounter]=useState(0);
@@ -61,23 +52,23 @@ const ProfilePage =  () => {
   function handleOpenModalAvatar() {
     setShowModalAvatar(true);
   }
-  const handleClick = () => {
+  const handleFavoriteClick = () => {
     navigate('/favorite');
   };
  
- const [gamesData, setGamesData] = useState([]);
+  const [gamesData, setGamesData] = useState([]);
 
-const gameColors = {
+  const gameColors = {
   'Memory Game': 'blue',
   'Backward': 'red',
   'Other Game': 'green'
-}
+};
 
- useEffect(() => {
+  useEffect(() => {
     fetchData();
   }, []);
 
-async function fetchData() {
+  async function fetchData() {
   setIsLoading(true);
   const res = await GameHistoryAPI.getGameHistory();
   const gamesData = res.body.games;
@@ -103,9 +94,7 @@ async function fetchData() {
   setIsLoading(false);
 }
 
-
-  
- console.log(gamesData);
+  console.log(gamesData);
 
 // const chartOptions = {
 //     scales: {
@@ -116,10 +105,11 @@ async function fetchData() {
 // };
 
  
- function handleOpenPasswordModal()
- {
-   setShowPasswordModal(true);
- }
+  function handleOpenPasswordModal()
+  {
+    setShowPasswordModal(true);
+  }
+ 
   const [formValues, setFormValues] = useState({
     fullName: user.userData.fullName,
     email: user.userData.email,
@@ -226,160 +216,203 @@ const handleSuggest = async () =>{
         </div>
       </div>
       
-      <div className="wrapper">
-       <div className="box_process cf" dir="ltr">  
-             <div onClick={(e)=>{handleClick(e)}}  className="star-profile-fav">
-     
+      
+    <div className="wrapper">{/*Start of div Wrapper*/}    
+      
+      {/*Start div of buttons editPassword/favorite/editDetails*/}
+      {/*<div className="d-flex m-3" dir="ltr">
+      
+        <div className="star-profile-fav">
           <IconContext.Provider value={{ size: "2.2rem" }}>
-          <Button id="change-left-m-button-profile-1" className="p-0 send-to-front "  onClick={(e)=>{handleClick(e)}} >
-          <AiFillStar className=""/>
+            <Button id="change-left-m-button-profile-1" className="p-0 send-to-front "  onClick={(e)=>{handleFavoriteClick(e)}} >
+              <AiFillStar className=""/>
             </Button>
           </IconContext.Provider> 
-          
-      </div>
-     
-      <div onClick={() => {handleOpenModal()}} className="star-profile-fav">
-          <Button id="change-left-m-button-profile-2" className="p-0 send-to-front">
-          <IconContext.Provider value={{ size: "2.2rem" }}>
-          <MdBorderColor className=""/>
-          </IconContext.Provider> 
-          </Button>
-      </div>
-              <div onClick={() => {handleOpenPasswordModal()}} className="star-profile-fav">
-         <Button id="change-left-m-button-profile-3" className="p-0 send-to-front">
-          <IconContext.Provider value={{ size: "2.2rem" }}>
-          <MdPassword className=""/>
-          </IconContext.Provider> 
-          </Button>
-      </div>
-             </div>
-      <div className="box-process cf">
-        <div className="icon-text-container">
-      <IconContext.Provider value={{ size: "2.5rem" }}>
-              <IoPersonCircle className="margin-for-profile"/>
-             <h3 className="text-margin"> {t('profile.name')}:</h3> <div className="text_data">{user.userData.fullName}</div>
-              {/*<span className="span-in-profile">Name : <span className="inner-span">{user.userData.fullName}</span></span>*/}
-      </IconContext.Provider>  
-      </div>
-  {/*</div>
-      
-  <div>*/}
- <div className="box-process cf">
-      <div className="icon-text-container">
-      <IconContext.Provider value={{ size: "2.5rem" }}>
-            <BsGenderAmbiguous className="bigger-icon margin-for-profile"/>
-          <h3 className="text-margin"> {t('profile.gender')}:</h3> <div className="text_data">{user.userData.gender}</div>
-      </IconContext.Provider>  
-      </div>
-     </div>
- {/* </div>
-
-  <div>*/}
-    <div className="icon-text-container">
-      <IconContext.Provider value={{ size: "2.5rem" }}>
-            <MdCategory className="bigger-icon margin-for-profile"/>
-           
-              <h3 className="text-margin">{t('profile.categories')}: </h3> <div className="text_data">{categories.find(category => category.categoryId == user.userData.field) && (categories.find(category => category.categoryId == user.userData.field).categoryName[LanguageMap[i18n.language].name])}
-          </div>
-      </IconContext.Provider>
-      </div>
-          <div className="icon-text-container">
-       <IconContext.Provider value={{ size: "2.5rem" }}>
-          <AiFillMobile className="bigger-icon margin-for-profile"/>
-         <h3 className="text-margin"> {t('profile.phone')}:</h3> <div className="text_data">{user.userData.phone}</div>
-      </IconContext.Provider>
-</div>
-    <div className="icon-text-container">
-        <IconContext.Provider value={{ size: "2.5rem" }}>
-          <MdEmail className="bigger-icon margin-for-profile"/>
-         <h3 className="text-margin"> {t('profile.email')}:</h3> <div className="text_data">{user.userData.email}</div>
-        </IconContext.Provider>
         </div>
-
-    <div className="icon-text-container">
-        <IconContext.Provider value={{ size: "2.5rem" }}>
-          <VscActivateBreakpoints className="bigger-icon margin-for-profile"/>
-         <h3 className="text-margin"> {t('profile.points')}: </h3> <div className="text_data">{user.userData.points}</div>
-        </IconContext.Provider>
-</div>
-    <div className="icon-text-container">
-        <IconContext.Provider value={{ size: "2.5rem" }}>
-          <BiSearchAlt className="bigger-icon margin-for-profile"/>
-         <h3 className="text-margin"> {t('profile.search-counter')}:</h3> <div className="text_data">{user.userData.searchCounter}</div>
-        </IconContext.Provider>
-</div>
-    <div className="icon-text-container">
-        <IconContext.Provider value={{ size: "2.5rem" }}>
-          <BiConversation className="bigger-icon margin-for-profile"/>
-       <h3 className="text-margin"> {t('profile.sugges-counter')}:</h3> <div className="text_data">{user.userData.suggestConceptCounter}</div>
-        </IconContext.Provider>
- 
-      </div>
-    
-      </div>
-      </div>
-
-
-
-      
-
-    
-      
-          <EditProfileModal 
-                        showModal={showModal}
-                        handleCloseModal={handleCloseModal}
-                        handleChange={handleChange}
-                        formValues={formValues}
-                        handleSaveChanges={handleSaveChanges}
-                        />
-         <ChangePassModal 
-                          showPasswordModal={showPasswordModal}
-                          handleClosePasswordModal={handleClosePasswordModal}
-                          showPasswordError={showPasswordError}
-                          handleChange={handleChange}
-                          formValues={formValues}
-                          handleSavePasswordChanges={handleSavePasswordChanges}
-                        />
-
-         
-           
-  {/*<button onClick={fetchData}>GET DATA</button>*/}
-  
-   <div className="wrapper">
-  {isLoading ? (
-    <p>Loading...</p>
-  ) : (
-
-<ResponsiveContainer width="100%" height={400}>
-  <LineChart margin={{ top: 30, bottom: 30, left: 30, right: 30 }} data={gamesData.reduce((acc, { label, y }) => y.map((value, i) => ({ x: i + 1, [label]: value, ...acc[i] || {} })), [])}>
-    <XAxis dataKey="x" label={{ value: "Game Number", position: "insideBottom", dy: 10 }} />
-    <YAxis label={{ value: "Score", angle: -90, position: "insideLeft" }} scale="pow" exponent={0} domain={[0, 10]} />
-    <Legend />
-    {gamesData.map(game => (
-      <Line
-        key={game.label}
-        dataKey={game.label}
-        stroke={gameColors[game.label]}
-        strokeWidth={2}
-        dot={{ stroke: gameColors[game.label], strokeWidth: 2 }}
-      />
-    ))}
-  </LineChart>
-</ResponsiveContainer>
-
-
-
      
-  )}
+        <div onClick={() => {handleOpenModal()}} className="star-profile-fav">
+          <Button id="change-left-m-button-profile-2" className="p-0 send-to-front">
+            <IconContext.Provider value={{ size: "2.2rem" }}>
+              <MdBorderColor className=""/>
+            </IconContext.Provider> 
+          </Button>
+        </div>
+        
+        <div onClick={() => {handleOpenPasswordModal()}} className="star-profile-fav">
+          <Button id="change-left-m-button-profile-3" className="p-0 send-to-front">
+            <IconContext.Provider value={{ size: "2.2rem" }}>
+              <MdPassword className=""/>
+            </IconContext.Provider> 
+          </Button>
+        </div>
+        
+      </div>*/}{/*end div of buttons editPassword/favorite/editDetails*/}
+             
+      
+    {/*End of div Wrapper*/}      
+    </div>
 
-{console.log(gamesData)}
-                
-             </div>
- <button onClick={handleSuggest}>Don't Click</button>
+
+   
+    <EditProfileModal
+      showModal={showModal}
+      handleCloseModal={handleCloseModal}
+      handleChange={handleChange}
+      formValues={formValues}
+      handleSaveChanges={handleSaveChanges}
+    />
+    
+    <ChangePassModal
+      showPasswordModal={showPasswordModal}
+      handleClosePasswordModal={handleClosePasswordModal}
+      showPasswordError={showPasswordError}
+      handleChange={handleChange}
+      formValues={formValues}
+      handleSavePasswordChanges={handleSavePasswordChanges}
+    />
+  
+  
+  <div className="wrapper">
+    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+      <Row>
+      
+        <Col sm={3}>
+          <Nav variant="pills" className="flex-column">
+            <Nav.Item className="ItemNavFirst" >
+              <Nav.Link eventKey="first">Details</Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="ItemNavSecond">
+              <Nav.Link eventKey="second">Progress</Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="ItemNavThired">
+              <Nav.Link eventKey="Thired">Leader board</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Col>
+        
+        <Col sm={9}>
+          <Tab.Content>
+          
+            <Tab.Pane eventKey="first">
+              {/*Start of div details*/}
+              <div className="box-process cf">
+              
+              
+              
+                {/*Name */}
+                <div className="icon-text-container">
+                  <IconContext.Provider value={{ size: "2.5rem" }}>
+                      <IoPersonCircle className="margin-for-profile"/>
+                      <h3 className="text-margin"> {t('profile.name')}:</h3> <div className="text_data">{user.userData.fullName}</div>
+                      {/*<span className="span-in-profile">Name : <span className="inner-span">{user.userData.fullName}</span></span>*/}
+                  </IconContext.Provider>  
+                </div>
+        
+              
+                {/*Gender*/}
+                <div className="icon-text-container">
+                  <IconContext.Provider value={{ size: "2.5rem" }}>
+                    <BsGenderAmbiguous className="bigger-icon margin-for-profile"/>
+                    <h3 className="text-margin"> {t('profile.gender')}:</h3> <div className="text_data">{user.userData.gender}</div>
+                  </IconContext.Provider>  
+                </div>
+        
+          
+                {/*Category*/}
+                <div className="icon-text-container">
+                  <IconContext.Provider value={{ size: "2.5rem" }}>
+                    <MdCategory className="bigger-icon margin-for-profile"/>
+                      <h3 className="text-margin">{t('profile.categories')}: </h3> <div className="text_data">{categories.find(category => category.categoryId == user.userData.field) && (categories.find(category => category.categoryId == user.userData.field).categoryName[LanguageMap[i18n.language].name])}</div>
+                  </IconContext.Provider>
+                </div>
             
-    </>
-    );
-}
+            
+                {/*Phone*/}
+                <div className="icon-text-container">
+                  <IconContext.Provider value={{ size: "2.5rem" }}>
+                    <AiFillMobile className="bigger-icon margin-for-profile"/>
+                    <h3 className="text-margin"> {t('profile.phone')}:</h3> <div className="text_data">{user.userData.phone}</div>
+                  </IconContext.Provider>
+                </div>
+            
+            
+                {/*Email*/}
+                <div className="icon-text-container">
+                  <IconContext.Provider value={{ size: "2.5rem" }}>
+                    <MdEmail className="bigger-icon margin-for-profile"/>
+                    <h3 className="text-margin"> {t('profile.email')}:</h3> <div className="text_data">{user.userData.email}</div>
+                  </IconContext.Provider>
+                </div>
+        
+        
+                {/*Points*/}
+                <div className="icon-text-container">
+                  <IconContext.Provider value={{ size: "2.5rem" }}>
+                    <VscActivateBreakpoints className="bigger-icon margin-for-profile"/>
+                    <h3 className="text-margin"> {t('profile.points')}: </h3> <div className="text_data">{user.userData.points}</div>
+                  </IconContext.Provider>
+                </div>
+              
+              
+                {/*Search Counter*/}
+                <div className="icon-text-container">
+                  <IconContext.Provider value={{ size: "2.5rem" }}>
+                    <BiSearchAlt className="bigger-icon margin-for-profile"/>
+                    <h3 className="text-margin"> {t('profile.search-counter')}:</h3> <div className="text_data">{user.userData.searchCounter}</div>
+                  </IconContext.Provider>
+                </div>
+              
+              
+                {/*Suggest Counter*/}
+                <div className="icon-text-container">
+                  <IconContext.Provider value={{ size: "2.5rem" }}>
+                    <BiConversation className="bigger-icon margin-for-profile"/>
+                    <h3 className="text-margin"> {t('profile.sugges-counter')}:</h3> <div className="text_data">{user.userData.suggestConceptCounter}</div>
+                  </IconContext.Provider>
+                </div>
+            
+              {/*End of div details*/}    
+              </div>
+            </Tab.Pane>
+            
+            <Tab.Pane eventKey="second">
+              {isLoading ? (<p>Loading...</p>) : (
+                <ResponsiveContainer width="100%" height={400}>
+                  <LineChart margin={{ top: 30, bottom: 30, left: 30, right: 30 }} data={gamesData.reduce((acc, { label, y }) => y.map((value, i) => ({ x: i + 1, [label]: value, ...acc[i] || {} })), [])}>
+                    <XAxis dataKey="x" label={{ value: "Game Number", position: "insideBottom", dy: 10 }} />
+                    <YAxis label={{ value: "Score", angle: -90, position: "insideLeft" }} scale="pow" exponent={0} domain={[0, 10]} />
+                    <Legend />
+          
+                    {gamesData.map(game => (
+                    <Line
+                      key={game.label}
+                      dataKey={game.label}
+                      stroke={gameColors[game.label]}
+                      strokeWidth={2}
+                      dot={{ stroke: gameColors[game.label], strokeWidth: 2 }}
+                    />
+                    ))}
+                  </LineChart>
+                </ResponsiveContainer>
+              )}
+              {console.log(gamesData)}
+                
+            </Tab.Pane>
+            
+            <Tab.Pane eventKey="Thired">
+              <Leaderboard/>
+            </Tab.Pane>
+            
+          </Tab.Content>
+        </Col>
+      </Row>
+      </Tab.Container>
+    </div>
+  
+  {/*<button onClick={handleSuggest}>Don't Click</button>*/}
+            
+  </>
+);}
 
 // <VictoryScatter
 //   data={data}
