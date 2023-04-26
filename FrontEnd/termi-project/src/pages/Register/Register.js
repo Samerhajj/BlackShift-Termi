@@ -25,12 +25,24 @@ const Register = () =>{
   const navigate = useNavigate();
   const {t, i18n} = useTranslation();
   // const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",field:"",favorite:[]});
-  const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",gender : "",field:"",favorite:[]});
+  // const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",gender : "",field:"",favorite:[]});
+  const [data,setData] = useState({
+    fullName:"",
+    phone:"",
+    language:"",
+    email:"",
+    password:"",
+    gender : "",
+    field:"",
+    favorite:[],
+    status:[]
+  });
+
   const { errors, validate } = RegisterHook(); // use the custom hook
   const { categories } = useContext(CategoriesContext);
-   const [registered, setRegistered] = useState(false); // new state variable
+  const [registered, setRegistered] = useState(false); // new state variable
 
-  
+  {
 //   const [category,setCategory] = useState([]);
 // {
 //   // Handle the button click to register
@@ -61,7 +73,7 @@ const Register = () =>{
 // 								   }
 // fetchCategory();	
 // },[])
-
+}
 const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validate(data); // validate the data
@@ -69,7 +81,16 @@ const handleSubmit = async (e) => {
     // If there are errors, display them to the user
     return;
     }
+    // setData((prevState) => ({ ...prevState, status: selectedStatus }));// new
+    // await setData({...data,status : selectedStatus})
+    
+    // Update the data state in the parent component
+    // setData({ ...setData, status: selectedStatus });
     // If there are no errors, make the API call
+    
+    setData((prevState) => ({ ...prevState, status: selectedStatus })); // update data state with selectedStatus
+
+    
     const response = await AuthAPI.register({data:data});
     
     if(response.success){
@@ -78,6 +99,7 @@ const handleSubmit = async (e) => {
     else{
         alert(response.message);
     }
+    console.log(selectedStatus)
   };
   
     return(
@@ -180,6 +202,7 @@ const handleSubmit = async (e) => {
             <option value="Hebrew">{t('register.lang_he')}</option>
       </select>
 
+      <CheckBox setData={setData}  selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
 
           
           <div className="form-group">
@@ -199,4 +222,3 @@ const handleSubmit = async (e) => {
     );
 }
 export default Register
-//       <CheckBox selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
