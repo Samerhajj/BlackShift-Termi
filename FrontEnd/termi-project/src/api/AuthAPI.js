@@ -52,6 +52,10 @@ const login = async (loginData) =>{
 
 const register = async (registerData) =>{
     try{
+          console.log("7777777777777777777");
+          console.log(registerData)
+          console.log("7777777777777777777");
+
         const res = await axios.post(registerRoute, registerData);
         return {body: res.data, success: true};
     }

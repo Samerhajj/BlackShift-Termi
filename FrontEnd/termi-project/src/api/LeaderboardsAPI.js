@@ -1,28 +1,43 @@
 import axios from "axios";
-import { getGameLeaderboard } from '../api/ApiRoutes';
+import { leaderboardRoute, availableContextsRoute } from './ApiRoutes';
 
-// Function to call the API and get the leaderboard data
-async function fetchLeaderboardData(category, gameName, limit) {
+// Function to get the leaderboard data
+async function getLeaderboard(category, context, limit) {
   try {
-    // Make the API call
-    const response = await axios.get(getGameLeaderboard, {
+    const response = await axios.get(leaderboardRoute, {
       params: {
         category: category,
-        gameName: gameName,
+        context: context,
         limit: limit,
       },
       headers: {
         'x-auth-token': localStorage.getItem('token')
       }
     });
-
-    // Return the leaderboard data
-    console.log(response.data)
-    return response.data;
+    
+    return {body: response.data, success: true};
   } catch (error) {
-    console.error(error);
-    return null;
+    return {message: error.message,success: false};
   }
 }
 
-export default fetchLeaderboardData;
+// Function to get the leaderboard data
+async function getAvailableContexts(category) {
+  try {
+    const response = await axios.get(availableContextsRoute, {
+      params: {
+        category: category
+      }
+    });
+    
+    return {body: response.data, success: true};
+  } catch (e) {
+        if(e.response){
+            return {success: false, message: e.response.data};
+        }else{
+            return {success: false, message: e.message};
+        }
+  }
+}
+
+export default { getLeaderboard, getAvailableContexts};
