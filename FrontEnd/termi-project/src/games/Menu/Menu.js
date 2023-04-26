@@ -1,19 +1,20 @@
 import React, { useState,useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import { FaMusic, FaVolumeMute, FaPlay, FaStop, FaBars } from 'react-icons/fa';
 import { MdHome } from 'react-icons/md';
-import { Link } from 'react-router-dom';
 import "./Menu.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import fetchLeaderboardData from "../../api/LeaderboardsAPI";
-import LeaderModal from './LeaderModal';
 import backgroundVideo from "./testground.mp4";
 import buttonClickSound from './sounds/buttonclick.wav';
 import buttonRollOver from './sounds/buttonrollover.wav';
 import "typeface-roboto"; 
-function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying,gameName,selectedCategory }) {
+
+import LeaderModal from './LeaderModal';
+
+function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying, gameName, selectedCategory }) {
   
   useEffect(() => {
-    
     const audioClick = document.getElementById("audioClick");
     const audioHover = document.getElementById("audioHover");
     const links = document.querySelectorAll(".menu-item");
@@ -47,30 +48,12 @@ function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying,
     };
   }, []);
   
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
-  const [leaderboardData, setLeaderboardData] = useState(null);
-const [gameTestName,setGameTestName]=useState(null);
-
-
-  async function handleLeaderboard() {
-    try {
-      const category = selectedCategory;
-      const limit = 10;
-
-      // Call the API to get the leaderboard data
-      const data = await fetchLeaderboardData(category, gameName, limit);
-      
-      // Set the leaderboard data in state
-      setLeaderboardData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  console.log(gameName);
   return (
     <>
       <audio id="audioClick">
@@ -83,18 +66,17 @@ const [gameTestName,setGameTestName]=useState(null);
     
       
      <div className="screen">
-  
       <video autoPlay muted id="background">
         <source src={backgroundVideo} type="video/mp4" />
       </video>
        <div className="menu-container">
-       <h1> Memory Game</h1>
+       <h1>{gameName}</h1>
        <h3>First Edition</h3>
       <div className="menu-item" onClick={handleStart}>
         <FaPlay className="menu-icon" />
         <span className="menu-text">Start</span>
       </div>
-     <div className="menu-item" onClick={() => handleLeaderboard()}>
+     <div className="menu-item" onClick={() => setShowLeaderboard(true)}>
         <FaBars className="menu-icon" />
         <span className="menu-text">Leaderboard</span>
       </div>
@@ -109,11 +91,14 @@ const [gameTestName,setGameTestName]=useState(null);
       <Link to="/games">
         <div className="menu-item">
           <MdHome className="menu-icon" />
-          <span className="menu-text">Main Menu</span>
+          <span className="menu-text">Games Menu</span>
         </div>
       </Link>
-   {leaderboardData !== null && <LeaderModal data={leaderboardData} onClose={() => setLeaderboardData(null)} />}
-
+      {showLeaderboard ? 
+        <LeaderModal gameName={gameName} onClose={() => setShowLeaderboard(false)} />
+        :
+        null
+      }
     </div>
     </div>
     </>

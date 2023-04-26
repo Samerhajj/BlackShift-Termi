@@ -37,14 +37,13 @@ position: relative;
   left:-130px;
 }
 
-
-
-
 .menu-item {
   text-decoration:none;
   color:#fff;
   font-weight: 700;
   margin:1em 0;
+  cursor: pointer;
+  display: flex;
 }
 
 .menu-icon {
