@@ -18,7 +18,7 @@ export { default as VerifyPage} from "./VerifyPage";
 export { default as HomePage } from"./HomePage";
 export { default as ForgotPassword } from"./ForgotPassword";
 export { default as GamesPage } from"./GamesPage";
-export { default as ProfilePage } from"./ProfilePage";
+export { default as ProfilePage } from"./ProfilePage/ProfilePage";
 export { default as SuggestConceptPage } from"./SuggestConceptPage";
 export { default as TermsPage } from"./TermsPage";
 export { default as ErrorPage } from"./ErrorPage";

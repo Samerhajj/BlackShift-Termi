@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import BackwordImg from "../assets/images/backword-definition-img.jpg";
 import MemoryImg from "../assets/images/memory-game-img.jpg";
 import HangmanImg from "../assets/images/hangman-game-img.jpg";
+import Kara from "../assets/images/kara.png";
 import { useTrail, animated } from 'react-spring';
 
 // Navigation
@@ -47,6 +48,14 @@ const GamesPage = () => {
       path:"/games/hangman-game",
       img: HangmanImg
     },
+    { 
+      id: 3,
+      title:t('games.hangman-game.title'),
+      description:t('games.hangman-game.description'),
+      instructions:t('games.hangman-game.step-by-step', { returnObjects: true }),
+      path:"/games/kart-jara",
+      img: Kara
+    },
   ];
   
   function handleOpenModal(game) {
@@ -76,19 +85,19 @@ const GamesPage = () => {
      
       </div>
 
-      {/*<Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-3">
+      <Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-3">
         {games.map((game) => (
             <GameCard key={game.id} game={game} showInstructionsModal={() => {handleOpenModal(game)}}/>
         ))}
-      </Container>*/}
+      </Container>
       
-      <animated.div className="d-flex flex-wrap mt-3 justify-content-center justify-content-evenly align-items-stretch gap-3">
+      {/*<animated.div className="d-flex flex-wrap mt-3 justify-content-center justify-content-evenly align-items-stretch gap-3">
         {gamesTransition.map((styles, index) => (
           <animated.div className="col-md-4 col-lg-3 mb-3" key={games[index].id} style={styles}>
             <GameCard game={games[index]} showInstructionsModal={() => {handleOpenModal(games[index])}}/>
           </animated.div>
         ))}
-      </animated.div>
+      </animated.div>*/}
       
       {/*<Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-3">
         {games.map((game, index) => (
