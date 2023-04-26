@@ -1,6 +1,4 @@
 import React,{useEffect, useState, useContext} from 'react';
-import axios from 'axios';
-import FavCard from './FavCard';
 import fav from './fav.css';
 
 import TermCard from '../../components/TermCard/TermCard';
@@ -13,7 +11,6 @@ import { LoginContext } from "../../components/LoginContext";
 
 const Favorite  = ({initialLanguage}) =>{
     const { i18n, t } = useTranslation();
-    console.log("hi from Favorite parent");
     const { userData } = useContext(LoginContext);
     const [list,setList] = useState([]);
     const [isOpen,setIsOpen] = useState(false);
@@ -30,21 +27,11 @@ const Favorite  = ({initialLanguage}) =>{
         } else {
           alert(response.message);
         }
-  };
-  useEffect(()=>{
+    };
+    
+    useEffect(()=>{
       handle_showMore();
-  },[])
-
-  const changeLanguage = (newLanguage) => {
-    setLanguage(newLanguage);
-    // Update the language of the FavCard components
-    setList(list.map((card) => {
-      return {
-        ...card,
-        initialLanguage: newLanguage
-      };
-    }));
-  };
+    },[]);
 
     return (
     <>
@@ -56,7 +43,6 @@ const Favorite  = ({initialLanguage}) =>{
          </div>
     </div>
     <div className="wrapper">
-        <button className="btn btn-primary mt-5" onClick={handle_showMore}>{t('favorite.smbtn')}</button>
         {(isOpen) ?
         (
             list.map((item,index)=>{
