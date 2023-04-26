@@ -47,12 +47,13 @@ const AddTermAdmin=()=> {
   const onFinish = async(values) => {
     values['categories'] = [values.selectedCategory];
     values['suggestedBy'] = location.state ? location.state.suggestedBy : userData.fullName;
-    
+    values['termSuggestedByID'] = location.state ? location.state.termSuggestedByID : userData._id;// new
+    // values['_id'] = location.state['_id'];
     delete values['selectedCategory'];
-            values['_id'] = location.state['_id'];
 
     console.log(values);
     const response = await AdminAPI.addSelectedTerm(values);
+    
     if(response.success){
       console.log(response);
       if(location.state && location.state['_id']){

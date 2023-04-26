@@ -23,11 +23,9 @@ const [expanded, setExpanded] = useState(false);
  const handleGetAllSuggest = async() =>{
     const response = await AdminAPI.getAllSuggestedTerms();
       if(response.success){
-                    console.log("**********************");
-
-          console.log(response.body);
-                    console.log("**********************");
-
+        console.log("**********************");
+        console.log(response.body);
+        console.log("**********************");
         setSuggestList([...response.body])
      }
      else{
@@ -94,14 +92,14 @@ return (
             <>
                 <Row className="d-flex">
                 <Col xs={12} xl={12}>
-                <Accordion className="my-3 "  className="accordion-header  ">
+                <Accordion className="my-3"  className="accordion-header">
                         
                                                                
 
                     <Accordion.Item  eventKey="0">
                     
-                        <Accordion.Header className="btnAdmin">
-                            <h2 className="btnadmin ">
+                        <Accordion.Header className="headerAccordion">
+                            <h2 className="headerAccordion">
                                 { getDefaultConceptName(item) }
                                 <strong className="font-weight-bold"></strong>
                             </h2>
@@ -113,7 +111,7 @@ return (
                         </Accordion.Header>
                                             
                                         
-                        <Accordion.Body>
+                        <Accordion.Body className="bodyAccordion">
                             {expanded && <div className="expanded-text">{JSON.stringify(item.conceptName)}</div>}
                             <SuggestCard key={index} data={item} suggestList={suggestList} setSuggestList={setSuggestList} initialLanguage={i18n.language}/>
                         </Accordion.Body>

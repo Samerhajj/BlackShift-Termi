@@ -51,6 +51,7 @@ const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
   const handleEdit=()=>{
     navigate("/admin/add-term", {
         state: {
+          termSuggestedByID:data.termSuggestedByID,
           _id: data._id,
           selectedCategory: data.categories ? data.categories[0]: undefined,
           conceptName:{

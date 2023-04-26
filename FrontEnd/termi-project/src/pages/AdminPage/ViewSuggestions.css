@@ -1,8 +1,18 @@
 .headerAccordion {
-  text-shadow: 2px 2px black;
     text-align: center;
-    color: white;
-    font-family:"Impact";
-    font-size: 50px;
-
+    padding:0;
+    margin:0;
+    width: 100%;
+    z-index:0;
+    text-overflow: ellipsis;
+    color: #0D6EFD;
+    font-size: 25px;
 }
+
+.bodyAccordion{
+    background-color: #F8F9D7;
+}
+
+/*.accordion-header{*/
+/*    background-color: yellow;*/
+/*}*/
