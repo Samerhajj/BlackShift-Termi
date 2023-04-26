@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- website title -->
+  <title>My Website</title>
+  <!-- website description -->
+  <meta name="description" content="welcome Student">
+  <!-- website image -->
+  <meta property="og:image" content="https://thehealthcaretechnologyreport.com/wp-content/uploads/2023/03/ChatGPT.jpeg">
+  <!-- website url -->
+  <meta property="og:url" content="http://dir.y2022.kinneret.cc:7024/">
+  <!-- website title -->
+  <meta property="og:title" content="BlackShift team">
+  <!-- website description -->
+  <meta property="og:description" content="This is my new website.">
+  <!-- website type -->
+  <meta property="og:type" content="website">
+  <!-- website locale -->
+  <meta property="og:locale" content="en_US">
+  <!-- website site name -->
+  <meta property="og:site_name" content="My Website">
+</head>
+<body>
+  <!-- website content -->
+</body>
+</html>

@@ -230,3 +230,19 @@
 .letters-table .letter-opt.correct-guess {
     background-color: rgb(0, 169, 130);
 }
+
+.icon-selector-container {
+   margin-top: 200px;
+    
+    
+}
+
+.icon-center{
+ margin-top: 0px;
+
+}
+
+.icon-button{
+
+ margin-top: 0px;
+}
