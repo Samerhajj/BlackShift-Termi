@@ -223,3 +223,28 @@
   }
     
   }
+  
+  .ItemNavFirst{
+    font-size:20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    /*background-color: #8079E3;*/
+  }
+  
+  .ItemNavSecond{
+    font-size:20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    /*background-color: #5D6D6C;*/
+  }
+  
+  .ItemNavThired{
+    font-size:20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 8px;
+    /*background-color: #a0ef87;*/
+  }
+  

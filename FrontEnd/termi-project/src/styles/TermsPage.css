@@ -44,6 +44,7 @@
     border-radius: 10px;
     background-color: #f4f4f4;
     border: 1px solid gray;
+    z-index: 50;
 }
 
 .autocomplete-item{

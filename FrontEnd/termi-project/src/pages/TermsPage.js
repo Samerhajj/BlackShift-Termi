@@ -219,9 +219,9 @@ const TermsPage = () =>{
                 alert(res.message);
           }
         //   setSuggestions(res);
-          console.log(res)
+          console.log(res);
         }
-    }
+    };
 
 return(
     <>
