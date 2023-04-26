@@ -28,3 +28,14 @@
 
 ## In this project, we had used multiple Hooks and custom hooks.
 
+___
+## You want to kill a process ? : \
+
+    1) type in the termenal : netstat -plnt \
+    
+    2) type to kill the process : kill -9 PID \
+    
+    3) to run the server (backend) type : npx nodemon app.js \
+
+
+Note : This project does not use Redux up to this point.
