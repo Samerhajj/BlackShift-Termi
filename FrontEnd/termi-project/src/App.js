@@ -24,6 +24,7 @@ import WordleGame from "./games/wordle/Wordle";
  //import Hangman from "./games/hangman/hangman";
 import MemoryGame from "./games/memory-game/MemoryGame";
 import CrosswordGame from "./games/crossword-game/Crossword";
+import MyWebGLGame from "./games/webgl/MyWebGLGame";
 
 
 
@@ -67,11 +68,12 @@ const [userData, setUserData] = React.useState({});
 
     <Router>
       <Routes>
-           <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
-            <Route path="/about" element={<DynamicTitleRoute title="About | Termi" element={<HomePage/>} />}/>
+          <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
+          <Route path="/about" element={<DynamicTitleRoute title="About | Termi" element={<HomePage/>} />}/>
+            <Route path="/games/kart-jara" element={<DynamicTitleRoute title="Kart-jara" element={<MyWebGLGame/>}/>}/>
+          
           <Route element={<PageLayout/>}>
-                      <Route path="/neww" element={<DynamicTitleRoute title="neww" element={<ProfilePageNew/>} />}/>
-
+            <Route path="/neww" element={<DynamicTitleRoute title="neww" element={<ProfilePageNew/>} />}/>
           
             <Route path="/" element={<DynamicTitleRoute title="Search" element={<TermsPage/>} />}/>
             <Route path="/login" element={<DynamicTitleRoute title="Login" element={<WLogin/>} />}/>
@@ -80,8 +82,9 @@ const [userData, setUserData] = React.useState({});
             <Route path="/profile" element={<DynamicTitleRoute title="Profile" element={<WProfilePage/>} />}/>
             <Route path="/verify/:token" element={<DynamicTitleRoute title="Profile" element={<VerifyPage/>} />}/>
             <Route path="/games" element={<DynamicTitleRoute title="Games" element={<WGamesPage/>}/>}/>
-            <Route path="/games/backword-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
+            
            
+            <Route path="/games/backword-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
             <Route path="/games/hangman-game" element={<DynamicTitleRoute title="Hangman Game" element={<WHangman/>} />}/>
             <Route path="/reset-password/:token" element={<DynamicTitleRoute title="Reset Password" element={<ResetPasswordPage/>} />}/>
             <Route path="*" element={<DynamicTitleRoute title="Error" element={<ErrorPage/>} />}/> {/* wrong url */}
