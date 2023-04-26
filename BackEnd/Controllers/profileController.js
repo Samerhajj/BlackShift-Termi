@@ -71,7 +71,9 @@ const updatePoints = async(req,res)=>{
     const activity = req.body.activity;
     const category = req.body.category;
     const gameName = req.body.gameName;
-    const userId=req.body._id;
+    const decoded = jwt.verify(token, process.env.SECRET);
+    const userId = decoded.id;
+    // const userId=req.body._id;
     const points=req.body.points;
     
     //find the user
@@ -79,7 +81,7 @@ const updatePoints = async(req,res)=>{
       points}},{new:true});
       
     gameSearchActivity(token, activity, category, gameName);
-    addLeaderboardPoints(token, category, gameName, points);
+    addLeaderboardPoints(userId, category, gameName, points);
     
     res.status(200).json({
       success:true,

@@ -10,7 +10,8 @@ const suggestSchema = new mongoose.Schema({
   conceptName:Object,
   longDefinition:Object,
   suggestedBy:String,
-  readMore:String
+  readMore:String,
+  termSuggestedByID: String
 });
 
 suggestSchema.index({"conceptName.english": 'text', "conceptName.hebrew": 'text', "conceptName.arabic": 'text'});

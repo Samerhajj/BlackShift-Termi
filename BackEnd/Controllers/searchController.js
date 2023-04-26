@@ -17,7 +17,7 @@ const searchTerm = async(req,res)=>{
     
     if(term != null && category != null && language != null){
       let categoryNum = parseInt(category);
-      
+      {
       // let respond = await Search.find({
       //   "$text": {
       //     "$search": term
@@ -26,6 +26,7 @@ const searchTerm = async(req,res)=>{
       // }).sort( 
       //   { score: { $meta : 'textScore' } }
       // );
+      }
       
       // To avoid SQL injection
       let sanitizedTerm = sanitize(term
@@ -39,9 +40,14 @@ const searchTerm = async(req,res)=>{
         [`conceptName.${language}`]: {'$regex': "^"+ sanitizedTerm +"\\s*$" ,$options:'i'},
         "categories": { $in : [categoryNum] }
       });
+      
+      
+      
       console.log("respond↓")
       console.log(respond[0]);
       console.log("respond↑")
+
+
 
       if(respond.length != 0){
         let decoded;
@@ -55,13 +61,34 @@ const searchTerm = async(req,res)=>{
             {
               $push: {
                 recentSearch: {
-                  $each: [respond[0].conceptName["english"]],
+                  $each: [respond[0].conceptName[language]],
                   $position: 0,
                   $slice: 5
                 }
               }
             }
           );
+          // const user = await User.findById(decoded.id);
+
+          // user.updateRecentSearch(searchTerm);
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
           console.log("Update the search count");
         } catch (err) {
           console.log("Not auth");
@@ -158,6 +185,9 @@ const getRandomConcepts = async(req,res)=>{
     // let numOfTerms = parseInt(req.query.numOfTerms, 10);
     // let category = parseInt(req.query.category, 10);
     
+     console.log("i am inside here");
+     console.log(req.body);
+     console.log(req.body.numOfTerms);
     const numOfTerms = parseInt(req.body.numOfTerms, 10);
     let category = parseInt(req.body.category, 10);
     
@@ -168,6 +198,7 @@ const getRandomConcepts = async(req,res)=>{
       // ]);
       
       
+     
       
       let terms = await Search.find({categories: category});
       let randomTerms = [];
@@ -364,6 +395,8 @@ const historySearch = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+
 
 module.exports = {autoCompleteTerm,
                   searchTerm,

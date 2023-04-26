@@ -6,6 +6,9 @@ const UserActivity2 = require("../Models/activitySchema2");
 const jwt = require("jsonwebtoken");
 var ObjectID = require('mongodb').ObjectID;
 
+const { addLeaderboardPoints } = require("./leaderboardsController");
+
+
 const favorites = async (req,res) =>{
   try{
     console.log("%%%%%%%%%%%%%%%%%%%%%%%");
@@ -99,17 +102,18 @@ const suggestTerm = async (req,res) =>{
           lastEdited: Date.now(),
           conceptName: req.body.conceptName,
           suggestedBy: req.body.suggestedBy,
-          longDefinition: req.body.longDefinition
+          longDefinition: req.body.longDefinition,
+          termSuggestedByID: req.body._id
         }
         );
-        const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
+        // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
 
+        // console.log("______________________________")
+        // console.log(newSuggest['_id'].toString());
+        // console.log(response);
         console.log("______________________________")
-        console.log(newSuggest['_id'].toString());
-        console.log(response);
-        // console.log(newSuggest);
+        console.log(newSuggest);
         console.log("______________________________")
-
 
         try{
             await newSuggest.save();
@@ -118,7 +122,13 @@ const suggestTerm = async (req,res) =>{
         catch(err){
             res.send(err);
         } 
-};
+}; // The suggestions that the users send.
+
+
+
+
+
+
 //-------------------------------------------------------------------------------------------------------------------------------------
 const handleLanguageChange = async(req,res) => {
   try{
@@ -241,13 +251,7 @@ const deleteOneSuggest = async (req,res)=>{
   }
 }
 //-------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
+{
 // const addSelectedTerm = async(req,res)=>{
 //   // try{
     
@@ -285,18 +289,17 @@ const deleteOneSuggest = async (req,res)=>{
 //   // console.log(response);
 //   // res.send(response);
 
-
-
-
-
-
-
 //   }
 
+}
 
 
-// Admin add selection Term
 const addSelectedTerm = async(req,res)=>{
+  
+  console.log("RRRRRR");
+  console.log(req.body);
+  console.log("RRRRRR");
+  //termSuggestedByID
     const id = req.body._id;
     const existingTerm = await Search.findOne({ _id: id });
     if (existingTerm) {
@@ -306,23 +309,45 @@ const addSelectedTerm = async(req,res)=>{
         existingTerm.shortDefinition = req.body.shortDefinition;
         existingTerm.longDefinition = req.body.longDefinition;
         existingTerm.readMore = req.body.readMore;
-        existingTerm.suggestedBy = req.body.suggestedBy;
+        existingTerm.suggestedBy = existingTerm.suggestedBy;
         await existingTerm.save();
         res.send(existingTerm);
     } else {
         // Create a new term
         const newTerm = new Search({
-            categories:req.body.categories,
-            conceptName:req.body.conceptName,
-            shortDefinition:req.body.shortDefinition,
-            longDefinition:req.body.longDefinition,
-            readMore:req.body.readMore,
-            suggestedBy:req.body.suggestedBy
+            categories: req.body.categories,
+            conceptName: req.body.conceptName,
+            shortDefinition: req.body.shortDefinition,
+            longDefinition: req.body.longDefinition,
+            readMore: req.body.readMore,
+            suggestedBy: req.body.suggestedBy,
         });
         const savedTerm = await newTerm.save();
+        console.log(savedTerm)
+        
+        // Update the leaderboard for each 
+        req.body.categories.forEach(category => addLeaderboardPoints(req.body.termSuggestedByID, category, "Suggestions", 1));
+        
+        const response = await User.findByIdAndUpdate({_id:req.body.termSuggestedByID},{ $addToSet: { suggestion: savedTerm._id.toString() }},{ new: true });
+          console.log("TTTTT");
+
+        console.log(response)
+                  console.log("TTTTT");
+
+        // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
+
+        // console.log("______________________________")
+        // console.log(newSuggest['_id'].toString());
+        // console.log(response);
+
         res.send(savedTerm);
     }
-}
+}// Admin adds the selected term.
+
+
+
+
+
 
 //------------------------------------------------------------------------------------------------------------------------------------
 const incrementSearchCount = async (req,res)=>{

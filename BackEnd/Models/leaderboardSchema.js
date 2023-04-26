@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 const LeaderboardSchema = new mongoose.Schema({
   categoryId: Number,
-  games: [{
-    gameName: String,
+  contexts: [{
+    context: String,
     leaderboard:[{
       userId: {type: Schema.Types.ObjectId, ref: 'UserDatabase'},
       points: Number

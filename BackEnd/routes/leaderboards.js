@@ -2,15 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const { 
-    getSuggestionsLeaderboard,
-    getGameLeaderboard,
-    addGamePoints,
+    getLeaderboard,
+    getAvailableContexts
 } = require("../Controllers/leaderboardsController");
 
-router.get("/suggestions", getSuggestionsLeaderboard);
+router.get("/", getLeaderboard);
 
-router.get("/games", getGameLeaderboard);
-
-router.put("/games", addGamePoints);
+router.get("/contexts", getAvailableContexts);
 
 module.exports = router;
