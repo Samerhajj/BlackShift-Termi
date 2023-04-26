@@ -130,9 +130,7 @@ const MainNavbar = ({setTitle,location}) => {
               {!login ? (
                 <li>
                   <Link to={'/login'} className={location && location.pathname==='login' ? 'active' : 'nav-link'}>
-                      <IconContext.Provider value={{ size: "2rem" }}>
-                        <IoLogIn/>
-                      </IconContext.Provider>
+                    {t('navbar.login')}
                   </Link>
                 </li>
               ):(

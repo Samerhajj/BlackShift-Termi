@@ -211,6 +211,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
     box-sizing: border-box;
 }
 
+.baseline{
+    margin-top: 10px;
+    z-index: 10;
+}
+
 /* 2. Define Base Typography
 ------------------------------------------------------------------------------*/
 
@@ -546,7 +551,7 @@ header .mobile_menu nav ul li a.active:after {
     bottom: 0px;
     left: 0;
     right: 0;
-    z-index: 9;
+    z-index: 0;
     background-size: cover;
     background-position: center center;
 }
@@ -554,7 +559,7 @@ header .mobile_menu nav ul li a.active:after {
 .banner .banner_content {
     padding-top: 245px;
     position: relative;
-    z-index: 10;
+    z-index: 1;
 }
 
 .banner .banner_content h1 {
@@ -598,13 +603,13 @@ header .mobile_menu nav ul li a.active:after {
 }
 .banner.banner_game{
     background-image: url(../assets/images/game_bg.png);
-  
-  /*height: 500px;*/
-   width: 100vw;
-   /*height: 60vh;*/
+    
+    width: 100vw;
     height: 20vh;
+    
+    /*height: 500px;*/
+    /*height: 60vh;*/
 
-    padding-bottom: 40vh;
     background-position: bottom center;
 }
 .banner.banner_login{
@@ -649,7 +654,6 @@ header .mobile_menu nav ul li a.active:after {
     line-height: 45px;
     margin-top: 52px;
     position: relative;
-    z-index: 9;
 }
 
 .trusted {
@@ -687,7 +691,6 @@ header .mobile_menu nav ul li a.active:after {
     .banner .banner_content{
         padding-top:180px;
         position:relative;
-        z-index:10;
     }
     .banner .banner_content h1 {
         font-size: 40px;
@@ -858,7 +861,6 @@ header .mobile_menu nav ul li a.active:after {
     .banner .banner_content {
         padding-top: 150px;
         position: relative;
-        z-index: 10;
     }
 
     .banner .banner_content h1 {
@@ -1206,7 +1208,6 @@ header .mobile_menu nav ul li a.active:after {
     .banner .banner_content {
         padding-top: 100px;
         position: relative;
-        z-index: 10;
     }
 
     .logo_list .owl-nav .owl-next {

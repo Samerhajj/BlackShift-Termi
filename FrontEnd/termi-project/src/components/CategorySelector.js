@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 
 // Translate
 import { useTranslation } from 'react-i18next';
@@ -7,12 +7,8 @@ import LanguageMap from '../api/LanguageAPI';
 
 // Contexts
 import { CategoriesContext } from "./CategoryContext";
-import { LoginContext } from "./LoginContext";
-
-// Components
 
 const CategorySelector = (props) => {
-    const user = useContext(LoginContext);
     const { categories } = useContext(CategoriesContext);
     const { i18n, t } = useTranslation();
     
@@ -22,24 +18,26 @@ const CategorySelector = (props) => {
     };
     
     return(
-        <select 
-            id="category"
-            className="selectpicker show-menu-arrow form-control mb-2"
-            data-style="btn-primary"
-            defaultValue={undefined}
-            title="Category"
-            value={props.category}
-            onChange={(e)=>{onCategoryChange(e.target.value)}}>
-            <option value={undefined} disabled>{t("category-selector.category")}</option>
-            {
-                categories.map((category, index) => {
-                let categoryName = category.categoryName[LanguageMap[i18n.language].name];
-                let uppercaseName = categoryName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
-                return (
-                    <option key={index} value={category.categoryId}>{uppercaseName}</option>
-                )})
-            }
-        </select>
+        <div class="form-floating" dir="ltr">
+            <select 
+                id="category"
+                className="selectpicker show-menu-arrow form-select mb-2 pb-1"
+                data-style="btn-primary"
+                defaultValue={undefined}
+                title="Category"
+                value={props.category}
+                onChange={(e)=>{onCategoryChange(e.target.value)}}>
+                {
+                    categories.map((category, index) => {
+                    let categoryName = category.categoryName[LanguageMap[i18n.language].name];
+                    let uppercaseName = categoryName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+                    return (
+                        <option key={index} value={category.categoryId}>{uppercaseName}</option>
+                    )})
+                }
+            </select>
+            <label for="category">{t("category-selector.category")}</label>
+        </div>
     );
 };
 export default React.memo(CategorySelector);

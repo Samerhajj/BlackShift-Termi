@@ -7,19 +7,22 @@ import Image from 'react-bootstrap/Image';
 import json2csv from 'json2csv';
 import fileDownload from 'js-file-download';
 import { useNavigate } from "react-router-dom";
+import Rating from 'react-star-ratings';
+
 import { useSpeechSynthesis } from 'react-speech-kit';
+import { TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon,FacebookShareButton, FacebookIcon,LinkedinShareButton, LinkedinIcon  } from 'react-share';
 
 // --> APIs
 import UserApi from '../../api/UserAPI';
 
 // --> Import Icons
-import {BsStarFill, BsStar} from 'react-icons/bs';
+import { BsStarFill, BsStar } from 'react-icons/bs';
 import { LoginContext } from '../LoginContext';
-import { FaFacebook, FaTwitter, FaLinkedin ,FaMicrophone} from 'react-icons/fa';
+import { FaMicrophone } from 'react-icons/fa';
 //
 // import PropTypes from 'prop-types';
 import { IconContext } from "react-icons";
-import {AiTwotoneEdit} from 'react-icons/ai';
+import { AiTwotoneEdit } from 'react-icons/ai';
 
 const TermCard = (props) =>{
     console.log(props.term);
@@ -31,6 +34,16 @@ const TermCard = (props) =>{
     const navigate = useNavigate();
 
     
+    //Data to share with social media
+   const shareData = {
+    text: 'Check out this cool data!',
+    url: window.location.href,
+    hashtags: ['react', 'twitter'],
+    title: 'Check out this cool data!',
+    separator: ' - ',
+  };
+  
+
     const handle_starsClick = async() =>{
         if(!isFav){
             const res = await UserApi.addFavorite(props.term._id,userData._id);
@@ -59,10 +72,7 @@ const TermCard = (props) =>{
         }
     };
     
-      const handleFacebookShare = () => {
-    // handle facebook share
-    console.log("Testing facebook click");
-  };
+    
   
    const { speak } = useSpeechSynthesis();
 
@@ -70,15 +80,8 @@ const TermCard = (props) =>{
      speak({ text: props.term.conceptName.english });
   };
 
-  const handleTwitterShare = () => {
-    // handle twitter share
-     console.log("Testing twitter click");
-  };
 
-  const handleLinkedinShare = () => {
-    // handle linkedin share
-     console.log("Testing linkedin click");
-  };
+  
   
 //TRENDING CONSTS
 const today = new Date();
@@ -201,7 +204,7 @@ const handleCardEdit = () =>{
   
     return(
         <div className="term-card" dir="ltr">
-
+        {/*<div className="term-card-trending"/>*/}
             <div className="language-selector">
                 {
                     Object.keys(LanguageMap).map((language) => (
@@ -212,12 +215,12 @@ const handleCardEdit = () =>{
                 } 
             </div>
             <div className="term-box">
+               {/*isTrending && (
+                      <span className="fs-2" role="img" aria-label="trending">
+                        🔥
+                      </span>
+                    )*/}
                 <div className="categories-box">
-                   {isTrending && (
-                          <span role="img" aria-label="trending">
-                            🔥
-                          </span>
-                        )}
 
                     
                     {
@@ -239,7 +242,7 @@ const handleCardEdit = () =>{
                 </div>
                 {
                     props.role === "admin" &&
-                     (<div className="edit-admin" onClick = {handleCardEdit}   > 
+                     (<div className="edit-admin" onClick = {handleCardEdit}> 
                   <IconContext.Provider value={{ size: "2rem" }}>
                       <AiTwotoneEdit/>
                   </IconContext.Provider>
@@ -247,14 +250,9 @@ const handleCardEdit = () =>{
 
                 }
          
-    
-      <IconContext.Provider value={{ size: "2rem" }}>
-        <button onClick={handleSpeak}><FaMicrophone /></button>
-      </IconContext.Provider>
-    
-  
-    
-                  
+              <IconContext.Provider value={{ size: "2rem" }}>
+                <button className="w-auto" onClick={handleSpeak}><FaMicrophone /></button>
+              </IconContext.Provider>
                   
                 <div className="definitions-box">
                 <div className="search-count">{t('searchTimes.search')} {props.term.searchCount} {t('searchTimes.times')}</div>
@@ -276,15 +274,33 @@ const handleCardEdit = () =>{
                     <a className="read-url" href={props.term.readMore}>{t('search.read_more')}</a>
                         <p className="suggestedby-text">{t('search.suggested_by')} {props.term.suggestedBy}</p>
                     </div>
-                       <div className="d-flex justify-content-between align-items-center">
-       <FaFacebook size={32} onClick={handleFacebookShare} />
-      <FaTwitter size={32} onClick={handleTwitterShare} />
-      <FaLinkedin size={32} onClick={handleLinkedinShare} />
-      </div>
+                    <div>
+                        <Rating
+                         rating={props.term.rating} // Pass the rating value as a prop
+                         starRatedColor="gold" // Customize the color of the stars
+                         numberOfStars={5} // Set the total number of stars
+                         starDimension="20px" // Set the size of the stars
+                         starSpacing="2px" // Set the spacing between the stars
+                         changeRating={handle_starsClick} // Pass a callback function to handle the rating change
+                        />
+                    
+                    </div>
+                   <div className="d-flex justify-content-between p-3">
+                       <FacebookShareButton className="w-auto" url={shareData.url} quote={shareData.quote}>
+                            <FacebookIcon size={40} round={true} />
+                        </FacebookShareButton>
+                        <TwitterShareButton className="w-auto" url={shareData.url} title={shareData.text} hashtags={shareData.hashtags}>
+                            <TwitterIcon size={40} round={true} />
+                        </TwitterShareButton>
+                        <WhatsappShareButton className="w-auto" title={shareData.title + shareData.separator + shareData.url}>
+                            <WhatsappIcon size={40}  round={true} />
+                        </WhatsappShareButton>
+                        <LinkedinShareButton className="w-auto" url={shareData.url} title={shareData.title}>
+                            <LinkedinIcon size={40} round={true} />
+                        </LinkedinShareButton>
+                  </div>
                 </div>
             </div>
-            <div>
-    </div>
         </div>
     );
 };

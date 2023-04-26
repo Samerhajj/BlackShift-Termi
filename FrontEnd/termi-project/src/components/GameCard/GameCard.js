@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import style from "./GameCard.css";
 
 const GameCard = (props) =>{
-   
-    
     const { t } = useTranslation();
     const navigate = useNavigate();
     
