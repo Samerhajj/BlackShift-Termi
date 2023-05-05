@@ -17,6 +17,7 @@ import { TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon,Face
 // --> APIs
 import UserApi from '../../api/UserAPI';
 import AdminAPI from '../../api/AdminAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 
 import DeleteTermModal from './DeleteTermModal';
 
@@ -25,9 +26,6 @@ import { BsStarFill, BsStar } from 'react-icons/bs';
 import { LoginContext } from '../LoginContext';
 import { FaMicrophone } from 'react-icons/fa';
 import { CiCircleRemove } from "react-icons/ci";
-//
-
-
 
 // import PropTypes from 'prop-types';
 import { IconContext } from "react-icons";
@@ -56,7 +54,8 @@ const voices = window.speechSynthesis.getVoices();
 const englishVoice = voices.find((voice) => voice.lang === 'en-US');
 const arabicVoice = voices.find((voice) => voice.lang === 'ar-SA');
 const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
-    const handle_starsClick = async() =>{
+
+const handle_starsClick = async() =>{
         if(!isFav){
             const res = await UserApi.addFavorite(props.term._id,userData._id);
             if(res.success){
@@ -64,10 +63,13 @@ const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
                     props.setParentList([...res.body.updatedList]);
                 }else{
                     setIsFav(res.body.isAdded);
+                    if(res.body.isAdded){
+                        NotificationsAPI.successNotification("Added to favorites");
+                    }
                 }
                 setUserData({...userData,favorite: res.body.updatedList});
             }else{
-                alert(res.message);
+                NotificationsAPI.errorNotification(res.message);
             }
         }else{
             const res = await UserApi.deleteFavorite(props.term._id,userData._id);
@@ -76,6 +78,9 @@ const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
                     props.setParentList([...res.body.updatedList]);
                 }else{
                     setIsFav(!res.body.isDeleted);
+                    if(res.body.isDeleted){
+                        NotificationsAPI.successNotification("Removed from favorites");
+                    }
                 }
                 setUserData({...userData,favorite: res.body.updatedList});
             }else{
@@ -83,59 +88,61 @@ const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
             }
         }
     };
-    
-//     const languageVoices = {
-//   english: { voiceURI: 'Microsoft Zira Desktop - English (United States)', lang: 'en-US' },
-//   hebrew: { voiceURI: 'Microsoft David Desktop - Hebrew', lang: 'he-IL' },
-//   arabic: { voiceURI: 'Microsoft Hoda Desktop - Arabic', lang: 'ar-SA' }
-// };
+ 
+// Text to speach
+{/*
+    const languageVoices = {
+  english: { voiceURI: 'Microsoft Zira Desktop - English (United States)', lang: 'en-US' },
+  hebrew: { voiceURI: 'Microsoft David Desktop - Hebrew', lang: 'he-IL' },
+  arabic: { voiceURI: 'Microsoft Hoda Desktop - Arabic', lang: 'ar-SA' }
+};
 
   
-  // const { speak } = useSpeechSynthesis();
-// const recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-// const synthesis = window.speechSynthesis;
-// if (!recognition || !synthesis) {
-//   console.log("Web Speech API is not supported in this browser");
-//   return;
-// }
+   const { speak } = useSpeechSynthesis();
+const recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const synthesis = window.speechSynthesis;
+if (!recognition || !synthesis) {
+  console.log("Web Speech API is not supported in this browser");
+  return;
+}
 
 
 
-// const languageVoices = {
-//   en: { lang: 'en-US' },
-//   he: { lang: 'he-IL' },
-//   ar: { lang: 'ar-SA' }
-// };
+const languageVoices = {
+  en: { lang: 'en-US' },
+  he: { lang: 'he-IL' },
+  ar: { lang: 'ar-SA' }
+};
 
-// const handleSpeak = () => {
-//   const textToSpeak = props.term.conceptName[LanguageMap[language].name];
-//   const utterance = new SpeechSynthesisUtterance(textToSpeak);
-//   const voices = speechSynthesis.getVoices();
-//   const matchingVoices = voices.filter((voice) => voice.lang === languageVoices[language].lang);
+const handleSpeak = () => {
+  const textToSpeak = props.term.conceptName[LanguageMap[language].name];
+  const utterance = new SpeechSynthesisUtterance(textToSpeak);
+  const voices = speechSynthesis.getVoices();
+  const matchingVoices = voices.filter((voice) => voice.lang === languageVoices[language].lang);
 
-//   if (matchingVoices.length > 0) {
-//     const randomIndex = Math.floor(Math.random() * matchingVoices.length);
-//     const voice = matchingVoices[randomIndex];
-//     utterance.voice = voice;
-//   } else {
-//     console.error(`No matching voice found for language: ${language}`);
-//   }
+  if (matchingVoices.length > 0) {
+    const randomIndex = Math.floor(Math.random() * matchingVoices.length);
+    const voice = matchingVoices[randomIndex];
+    utterance.voice = voice;
+  } else {
+    console.error(`No matching voice found for language: ${language}`);
+  }
 
-//   speechSynthesis.speak(utterance);
-// };
+  speechSynthesis.speak(utterance);
+};
 
     
-//   const textToSpeak = props.term.conceptName[LanguageMap[language].name]
+  const textToSpeak = props.term.conceptName[LanguageMap[language].name]
   
-//   if (language === 'en') {
-//     speak({ text:textToSpeak, voice: englishVoice });
-//   } else if (language === 'ar') {
-//     speak({ text: textToSpeak, voice: arabicVoice });
-//   } else if (language === 'he') {
-//     speak({ text: textToSpeak, voice: hebrewVoice });
-//   }
-// };
-
+  if (language === 'en') {
+    speak({ text:textToSpeak, voice: englishVoice });
+  } else if (language === 'ar') {
+    speak({ text: textToSpeak, voice: arabicVoice });
+  } else if (language === 'he') {
+    speak({ text: textToSpeak, voice: hebrewVoice });
+  }
+};
+*/}
 
   
 //TRENDING CONSTS
@@ -157,27 +164,6 @@ if (needsReset) {
   // Reset the hidden search counter here
 }
 
-
-
-    // const changeLanguage = (newLanguage) => {
-    //     setLanguage(newLanguage);
-    // };
-    
-    
-//     const changeLanguage222 = async(newLanguage) => {
-//         setLanguage(newLanguage);
-
-//         const page  = document.title;
-// 		const isCounterChanged = false;
-//         const response = await UserAPI.languageChanged("concept language changed",page,isCounterChanged);
-//         console.log(response);
-//         if(response.success){
-            
-//           }else{
-//             console.log(response.message);
-//           }
-//     };
-    
     
 //send if he changed the termcard language and what card he changed and to what language he changed
 let data = JSON.parse(localStorage.getItem("termCardLanguage")) || [];
@@ -186,14 +172,14 @@ let data = JSON.parse(localStorage.getItem("termCardLanguage")) || [];
 const changeLanguage = async (newLanguage) => {
     if(newLanguage!==language){
         const res = await UserApi.languageChanged(userData.email,"Change concept language",document.title,false,newLanguage,language);
-    if(res.success){
-        console.log(res);
-    }else{
-        console.log(res.message);
-    }
-    setLanguage(newLanguage);
-    data = data.concat({term: props.term.conceptName["english"], language: newLanguage});
-    localStorage.setItem("termCardLanguage", JSON.stringify(data));
+        if(res.success){
+            console.log(res);
+        }else{
+            console.log(res.message);
+        }
+        setLanguage(newLanguage);
+        data = data.concat({term: props.term.conceptName["english"], language: newLanguage});
+        localStorage.setItem("termCardLanguage", JSON.stringify(data));
     }
 };
 
@@ -239,25 +225,6 @@ const handleCardEdit = () =>{
     
 }
 
-
-//<button onClick={exportData}>Download CSV</button>
-
-
-// const exportData = () => {
-//     // Define the fields that you want to include in the CSV file
-//     const fields = ['termId', 'language'];
-//     // Define the options for the json2csv parser
-//     const opts = { fields };
-//     // Convert the data to CSV format
-//     const csv = json2csv.parse(data, opts);
-//     // Create a link to download the CSV file
-//     const link = document.createElement('a');
-//     link.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-//     link.download = 'data.csv';
-//     link.click();
-// }
-  
-
     return(
         <div className="term-card" dir="ltr">
         {/*<div className="term-card-trending"/>*/}
@@ -265,7 +232,6 @@ const handleCardEdit = () =>{
                 {
                 props.role === "admin" && (
                 <div onClick = {null}>
-                   
                     <DeleteTermModal id={props.term._id}/>
                 </div>
                     )
@@ -286,8 +252,6 @@ const handleCardEdit = () =>{
                       </span>
                     )*/}
                 <div className="categories-box">
-
-                    
                     {
                     (isSearch)  &&
                         props.categories.data.map((item, index)=>{
@@ -298,9 +262,9 @@ const handleCardEdit = () =>{
                     {
                         localStorage.getItem("login") === 'true' ? (
                             isFav ? (
-                                <BsStarFill className="star-filled" onClick={()=>{handle_starsClick();}}/>
+                                <BsStarFill className="star-filled" onClick={()=>{handle_starsClick()}}/>
                             ):(
-                                <BsStar className="star-outline" onClick={()=>{handle_starsClick();}}/>
+                                <BsStar className="star-outline" onClick={()=>{handle_starsClick()}}/>
                             )
                         ) : (null)
                     }

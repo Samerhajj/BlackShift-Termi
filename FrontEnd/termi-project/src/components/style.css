@@ -628,7 +628,7 @@ header .mobile_menu nav ul li a.active:after {
 }
 /*new note */
 .banner.banner_note{
-    /*background-image: url(../pages/Note/Rect_Light.svg);*/
+    background-image: url(../assets/images/SVGBackground/suggest-banner.svg);
     /*min-width: auto;*/
     /*min-height: auto;*/
     width: 100vw;

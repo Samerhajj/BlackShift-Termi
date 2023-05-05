@@ -94,7 +94,7 @@
 .blankSquare, .letter {
   width: 33px;
   height: 40px;
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid rgb(255, 255, 255);
   border-radius: 7px;
   color: rgb(0, 0, 0);
   text-align: center;

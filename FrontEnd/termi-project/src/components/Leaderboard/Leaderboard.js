@@ -1,11 +1,10 @@
 // --> React
-import React,{useState, useEffect, useContext} from 'react';
+import React,{useState, useEffect, useContext, useRef} from 'react';
 
 // --> Styles And Css
 import style from "./Leaderboard.css";
-//import { useTrail, useTransition, animated } from 'react-spring';
 import Image from "react-bootstrap/Image";
-
+import { motion, useInView } from 'framer-motion/dist/framer-motion';
 
 // --> APIs
 import LeaderboardsAPI from '../../api/LeaderboardsAPI';
@@ -23,26 +22,9 @@ const Leaderboard = (props) =>{
     const [limit, setLimit] = useState(50);
     const [leaderboardInfo, setLeaderboardInfo] = useState({});
     const [leaderboard, setLeaderboard] = useState([]);
-      
-//   const leaderboardTransition = leaderboard && useTransition(
-//     leaderboard,
-//         (item,index) => index,
-//         {
-//             from: { opacity: 0, transform: "translateY(-20px)" },
-//             enter: { opacity: 1, transform: "translateY(0px)" },
-//             leave: { opacity: 0, transform: "translateY(-20px)" },
-//             config: { mass: 1, tension: 500, friction: 35 },
-//             trail: 50
-//         }
-//     );
     
-    
-    // const leaderboardTransition = useTrail(leaderboard ? leaderboard.length : 0, {
-    //     from: { y: -20, opacity: 0 },
-    //     to: { y: 0, opacity: 1},
-    //     config:{ duration: 250, delay: 500 }
-    // });
-
+    const leaderboardRef = useRef(null);
+    const isInView = useInView(leaderboardRef);
     
     const changeCategory = (newCategory) => {
         setCategory(newCategory);
@@ -92,7 +74,7 @@ const Leaderboard = (props) =>{
     }, [category]);
     
     return(
-        <div className="backboard">
+        <div ref={leaderboardRef} className="backboard" dir="ltr">
             <div className="d-flex flex-wrap justify-content-center gap-1">
                 <div>
                     <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
@@ -128,41 +110,49 @@ const Leaderboard = (props) =>{
             {leaderboard && leaderboard.length > 0 ?
                 <div className="leaderboard-info">
                     <div className="user-rank-container text-center">
-                        <div className="d-flex flex-column">
-                            <span>My Rank</span>
-                            <span className="fs-3 fw-bold">{leaderboardInfo.userRank == 0 ? "N/A" : "#" + leaderboardInfo.userRank}</span>
-                        </div>
+                        <motion.div className="d-flex flex-column"
+                                    key={leaderboardInfo.context + "_userRank" || leaderboardInfo.category + "_userRank"}
+                                    initial={{opacity: 0, x:-60}}
+                                    animate={{opacity: isInView ? 1 : 0, x: isInView ? 0 : -60}}
+                                    transition={{duration: 0.6}}>
+                            <motion.span>My Rank</motion.span>
+                            <motion.span className="fs-3 fw-bold">{leaderboardInfo.userRank == 0 ? "N/A" : "#" + leaderboardInfo.userRank}</motion.span>
+                        </motion.div>
                         
-                        { leaderboardInfo.userRank == 1 ?
-                            <div>
-                                <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "1st.png"}/>
-                            </div>
-                        :null}
-                        
-                        
-                        { leaderboardInfo.userRank == 2 ?
-                            <div>
-                                <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "2nd.png"}/>
-                            </div>
-                        :null}
-                        
-                        
-                        { leaderboardInfo.userRank == 3 ?
-                            <div>
-                                <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "3rd.png"}/>
-                            </div>
-                        :null}
-                        
-                        <div className="d-flex flex-column">
+                        <motion.div 
+                                key={leaderboardInfo.context + "_img" || leaderboardInfo.category + "_img"}
+                                initial={{opacity: 0, y: -20}}
+                                animate={{opacity: isInView ? 1 : 0, y: isInView? 0 : -20}}
+                                transition={{duration: 0.6}}>
+                            { leaderboardInfo.userRank == 1 ?
+                                    <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "1st.png"}/>
+                            :null}
+                            
+                            { leaderboardInfo.userRank == 2 ?
+                                    <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "2nd.png"}/>
+                            :null}
+                            
+                            { leaderboardInfo.userRank == 3 ?
+                                    <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "3rd.png"}/>
+                            :null}
+                        </motion.div>
+                        <motion.div className="d-flex flex-column"
+                                key={leaderboardInfo.context + "_score" || leaderboardInfo.category + "_score"}
+                                initial={{opacity: 0, x: 60}}
+                                animate={{opacity: isInView ? 1 : 0, x: isInView ? 0 : 60}}
+                                transition={{duration: 0.6}}>
                             <span>Score</span>
                             <span className="fs-3 fw-bold">{leaderboardInfo.userRank == 0 ? "N/A" : `${leaderboardInfo.userScore}`}</span>
-                        </div>
+                        </motion.div>
                     </div>
-                    {/*<div className="fs-3">Your Rank: {leaderboardInfo.userRank == 0 ? "N/A" : "#" + leaderboardInfo.userRank}</div>*/}
                     <div className="leaderboard">
                     {
                         leaderboard.map((element, index) => (
-                            <div key={index}>
+                            <motion.div
+                                key={leaderboardInfo.context + `${index}_rank` || leaderboardInfo.category + `${index}_rank`}
+                                initial={{opacity: 0, y: 30}}
+                                animate={{opacity: isInView ? 1 : 0, y: isInView ? 0 : 30}}
+                                transition={{duration: 0.6, delay: index * 0.2}}>
                                 <div className="user-profile">
                                     <div className="d-flex flex-column">
                                         { index + 1 == 1 ?
@@ -192,7 +182,7 @@ const Leaderboard = (props) =>{
                                         {element.points}
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))
                     }
                     </div>

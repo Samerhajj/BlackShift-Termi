@@ -4,15 +4,11 @@ import React, {useEffect, useState, useContext, useRef} from "react";
 // Translate
 import { useTranslation } from 'react-i18next';
 
-//Toastify
-// import NotificationSystem from 'react-notification-system';
-
 // Components
 import Menu from "../Menu/Menu";
 import LanguageSelector from '../../components/LanguageSelector';
 import {LoginContext} from "../../components/LoginContext";
 import useInterval from "./useInterval";
-//// import AchievementPopup from "../../components/Achievement/AchievementPopUp"
 
 // Css and Elements
 import "./BackDefinition.css";
@@ -26,6 +22,7 @@ import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
 import AchievementsAPI from '../../api/AchievementsAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 
 
 const BackwordDefinition = () =>{
@@ -42,6 +39,8 @@ const BackwordDefinition = () =>{
 	const [message,setMessage]=useState('');
 	const [disabled, setDisabled] = useState(false);
 	const [isAchievementVisible, setIsAchievementVisible] = useState(false);
+	const [achievedAchievement, setAchievedAchievement] = useState(null);
+
 	const [highestStreak, setHighestStreak] = useState(0); // declare highestStreak variable using useState hook
 	// Timer
 	const [elapsedTime, setElapsedTime] = useState(0);
@@ -51,11 +50,6 @@ const BackwordDefinition = () =>{
 	
 	const [musicPlaying, setMusicPlaying] = useState(true);
 	const toggleMusic = () => setMusicPlaying(!musicPlaying);	
-	
-	
-	
-	
-	const notificationSystem = useRef(null);
 	
 	//useIntervaal
 	useInterval(() => {
@@ -95,7 +89,7 @@ const BackwordDefinition = () =>{
 	  
 	const initGame = async () => {
 		console.log(category);
-		setIsAchievementVisible(false);
+		setIsAchievementVisible(true);
 		if(category !== undefined){
 			let numOfTerms = 10;
 			// let categoryId = category.categoryId;
@@ -156,8 +150,8 @@ const BackwordDefinition = () =>{
 				setDisabled(false);
 				setMessage("");
 	        }else{
-	    		alert(res.message);
-			    }
+	    		NotificationsAPI.errorNotification(res.message);
+		    }
 			}
 		else{
 			alert("Must choose a category first");
@@ -246,21 +240,9 @@ const BackwordDefinition = () =>{
 		      threeAnswerStreakAchievement._id,
 		      true
 		    );
-		    notificationSystem.current.addNotification({
-		      title: 'Achievement Unlocked!',
-		      level: 'success',
-		      autoDismiss: 0,
-		      position: 'tr',
-		      children: (
-		        <div className="d-flex flex-row align-items-center">
-		          <Image style={{width: "100px"}} src={threeAnswerStreakAchievement.image.replace(/^\.\//, process.env.React_App_StorageURL)} alt={threeAnswerStreakAchievement.name + " image"} />
-		          <div className="fs-5 fw-bold">{threeAnswerStreakAchievement.name}</div>
-		        </div>
-		      )
-		    });
 		  }
 		}
-	    if (score >= 10) {
+	    if (score >= 1) {
 	      const achievementsRes = await AchievementsAPI.getAllAchievements();
 	      const perfectScoreAchievement = achievementsRes.body.find(
 	        (achievement) => achievement.name === "Perfect Score"
@@ -272,20 +254,10 @@ const BackwordDefinition = () =>{
 	          perfectScoreAchievement._id,
 	          true
 	        );
-			// setIsAchievementVisible(true);
+	   //     setAchievedAchievement(perfectScoreAchievement);
+			 //setIsAchievementVisible(true);
 			console.log(perfectScoreAchievement);
-			notificationSystem.current.addNotification({
-				title: 'Achievement Unlocked!',
-				level: 'success',
-				autoDismiss: 0,
-				position: 'tr', // Change the position value here
-				children: (
-					<div className="d-flex flex-row align-items-center">
-						<Image style={{width: "100px"}} src={perfectScoreAchievement.image.replace(/^\.\//, process.env.React_App_StorageURL)} alt={perfectScoreAchievement.name + " image"} />
-						<div className="fs-5 fw-bold">{perfectScoreAchievement.name}</div>
-					</div>
-				)
-			});
+			NotificationsAPI.achievementNotification(perfectScoreAchievement, "Achievement Unlocked!");
 	      }
 	    }
 	  } 
@@ -316,61 +288,58 @@ const BackwordDefinition = () =>{
 	
 	//NEED TO SEND	
 	return (
-		<>
-			<DefinitionGameBG/>
-			{!start ? (
-			  <Menu
-			    selectedCategory={category}
-			    categoryChanged={(newCategory => setCategory(newCategory))}
-			    gameName="Definition Game"
-			    handleMusicToggle={toggleMusic}
-			    musicPlaying={musicPlaying}
-			    handleStart={initGame}
-			  />
-			) : (
-				<div dir="ltr" className="box">
-					<div className="d-flex flex-wrap justify-content-between">
-						<a className="exit-button" role='button' onClick={() => setStart(false)}>
-	                    	<MdArrowBack/>
-	                	</a>
-	                	<LanguageSelector/>
-	            	</div>
-					{/*<div className="d-flex flex-column align-items-center bg-light">
-						<Image src={process.env.React_App_StorageURL+"Storage" + "/" + "Achievements" + "/" + "1_.png"} />
-						<span className="fs-4 fw-bold">Perfect Score</span>
-					</div>*/}
-					{showScore ? (
-						<div dir={LanguageMap[i18n.language].dir} className="score-box">
-							<h2 className="score-title">{t('games.backword-definition.scoretitle')}</h2>
-							<h4>{t('games.backword-definition.score', {score: score, questionsLength: questions.length})}</h4>
-							<h4>{t('games.backword-definition.et')}: {minutes}:{seconds}</h4>
-							<h4>{t('games.backword-definition.pg')}: +{points} points</h4>
-							<MdOutlineReplay className="restart-button" onClick={() => {initGame()}}/>
-						{/*isAchievementVisible ? <AchievementPopup notificationMessage="Achievement Unlocked" isVisible={true} /> : null*/}
-						{/*<NotificationSystem ref={notificationSystem} style={style}/>*/}
-						</div>
-					) : (
-						<div className="question-background m-5">
-							<div>
-								<div>
-									<span>{t('games.backword-definition.question-info', {currentQuestion: currentQuestion + 1})}</span> / {questions.length}
-								</div>
-								<div>{questions[currentQuestion].questionText[LanguageMap[i18n.language].name]}</div>
-							</div>
-							<div className="flex d-flex flex-column gap-2" >
-							<div>{t('games.backword-definition.timere')}: {timeLeft} {t('games.backword-definition.seconds')}</div>
-								{questions[currentQuestion].answerOptions.map((answerOption,index) => (
-								<button className="btn btn-primary mb-2" disabled={disabled} key={index} onClick={(event) => handleAnswerOptionClick(event, answerOption.isCorrect)}>{answerOption.answerText[LanguageMap[i18n.language].name]}</button>
-								))}
-								<div>{message}
-								</div>
-							</div>
-						</div>
-					)}
-				</div>
-			)}
-		</>
-	);
+  <>
+    <DefinitionGameBG/>
+    {!start ? (
+      <Menu
+        selectedCategory={category}
+        categoryChanged={(newCategory => setCategory(newCategory))}
+        gameName="Definition Game"
+        handleMusicToggle={toggleMusic}
+        musicPlaying={musicPlaying}
+        handleStart={initGame}
+      />
+    ) : (
+      <>
+        <div dir="ltr" className="box">
+          <div className="d-flex flex-wrap justify-content-between">
+            <a className="exit-button" role='button' onClick={() => setStart(false)}>
+              <MdArrowBack/>
+            </a>
+            <LanguageSelector/>
+          </div>
+          {showScore ? (
+            <div dir={LanguageMap[i18n.language].dir} className="score-box">
+              <h2 className="score-title">{t('games.backword-definition.scoretitle')}</h2>
+              <h4>{t('games.backword-definition.score', {score: score, questionsLength: questions.length})}</h4>
+              <h4>{t('games.backword-definition.et')}: {minutes}:{seconds}</h4>
+              <h4>{t('games.backword-definition.pg')}: +{points} points</h4>
+              <MdOutlineReplay className="restart-button" onClick={() => {initGame()}}/>
+            </div>
+          ) : (
+            <div className="question-background m-5">
+              <div>
+                <div>
+                  <span>{t('games.backword-definition.question-info', {currentQuestion: currentQuestion + 1})}</span> / {questions.length}
+                </div>
+                <div>{questions[currentQuestion].questionText[LanguageMap[i18n.language].name]}</div>
+              </div>
+              <div className="flex d-flex flex-column gap-2" >
+                <div>{t('games.backword-definition.timere')}: {timeLeft} {t('games.backword-definition.seconds')}</div>
+                {questions[currentQuestion].answerOptions.map((answerOption,index) => (
+                  <button className="btn btn-primary mb-2" disabled={disabled} key={index} onClick={(event) => handleAnswerOptionClick(event, answerOption.isCorrect)}>{answerOption.answerText[LanguageMap[i18n.language].name]}</button>
+                ))}
+                <div>{message}</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+      </>
+    )}
+  </>
+);
+
 }
 
 
