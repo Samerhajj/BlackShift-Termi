@@ -28,6 +28,7 @@ import { CgPassword } from "react-icons/cg";
 import profileAPI from "../../api/ProfileAPI";
 import UserAPI from "../../api/UserAPI";
 import LanguageMap from "../../api/LanguageAPI";
+import NotificationsAPI from "../../api/NotificationsAPI";
 
 // --> Modals
 import ChangePassModal from './ProfileEdit/ChangePassModal';
@@ -114,7 +115,8 @@ const ProfilePage =  () => {
             user.userData.password = formValues.newPassword;
             setShowPasswordModal(false);
             // Show pop-up message
-            alert('Successfully changed your password');
+            //alert('Successfully changed your password');
+            NotificationsAPI.successNotification('Successfully changed your password');
           }
         }else if(formValues.newPassword.length<6 && formValues.validatePassword.length<6){
           alert('Please Enter More Than 6 Letters');
@@ -213,9 +215,9 @@ const ProfilePage =  () => {
               <Nav.Item>
                 <Nav.Link eventKey="fourth">Achievements</Nav.Link>
               </Nav.Item>
-              <Nav.Item>
+              {/*<Nav.Item>
                 <Nav.Link eventKey="fifth">Leaderboard</Nav.Link>
-              </Nav.Item>
+              </Nav.Item>*/}
             </Nav>
             <Tab.Content>
             {/*General Section*/}

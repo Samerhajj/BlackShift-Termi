@@ -7,6 +7,7 @@ import AuthAPI from '../../api/AuthAPI';
 import 'font-awesome/css/font-awesome.min.css';
 import { Row, Col } from 'react-bootstrap';
 import LoginSytle from '../../styles/LoginStyle.css';
+import NotificationsApi from '../../api/NotificationsAPI';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ const Login = () => {
       setLogin(true);
       navigate('/');
     } else {
-      alert(response.message);
+     NotificationsApi.errorNotification(response.message);
     }
   };
 

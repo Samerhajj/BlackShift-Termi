@@ -8,7 +8,6 @@ import Image from 'react-bootstrap/Image';
 import Footer from './Footer';
 import StickFooter from './StickFooter';
 
-
 const PageLayout = ()=>{
     var style = {
         backgroundColor: "#F8F8F8",
@@ -23,16 +22,18 @@ const PageLayout = ()=>{
     };
     
     return(
-        <div id="full_wrapper">
-            <MainNavbar/>
-            
-            <div className="main">
-                <Outlet/>
-                <div className="push"/>
+        <>
+            <div id="full_wrapper">
+                <MainNavbar/>
+                
+                <div className="main">
+                    <Outlet/>
+                    <div className="push"/>
+                </div>
+                
+                <StickFooter/>
             </div>
-            
-            <StickFooter/>
-        </div>
+        </>
     );
 };
 

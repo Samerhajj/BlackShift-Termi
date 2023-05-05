@@ -1,27 +1,37 @@
-// import React, { useEffect, useRef, useState } from 'react';
-// import NotificationSystem from 'react-notification-system';
+// import React, { useEffect, useState } from 'react';
+// import { ToastContainer, toast ,Slide} from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
-// const AchievementPopup = ({ notificationMessage }) => {
-//     console.log('AchievementPopup rendered');
-//   const [notification, setNotification] = useState(null);
-//   const notificationSystem = useRef(null);
-
+// const AchievementPopUp = ({ isVisible, setIsVisible, notificationMessage, achievement }) => {
+  
 //   useEffect(() => {
-//     console.log('useEffect called');
-//     if (notificationMessage) {
-//       setNotification(notificationSystem.current.addNotification({
-//         message: notificationMessage,
-//         level: 'success',
-//         autoDismiss: 5,
-//       position: 'tr' // Change the position value here
-//       }));
+//     if (achievement && isVisible) {
+//       toast.success(
+//         <div>
+//           <img src={achievement.image} alt={achievement.name} width="50" height="50" />
+//           <div>{achievement.name}</div>
+//           <div>{achievement.description}</div>
+//           <div>{notificationMessage}</div>
+//         </div>,
+//         {
+//           onClose: () => setIsVisible(false),
+//           onOpen: () => console.log('Toast opened!'),
+//           transition: Slide,
+//           autoClose: 5000,
+//         }
+//       );
 //     }
-//   }, [notificationMessage]);
+//   }, [achievement, isVisible, notificationMessage, setIsVisible]);
 
 //   return (
-//     <NotificationSystem ref={notificationSystem} />
- 
+//     <ToastContainer
+//       position="top-right"
+//       closeOnClick={false}
+//       newestOnTop={true}
+//       draggable={true}
+//       pauseOnHover={true}
+//     />
 //   );
 // };
 
-// export default React.memo(AchievementPopup);
+// export default React.memo(AchievementPopUp);

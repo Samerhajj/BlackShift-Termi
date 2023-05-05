@@ -61,7 +61,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { FaMicrophone } from 'react-icons/fa';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AchievementPopUp from "./../components/Achievement/AchievementPopUp"
 const HomePage = () => {
   const [text, setText] = useState('');
   const [voices, setVoices] = useState([]);
@@ -94,11 +96,28 @@ const HomePage = () => {
     }
   }, []);
 
-  const handleSpeak = () => {
+   const handleSpeak = () => {
     if (speechSynthesis && selectedVoice) {
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.voice = selectedVoice;
       speechSynthesis.speak(utterance);
+
+      // Create a toast notification
+      toast.success('Text has been spoken!', {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      // Add the AchievementPopup component
+      // <AchievementPopUp
+      //   notificationMessage="Text has been spoken!"
+      //   isVisible={true}
+      // />
     }
   };
 
@@ -153,6 +172,14 @@ const HomePage = () => {
       <button onClick={handleListen} style={{ fontSize: '32px' }}>
         {listening ? 'Stop Listening' : 'Start Listening'}
       </button>
+       {/* Add the AchievementPopup component here */}
+    {text && (
+      <AchievementPopUp
+        notificationMessage="Text has been spoken!"
+       
+      />
+    )}
+     
     </div>
   );
 };

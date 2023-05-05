@@ -11,10 +11,10 @@ const CheckBox = ({ selectedStatus, setSelectedStatus, setData }) => {
     console.log(`Updated selectedStatus to:`, updatedStatus);
   };
 
-  useEffect(() => {
-    setData({ ...setData, status: selectedStatus });
-    console.log(`Updated data to:`, { ...setData, status: selectedStatus });
-  }, [selectedStatus]);
+useEffect(() => {
+  setData((prevData) => ({ ...prevData, status: selectedStatus }));
+  console.log(`Updated data to:`, { ...setData, status: selectedStatus });
+}, [selectedStatus]);
 
   return (
     <div>

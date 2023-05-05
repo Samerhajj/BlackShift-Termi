@@ -6,6 +6,7 @@ import style from "./AchievementBoard.css";
 
 // --> APIs
 import AchievementsAPI from '../../api/AchievementsAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 
 // --> Components
 import Achievement from "../Achievement/Achievement";
@@ -18,7 +19,7 @@ const AchievementBoard = (props) =>{
         if(response.success){
             setAchievements(response.body);
         }else{
-            alert(response.message);
+           NotificationsAPI.errorNotification(response.message);
         }
     };
     

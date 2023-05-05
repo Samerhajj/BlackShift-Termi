@@ -16,7 +16,6 @@ import PageLayout from "./components/PageLayout";
 import DynamicTitleRoute from "./components/DynamicTitleRoute";
 
 //Games
-
 import {BackDefinitionGame, Hangman} from "./games/GameIndex.js"
 
 // import BackDefinitionGame from "./games/backward-definition/BackDefinition";
@@ -32,6 +31,9 @@ import withNotAuth from './pages/Logic/withNotAuth';
 import withAdminAuth from './pages/Logic/withAdminAuth';
 import LoginProvider  from './components/LoginContext';
 
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   // --> wrapped components to check if you have the legitimacy to reach specific pages
@@ -103,6 +105,14 @@ const [userData, setUserData] = React.useState({});
           </Route>
       </Routes>
     </Router>
+    
+      <ToastContainer
+          position="bottom-right"
+          closeOnClick={false}
+          newestOnTop={true}
+          draggable={true}
+          pauseOnHover={true}
+      />
     </>
   );
 }

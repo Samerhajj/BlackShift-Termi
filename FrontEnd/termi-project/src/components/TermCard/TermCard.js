@@ -17,6 +17,7 @@ import { TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon,Face
 // --> APIs
 import UserApi from '../../api/UserAPI';
 import AdminAPI from '../../api/AdminAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 
 import DeleteTermModal from './DeleteTermModal';
 
@@ -32,6 +33,10 @@ import { CiCircleRemove } from "react-icons/ci";
 // import PropTypes from 'prop-types';
 import { IconContext } from "react-icons";
 import { AiTwotoneEdit } from 'react-icons/ai';
+
+
+import { toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TermCard = (props) =>{
     console.log(props.term);
@@ -64,10 +69,14 @@ const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
                     props.setParentList([...res.body.updatedList]);
                 }else{
                     setIsFav(res.body.isAdded);
+                    
+                    if(res.body.isAdded){
+                        toast.success("Added to favorites");
+                    }
                 }
                 setUserData({...userData,favorite: res.body.updatedList});
             }else{
-                alert(res.message);
+                NotificationsAPI.errorNotification(res.message);
             }
         }else{
             const res = await UserApi.deleteFavorite(props.term._id,userData._id);
@@ -79,7 +88,7 @@ const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
                 }
                 setUserData({...userData,favorite: res.body.updatedList});
             }else{
-                alert(res.message);
+               NotificationsAPI.errorNotification(res.message);
             }
         }
     };

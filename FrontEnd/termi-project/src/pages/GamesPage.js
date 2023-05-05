@@ -11,20 +11,12 @@ import { useTranslation } from 'react-i18next';
 import BackwordImg from "../assets/images/backword-definition-img.jpg";
 import MemoryImg from "../assets/images/memory-game-img.jpg";
 import HangmanImg from "../assets/images/hangman-game-img.jpg";
-import Kara from "../assets/images/kara.png";
-// import { useTrail, animated } from 'react-spring';
-import {AnimatePresence,useAnimation, motion, stagger, animate} from 'framer-motion/dist/framer-motion'
-  // import { ToastContainer, toast } from 'react-toastify';
-  // import 'react-toastify/dist/ReactToastify.css';
-
-// Navigation
-import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion/dist/framer-motion';
 
 import Container from 'react-bootstrap/Container';
 
 const GamesPage = () => {
   const { t } = useTranslation();
-   const [isMounted, setIsMounted] = useState(false);
   const games = [
     { 
       id: 0,
@@ -50,17 +42,7 @@ const GamesPage = () => {
       img: HangmanImg
     },
   ];
-  const controls = useAnimation();
-  
-  // const gamesTransition = useTrail(games.length, {
-  //   from: { y: -50, opacity:0 },
-  //   to: { y: 0, opacity:1 },
-  //   config:{ duration: 250, delay: 500 }
-  // });
-  
-  useEffect(() => {
-    animate(".item", { y: 30, opacity: 1 },{duration: 0.2, delay: stagger(0.1, { startDelay: 0.15 }) });
-  }, []);
+
 
   return (
     <>
@@ -73,7 +55,11 @@ const GamesPage = () => {
 
        <Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-4">
         {games.map((game, index) => (
-          <motion.div className="item">
+          <motion.div
+            key={game.id}
+            initial={{opacity: 0, y:-60}}
+            animate={{opacity: 1, y:0}}
+            transition={{duration: 0.6, delay: index * 0.2}}>
             <GameCard key={game.id} game={game} />
           </motion.div>
         ))}
