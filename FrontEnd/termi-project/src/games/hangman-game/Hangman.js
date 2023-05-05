@@ -407,8 +407,7 @@ return (
               {hangmanImage === 7 ? (
               
                 <div dir={LanguageMap[i18n.language].dir} className="score-box">
-                  <h4>Congratulations!</h4>
-                  <h4> Score is</h4>
+
                   <h4>{t('games.backword-definition.pg')}: {score}</h4>
                   <MdOutlineReplay
                     className="restart-button"
