@@ -1,6 +1,7 @@
 import React,{useState, useContext} from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Form, Input,Select, Button } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 // --> APIs
 import AdminAPI from '../../api/AdminAPI';
@@ -28,6 +29,7 @@ const validateMessages = {
 
 const AddTermAdmin=()=> {
     
+  const {t} = useTranslation();
   const { categories } = useContext(CategoriesContext);
   const { userData } = useContext(LoginContext);
   const navigate = useNavigate();
@@ -87,12 +89,12 @@ return (
       </div>
         <div className="container d-flex justify-content-center mb-2">
            <div className="admin-sg goAndChange">
-              <button className="su-button" onClick={handleAdminPanel}>Back To Panel</button>
+              <button className="su-button" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
           </div>
         </div>
            <div className="wrapper">
      <Form {...layout} name="nest-messages" form ={form} onFinish={onFinish} initialValues={location.state} validateMessages={validateMessages}>
-          <Form.Item label="Category (English)" name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
+          <Form.Item label={t('add-term-admin.category_en')} name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
             <Select
               name="categoryEN"
               placeholder="Select a category">
@@ -107,7 +109,7 @@ return (
             </Select>
           </Form.Item>
           
-          <Form.Item label="Category (Arabic)" name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
+          <Form.Item label={t('add-term-admin.category_ar')} name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
           <Select
             name="categoryAR"
             placeholder="Select a category">
@@ -121,7 +123,7 @@ return (
           </Select>
         </Form.Item>
         
-        <Form.Item label="Category (Hebrew)" name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
+        <Form.Item label={t('add-term-admin.category_he')} name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
            <Select
             name="categoryHE"
             placeholder="Select a category">
@@ -135,43 +137,50 @@ return (
           </Select>
         </Form.Item>
         
-      <Form.Item name={['conceptName', 'english']} label="Concept Name (English)" rules={[{ required: true }]}>
+      <Form.Item name={['conceptName', 'english']} label={t('add-term-admin.concept_name_en')} rules={[{ required: true }]}>
         <Input/>
       </Form.Item>
-      <Form.Item name={['conceptName', 'arabic']} label="Concept Name (Arabic)" rules={[{ required: true }]}>
+      <Form.Item name={['conceptName', 'arabic']} label={t('add-term-admin.concept_name_ar')} rules={[{ required: true }]}>
         <Input/>
       </Form.Item>
-      <Form.Item name={['conceptName', 'hebrew']} label="Concept Name (Hebrew)" rules={[{ required: true }]}>
+      <Form.Item name={['conceptName', 'hebrew']} label={t('add-term-admin.concept_name_he')} rules={[{ required: true }]}>
         <Input/>
       </Form.Item>
-       <Form.Item name={['shortDefinition', 'english']} label="Short Definition (English)" rules={[{ required: true }]}>
+       <Form.Item name={['shortDefinition', 'english']} label={t('add-term-admin.short_def_en')} rules={[{ required: true }]}>
         <Input.TextArea/>
       </Form.Item>
-      <Form.Item name={['shortDefinition', 'arabic']} label="Short Definition (Arabic)" rules={[{ required: true }]}>
+      <Form.Item name={['shortDefinition', 'arabic']} label={t('add-term-admin.short_def_ar')} rules={[{ required: true }]}>
         <Input.TextArea/>
       </Form.Item>
-       <Form.Item name={['shortDefinition', 'hebrew']} label="Short Definition (Hebrew)" rules={[{ required: true }]}>
+       <Form.Item name={['shortDefinition', 'hebrew']} label={t('add-term-admin.short_def_he')} rules={[{ required: true }]}>
         <Input.TextArea/>
       </Form.Item>
-       <Form.Item name={['longDefinition', 'english']} label="Long Definition (English)" rules={[{ required: true }]}>
+       <Form.Item name={['longDefinition', 'english']} label={t('add-term-admin.long_def_en')} rules={[{ required: true }]}>
         <Input.TextArea/>
       </Form.Item>
-       <Form.Item name={['longDefinition', 'arabic']} label="Long Definition (Arabic)" rules={[{ required: true }]}>
+       <Form.Item name={['longDefinition', 'arabic']} label={t('add-term-admin.long_def_ar')} rules={[{ required: true }]}>
         <Input.TextArea/>
       </Form.Item>
-       <Form.Item name={['longDefinition', 'hebrew']} label="Long Definition (Hebrew)" rules={[{ required: true }]}>
+       <Form.Item name={['longDefinition', 'hebrew']} label={t('add-term-admin.long_def_he')} rules={[{ required: true }]}>
         <Input.TextArea/>
       </Form.Item>
-      <Form.Item label="URL"  name="readMore" rules={[{ validator: validateUrl }]}>
+      <Form.Item label={t('add-term-admin.url')}  name="readMore" rules={[{ validator: validateUrl }]}>
         <Input/>
       </Form.Item>
+      
        <Form.Item>
-        <Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
-          Suggest
-        </Button>
-         <Button type="danger" onClick={onReset}>
-            Reset
+        <div className="container d-flex justify-content-center mb-2">
+          <Button type="primary" htmlType="submit" style={{marginTop: '25px'}}>
+            {t('add-term-admin.suggest_button')}
           </Button>
+        </div>
+        <div className="container d-flex justify-content-center mb-2">
+          <Button type="danger" onClick={onReset}>
+            {t('add-term-admin.reset_button')}
+          </Button>
+        </div>
+        
+        
         </Form.Item>
       </Form>
         </div>

@@ -68,9 +68,17 @@ const ProfilePage =  () => {
     fetchData();
   }, []);
 
-  async function fetchData() {
+async function fetchData() {
   setIsLoading(true);
   const res = await GameHistoryAPI.getGameHistory();
+
+  if (!res.body || !res.body.games || res.body.games.length === 0) {
+    // handle the case where there are no game data
+    setGamesData([]);
+    setIsLoading(false);
+    return;
+  }
+
   const gamesData = res.body.games;
 
   // Create an object to store gameName and their corresponding scores
@@ -93,6 +101,7 @@ const ProfilePage =  () => {
   setGamesData(chartData);
   setIsLoading(false);
 }
+
 
   console.log(gamesData);
 
@@ -396,8 +405,9 @@ const handleSuggest = async () =>{
                 </ResponsiveContainer>
               )}
               {console.log(gamesData)}
-                
+              
             </Tab.Pane>
+          
             
             <Tab.Pane eventKey="Thired">
               <Leaderboard/>

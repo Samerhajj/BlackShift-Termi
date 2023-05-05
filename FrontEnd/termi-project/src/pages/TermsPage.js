@@ -56,7 +56,7 @@ const TermsPage = () =>{
                         favorite = userData.favorite;
                     }
                     setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),categoryNames:categoryResult});
-                    setResultLanguage(inputLanguage);
+                    setResultLanguage(checkInputLang(term));
                     setShowResult(true);
                     setInputLanguage(i18n.language);
                     
@@ -129,7 +129,8 @@ const TermsPage = () =>{
     };
     
     const selectAutoCompleteTerm = (term)=>{
-        search(term, LanguageMap[inputLanguage].name, category);
+        search(term, LanguageMap[checkInputLang(term)].name, category);
+        setSuggestions([]);
     };
     
     const checkInputLang = (s)=>{
@@ -145,7 +146,7 @@ const TermsPage = () =>{
             return "en";
         }
     };
-    
+
     const updateInput = (input)=>{
         if(input.trim().length != 0){
             let lang = checkInputLang(input);
@@ -228,9 +229,9 @@ return(
         <div className="banner banner_home">
             <div className='wrapper'>
                 <div className="banner_content fade-in-element">
-                    <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
+                    {/*<h1><span><strong>{t('search.title')}</strong></span><br/></h1>*/}
                     <div className="search-box">
-                        <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}} onFocus={handleSearchFocus}/>
+                        <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}} onFocus={() => handleSearchFocus()}/>
                         <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm, LanguageMap[inputLanguage].name, category)}}></i>
                         { suggestions.length != 0 ? 
                             <div className="autocomplete-box">

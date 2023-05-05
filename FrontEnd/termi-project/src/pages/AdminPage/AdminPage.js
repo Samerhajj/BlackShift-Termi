@@ -10,19 +10,13 @@ import fileDownload from 'js-file-download';
 // --> components
 import './Admin.css'
 
-// <IconBell />
-
 const AdminPage=()=> {
   const navigate=useNavigate();
   const {t} = useTranslation();
-
-
-
-
   const [isFlapped, setIsFlapped] = useState(false);
   const [isResultShown, setIsResultShown] = useState(false);
   const [counRes,setCountRes] = useState();
-
+  
   const handleClick = async() => {
     const count_res = await axios.get(numberOfWordsInTheApp);
 
@@ -33,9 +27,6 @@ const AdminPage=()=> {
       setIsResultShown(!isResultShown);
     }, 350);
   };
-  
-  
-  //
   
   const getAllUsersLogs = async () => {
   const res = await AdminAPI.fetchAllLogs();
@@ -53,7 +44,7 @@ const AdminPage=()=> {
   }
 };
 //AdminAPI.fetchAllSearchGameLogs
-const getAllUsersSearchGameLogs = async () => {
+  const getAllUsersSearchGameLogs = async () => {
   const res = await AdminAPI.fetchAllSearchGameLogs();
   if (res.success) {
     res.body.forEach(log => {
@@ -83,6 +74,7 @@ const getAllUsersSearchGameLogs = async () => {
     console.log(res.message);
   }
 };
+
 return (
     <div>
     <div className="banner banner_admin">
@@ -97,23 +89,27 @@ return (
             <div className="container d-flex justify-content-center">
                 <div className="admin-body">
                     <button className=" su-button mb-2" onClick={handleSuggestionPage}>
-                    Suggestions from users</button>
+                      {t('admin-page.suggest_from_user')}</button>
+                      
                     <button className=" su-button mb-2" onClick={top10}>
-                    Top 10</button>
+                      {t('admin-page.top_ten')}</button>
+                      
                     <button id = "style "
                         className={`flapping-button su-button mb-2 ${isFlapped ? 'flapped' : ''}`}
                         onClick={handleClick}>
-                        {isResultShown ? <div>Number of Terms is : <strong>{counRes}</strong></div> : <span>Total Number Of Terms</span>}
+                        {isResultShown ? <div>{t('admin-page.total_terms')} : <strong>{counRes}</strong></div> : <span>{t('admin-page.total_terms')}</span>}
                       </button>
-                    <button className="su-button mb-2" onClick={
-                    handleAddTerms}>Admin Add Terms</button>
+                      
+                    <button className="su-button mb-2" onClick={handleAddTerms}>
+                      {t('admin-page.add_term')}</button>
                 
                     <button className="su-button mb-2" onClick={
                     ()=> getAllUsersLogs()}
-                    >Get Data Switch  Language Activity Logs</button>
+                    >{t('admin-page.get_activity_log')}</button>
+                    
                     <button className="su-button mb-2" onClick={
                     ()=> getAllUsersSearchGameLogs()}
-                    >Get User Search Game Logs</button>
+                    >{t('admin-page.get_log_user')}</button>
                 </div>
             <div>
         </div>

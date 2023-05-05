@@ -1,23 +1,20 @@
-import React,{useEffect} from "react";
+import React,{ useState, useEffect } from 'react';
 
 const CheckBox = ({ selectedStatus, setSelectedStatus, setData }) => {
   const status = ["Student", "Works in the field", "Other"];
-
+  
   const handleCheckboxChange = (value) => {
-    console.log("hii")
-    // Check if the value is already in the selectedStatus array
-    const index = selectedStatus.indexOf(value);
-    if (index !== -1) {
-      // If it is, remove it
-      setSelectedStatus(selectedStatus.filter((status) => status !== value));
-    } else {
-      // If it's not, add it
-      setSelectedStatus([...selectedStatus, value]);
-    }
-    // // Update the data state in the parent component
-    setData({ ...setData, status: selectedStatus });
+    const updatedStatus = selectedStatus.includes(value)
+      ? selectedStatus.filter((status) => status !== value)
+      : [...selectedStatus, value];
+    setSelectedStatus(updatedStatus);
+    console.log(`Updated selectedStatus to:`, updatedStatus);
   };
 
+  useEffect(() => {
+    setData({ ...setData, status: selectedStatus });
+    console.log(`Updated data to:`, { ...setData, status: selectedStatus });
+  }, [selectedStatus]);
 
   return (
     <div>

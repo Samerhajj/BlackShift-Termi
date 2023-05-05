@@ -2,11 +2,9 @@
 
 
 // Index Page 
-export { default as ProfilePageNew } from"./ProfilePageNew/ProfilePageNew";
 export { default as Register } from"./Register/Register";
 export { default as Login } from"./Login/Login";
 export { default as Favorite } from"./Favorite/Favorite";
-export { default as Note } from"./Note/Note";
 export { default as AdminPage } from"./AdminPage/AdminPage";
 export { default as Top10 } from"./AdminPage/Top10";
 export { default as AddTermAdmin } from"./AdminPage/AddTermAdmin";

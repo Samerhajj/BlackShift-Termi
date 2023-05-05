@@ -14,10 +14,11 @@ import './ViewSuggestions.css';
 
 const ViewSuggestions = ()=> {
     
- const navigate = useNavigate();
- const [suggestList,setSuggestList] = useState([]);
-    const { i18n } = useTranslation();
+const navigate = useNavigate();
+const [suggestList,setSuggestList] = useState([]);
+const { i18n } = useTranslation();
 const [expanded, setExpanded] = useState(false);
+const { t } = useTranslation();
 
  // --> functions
  const handleGetAllSuggest = async() =>{
@@ -77,8 +78,8 @@ return (
       </div>
       
     <div className="admin-sg">
-        <button className="su-button mb-2" onClick={handleGetAllSuggest}>View Suggestions</button>
-        <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
+        <button className="su-button mb-2" onClick={handleGetAllSuggest}>{t('user-suggestions.viewsuggestions')}</button>
+        <button className="su-button mb-2" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
     </div>
                     
                    

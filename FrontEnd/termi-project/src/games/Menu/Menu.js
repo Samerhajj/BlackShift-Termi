@@ -2,48 +2,53 @@ import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FaMusic, FaVolumeMute, FaPlay, FaStop, FaBars } from 'react-icons/fa';
-import { MdHome } from 'react-icons/md';
+import { MdHome, MdSettings } from 'react-icons/md';
 import "./Menu.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import backgroundVideo from "./testground.mp4";
-import buttonClickSound from './sounds/buttonclick.wav';
-import buttonRollOver from './sounds/buttonrollover.wav';
-import "typeface-roboto"; 
+import "typeface-roboto";
 
-import LeaderModal from './LeaderModal';
+import buttonClickSFXaudio from "../../assets/sound/SFX/button-mouse-click-sfx.wav";
+import buttonEnterSFXaudio from "../../assets/sound/SFX/button-mouse-enter-sfx.wav";
+import buttonLeaveSFXaudio from "../../assets/sound/SFX/button-mouse-leave-sfx.wav";
 
-function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying, gameName, selectedCategory }) {
+import LeaderModal from './LeaderModal/LeaderModal';
+import SettingsModal from './SettingsModal/SettingsModal';
+
+function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying, gameName, selectedCategory, categoryChanged }) {
+  
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+	
+	const [buttonClickSFX] = useState(new Audio(buttonClickSFXaudio));
+	const [buttonEnterSFX] = useState(new Audio(buttonEnterSFXaudio));
+	const [buttonLeaveSFX] = useState(new Audio(buttonLeaveSFXaudio));
   
   useEffect(() => {
-    const audioClick = document.getElementById("audioClick");
-    const audioHover = document.getElementById("audioHover");
     const links = document.querySelectorAll(".menu-item");
 
-    const hoverSound = () => {
-      audioHover.play();
+    const enterSound = () => {
+      buttonEnterSFX.play();
+    };
+    
+    const leaveSound = () => {
+      buttonLeaveSFX.play();
     };
 
     const clickSound = () => {
-      audioClick.play();
+      buttonClickSFX.play();
     };
 
-    audioClick.addEventListener("ended", () => {
-      audioClick.currentTime = 0;
-    });
-
-    audioHover.addEventListener("ended", () => {
-      audioHover.currentTime = 0;
-    });
-
     links.forEach(link => {
-      link.addEventListener("mouseenter", hoverSound);
+      link.addEventListener("mouseenter", enterSound);
+      link.addEventListener("mouseleave", leaveSound);
       link.addEventListener("click", clickSound);
     });
 
     return () => {
       links.forEach(link => {
-        link.removeEventListener("mouseenter", hoverSound);
-        link.removeEventListener("click", clickSound);
+        link.removeEventListener("mouseenter", enterSound);
+      link.addEventListener("mouseleave", leaveSound);
+      link.addEventListener("click", clickSound);
       });
     };
   }, []);
@@ -52,55 +57,60 @@ function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying,
     window.scrollTo(0, 0);
   }, []);
   
-  const [showLeaderboard, setShowLeaderboard] = useState(false);
-
+  
   return (
     <>
-      <audio id="audioClick">
-      <source src={buttonClickSound} type="audio/wav" />
-    </audio>
-    
-      <audio id="audioHover">
-      <source src={buttonRollOver} type="audio/wav" />
-    </audio>
-    
-      
-     <div className="screen">
-      <video autoPlay muted id="background">
-        <source src={backgroundVideo} type="video/mp4" />
-      </video>
-       <div className="menu-container">
-       <h1>{gameName}</h1>
-       <h3>First Edition</h3>
-      <div className="menu-item" onClick={handleStart}>
-        <FaPlay className="menu-icon" />
-        <span className="menu-text">Start</span>
+      <div className="menu-container">
+         <h1>{gameName}</h1>
+         <h3>First Edition</h3>
+         
+         <div className="menu-item" onClick={() => handleStart()}>
+          <FaPlay className="menu-icon" />
+          <span className="menu-text">Start</span>
+         </div>
+         
+         <div className="menu-item" onClick={() => setShowLeaderboard(true)}>
+          <FaBars className="menu-icon" />
+          <span className="menu-text">Leaderboard</span>
+         </div>
+         
+         <div className="menu-item" onClick={() => handleMusicToggle()}>
+           {musicPlaying ? (
+             <FaMusic className="menu-icon" />
+           ) : (
+             <FaVolumeMute className="menu-icon" />
+           )}
+           <span className="menu-text">Music</span>
+         </div>
+         
+         <div className="menu-item" onClick={() => setShowSettings(true)}>
+           <MdSettings className="menu-icon" />
+           <span className="menu-text">Settings</span>
+         </div>
+         
+         <Link className="text-decoration-none" to="/games">
+           <div className="menu-item">
+             <MdHome className="menu-icon" />
+             <span className="menu-text">Games Menu</span>
+           </div>
+         </Link>
+         
+        {showLeaderboard ? 
+          <LeaderModal 
+                    gameName={gameName}
+                    onClose={() => setShowLeaderboard(false)} />
+          :
+          null
+        }
+        {showSettings ? 
+          <SettingsModal
+                    initialCategory={selectedCategory}
+                    categoryChanged={(newCategory) => {categoryChanged(newCategory)}}
+                    onClose={() => setShowSettings(false)} />
+          :
+          null
+        }
       </div>
-     <div className="menu-item" onClick={() => setShowLeaderboard(true)}>
-        <FaBars className="menu-icon" />
-        <span className="menu-text">Leaderboard</span>
-      </div>
-      <div className="menu-item" onClick={handleMusicToggle}>
-        {musicPlaying ? (
-          <FaMusic className="menu-icon" />
-        ) : (
-          <FaVolumeMute className="menu-icon" />
-        )}
-        <span className="menu-text">Music</span>
-      </div>
-      <Link to="/games">
-        <div className="menu-item">
-          <MdHome className="menu-icon" />
-          <span className="menu-text">Games Menu</span>
-        </div>
-      </Link>
-      {showLeaderboard ? 
-        <LeaderModal gameName={gameName} onClose={() => setShowLeaderboard(false)} />
-        :
-        null
-      }
-    </div>
-    </div>
     </>
   );
 }

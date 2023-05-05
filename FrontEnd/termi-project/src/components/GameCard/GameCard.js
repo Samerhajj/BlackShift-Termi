@@ -23,13 +23,15 @@ const GameCard = (props) =>{
                     {close => (
                         <div className="instructions-popup-background">
                             <div className="instructions-popup-title">{props.game.title}</div>
-                            <div className="instructions-popup-text">
-                                {props.game.instructions.map((step) => (
-                                    <li key={step.id}>{step.text}</li>
-                                ))}
+                            <div className="instructions-popup-container">
+                                <div className="instructions-popup-text">
+                                    {props.game.instructions.map((step) => (
+                                        <li key={step.id}>{step.text}</li>
+                                    ))}
+                                </div>
                             </div>
                             
-                            <div className="instructions-popup-actions d-flex gap-3">
+                            <div className="instructions-popup-actions d-flex justify-content-around">
                                 <button className="btn btn-primary" onClick={() => navigate(props.game.path)}>{t('games.play-button')}</button>
                                 <button className="btn btn-outline-secondary" onClick={() => close()}>{t('games.back-button')}</button>
                             </div>

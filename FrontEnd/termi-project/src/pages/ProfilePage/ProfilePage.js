@@ -1,5 +1,5 @@
 // --> React
-import React,{useState,useEffect,useContext} from "react";
+import React,{useState, useContext} from "react";
 import { useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 import {LoginContext} from "../../components/LoginContext";
 import { CategoriesContext } from "../../components/CategoryContext";
 import Leaderboard from "../../components/Leaderboard/Leaderboard";
+import GameHistoryGraph from "../../components/graph/GameHistoryGraph";
+import AchievementBoard from "../../components/AchievementBoard/AchievementBoard";
 
 // --> Style & Media
 import "./ProfilePage.css";
@@ -15,29 +17,26 @@ import { Col, Row, Nav, Tab} from "react-bootstrap";
 import AvatarGenerator from "../Logic/AvatarGenerator";
 import { IconContext } from "react-icons";
 import { IoPersonCircle } from 'react-icons/io5';
-import { BsGenderAmbiguous } from 'react-icons/bs';
-import { MdEmail, MdCategory, MdBorderColor } from 'react-icons/md';
+import { BsGenderAmbiguous,BsCardList } from 'react-icons/bs';
+import { MdEmail, MdCategory, MdBorderColor ,MdAssistantPhoto} from 'react-icons/md';
 import { AiFillMobile, AiFillStar } from "react-icons/ai";
 import { VscActivateBreakpoints } from "react-icons/vsc";
 import { BiSearchAlt, BiConversation } from "react-icons/bi";
 import { CgPassword } from "react-icons/cg";
-import { LineChart, Line, XAxis, YAxis, Legend, ResponsiveContainer } from 'recharts';
 
 // --> API
 import profileAPI from "../../api/ProfileAPI";
 import UserAPI from "../../api/UserAPI";
 import LanguageMap from "../../api/LanguageAPI";
-import GameHistoryAPI from "../../api/GameHistoryAPI";
 
 // --> Modals
-import ChangePassModal from '../ProfileEdit/ChangePassModal';
-import EditProfileModal from '../ProfileEdit/EditProfileModal';
+import ChangePassModal from './ProfileEdit/ChangePassModal';
+import EditProfileModal from './ProfileEdit/EditProfileModal';
 
 
 const ProfilePage =  () => {
   const { categories } = useContext(CategoriesContext);
   const user = useContext(LoginContext);
-  console.log(user);
   const { t, i18n } = useTranslation();
   let avatarGenerator = new AvatarGenerator();
   let avatarImageUrl = avatarGenerator.generateRandomAvatar("random123");
@@ -45,58 +44,8 @@ const ProfilePage =  () => {
   const [showModalAvatar, setShowModalAvatar] = useState(false);
   const [showPasswordModal,setShowPasswordModal]=useState(false);
   const [showPasswordError, setShowPasswordError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [points,setPoints]=useState(0);
-  const [searchCounter,setSearchCounter]=useState(0);
-  const [suggestCounter,setSuggestCounter]=useState(0);
   
   const navigate = useNavigate();
- 
-  const [gamesData, setGamesData] = useState([]);
-
-  const gameColors = {
-    'Memory Game': 'blue',
-    'Backward': 'red',
-    'Other Game': 'green'
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  async function fetchData() {
-  setIsLoading(true);
-  const res = await GameHistoryAPI.getGameHistory();
-  const gamesData = res.body.games;
-
-  // Create an object to store gameName and their corresponding scores
-  const gamesScores = {};
-  gamesData.forEach((game) => {
-    if (gamesScores[game.gameName]) {
-      gamesScores[game.gameName].push(game.score);
-    } else {
-      gamesScores[game.gameName] = [game.score];
-    }
-  });
-
-  // Format the data for Victory
-  const chartData = Object.entries(gamesScores).map(([gameName, scores], index) => ({
-    x: index + 1,
-    y: scores,
-    label: gameName,
-  }));
-
-  setGamesData(chartData);
-  setIsLoading(false);
-}
-
-// const chartOptions = {
-//     scales: {
-//         y: {
-//             beginAtZero: true
-//         }
-//     }
-// };
 
  
   function handleOpenPasswordModal() {
@@ -203,9 +152,9 @@ const ProfilePage =  () => {
       <div className="banner banner_profile">
         <div className="wrapper h-3">
           <div className="banner_content">
-            <h1>
+            {/*<h1>
               <strong>{t('profile.title-first')}</strong> {t('profile.title-last')}
-            </h1>
+            </h1>*/}
           </div>
         </div>
       </div>
@@ -232,13 +181,20 @@ const ProfilePage =  () => {
         <Row className="gap-4">
           <Col sm={3}>
             <div className="d-flex justify-content-center flex-column mb-3">
-              <Image src={avatarImageUrl}/>
-              <h3 className="text-center">{user.userData.fullName}</h3>
-              <a className="favorites-button text-center" role="button" onClick={() => {navigate('/favorite')}}>
-                <IconContext.Provider value={{ size: "2rem" }}>
-                  <AiFillStar/>
-                </IconContext.Provider> 
-              </a>
+              <Image className="mx-4 mb-3" src={avatarImageUrl}/>
+              <h3 className="text-center text-capitalize fw-bold">{user.userData.fullName}</h3>
+              <div className="d-flex flex-wrap justify-content-center gap-2">
+                <a className="favorites-button text-center" role="button" onClick={() => {navigate('/favorite')}}>
+                  <IconContext.Provider value={{ size: "2rem" }}>
+                    <AiFillStar/>
+                  </IconContext.Provider> 
+                </a>
+                <a className="favorites-button text-center" role="button" onClick={() => {navigate('/UserSuggestions')}}>
+                  <IconContext.Provider value={{ size: "2rem" }}>
+                    <MdAssistantPhoto/>
+                  </IconContext.Provider> 
+                </a>
+              </div>
             </div>
           </Col>
           
@@ -253,8 +209,12 @@ const ProfilePage =  () => {
               <Nav.Item>
                 <Nav.Link eventKey="third">Progress</Nav.Link>
               </Nav.Item>
+              {/* Commented For No Stealing*/}
               <Nav.Item>
-                <Nav.Link eventKey="fourth">Leaderboard</Nav.Link>
+                <Nav.Link eventKey="fourth">Achievements</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="fifth">Leaderboard</Nav.Link>
               </Nav.Item>
             </Nav>
             <Tab.Content>
@@ -350,34 +310,36 @@ const ProfilePage =  () => {
                     </div>
                     <div className="fs-5 text-success">{user.userData.email}</div>
                   </div>
+                {/* Status */}
+                  <div className="d-flex justify-content-between align-items-center gap-3">
+                    <div className="d-flex flex-column">
+                      <IconContext.Provider value={{ size: "2rem" }}>
+                        <BsCardList/>
+                      </IconContext.Provider>
+                      <h3 className="m-0"> {t('profile.status')}</h3>
+                    </div>
+                    <div>
+                      {user.userData.status && user.userData.status.map((status, index) => (
+                        <div key={index} className="fs-5 text-success">{status}</div>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
               </Tab.Pane>
               
               {/*Progress Section*/}
               <Tab.Pane eventKey="third">
-                {isLoading ? (<p>Loading...</p>) : (
-                  <ResponsiveContainer width="100%" height={400}>
-                    <LineChart margin={{ top: 30, bottom: 30, left: 30, right: 30 }} data={gamesData.reduce((acc, { label, y }) => y.map((value, i) => ({ x: i + 1, [label]: value, ...acc[i] || {} })), [])}>
-                      <XAxis dataKey="x" label={{ value: "Game Number", position: "insideBottom", dy: 10 }} />
-                      <YAxis label={{ value: "Score", angle: -90, position: "insideLeft" }} scale="pow" exponent={0} domain={[0, 10]} />
-                      <Legend />
-            
-                      {gamesData.map(game => (
-                      <Line
-                        key={game.label}
-                        dataKey={game.label}
-                        stroke={gameColors[game.label]}
-                        strokeWidth={2}
-                        dot={{ stroke: gameColors[game.label], strokeWidth: 2 }}
-                      />
-                      ))}
-                    </LineChart>
-                  </ResponsiveContainer>
-                )}
+                <GameHistoryGraph/>
               </Tab.Pane>
               
-              {/*Leaderboard Section*/}
+              {/*Achievemnts Section*/}
               <Tab.Pane eventKey="fourth">
+                  <AchievementBoard achievements={user.userData.achievements}/>
+              </Tab.Pane>
+             
+              {/*Leaderboard Section*/}
+              <Tab.Pane eventKey="fifth">
                 <Leaderboard changeable={true}/>
               </Tab.Pane>
               

@@ -2,33 +2,30 @@
 import React, {useEffect, useState, useContext} from "react";
 
 // Components
-import CategorySelector from "../../components/CategorySelector";
 import {LoginContext} from "../../components/LoginContext";
-import {CategoriesContext} from "../../components/CategoryContext";
 import Menu from "../Menu/Menu";
 import LanguageSelector from '../../components/LanguageSelector';
-
 
 // Translate
 import { useTranslation } from 'react-i18next';
 
 // CSS and Elements
-import { MdOutlineReplay,MdArrowBack } from "react-icons/md";
-import { AiFillPlayCircle } from "react-icons/ai";
-import { Modal, Button } from "react-bootstrap";
 import "./MemoryGame.css";
+import "../GamesStyles.css";
 import "typeface-roboto";
+import { MdOutlineReplay,MdArrowBack } from "react-icons/md";
+import MemoryGameBG from "./MemoryGameBG/MemoryGameBG";
+import correctSFXaudio from "../../assets/sound/SFX/correct-sfx.wav";
+import incorrectSFXaudio from "../../assets/sound/SFX/incorrect-sfx.mp3";
 
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
 
-import songTest from '../../assets/sound/christmas-song.mp3';
 
 const MemoryGame = () => {
 	const {userData, setUserData} = useContext(LoginContext);
-	const { categories } = useContext(CategoriesContext);
 	const { t, i18n } = useTranslation();
 	const [cards, setCards] = useState([]);
 	const [showScore, setShowScore] = useState(false);
@@ -41,6 +38,9 @@ const MemoryGame = () => {
 	const [pointsGained, setPointsGained] = useState(0);
 	const [category, setCategory] = useState(userData.field);
 	const gameName = 'Memory Game';
+	
+	const [correctSFX] = useState(new Audio(correctSFXaudio));
+	const [incorrectSFX] = useState(new Audio(incorrectSFXaudio));
 
 	const [musicPlaying, setMusicPlaying] = useState(true);
 	const toggleMusic = () => setMusicPlaying(!musicPlaying);	
@@ -107,7 +107,7 @@ const MemoryGame = () => {
 			setFlipped(prevState => {
 				prevState[0].feedbackClass = "correct";
 				prevState[1].feedbackClass = "correct";
-				console.log(prevState[0].feedbackClass);
+				correctSFX.play();
 				return(prevState);
 			});
 		}
@@ -115,7 +115,7 @@ const MemoryGame = () => {
 			setFlipped(prevState => {
 				prevState[0].feedbackClass = "incorrect";
 				prevState[1].feedbackClass = "incorrect";
-				console.log(prevState[0].feedbackClass);
+				incorrectSFX.play();
 				return(prevState);
 			});
 		}
@@ -146,16 +146,10 @@ const MemoryGame = () => {
 			localStorage.setItem("points",points);
 			
 			const addToHistory = await GameHistoryAPI.updateGameHistory(userData._id, 'Memory Game', points);
-         
-          
 		}else{
 			console.log(response.message);
 		}
 		
-	};
-	
-	const changeCategory = (newCategory) => {
-		setCategory(newCategory);
 	};
 
 	useEffect(() => {
@@ -185,30 +179,31 @@ const MemoryGame = () => {
 
 	return (
 		<>
-		   {musicPlaying && <audio src={songTest} autoPlay loop />}
-			{!start && (
+			<MemoryGameBG/>
+		   {/*musicPlaying && <audio src={songTest} autoPlay loop />*/}
+			{!start ? (
 			  <Menu
 			    selectedCategory={category}
+			    categoryChanged={(newCategory => setCategory(newCategory))}
 			    gameName={gameName}
 			    handleMusicToggle={toggleMusic}
 			    musicPlaying={musicPlaying}
 			    handleStart={initGame}
 			  />
-			)}
-			{start ? (
+			) : (
 				<div dir="ltr">
 					<div className="d-flex flex-wrap justify-content-between">
-						<a className="icon-button" onClick={handleGoBack}>
+						<a className="exit-button" onClick={handleGoBack}>
 	                    	<MdArrowBack/>
 	                	</a>
 	                	<LanguageSelector/>
 	            	</div>
 					{showScore ? (
-						<div className="score-box">
-							<h2>{t('games.memory-game.score')}</h2>
-							<h4>{t('games.memory-game.not')} of tries: {numOfTries}</h4>
-							<h4>{t('games.memory-game.pg')} gained: +{pointsGained} points</h4>
-							<MdOutlineReplay className="icon-button" onClick={() => {restartGame()}}/>
+						<div dir={LanguageMap[i18n.language].dir} className="score-box">
+							<h2 className="score-title">{t('games.memory-game.score')}</h2>
+							<h4>{t('games.memory-game.not')}: {numOfTries}</h4>
+							<h4>{t('games.memory-game.pg')}: +{pointsGained} points</h4>
+							<MdOutlineReplay className="restart-button" onClick={() => {restartGame()}}/>
 						 </div>
 					) : (
 						<div>
@@ -216,7 +211,7 @@ const MemoryGame = () => {
 								{cards.map((card,index) =>{
 									 const { feedbackClass } = flipped.find(card=>card.index === index) || { feedbackClass: '' };
 									 return (
-										<div key={index} className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${flipped.find(element => element.index == index) ? 'flipped' : ''}`}>
+										<div dir={LanguageMap[i18n.language].dir} key={index} className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${flipped.find(element => element.index == index) ? 'flipped' : ''}`}>
 											<div className="memory-card-inner">
 										
 											{flipped.find(element => element.index == index) ? (
@@ -244,21 +239,19 @@ const MemoryGame = () => {
 						</div>
 					)}
 				</div>
-			) : (
-				<div className="center-button">
-					<div className="icon-selector-container">
-						   <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
-						    	{/*<div className="icon-center">
-						    	<AiFillPlayCircle className="icon-button" onClick={initGame}/>
-						</div>*/}
-					</div>
-			    </div>
-			    
 			)}
-		
-	
 		</>
 	);
 };
 
 export default MemoryGame;
+				
+				
+{/*<div className="center-button">
+	<div className="icon-selector-container">
+		   <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
+		    	{/*<div className="icon-center">
+		    	<AiFillPlayCircle className="icon-button" onClick={initGame}/>
+		</div>
+	</div>
+</div>*/}

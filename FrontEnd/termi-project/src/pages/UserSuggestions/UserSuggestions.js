@@ -40,19 +40,26 @@ const UserSuggestions = () => {
      <center><button className="su-button mb-2" onClick={()=>getSuggestions()}>
    My Suggestions
     </button></center>
-
     {
-    list.map((item,index)=>{
+    (list.length == 0) 
+    ? 
+    <h1>you have no suggestion</h1> 
+    :
+        list.map((item,index)=>{
         return(
         <div>
         <center>
-                <h5>{item}</h5>
+                {/*<h5>{item}</h5>*/}
+                {console.log(item)}
+                <h4>{index + 1} ) {item.conceptName['english']}</h4>
         </center>
         <hr></hr>
         </div>
         )
-    })
+     })
     }
+    
+
     </div>)
 }
         

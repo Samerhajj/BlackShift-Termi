@@ -2,24 +2,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100vh;
   color:#fff;
-  margin-left:4em;
 }
 
 .menu-container h1{
+  font-weight: bold;
   font-size:4em;
   letter-spacing: 30px;
   display:block;
-  margin-bottom:0.5em;
-    color:#fff;
+  color:#fff;
 }
 
 .menu-container h3{
-font-weight: 300;
-font-size:2.5em;
-text-align:center;
-letter-spacing:10px;
-position: relative;
+  font-weight: 300;
+  font-size:2.5em;
+  text-align:center;
+  letter-spacing:7px;
+  position: relative;
+  margin-bottom:1em;
 }
 
 .menu-container h3::before,
@@ -44,6 +47,7 @@ position: relative;
   margin:1em 0;
   cursor: pointer;
   display: flex;
+  gap: 10px;
 }
 
 .menu-icon {
@@ -72,14 +76,6 @@ position: relative;
   }
 }
 
-
-
-.body{
-  margin:0;
-  font-family: "Roboto",sans-serif;
-  
-}
-
 .screen{
   height:100vh;
   width:100%;
@@ -103,27 +99,36 @@ video{
 @media screen and (max-width: 800px){
   .menu-container h1{
     font-size:2em;
+    letter-spacing: 15px;
   }
   .menu-container h3{
-    font-size:1em;
+    font-size:1.5em;
   }
+  .menu-container h3::before,
+  .menu-container h3::after{
+    width:2em;
+    height:2px;
+  }
+
+  .menu-container h3::before{
+    left:-2.2em;
+  }
+
 }
 
 @media screen and (max-width: 500px){
   .menu-container h1{
     letter-spacing: 5px;
   }
-.menu-container h3::before,
-.menu-container h3::after{
-  display:none;
-}
+  .menu-container h3::before,
+  .menu-container h3::after{
+    display:none;
   }
+}
 
 @media screen and (max-height: 450px){
-.screen,
-video{
-  height:35em;
-}
-  
-  
+  .screen,
+  video{
+    height:35em;
+  }
 }

@@ -1,7 +1,3 @@
-.game h1{
-    font-size: 20em;
-}
-
 .points span {
     color : black;
     font-weight: bold;
@@ -10,13 +6,12 @@
 .score-box span {
     color : black;
     font-weight: bold;
+    background-color: white;
 }
 
-
-
 .game-container1 {
-  width: 400px; /* set a fixed width */
-  height: 200px; /* set a fixed height */
+  width: 400px; 
+  height: 200px;
   display: flex;
   justify-content: flex-start;
 }

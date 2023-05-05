@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import RegisterHook from './RegisterHook';
 import axios from 'axios';
+import FormStepper from "react-form-stepper";
 // --> styles
 // import styles from "../styles/RegisterPage.css";
 import styles from "./RegisterPage.module.css";
@@ -16,16 +17,11 @@ import { CategoriesContext } from "../../components/CategoryContext";
 
 import CheckBox from "./CheckBox";
 const Register = () =>{
-  //   const status = ["Student","works in the field","Other"];
-  //   const [checkedState, setCheckedState] = useState(
-  //   new Array(status.length).fill(false)
-  // );
+ 
     const [selectedStatus, setSelectedStatus] = useState([]);
   
   const navigate = useNavigate();
-  const {t, i18n} = useTranslation();
-  // const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",field:"",favorite:[]});
-  // const [data,setData] = useState({fullName:"",phone:"",language:"",email:"",password:"",gender : "",field:"",favorite:[]});
+  const {t, i18n} = useTranslation(); 
   const [data,setData] = useState({
     fullName:"",
     phone:"",
@@ -43,36 +39,7 @@ const Register = () =>{
   const [registered, setRegistered] = useState(false); // new state variable
 
   {
-//   const [category,setCategory] = useState([]);
-// {
-//   // Handle the button click to register
-//   //   const handleSubmit = async () => {
-//   //     const response = await AuthAPI.register({data:data});
-//   //     if(response.success){
-//   //       navigate('/login');
-//   //     }
-//   //     else{
-//   //         alert(response.message);
-//   //     }
-//   // };
-// } 
-// useEffect(()=>{
-//   const fetchCategory= async () => {
-// 										// const res = await axios.get("http://dir.y2022.kinneret.cc:7013/category");
-// 										// console.log(res.data);
-//       const res = await axios.get("http://dir.y2022.kinneret.cc:7013/category");
-//         console.log(res.data);
-//         let temp = [];
-        
-//         res.data.map((item)=>{
-//           temp.push(item);
-//         });
-//         setCategory([...temp]);
-//         console.log(category);
-                    
-// 								   }
-// fetchCategory();	
-// },[])
+
 }
 const handleSubmit = async (e) => {
     e.preventDefault();

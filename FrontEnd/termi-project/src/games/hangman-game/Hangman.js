@@ -1,12 +1,15 @@
+// React
 import React, {useEffect, useState, useContext , useCallback} from "react";
-import { createLetterMatrix } from "./words";
-import LanguageMap from '../../api/LanguageAPI';
-import { useTranslation } from 'react-i18next';
-import { MdOutlineReplay } from "react-icons/md";
-import CategorySelector from "../../components/CategorySelector";
-import { AiFillPlayCircle } from "react-icons/ai";
 
+// Logic
+import { createLetterMatrix } from "./words";
+
+// Translate
+import { useTranslation } from 'react-i18next';
+
+// CSS and Elements
 import "./HangmanGame.css";
+import "../GamesStyles.css";
 import hangman1 from "./images/0.jpg";
 import hangman2 from "./images/1.jpg";
 import hangman3 from "./images/2.jpg";
@@ -14,14 +17,25 @@ import hangman4 from "./images/3.jpg";
 import hangman5 from "./images/4.jpg";
 import hangman6 from "./images/5.jpg";
 import hangman7 from "./images/6.jpg";
-
+import { MdOutlineReplay, MdArrowBack } from "react-icons/md";
 import correctSound from './sounds/correct.mp3';
 import wrongSound from './sounds/wrong.mp3';
+import HangmanGameBG from "./HangmanGameBG/HangmanGameBG";
+
+// Components
+import Menu from "../Menu/Menu";
+import LanguageSelector from '../../components/LanguageSelector';
 import {LoginContext} from "../../components/LoginContext";
+// API
 import GamesApi from '../../api/GamesAPI';
+import LanguageMap from '../../api/LanguageAPI';
+import GameHistoryAPI from '../../api/GameHistoryAPI';
+
 
 
 const Game = ({ actualGuesses = 7, pickedCategory }) => {
+  
+  	const {userData, setUserData} = useContext(LoginContext);
   
   const [correctAudio, setCorrectAudio] = useState(new Audio(correctSound));
   const [wrongAudio, setWrongAudio] = useState(new Audio(wrongSound));
@@ -53,51 +67,73 @@ const Game = ({ actualGuesses = 7, pickedCategory }) => {
   const uniqueLetters1 = Array.from(new Set(letters1));
     const uniqueLetters2 = Array.from(new Set(letters2));
         const uniqueLetters3 = Array.from(new Set(letters3));
-  const [score, setScore] = useState(1);
+  const [score, setScore] = useState(0);
   const [myAnswer, setMyAnswer] = useState([]);
   const [myQuestion, setMyQuestion] = useState([]);
 
-	const [category, setCategory] = useState(0);
+	const [category, setCategory] = useState(userData.field);
   const[showGame,setShowGame] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  	const {userData, setUserData} = useContext(LoginContext);
-  
-  	const changeCategory = (newCategory) => {
-		setCategory(newCategory);
-	};
-  
+	const [musicPlaying, setMusicPlaying] = useState(true);
+	const toggleMusic = () => setMusicPlaying(!musicPlaying);
+	
   const init = () => {
+    setPickedWord1("");
+    setPickedWord2("");
+    setPickedWord3("");
+    setLetters1([]);
+    setLetters2([]);
+    setLetters3([]);
+    setGuessedLetters1([]);
+    setGuessedLetters2([]);
+    setGuessedLetters3([]);
+    setWrongLetters1([]);
+    setWrongLetters2([]);
+    setWrongLetters3([]);
+    setGuesses(7);
+    setLetterOptions1([]);
+    setLetterOptions2([]);
+    setLetterOptions3([]);
+    setHangmanImage(0);
+    setScore(0);
+  };
   
+  
+useEffect(() => {
+    if (i18n.language === 'en') {
+      
+        
+          handleShowGame1();
+    }
+    if (i18n.language === 'he') 
+    {
+       
+          handleShowGame2();
+    }
+        if (i18n.language === 'ar') 
+    {
+      
+          handleShowGame3();
+    } 
+  }, [i18n.language ]);
 
-  setPickedWord1("");
-  setPickedWord2("");
-  setPickedWord3("");
-  setLetters1([]);
-  setLetters2([]);
-  setLetters3([]);
-  setGuessedLetters1([]);
-  setGuessedLetters2([]);
-  setGuessedLetters3([]);
-  setWrongLetters1([]);
-  setWrongLetters2([]);
-  setWrongLetters3([]);
-  setGuesses(7);
-  setLetterOptions1([]);
-  setLetterOptions2([]);
-  setLetterOptions3([]);
-  setHangmanImage(0);
-  setScore(1);
-  
-  
-  
-};
-  
+    const getPointsText = () => {
+    if (i18n.language === 'en') {
+      return "Points";
+    }
+    if (i18n.language === 'he') {
+      return "נקודות";
+    }
+    if (i18n.language === 'ar') {
+      return "نقاط";
+    }
+  };
   
 useEffect(() => {
   if (guessedLetters1.length === uniqueLetters1.length && uniqueLetters1.length !== 0) {
     
-    setScore((currentScore) => currentScore + 1);
+    setScore((currentScore) => currentScore + 100);
     fetchQuestions2();
   }
 
@@ -106,24 +142,22 @@ useEffect(() => {
 
 useEffect(() => {
   if (guessedLetters2.length === uniqueLetters2.length && uniqueLetters2.length !== 0) {
-    setScore((currentScore) => currentScore + 1);
+    setScore((currentScore) => currentScore + 100);
     fetchQuestions2();
   }
 
 
 }, [guessedLetters2, uniqueLetters2, fetchQuestions2]);
 
-
 useEffect(() => {
   if (guessedLetters3.length === uniqueLetters3.length && uniqueLetters3.length !== 0) {
     
-    setScore((currentScore) => currentScore + 1);
+    setScore((currentScore) => currentScore + 100);
     fetchQuestions2();
   }
 
 
 }, [guessedLetters3, uniqueLetters3, fetchQuestions2]);
-
 
 
 const setUpGameState1 = (selectedWord) => {
@@ -136,6 +170,7 @@ const setUpGameState1 = (selectedWord) => {
 
   setLetterOptions1(createLetterMatrix(lettersArray, all_letters_en));
 };
+
 const setUpGameState2 = (selectedWord) => {
   const lowerCaseWord = selectedWord.toLowerCase();
   setPickedWord2(lowerCaseWord);
@@ -159,29 +194,8 @@ const setUpGameState3 = (selectedWord) => {
 
 
 
-
-
-  useEffect(() => {
-    if (i18n.language === 'en') {
-      
-        
-          handleShowGame1();
-    }
-    if (i18n.language === 'he') 
-    {
-       
-          handleShowGame2();
-    }
-        if (i18n.language === 'ar') 
-    {
-      
-          handleShowGame3();
-    } 
-  }, [i18n.language ]);
-
-
   
-  const handleShowGame1 = () => {
+const handleShowGame1 = () => {
   setShowGame1(true);
    setShowGame2(false);
      setShowGame3(false);
@@ -193,12 +207,14 @@ const handleShowGame2 = () => {
      setShowGame3(false);
 
 };
+
 const handleShowGame3 = () => {
   setShowGame1(false);
     setShowGame2(false);
       setShowGame3(true);
 
 };
+
 const fetchQuestions2 = async () => {
   try {
     
@@ -222,13 +238,10 @@ const fetchQuestions2 = async () => {
 
     const numOfTerms = 5;
     let allQuestions = [];
-    const res = await GamesApi.random(numOfTerms, category, "hangMan");
+    const res = await GamesApi.random(numOfTerms, category, "Hangman Game");
 
     if (res.success) {
       const terms = res.body;
-      
- 
-
       for (let i = 0; i < terms.length; i++) {
         const numberOfAnswers = 4;
         const answers = new Array(numberOfAnswers);
@@ -280,6 +293,7 @@ const fetchQuestions2 = async () => {
       return true;
     } else {
       setErrorMessage(res.message);
+      alert(res.message);
       return false;
     }
   } catch (error) {
@@ -288,9 +302,6 @@ const fetchQuestions2 = async () => {
     return false;
   }
 };
-
-
-
 
 const handleSubmit1 = useCallback((l) => {
   if (pickedWord1.includes(l)) {
@@ -305,7 +316,6 @@ const handleSubmit1 = useCallback((l) => {
     }
   }
 }, [pickedWord1, guessedLetters1, wrongLetters1]);
-
 
 const handleSubmit2 = useCallback((l) => {
   if (pickedWord2.includes(l)) {
@@ -337,107 +347,139 @@ const handleSubmit3 = useCallback((l) => {
 
 
   const checkIfAlreadyGuessed1 = (l) =>
-    guessedLetters1.includes(l) || wrongLetters1.includes(l);
-    const checkIfAlreadyGuessed2 = (l) =>
-    guessedLetters2.includes(l) || wrongLetters2.includes(l);
+  guessedLetters1.includes(l) || wrongLetters1.includes(l);
+  
+  const checkIfAlreadyGuessed2 = (l) =>
+  guessedLetters2.includes(l) || wrongLetters2.includes(l);
 
-    const checkIfAlreadyGuessed3 = (l) =>
-    guessedLetters3.includes(l) || wrongLetters3.includes(l);
+  const checkIfAlreadyGuessed3 = (l) =>
+  guessedLetters3.includes(l) || wrongLetters3.includes(l);
+  
+  useEffect(() => {
+  if (hangmanImage === 7) {
+    finishGame(score);
+  }
+}, [hangmanImage, finishGame, score]);
+  
+  const finishGame = async(score) => {
+    
+    console.log(score);
+    
+  const response = await GamesApi.updatePoints(userData._id, score, 'Hangman', category);
+
+  if(response.success) {
+    setUserData({...userData, points: userData.points + score});
+    
+    const addToHistory = await GameHistoryAPI.updateGameHistory(userData._id, 'Hangman', score);
+
+  } else {
+    console.log(response.message);
+  }
+};
+  
 
 return (
-  <div className="game">
+  <div dir="ltr" className="game">
+  <HangmanGameBG/>
     {!showGame ? (
-      <div className="icon-selector-container">
-        <CategorySelector
-          category={category}
-          categoryChanged={(newCategory) => {
-            changeCategory(newCategory);
+			  <Menu
+			    selectedCategory={category}
+			    categoryChanged={(newCategory => setCategory(newCategory))}
+			    gameName="Hangman"
+			    handleMusicToggle={toggleMusic}
+			    musicPlaying={musicPlaying}
+			    handleStart={async () => {
+            const shouldStart = await fetchQuestions2();
+            if (shouldStart) {
+              setShowGame(true);
+            }
           }}
-        />
-        {errorMessage && <div className="error-message">{errorMessage}</div>}
-        <div className="icon-center">
-<AiFillPlayCircle
-  className="icon-button"
-  onClick={async () => {
-    const shouldStart = await fetchQuestions2();
-    if (shouldStart) {
-      setShowGame(true);
-    }
-  }}
-/>
-
-        </div>
-      </div>
+			  />
     ) : (
       <>
-        {hangmanImage === 7 ? (
-          <div className="score-box">
-            <h4>Congratulations!</h4>
-            <h4> number of rounds  survived</h4>
-            <h4>{t('games.backword-definition.pg')}: {score}  YOU! survived</h4>
-            <MdOutlineReplay
-              className="icon-button"
-              onClick={() => {
-                init();
-                fetchQuestions2();
-              }}
-            />
+				<div dir="ltr" className="box">
+					<div className="d-flex flex-wrap justify-content-between">
+						<a className="exit-button" role='button' onClick={() => setShowGame(false)}>
+              	<MdArrowBack/>
+          	</a>
+          	<LanguageSelector/>
+        	</div>
+              {hangmanImage === 7 ? (
+              
+                <div dir={LanguageMap[i18n.language].dir} className="score-box">
+                  <h4>Congratulations!</h4>
+                  <h4> Score is</h4>
+                  <h4>{t('games.backword-definition.pg')}: {score}</h4>
+                  <MdOutlineReplay
+                    className="restart-button"
+                    
+                    onClick={() => {
+                      init();
+                      fetchQuestions2();
+                    }}
+                  
+                  />
+                  
+ 
+                </div>
+              ) : (
+                <>
+                <p className="points">
+                  <center>
+                    <span>
+                      {getPointsText()} {score}
+                    </span>
+                  </center>
+                </p>
+                  {showGame1 && (
+                    <Game1
+                            letterOptions1={letterOptions1}
+                checkIfAlreadyGuessed1={checkIfAlreadyGuessed1}
+                handleSubmit1={handleSubmit1}
+                letters1={letters1}
+                guessedLetters1={guessedLetters1}
+                wrongLetters1 = {wrongLetters1 }
+                hangmanImage={hangmanImage}
+                pickedWord1 = {pickedWord1}
+                correctAudio = {correctAudio}
+                wrongAudio = {wrongAudio}
+                questions = {questions}
+                myQuestion = {myQuestion}
+                    />
+                  )}
+                  {showGame2 && (
+                    <Game2
+                                letterOptions2={letterOptions2}
+                  checkIfAlreadyGuessed2={checkIfAlreadyGuessed2}
+                  handleSubmit2={handleSubmit2}
+                  letters2={letters2}
+                  guessedLetters2={guessedLetters2}
+                  hangmanImage={hangmanImage}
+                  pickedWord2 = {pickedWord2}
+                  correctAudio = {correctAudio}
+                  wrongAudio = {wrongAudio}   
+                  questions = {questions}
+                  myQuestion = {myQuestion}
+                    />
+                  )}
+                  {showGame3 && (
+                    <Game3
+                                letterOptions3={letterOptions3}
+                  checkIfAlreadyGuessed3={checkIfAlreadyGuessed3}
+                  handleSubmit3={handleSubmit3}
+                  letters3={letters3}
+                  guessedLetters3={guessedLetters3}
+                  hangmanImage={hangmanImage}
+                  pickedWord3 = {pickedWord3}
+                  correctAudio = {correctAudio}
+                  wrongAudio = {wrongAudio}   
+                  questions = {questions}
+                  myQuestion = {myQuestion}
+                    />
+                  )}
+                </>
+              )}
           </div>
-        ) : (
-          <>
-            <p className="points" style={{ marginTop: '20px' }}>
-              <center>
-                <span>סיבוב מספר # {score}</span>
-              </center>
-            </p>
-            {showGame1 && (
-              <Game1
-                      letterOptions1={letterOptions1}
-          checkIfAlreadyGuessed1={checkIfAlreadyGuessed1}
-          handleSubmit1={handleSubmit1}
-          letters1={letters1}
-          guessedLetters1={guessedLetters1}
-          wrongLetters1 = {wrongLetters1 }
-          hangmanImage={hangmanImage}
-          pickedWord1 = {pickedWord1}
-          correctAudio = {correctAudio}
-          wrongAudio = {wrongAudio}
-          questions = {questions}
-          myQuestion = {myQuestion}
-              />
-            )}
-            {showGame2 && (
-              <Game2
-                          letterOptions2={letterOptions2}
-            checkIfAlreadyGuessed2={checkIfAlreadyGuessed2}
-            handleSubmit2={handleSubmit2}
-            letters2={letters2}
-            guessedLetters2={guessedLetters2}
-            hangmanImage={hangmanImage}
-            pickedWord2 = {pickedWord2}
-            correctAudio = {correctAudio}
-            wrongAudio = {wrongAudio}   
-            questions = {questions}
-            myQuestion = {myQuestion}
-              />
-            )}
-            {showGame3 && (
-              <Game3
-                          letterOptions3={letterOptions3}
-            checkIfAlreadyGuessed3={checkIfAlreadyGuessed3}
-            handleSubmit3={handleSubmit3}
-            letters3={letters3}
-            guessedLetters3={guessedLetters3}
-            hangmanImage={hangmanImage}
-            pickedWord3 = {pickedWord3}
-            correctAudio = {correctAudio}
-            wrongAudio = {wrongAudio}   
-            questions = {questions}
-            myQuestion = {myQuestion}
-              />
-            )}
-          </>
-        )}
       </>
     )}
   </div>
@@ -458,29 +500,29 @@ function Game1({ letterOptions1, checkIfAlreadyGuessed1, handleSubmit1, letters1
 
   return (
     <div>
-<div className="hangman-img">
-  {letters1.length > 0 && (
-    <img
-      src={
-        hangmanImage === 0
-          ? hangman1
-          : hangmanImage === 1
-          ? hangman2
-          : hangmanImage === 2
-          ? hangman3
-          : hangmanImage === 3
-          ? hangman4
-          : hangmanImage === 4
-          ? hangman5
-          : hangmanImage === 5
-          ? hangman6
-          : hangman7
-      }
-      alt={`Hangman stage ${hangmanImage}`}
-      className="hangman-img__img"
-    />
-  )}
-</div>
+      <div className="hangman-img">
+        {letters1.length > 0 && (
+          <img
+            src={
+              hangmanImage === 0
+                ? hangman1
+                : hangmanImage === 1
+                ? hangman2
+                : hangmanImage === 2
+                ? hangman3
+                : hangmanImage === 3
+                ? hangman4
+                : hangmanImage === 4
+                ? hangman5
+                : hangmanImage === 5
+                ? hangman6
+                : hangman7
+            }
+            alt={`Hangman stage ${hangmanImage}`}
+            className="hangman-img__img"
+          />
+        )}
+    </div>
 
       {letters1.map((letter1, i) =>
         guessedLetters1.includes(letter1) ? (
@@ -743,3 +785,28 @@ function Game3({ letterOptions3, checkIfAlreadyGuessed3, handleSubmit3, letters3
 
 
 export default Game;
+
+
+{/*
+<div className="icon-selector-container">
+  <CategorySelector
+    category={category}
+    categoryChanged={(newCategory) => {
+      changeCategory(newCategory);
+    }}
+  />
+  {errorMessage && <div className="error-message">{errorMessage}</div>}
+  <div className="icon-center">
+  <AiFillPlayCircle
+    className="icon-button"
+    onClick={async () => {
+      const shouldStart = await fetchQuestions2();
+      if (shouldStart) {
+        setShowGame(true);
+      }
+    }}
+  />
+
+  </div>
+</div>
+*/}

@@ -1,10 +1,12 @@
 import React,{useState,useEffect,useCallback} from 'react';
 import { useNavigate} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import AdminAPI from '../../api/AdminAPI';
 
 const Top10 = () =>{
     const navigate = useNavigate();
     const [list,setList]= useState([]);
+    const {t} = useTranslation();
     
     const getTop10 = async () =>{
         const res = await AdminAPI.top10();
@@ -29,9 +31,12 @@ const Top10 = () =>{
           </div>
         </div>
       </div>
-      
-    <button className="su-button mb-2" onClick={()=>getTop10()}>TOP 10</button>
-    <button className="su-button mb-2" onClick={handleAdminPanel}>Back To Panel</button>
+    
+    <div className="container d-flex justify-content-center mb-2">
+        <div className="admin-sg goAndChange">
+            <button className="su-button" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
+        </div>
+    </div>
     
     {
     list.map((item,index)=>{

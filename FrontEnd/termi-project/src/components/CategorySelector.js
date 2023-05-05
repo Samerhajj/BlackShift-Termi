@@ -21,7 +21,7 @@ const CategorySelector = (props) => {
         <div class="form-floating" dir="ltr">
             <select 
                 id="category"
-                className="selectpicker show-menu-arrow form-select mb-2 pb-1"
+                className="selectpicker show-menu-arrow form-select pb-1"
                 data-style="btn-primary"
                 defaultValue={undefined}
                 title="Category"

@@ -30,6 +30,7 @@ const PageLayout = ()=>{
                 <Outlet/>
                 <div className="push"/>
             </div>
+            
             <StickFooter/>
         </div>
     );

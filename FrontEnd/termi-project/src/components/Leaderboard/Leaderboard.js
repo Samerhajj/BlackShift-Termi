@@ -3,6 +3,9 @@ import React,{useState, useEffect, useContext} from 'react';
 
 // --> Styles And Css
 import style from "./Leaderboard.css";
+//import { useTrail, useTransition, animated } from 'react-spring';
+import Image from "react-bootstrap/Image";
+
 
 // --> APIs
 import LeaderboardsAPI from '../../api/LeaderboardsAPI';
@@ -19,6 +22,27 @@ const Leaderboard = (props) =>{
     const [contexts, setContexts] = useState([]);
     const [limit, setLimit] = useState(50);
     const [leaderboardInfo, setLeaderboardInfo] = useState({});
+    const [leaderboard, setLeaderboard] = useState([]);
+      
+//   const leaderboardTransition = leaderboard && useTransition(
+//     leaderboard,
+//         (item,index) => index,
+//         {
+//             from: { opacity: 0, transform: "translateY(-20px)" },
+//             enter: { opacity: 1, transform: "translateY(0px)" },
+//             leave: { opacity: 0, transform: "translateY(-20px)" },
+//             config: { mass: 1, tension: 500, friction: 35 },
+//             trail: 50
+//         }
+//     );
+    
+    
+    // const leaderboardTransition = useTrail(leaderboard ? leaderboard.length : 0, {
+    //     from: { y: -20, opacity: 0 },
+    //     to: { y: 0, opacity: 1},
+    //     config:{ duration: 250, delay: 500 }
+    // });
+
     
     const changeCategory = (newCategory) => {
         setCategory(newCategory);
@@ -33,8 +57,14 @@ const Leaderboard = (props) =>{
         if(context != null){
             const response = await LeaderboardsAPI.getLeaderboard(category, context, limit);
             if(response.success){
-                console.log(response.body);
-                setLeaderboardInfo(response.body);
+                let leaderboardInfo = {
+                    categoryId: response.body.categoryId,
+                    context: response.body.context,
+                    userRank: response.body.userRank,
+                    userScore: response.body.userScore
+                };
+                setLeaderboardInfo(leaderboardInfo);
+                setLeaderboard(response.body.leaderboard);
             }else{
                 console.log(response.message);
             }
@@ -63,14 +93,14 @@ const Leaderboard = (props) =>{
     
     return(
         <div className="backboard">
-            <div className="d-flex flex-wrap justify-content-center gap-3">
+            <div className="d-flex flex-wrap justify-content-center gap-1">
                 <div>
                     <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
-                </div>
+                </div>  
                 { props.changeable ?
                     <>
                         { contexts ?
-                        <div className="form-floating">
+                        <div className="form-floating" dir="ltr">
                             <select 
                                 id="contextSelect"
                                 className="selectpicker show-menu-arrow form-select mb-2 pb-1"
@@ -95,26 +125,77 @@ const Leaderboard = (props) =>{
                     null
                 }
             </div>
-            { leaderboardInfo.leaderboard && leaderboardInfo.leaderboard.length > 0 ?
-                <div className="leaderboard">
-                    <div className="fs-3">Your Rank: {leaderboardInfo.userRank}</div>
+            {leaderboard && leaderboard.length > 0 ?
+                <div className="leaderboard-info">
+                    <div className="user-rank-container text-center">
+                        <div className="d-flex flex-column">
+                            <span>My Rank</span>
+                            <span className="fs-3 fw-bold">{leaderboardInfo.userRank == 0 ? "N/A" : "#" + leaderboardInfo.userRank}</span>
+                        </div>
+                        
+                        { leaderboardInfo.userRank == 1 ?
+                            <div>
+                                <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "1st.png"}/>
+                            </div>
+                        :null}
+                        
+                        
+                        { leaderboardInfo.userRank == 2 ?
+                            <div>
+                                <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "2nd.png"}/>
+                            </div>
+                        :null}
+                        
+                        
+                        { leaderboardInfo.userRank == 3 ?
+                            <div>
+                                <Image className="rank-img-display" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "3rd.png"}/>
+                            </div>
+                        :null}
+                        
+                        <div className="d-flex flex-column">
+                            <span>Score</span>
+                            <span className="fs-3 fw-bold">{leaderboardInfo.userRank == 0 ? "N/A" : `${leaderboardInfo.userScore}`}</span>
+                        </div>
+                    </div>
+                    {/*<div className="fs-3">Your Rank: {leaderboardInfo.userRank == 0 ? "N/A" : "#" + leaderboardInfo.userRank}</div>*/}
+                    <div className="leaderboard">
                     {
-                        leaderboardInfo.leaderboard.map((element, index) => {
-                        return (
-                            <div key={index} className="user-profile">
-                                <h3 className="fw-bold fs-2 user-rank">
-                                {index + 1}
-                                </h3>
-                                <div className="user-info me-auto">
-                                    <h5 className="fw-bold">{element.user.fullName}</h5>   
-                                    <span>{element.user.email}</span>
-                                </div>
-                                <div className="user-score fs-3">
-                                    {element.points}
+                        leaderboard.map((element, index) => (
+                            <div key={index}>
+                                <div className="user-profile">
+                                    <div className="d-flex flex-column">
+                                        { index + 1 == 1 ?
+                                            <Image className="rank-img" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "1st.png"}/>
+    
+                                        :null}
+                                        
+                                        
+                                        { index + 1 == 2 ?
+                                            <Image className="rank-img" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "2nd.png"}/>
+                                        :null}
+                                        
+                                        
+                                        { index + 1 == 3 ?
+                                            <Image className="rank-img" src={process.env.React_App_StorageURL + "Storage" + "/" + "Ranks" + "/" + "3rd.png"}/>
+                                        :null}
+                                        <h3 className="fw-bold fs-4 user-rank text-center">
+                                            #{index + 1}
+                                        </h3>
+                                    </div>
+                                    
+                                    <div className="user-info me-auto d-flex flex-column">
+                                        <span className="fs-5 fw-bold">{element.user.fullName}</span>   
+                                        <span>{element.user.email}</span>
+                                    </div>
+                                    <div className="user-score fs-5 fw-bold">
+                                        {element.points}
+                                    </div>
                                 </div>
                             </div>
-                        )})
+                        ))
                     }
+                    </div>
                 </div>
             :null}
         </div>
@@ -122,4 +203,7 @@ const Leaderboard = (props) =>{
 };
 
 export default Leaderboard;
+
+
+                            
 

@@ -3,7 +3,8 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
-    width: 33%;
+    /*width: 33%;*/
+    width: 300px;
     cursor: pointer;
 }
 
@@ -41,18 +42,25 @@ img {
     padding: 25px 5px;
 }
 
-.instructions-popup-background > .instructions-popup-text{
+.instructions-popup-background > .instructions-popup-actions{
+    margin: 10px;
+}
+
+.instructions-popup-container{
+    max-height:45vh;
+    overflow:auto;
+    overflow-x:hidden;
+}
+
+.instructions-popup-container > .instructions-popup-text{
     margin: 20px 40px;
     padding: 10px 5px;
 }
 
-.instructions-popup-background > .instructions-popup-text li{
+.instructions-popup-container > .instructions-popup-text li{
     margin: 15px 0px;
 }
 
-.instructions-popup-background > .instructions-popup-actions{
-    margin: 10px;
-}
 
 @keyframes anvil {
     0% {
@@ -72,10 +80,14 @@ img {
         }
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 1024px) {
     .game-card {
-        width: 40%;
+        /*width: 40%;*/
+        width: 200px;
     }
+}
+
+@media only screen and (max-width: 960px) {
     .game-instructions-button{
         top: 5px;
         right: 5px;
@@ -92,5 +104,13 @@ img {
     
     .instructions-popup-background > .instructions-popup-text li{
         margin: 10px 0px;
+    }
+}
+
+
+@media only screen and (max-width: 767px) {
+    .game-card {
+        /*width: 40%;*/
+        width: 150px;
     }
 }

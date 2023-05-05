@@ -6,9 +6,9 @@ import React,{useEffect} from "react";
 //Pages
 import {Login,  Register, TermsPage,  ProfilePage,
         ErrorPage,  HomePage, GamesPage,  ForgotPassword,
-        SuggestConceptPage, Favorite, Note, Top10,
+        SuggestConceptPage, Favorite, Top10,
         AdminSuggestionPage,  AdminPage,  AddTermAdmin,UserSuggestions,ResetPasswordPage,VerifyPage
-        ,ProfilePageNew
+        
 } from "./pages/PageIndex";
 
 //Layouts
@@ -27,11 +27,11 @@ import CrosswordGame from "./games/crossword-game/Crossword";
 import MyWebGLGame from "./games/webgl/MyWebGLGame";
 
 
-
 import withAuth from './pages/Logic/withAuth';
 import withNotAuth from './pages/Logic/withNotAuth';
 import withAdminAuth from './pages/Logic/withAdminAuth';
 import LoginProvider  from './components/LoginContext';
+
 
 function App() {
   // --> wrapped components to check if you have the legitimacy to reach specific pages
@@ -53,7 +53,7 @@ function App() {
   const WAdminSuggestionPage = withAdminAuth(AdminSuggestionPage,'admin');
   const WAddTermAdmin = withAdminAuth(AddTermAdmin,'admin');
   const WTop10 = withAdminAuth(Top10,'admin');
-  const WNote = withAdminAuth(Note,'admin');
+  
 
   
 const [login, setLogin] = React.useState(localStorage.getItem('login') || false);
@@ -69,11 +69,13 @@ const [userData, setUserData] = React.useState({});
     <Router>
       <Routes>
           <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
+          <Route path="/games/backword-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
+          <Route path="/games/hangman-game" element={<DynamicTitleRoute title="Hangman Game" element={<WHangman/>} />}/>
+          <Route path="/games/kart-jara" element={<DynamicTitleRoute title="Kart-jara" element={<MyWebGLGame/>}/>}/>
           <Route path="/about" element={<DynamicTitleRoute title="About | Termi" element={<HomePage/>} />}/>
-            <Route path="/games/kart-jara" element={<DynamicTitleRoute title="Kart-jara" element={<MyWebGLGame/>}/>}/>
           
           <Route element={<PageLayout/>}>
-            <Route path="/neww" element={<DynamicTitleRoute title="neww" element={<ProfilePageNew/>} />}/>
+            
           
             <Route path="/" element={<DynamicTitleRoute title="Search" element={<TermsPage/>} />}/>
             <Route path="/login" element={<DynamicTitleRoute title="Login" element={<WLogin/>} />}/>
@@ -84,8 +86,6 @@ const [userData, setUserData] = React.useState({});
             <Route path="/games" element={<DynamicTitleRoute title="Games" element={<WGamesPage/>}/>}/>
             
            
-            <Route path="/games/backword-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
-            <Route path="/games/hangman-game" element={<DynamicTitleRoute title="Hangman Game" element={<WHangman/>} />}/>
             <Route path="/reset-password/:token" element={<DynamicTitleRoute title="Reset Password" element={<ResetPasswordPage/>} />}/>
             <Route path="*" element={<DynamicTitleRoute title="Error" element={<ErrorPage/>} />}/> {/* wrong url */}
             <Route path="/favorite" element={<DynamicTitleRoute title="Favorite" element={<WFavorite/>} />}/>
@@ -97,12 +97,12 @@ const [userData, setUserData] = React.useState({});
             <Route path="/UserSuggestions" element={<DynamicTitleRoute title="User Suggestions" element={<UserSuggestions/>} />}/>
             {/*<Route path="/games/wordle" element={<DynamicTitleRoute title="Wordle" element={<WWordleGame/>} />}/>
             <Route path="/games/crossword-game" element={<DynamicTitleRoute title="Crossword Game" element={<WCrosswordGame/>} />}/>*/}
-            <Route path="/note" element={<DynamicTitleRoute title="Notes" element={<WNote/>} />}/>
+          
             {/*<Route path="/newgame" element={<DynamicTitleRoute title="NewGame" element={<CardGame/>} />}/>*/}
+            
           </Route>
       </Routes>
     </Router>
-<br/><br/><br/><br/><br/><br/>
     </>
   );
 }

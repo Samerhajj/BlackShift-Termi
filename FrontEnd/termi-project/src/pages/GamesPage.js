@@ -59,7 +59,7 @@ const GamesPage = () => {
   // });
   
   useEffect(() => {
-    animate(".item", { x: 30, opacity: 1 },{duration: 0.2, delay: stagger(0.1, { startDelay: 0.15 }) });
+    animate(".item", { y: 30, opacity: 1 },{duration: 0.2, delay: stagger(0.1, { startDelay: 0.15 }) });
   }, []);
 
   return (

@@ -14,30 +14,22 @@ var style = {
     bottom: "0",
     height: "60px",
     width: "100%",
-    zIndex:'5',
-}
+    "z-index":'5'
+};
 var phantom = {
   display: 'block',
   padding: '20px',
   height: '60px',
   width: '100%',
-}
+};
 
 function StickFooter({ children }) {
     return (
    <div>
-        {
-            (true)?
-            (
-                    <>
       <div style={phantom} />
       <div style={style}>
-
             <Row className="">
-                
-                
               <ul className="ul-in-stick-footer d-flex list-unstyled">
-              
               <Col xs={3} xl={3}>
               <li className="il-in-stick-footer justify-content-center">
               <Link to="/">
@@ -47,12 +39,6 @@ function StickFooter({ children }) {
               </Link>
             </li>
             </Col>
-            
-            
-             
-                
-           
-                
                <Col xs={3} xl={3}>
                     <li className="il-in-stick-footer d-flex justify-content-center">
                       <Link to="/suggest">
@@ -63,7 +49,6 @@ function StickFooter({ children }) {
                       </Link>
                     </li>
                 </Col>
-                
                     <Col xs={3} xl={3}>
                     <li className="il-in-stick-footer d-flex justify-content-center">
                       <Link to="/games">
@@ -73,7 +58,6 @@ function StickFooter({ children }) {
                       </Link>
                     </li>
                 </Col>
-                
                    <Col xs={3} xl={3}>
                     <li className="il-in-stick-footer d-flex justify-content-center">
                       <Link to="/profile">
@@ -83,22 +67,11 @@ function StickFooter({ children }) {
                       </Link>
                     </li>
                 </Col>
-
               </ul>
-              </Row>
-  
-      </div>
-      </>
-            )
-            
-            :
-            (
-            console.log("no")            
-            )
-        }
-
+            </Row>
+        </div>
     </div>
-    )
+    );
 }
 
-export default StickFooter
+export default StickFooter;

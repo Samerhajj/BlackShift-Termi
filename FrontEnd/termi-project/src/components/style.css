@@ -136,7 +136,7 @@ a.current {
 
 /* Apply FadeIn to the element */
 .fade-in-element{
-  animation: fade-in 3s ease-in-out;
+  animation: fade-in 1s ease-in-out;
 }
 
 /*.btn {*/
@@ -539,7 +539,6 @@ header .mobile_menu nav ul li a.active:after {
     min-height: 840px;
     position: relative;
     text-align: center;
-    background-image: url(../assets/images/header_bg.svg);
 }
 
 .banner > .wrapper:after {
@@ -580,14 +579,19 @@ header .mobile_menu nav ul li a.active:after {
 /* PAGE BANNERS */
 .banner.banner_home {
     background-position: bottom center;
+    background-image: url(../assets/images/header_bg.svg);
 }
 .banner.banner_profile{
     /*background-image: url(../assets/images/mountains.svg);*/
     /*background-image: url(../assets/images/subtle-prism.svg);*/
-    background-image: url(../assets/images/SVGBackground/radiant-gradient.svg);
-    min-width: auto;
-    min-height: auto;
-    padding-bottom: 8vh;
+    /*background-image: url(../assets/images/SVGBackground/radiant-gradient.svg);*/
+    background-image: url(../assets/images/Profile/profile-banner.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    
+    min-height: 100%;
+    height: 28vh;
 }
 .banner.banner_admin{
     /*background-image: url(../assets/images/sun-tornado _black.svg);*/
@@ -602,15 +606,18 @@ header .mobile_menu nav ul li a.active:after {
 
 }
 .banner.banner_game{
-    background-image: url(../assets/images/game_bg.png);
-    
-    width: 100vw;
-    height: 20vh;
+    background: url(../assets/images/Games/games-banner.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    /*min-width: auto;*/
+    min-height: 100%;
+    /*padding-bottom: 8vh;*/
     
     /*height: 500px;*/
-    /*height: 60vh;*/
+    height: 28vh;
 
-    background-position: bottom center;
+    /*background-position: top center;*/
 }
 .banner.banner_login{
     background-image: url(../assets/images/blocks.svg);
@@ -621,7 +628,7 @@ header .mobile_menu nav ul li a.active:after {
 }
 /*new note */
 .banner.banner_note{
-    background-image: url(../pages/Note/Rect_Light.svg);
+    /*background-image: url(../pages/Note/Rect_Light.svg);*/
     /*min-width: auto;*/
     /*min-height: auto;*/
     width: 100vw;
@@ -1329,7 +1336,7 @@ header .mobile_menu nav ul li a.active:after {
     }
 
     .banner {
-        min-height: auto;
+        min-height: 100%;
     }
 
     h2 {

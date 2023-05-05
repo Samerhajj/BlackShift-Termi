@@ -9,19 +9,26 @@ import fileDownload from 'js-file-download';
 import { useNavigate } from "react-router-dom";
 import Rating from 'react-star-ratings';
 
-// import { useSpeechSynthesis } from 'react-speech-kit';
+
+//import { useSpeechSynthesis } from 'react-speech-kit';
+
 import { TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon,FacebookShareButton, FacebookIcon,LinkedinShareButton, LinkedinIcon  } from 'react-share';
 
 // --> APIs
 import UserApi from '../../api/UserAPI';
 import AdminAPI from '../../api/AdminAPI';
 
-import DeleteTermModal from './DeleteTermModal';    
+import DeleteTermModal from './DeleteTermModal';
+
 // --> Import Icons
 import { BsStarFill, BsStar } from 'react-icons/bs';
 import { LoginContext } from '../LoginContext';
 import { FaMicrophone } from 'react-icons/fa';
+import { CiCircleRemove } from "react-icons/ci";
 //
+
+
+
 // import PropTypes from 'prop-types';
 import { IconContext } from "react-icons";
 import { AiTwotoneEdit } from 'react-icons/ai';
@@ -34,7 +41,6 @@ const TermCard = (props) =>{
     const [isSearch,setIsSearch] = useState(props.isSearch);
     const {userData,setUserData} = useContext(LoginContext);
     const navigate = useNavigate();
-
     
     //Data to share with social media
    const shareData = {
@@ -46,6 +52,10 @@ const TermCard = (props) =>{
   };
   
 
+const voices = window.speechSynthesis.getVoices();
+const englishVoice = voices.find((voice) => voice.lang === 'en-US');
+const arabicVoice = voices.find((voice) => voice.lang === 'ar-SA');
+const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
     const handle_starsClick = async() =>{
         if(!isFav){
             const res = await UserApi.addFavorite(props.term._id,userData._id);
@@ -74,16 +84,59 @@ const TermCard = (props) =>{
         }
     };
     
+//     const languageVoices = {
+//   english: { voiceURI: 'Microsoft Zira Desktop - English (United States)', lang: 'en-US' },
+//   hebrew: { voiceURI: 'Microsoft David Desktop - Hebrew', lang: 'he-IL' },
+//   arabic: { voiceURI: 'Microsoft Hoda Desktop - Arabic', lang: 'ar-SA' }
+// };
+
+  
+  // const { speak } = useSpeechSynthesis();
+// const recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+// const synthesis = window.speechSynthesis;
+// if (!recognition || !synthesis) {
+//   console.log("Web Speech API is not supported in this browser");
+//   return;
+// }
+
+
+
+// const languageVoices = {
+//   en: { lang: 'en-US' },
+//   he: { lang: 'he-IL' },
+//   ar: { lang: 'ar-SA' }
+// };
+
+// const handleSpeak = () => {
+//   const textToSpeak = props.term.conceptName[LanguageMap[language].name];
+//   const utterance = new SpeechSynthesisUtterance(textToSpeak);
+//   const voices = speechSynthesis.getVoices();
+//   const matchingVoices = voices.filter((voice) => voice.lang === languageVoices[language].lang);
+
+//   if (matchingVoices.length > 0) {
+//     const randomIndex = Math.floor(Math.random() * matchingVoices.length);
+//     const voice = matchingVoices[randomIndex];
+//     utterance.voice = voice;
+//   } else {
+//     console.error(`No matching voice found for language: ${language}`);
+//   }
+
+//   speechSynthesis.speak(utterance);
+// };
+
     
+//   const textToSpeak = props.term.conceptName[LanguageMap[language].name]
   
-//   const { speak } = useSpeechSynthesis();
+//   if (language === 'en') {
+//     speak({ text:textToSpeak, voice: englishVoice });
+//   } else if (language === 'ar') {
+//     speak({ text: textToSpeak, voice: arabicVoice });
+//   } else if (language === 'he') {
+//     speak({ text: textToSpeak, voice: hebrewVoice });
+//   }
+// };
 
-//   const handleSpeak = () => {
-//      speak({ text: props.term.conceptName.english });
-//   };
 
-
-  
   
 //TRENDING CONSTS
 const today = new Date();
@@ -204,10 +257,12 @@ const handleCardEdit = () =>{
 //     link.click();
 // }
   
+
     return(
         <div className="term-card" dir="ltr">
         {/*<div className="term-card-trending"/>*/}
-         {
+        
+                {
                 props.role === "admin" && (
                 <div onClick = {null}>
                    
@@ -259,11 +314,12 @@ const handleCardEdit = () =>{
                   </div>)
 
                 }
-         
-              {/*<IconContext.Provider value={{ size: "2rem" }}>
+                
+         {/*
+              <IconContext.Provider value={{ size: "2rem" }}>
                 <button className="w-auto" onClick={handleSpeak}><FaMicrophone /></button>
-              </IconContext.Provider>
-                 */} 
+              </IconContext.Provider>*/}
+                  
                 <div className="definitions-box">
                 <div className="search-count">{t('searchTimes.search')} {props.term.searchCount} {t('searchTimes.times')}</div>
                     <h3 className="term-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
@@ -299,11 +355,15 @@ const handleCardEdit = () =>{
                        <FacebookShareButton className="w-auto" url={shareData.url} quote={shareData.quote}>
                             <FacebookIcon size={40} round={true} />
                         </FacebookShareButton>
-                        <TwitterShareButton className="w-auto" url={shareData.url} title={shareData.text} hashtags={shareData.hashtags}>
+                        <TwitterShareButton className="w-auto" url={'https://github.com/next-share'} title={shareData.text} hashtags={shareData.hashtags}>
                             <TwitterIcon size={40} round={true} />
                         </TwitterShareButton>
-                        <WhatsappShareButton className="w-auto" title={shareData.title + shareData.separator + shareData.url}>
-                            <WhatsappIcon size={40}  round={true} />
+                       <WhatsappShareButton
+                          url={shareData.url}
+                        title={shareData.title}
+                          separator=":: "
+                          >
+                          <WhatsappIcon size={40} round />
                         </WhatsappShareButton>
                         <LinkedinShareButton className="w-auto" url={shareData.url} title={shareData.title}>
                             <LinkedinIcon size={40} round={true} />

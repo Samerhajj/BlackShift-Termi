@@ -47,6 +47,24 @@ const top10 = async () =>{
         return {success: false, message: err.message};
     }
 };
+// delete incorrect terms from the search.
+const deleteTermFromSearch = async(data) =>{
+    try{
+        console.log(data);
+        // const res = await axios.delete(process.env.React_App_BaseURL + "user" + "/" + "deleteterm", {data});
+        let url =process.env.React_App_BaseURL + "user" + "/" + "deleteterm";
+        const res = await axios.delete(url, {data : {TermID: data}});
+
+        return {body: res, success: true};
+    }
+    catch(err){
+        console.log(err);
+        return {success: false, message: err.message};
+    }
+}
+
+
+
 // return to the admin all the change languages activity (activitySchema)
 const fetchAllLogs = async ()=>{
     try{
@@ -76,4 +94,6 @@ export default {getAllSuggestedTerms,
                 top10,
                 addSelectedTerm,
                 fetchAllLogs,
-                fetchAllSearchGameLogs};
+                fetchAllSearchGameLogs,
+                deleteTermFromSearch
+};

@@ -35,6 +35,9 @@ const suggestionsRoute = process.env.React_App_BaseURL + "user" + "/" + "suggest
 const leaderboardRoute = process.env.React_App_BaseURL + "leaderboards";
 const availableContextsRoute = process.env.React_App_BaseURL + "leaderboards" + "/" + "contexts";
 
+// Achievements Routes
+const achievementsRoute = process.env.React_App_BaseURL + "achievements";
+const achievementUpdateRoute = process.env.React_App_BaseURL + "achievements" + "/" + "update";
 
 // Admin Routes
 const numberOfWordsInTheApp = process.env.React_App_BaseURL + "counter";
@@ -81,6 +84,10 @@ export {
         // Leaderboard Routes
         availableContextsRoute,
         leaderboardRoute,
+        
+        // Achievement Routes
+        achievementsRoute,
+        achievementUpdateRoute,
         
         // Admin Routes
         numberOfWordsInTheApp,
