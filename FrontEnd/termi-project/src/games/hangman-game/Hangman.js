@@ -426,7 +426,7 @@ return (
                 <p className="points">
                   <center>
                     <span>
-                      {getPointsText()} {score}
+                      {getPointsText()} : {score}
                     </span>
                   </center>
                 </p>
