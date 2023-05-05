@@ -1,0 +1,20 @@
+// --> React
+import React,{useState, useEffect} from 'react';
+
+// --> Styles And Css
+import style from "./Achievement.css";
+import Image from "react-bootstrap/Image";
+
+// --> Components
+
+const Achievement = (props) =>{
+    return(
+        <div className={`d-flex flex-column align-items-center achievement-container ${props.achieved ? 'achieved' : ''}`}>
+            <Image className="achievement-img" src={props.image.replace(/^\.\//, process.env.React_App_StorageURL)}/>
+            <span className="fs-4 text-white fw-bold text-center">{props.name}</span>
+            <span className="achievement-requirement text-white text-center">{props.requirement}</span>
+        </div>
+    );
+};
+
+export default Achievement;

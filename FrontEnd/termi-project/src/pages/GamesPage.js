@@ -1,5 +1,5 @@
 // React
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 
 // Componenets
 import GameCard from "../components/GameCard/GameCard";
@@ -12,18 +12,19 @@ import BackwordImg from "../assets/images/backword-definition-img.jpg";
 import MemoryImg from "../assets/images/memory-game-img.jpg";
 import HangmanImg from "../assets/images/hangman-game-img.jpg";
 import Kara from "../assets/images/kara.png";
-import { useTrail, animated } from 'react-spring';
+// import { useTrail, animated } from 'react-spring';
+import {AnimatePresence,useAnimation, motion, stagger, animate} from 'framer-motion/dist/framer-motion'
+  // import { ToastContainer, toast } from 'react-toastify';
+  // import 'react-toastify/dist/ReactToastify.css';
 
 // Navigation
 import { useNavigate } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
-import GameModal from "./GamePage/GameModal";
 
 const GamesPage = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
+   const [isMounted, setIsMounted] = useState(false);
   const games = [
     { 
       id: 0,
@@ -48,32 +49,18 @@ const GamesPage = () => {
       path:"/games/hangman-game",
       img: HangmanImg
     },
-    { 
-      id: 3,
-      title:t('games.hangman-game.title'),
-      description:t('games.hangman-game.description'),
-      instructions:t('games.hangman-game.step-by-step', { returnObjects: true }),
-      path:"/games/kart-jara",
-      img: Kara
-    },
   ];
+  const controls = useAnimation();
   
-  function handleOpenModal(game) {
-    setShowModal(game);
-  }
+  // const gamesTransition = useTrail(games.length, {
+  //   from: { y: -50, opacity:0 },
+  //   to: { y: 0, opacity:1 },
+  //   config:{ duration: 250, delay: 500 }
+  // });
   
-  // const instructions = {
-  //   "backword-definition": t('games.backword-definition.step-by-step', { returnObjects: true }),
-  //   "memory-game": t('games.memory-game.step-by-step', { returnObjects: true }),
-  //   "hangman-game": t('games.hangman-game.step-by-step', { returnObjects: true }),
-  // };
-  const gamesTransition = useTrail(games.length, {
-    from: { x: -100, transform: 'translate3d(0, 100%, 0)' },
-    to: {x: 0, transform: 'translate3d(0, 0, 0)' },
-    config:{duration: 500,delay: 200}
-  });
-  
- 
+  useEffect(() => {
+    animate(".item", { x: 30, opacity: 1 },{duration: 0.2, delay: stagger(0.1, { startDelay: 0.15 }) });
+  }, []);
 
   return (
     <>
@@ -82,14 +69,29 @@ const GamesPage = () => {
         <div className='wrapper'>
           <div className="banner_content"/>
         </div>
-     
       </div>
 
-      <Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-3">
-        {games.map((game) => (
-            <GameCard key={game.id} game={game} showInstructionsModal={() => {handleOpenModal(game)}}/>
+       <Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-4">
+        {games.map((game, index) => (
+          <motion.div className="item">
+            <GameCard key={game.id} game={game} />
+          </motion.div>
         ))}
       </Container>
+    </>
+  );
+};
+
+export default GamesPage;
+
+
+
+
+ {/*<Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-4">
+        {games.map((game) => (
+            <GameCard key={game.id} game={game}/>
+        ))}
+      </Container>*/}
       
       {/*<animated.div className="d-flex flex-wrap mt-3 justify-content-center justify-content-evenly align-items-stretch gap-3">
         {gamesTransition.map((styles, index) => (
@@ -98,23 +100,3 @@ const GamesPage = () => {
           </animated.div>
         ))}
       </animated.div>*/}
-      
-      {/*<Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-3">
-        {games.map((game, index) => (
-       <animated.div className="col-md-4 col-lg-3 mb-3" key={game.id} style={gamesTransition[index]}>
-            <GameCard game={game} showInstructionsModal={() => {handleOpenModal(game)}}/>
-          </animated.div>
-        ))}
-      </Container>*/}
-
-      {/*showModal && (<GameModal setShowModal={setShowModal} 
-                                showModal={showModal} 
-                                instructions={instructions}/>)
-      */}
-    </>
-  );
-};
-
-export default GamesPage;
-
-

@@ -5,7 +5,6 @@ import style from './style.css';
 import logoImg from '../assets/images/TermiLogo.png';
 import PropTypes from "prop-types";
 import Image from 'react-bootstrap/Image';
-import Snowfall from 'react-snowfall'
 import Footer from './Footer';
 import StickFooter from './StickFooter';
 
@@ -21,38 +20,17 @@ const PageLayout = ()=>{
         bottom: "0",
         height: "60px",
         width: "100%",
-    }
-    var phantom = {
-      display: 'block',
-      padding: '20px',
-      height: '60px',
-      width: '100%',
-    }
+    };
     
     return(
         <div id="full_wrapper">
-      
             <MainNavbar/>
             
             <div className="main">
-           
                 <Outlet/>
                 <div className="push"/>
             </div>
-            <footer>
-                <div className="wrapper cf">
-                    <div className="wrapper">
-                        {/*<Image className="img-fluid " src={christmas}/>
-                        <Image className="img-fluid " src={village}/>*/}
-                    </div>
-                </div>
-            </footer>
-            <div>
-                <div style={phantom} />
-                <div style={style}>
-                    <StickFooter/>
-                </div>
-            </div>
+            <StickFooter/>
         </div>
     );
 };

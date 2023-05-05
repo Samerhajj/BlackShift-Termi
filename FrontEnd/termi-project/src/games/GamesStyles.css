@@ -1,0 +1,40 @@
+.score-box{
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 5px 5px 5px;
+    padding: 5px;
+    border-radius: 18px;
+    background-color: white;
+}
+
+.score-title{
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.restart-button{
+    font-size: 3em;
+    cursor: pointer;
+    transition: color;
+    transition: 900ms;
+}
+
+.restart-button:hover{
+    color: green;
+    rotate: -360deg;
+}
+
+.exit-button{
+    font-size: 3em;
+    cursor: pointer;
+    color: white;
+    transition: 150ms;
+    margin-left: 10px;
+}
+
+.exit-button:hover{
+    color: red;
+    transform: translateX(-5px);
+}

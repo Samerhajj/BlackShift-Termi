@@ -9,12 +9,14 @@ import fileDownload from 'js-file-download';
 import { useNavigate } from "react-router-dom";
 import Rating from 'react-star-ratings';
 
-import { useSpeechSynthesis } from 'react-speech-kit';
+// import { useSpeechSynthesis } from 'react-speech-kit';
 import { TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon,FacebookShareButton, FacebookIcon,LinkedinShareButton, LinkedinIcon  } from 'react-share';
 
 // --> APIs
 import UserApi from '../../api/UserAPI';
+import AdminAPI from '../../api/AdminAPI';
 
+import DeleteTermModal from './DeleteTermModal';    
 // --> Import Icons
 import { BsStarFill, BsStar } from 'react-icons/bs';
 import { LoginContext } from '../LoginContext';
@@ -74,11 +76,11 @@ const TermCard = (props) =>{
     
     
   
-   const { speak } = useSpeechSynthesis();
+//   const { speak } = useSpeechSynthesis();
 
-  const handleSpeak = () => {
-     speak({ text: props.term.conceptName.english });
-  };
+//   const handleSpeak = () => {
+//      speak({ text: props.term.conceptName.english });
+//   };
 
 
   
@@ -205,6 +207,14 @@ const handleCardEdit = () =>{
     return(
         <div className="term-card" dir="ltr">
         {/*<div className="term-card-trending"/>*/}
+         {
+                props.role === "admin" && (
+                <div onClick = {null}>
+                   
+                    <DeleteTermModal id={props.term._id}/>
+                </div>
+                    )
+                }
             <div className="language-selector">
                 {
                     Object.keys(LanguageMap).map((language) => (
@@ -250,10 +260,10 @@ const handleCardEdit = () =>{
 
                 }
          
-              <IconContext.Provider value={{ size: "2rem" }}>
+              {/*<IconContext.Provider value={{ size: "2rem" }}>
                 <button className="w-auto" onClick={handleSpeak}><FaMicrophone /></button>
               </IconContext.Provider>
-                  
+                 */} 
                 <div className="definitions-box">
                 <div className="search-count">{t('searchTimes.search')} {props.term.searchCount} {t('searchTimes.times')}</div>
                     <h3 className="term-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
