@@ -47,6 +47,9 @@ const deleteTerm = process.env.React_App_BaseURL + "user" + "/" + "deleteonesugg
 const AllChangeLanguageLogs = process.env.React_App_BaseURL + "user" + "/" + "get-all-logs";
 const AllSearchGameLogs = process.env.React_App_BaseURL + "user" + "/" + "get-all-search-game-logs";
 
+// Feedback Routes
+const addFeedbackRoute=process.env.React_App_BaseURL + "feedback" + "/" + "term";
+
 
 // Others
 const top10 = process.env.React_App_BaseURL + "search" + "/" + "get-top10";
@@ -96,6 +99,9 @@ export {
         deleteTerm,
         AllChangeLanguageLogs,
         AllSearchGameLogs,
+        
+        // Feedback Routes
+        addFeedbackRoute,
         
         // Other Routes
         top10,
