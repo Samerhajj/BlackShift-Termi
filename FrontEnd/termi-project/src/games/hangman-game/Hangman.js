@@ -26,16 +26,14 @@ import HangmanGameBG from "./HangmanGameBG/HangmanGameBG";
 import Menu from "../Menu/Menu";
 import LanguageSelector from '../../components/LanguageSelector';
 import {LoginContext} from "../../components/LoginContext";
+
 // API
 import GamesApi from '../../api/GamesAPI';
 import LanguageMap from '../../api/LanguageAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
 
-
-
 const Game = ({ actualGuesses = 7, pickedCategory }) => {
-  
-  	const {userData, setUserData} = useContext(LoginContext);
+  const {userData, setUserData} = useContext(LoginContext);
   
   const [correctAudio, setCorrectAudio] = useState(new Audio(correctSound));
   const [wrongAudio, setWrongAudio] = useState(new Audio(wrongSound));
@@ -102,33 +100,27 @@ const Game = ({ actualGuesses = 7, pickedCategory }) => {
   
 useEffect(() => {
     if (i18n.language === 'en') {
-      
-        
-          handleShowGame1();
-    }
-    if (i18n.language === 'he') 
-    {
-       
-          handleShowGame2();
-    }
-        if (i18n.language === 'ar') 
-    {
-      
-          handleShowGame3();
-    } 
-  }, [i18n.language ]);
-
-    const getPointsText = () => {
-    if (i18n.language === 'en') {
-      return "Points";
+      handleShowGame1();
     }
     if (i18n.language === 'he') {
-      return "נקודות";
+      handleShowGame2();
     }
     if (i18n.language === 'ar') {
-      return "نقاط";
-    }
-  };
+      handleShowGame3();
+    } 
+  }, [i18n.language]);
+
+const getPointsText = () => {
+  if (i18n.language === 'en') {
+    return "Points";
+  }
+  if (i18n.language === 'he') {
+    return "נקודות";
+  }
+  if (i18n.language === 'ar') {
+    return "نقاط";
+  }
+};
   
 useEffect(() => {
   if (guessedLetters1.length === uniqueLetters1.length && uniqueLetters1.length !== 0) {
@@ -192,9 +184,6 @@ const setUpGameState3 = (selectedWord) => {
   setLetterOptions3(createLetterMatrix(lettersArray, all_letters_ar));
 };
 
-
-
-  
 const handleShowGame1 = () => {
   setShowGame1(true);
    setShowGame2(false);
@@ -366,7 +355,7 @@ const handleSubmit3 = useCallback((l) => {
     console.log(score);
     
   const response = await GamesApi.updatePoints(userData._id, score, 'Hangman', category);
-
+  
   if(response.success) {
     setUserData({...userData, points: userData.points + score});
     
@@ -377,6 +366,27 @@ const handleSubmit3 = useCallback((l) => {
   }
 };
   
+  const handleGoBack = () => {
+    setPickedWord1("");
+    setPickedWord2("");
+    setPickedWord3("");
+    setLetters1([]);
+    setLetters2([]);
+    setLetters3([]);
+    setGuessedLetters1([]);
+    setGuessedLetters2([]);
+    setGuessedLetters3([]);
+    setWrongLetters1([]);
+    setWrongLetters2([]);
+    setWrongLetters3([]);
+    setGuesses(7);
+    setLetterOptions1([]);
+    setLetterOptions2([]);
+    setLetterOptions3([]);
+    setHangmanImage(0);
+    setScore(0);
+    setShowGame(false);
+  };
 
 return (
   <div dir="ltr" className="game">
@@ -399,7 +409,7 @@ return (
       <>
 				<div dir="ltr" className="box">
 					<div className="d-flex flex-wrap justify-content-between">
-						<a className="exit-button" role='button' onClick={() => setShowGame(false)}>
+						<a className="exit-button" role='button' onClick={() => handleGoBack()}>
               	<MdArrowBack/>
           	</a>
           	<LanguageSelector/>
@@ -424,59 +434,59 @@ return (
                 </div>
               ) : (
                 <>
-                <p className="points">
-                  <center>
-                    <span>
-                      {getPointsText()} {score}
-                    </span>
-                  </center>
-                </p>
-                  {showGame1 && (
-                    <Game1
-                            letterOptions1={letterOptions1}
-                checkIfAlreadyGuessed1={checkIfAlreadyGuessed1}
-                handleSubmit1={handleSubmit1}
-                letters1={letters1}
-                guessedLetters1={guessedLetters1}
-                wrongLetters1 = {wrongLetters1 }
-                hangmanImage={hangmanImage}
-                pickedWord1 = {pickedWord1}
-                correctAudio = {correctAudio}
-                wrongAudio = {wrongAudio}
-                questions = {questions}
-                myQuestion = {myQuestion}
-                    />
-                  )}
-                  {showGame2 && (
-                    <Game2
-                                letterOptions2={letterOptions2}
-                  checkIfAlreadyGuessed2={checkIfAlreadyGuessed2}
-                  handleSubmit2={handleSubmit2}
-                  letters2={letters2}
-                  guessedLetters2={guessedLetters2}
+                  <p className="points">
+                    <center>
+                      <span>
+                        {getPointsText()} {score}
+                      </span>
+                    </center>
+                  </p>
+                    {showGame1 && (
+                      <Game1
+                              letterOptions1={letterOptions1}
+                  checkIfAlreadyGuessed1={checkIfAlreadyGuessed1}
+                  handleSubmit1={handleSubmit1}
+                  letters1={letters1}
+                  guessedLetters1={guessedLetters1}
+                  wrongLetters1 = {wrongLetters1 }
                   hangmanImage={hangmanImage}
-                  pickedWord2 = {pickedWord2}
+                  pickedWord1 = {pickedWord1}
                   correctAudio = {correctAudio}
-                  wrongAudio = {wrongAudio}   
+                  wrongAudio = {wrongAudio}
                   questions = {questions}
                   myQuestion = {myQuestion}
-                    />
-                  )}
-                  {showGame3 && (
-                    <Game3
-                                letterOptions3={letterOptions3}
-                  checkIfAlreadyGuessed3={checkIfAlreadyGuessed3}
-                  handleSubmit3={handleSubmit3}
-                  letters3={letters3}
-                  guessedLetters3={guessedLetters3}
-                  hangmanImage={hangmanImage}
-                  pickedWord3 = {pickedWord3}
-                  correctAudio = {correctAudio}
-                  wrongAudio = {wrongAudio}   
-                  questions = {questions}
-                  myQuestion = {myQuestion}
-                    />
-                  )}
+                      />
+                    )}
+                    {showGame2 && (
+                      <Game2
+                                  letterOptions2={letterOptions2}
+                    checkIfAlreadyGuessed2={checkIfAlreadyGuessed2}
+                    handleSubmit2={handleSubmit2}
+                    letters2={letters2}
+                    guessedLetters2={guessedLetters2}
+                    hangmanImage={hangmanImage}
+                    pickedWord2 = {pickedWord2}
+                    correctAudio = {correctAudio}
+                    wrongAudio = {wrongAudio}   
+                    questions = {questions}
+                    myQuestion = {myQuestion}
+                      />
+                    )}
+                    {showGame3 && (
+                      <Game3
+                                  letterOptions3={letterOptions3}
+                    checkIfAlreadyGuessed3={checkIfAlreadyGuessed3}
+                    handleSubmit3={handleSubmit3}
+                    letters3={letters3}
+                    guessedLetters3={guessedLetters3}
+                    hangmanImage={hangmanImage}
+                    pickedWord3 = {pickedWord3}
+                    correctAudio = {correctAudio}
+                    wrongAudio = {wrongAudio}   
+                    questions = {questions}
+                    myQuestion = {myQuestion}
+                      />
+                    )}
                 </>
               )}
           </div>
@@ -499,7 +509,7 @@ function Game1({ letterOptions1, checkIfAlreadyGuessed1, handleSubmit1, letters1
 
 
   return (
-    <div>
+    <div className="d-flex flex-column align-items-center justify-items-center">
       <div className="hangman-img">
         {letters1.length > 0 && (
           <img
@@ -522,8 +532,8 @@ function Game1({ letterOptions1, checkIfAlreadyGuessed1, handleSubmit1, letters1
             className="hangman-img__img"
           />
         )}
-    </div>
-
+      </div>
+      <div className="mt-3 d-flex flex-wrap">
       {letters1.map((letter1, i) =>
         guessedLetters1.includes(letter1) ? (
           <span key={i} className="letter">
@@ -537,9 +547,9 @@ function Game1({ letterOptions1, checkIfAlreadyGuessed1, handleSubmit1, letters1
           ></span>
         )
       )}
-
+      </div>
 <div className="left-text">
-  <center>
+  <center className="text-white">
     {letters1.length > 0 && <span>{myQuestion.english}</span>}
   </center>
 </div>
@@ -598,9 +608,9 @@ function Game2({ letterOptions2, checkIfAlreadyGuessed2, handleSubmit2, letters2
 
 
   return (
-    <div>
-<div className="hangman-img">
-  {letters2.length > 0 && (
+    <div className="d-flex flex-column align-items-center justify-items-center">
+      <div className="hangman-img">
+        {letters2.length > 0 && (
     <img
       src={
         hangmanImage === 0
@@ -621,7 +631,7 @@ function Game2({ letterOptions2, checkIfAlreadyGuessed2, handleSubmit2, letters2
       className="hangman-img__img"
     />
   )}
-</div>
+      </div>
       {letters2.map((letter2, i) =>
         guessedLetters2.includes(letter2) ? (
           <span key={i} className="letter">
@@ -696,91 +706,91 @@ function Game3({ letterOptions3, checkIfAlreadyGuessed3, handleSubmit3, letters3
 
 
   return (
-    <div>
-<div className="hangman-img">
-  {letters3.length > 0 && (
-    <img
-      src={
-        hangmanImage === 0
-          ? hangman1
-          : hangmanImage === 1
-          ? hangman2
-          : hangmanImage === 2
-          ? hangman3
-          : hangmanImage === 3
-          ? hangman4
-          : hangmanImage === 4
-          ? hangman5
-          : hangmanImage === 5
-          ? hangman6
-          : hangman7
-      }
-      alt={`Hangman stage ${hangmanImage}`}
-      className="hangman-img__img"
-    />
-  )}
-</div>
-      {letters3.map((letter3, i) =>
-        guessedLetters3.includes(letter3) ? (
-          <span key={i} className="letter">
-            <center> {letter3} </center>
-          </span>
-        ) : (
-          <span
-            key={i}
-            className="blankSquare"
-            style={{ marginTop: "0px" }}
-          ></span>
-        )
-      )}
-
-<div className="left-text">
-  <center>
-    {letters3.length > 0 && <span>{myQuestion.arabic}</span>}
-  </center>
-</div>
-      <section className="letters-table" style={{ marginTop: "0px" }}>
-        {letterOptions3.map((l) => {
-          let buttonClassName = "letter-opt letter-opt-default";
-          if (!guessedLetters3.includes(l) && !pickedWord3.includes(l)) {
-            buttonClassName += " default-guess";
-          } else if (
-            guessedLetters3.includes(l) &&
-            pickedWord3.includes(l)
-          ) {
-            buttonClassName += " correct-guess";
-          } else if (
-            guessedLetters3.includes(l) &&
-            !pickedWord3.includes(l)
-          ) {
-            buttonClassName += " wrong-guess";
-          }
-          return (
-            <span
-              className={buttonClassName}
-              onClick={() => {
-                if (pickedWord3.includes(l)) {
-                  handleAudioPlay(correctAudio);
-                  
-           
-                } else {
-                  // handleAudioPlay(wrongAudio);
-                }
-                handleSubmit3(l);
-              }}
-              key={l}
-            >
-              {checkIfAlreadyGuessed3(l) && !pickedWord3.includes(l) ? (
-                <span className="wrong-guess">{l}</span>
-              ) : (
-                <span>{l}</span>
-              )}
+    <div className="d-flex flex-column align-items-center justify-items-center">
+      <div className="hangman-img">
+    {letters3.length > 0 && (
+      <img
+        src={
+          hangmanImage === 0
+            ? hangman1
+            : hangmanImage === 1
+            ? hangman2
+            : hangmanImage === 2
+            ? hangman3
+            : hangmanImage === 3
+            ? hangman4
+            : hangmanImage === 4
+            ? hangman5
+            : hangmanImage === 5
+            ? hangman6
+            : hangman7
+        }
+        alt={`Hangman stage ${hangmanImage}`}
+        className="hangman-img__img"
+      />
+    )}
+  </div>
+        {letters3.map((letter3, i) =>
+          guessedLetters3.includes(letter3) ? (
+            <span key={i} className="letter">
+              <center> {letter3} </center>
             </span>
-          );
-        })}
-      </section>
-    </div>
-  );
+          ) : (
+            <span
+              key={i}
+              className="blankSquare"
+              style={{ marginTop: "0px" }}
+            ></span>
+          )
+        )}
+  
+  <div className="left-text">
+    <center>
+      {letters3.length > 0 && <span>{myQuestion.arabic}</span>}
+    </center>
+  </div>
+        <section className="letters-table" style={{ marginTop: "0px" }}>
+          {letterOptions3.map((l) => {
+            let buttonClassName = "letter-opt letter-opt-default";
+            if (!guessedLetters3.includes(l) && !pickedWord3.includes(l)) {
+              buttonClassName += " default-guess";
+            } else if (
+              guessedLetters3.includes(l) &&
+              pickedWord3.includes(l)
+            ) {
+              buttonClassName += " correct-guess";
+            } else if (
+              guessedLetters3.includes(l) &&
+              !pickedWord3.includes(l)
+            ) {
+              buttonClassName += " wrong-guess";
+            }
+            return (
+              <span
+                className={buttonClassName}
+                onClick={() => {
+                  if (pickedWord3.includes(l)) {
+                    handleAudioPlay(correctAudio);
+                    
+             
+                  } else {
+                    // handleAudioPlay(wrongAudio);
+                  }
+                  handleSubmit3(l);
+                }}
+                key={l}
+              >
+                {checkIfAlreadyGuessed3(l) && !pickedWord3.includes(l) ? (
+                  <span className="wrong-guess">{l}</span>
+                ) : (
+                  <span>{l}</span>
+                )}
+              </span>
+            );
+          })}
+        </section>
+      </div>
+    );
 }
 
 

@@ -15,12 +15,6 @@
   display: flex;
   justify-content: flex-start;
 }
-.hangman-img {
-  width: 30%;
-  height: 30%;
-  items-align: center;
-  display: flex;
-}
 .left-text {
   width: 300px;
   text-align: center;
@@ -113,15 +107,6 @@
     align-items: center;
 
   }
-  
-  .hangman-image {
-    
-
-    height: 240.8rem; 
-    width:100.5rem; 
-  }
-
-
 
 .letters-table {
    
@@ -221,23 +206,22 @@
 }
 }
 
+.hangman-img{
+  mix-blend-mode: multiply;
+}
 
 .letters-table .letter-opt.correct-guess {
-    background-color: rgb(0, 169, 130);
+  background-color: rgb(0, 169, 130);
 }
 
 .icon-selector-container {
-   margin-top: 200px;
-    
-    
+  margin-top: 200px;
 }
 
 .icon-center{
- margin-top: 0px;
-
+  margin-top: 0px;
 }
 
 .icon-button{
-
- margin-top: 0px;
+  margin-top: 0px;
 }
