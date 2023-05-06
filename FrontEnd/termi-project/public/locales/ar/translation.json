@@ -47,11 +47,11 @@
         "play-button": "العب اللعبة",
         "back-button": "الرجوع",
         "menu": {
-            "start": "Start",
+            "start": "ابدأ",
             "leaderboard": "Leaderboard",
-            "music": "Music",
-            "settings": "Settings",
-            "games-menu": "Games Menu"
+            "music": "موسيقى",
+            "settings": "الإعدادات",
+            "games-menu": "قائمة الألعاب"
         },
         "backword-definition":{
             "question-info": "سؤال {{currentQuestion}}",

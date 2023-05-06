@@ -47,22 +47,17 @@
         "play-button": "שחק במשחק",
         "back-button": "חזרה",
         "menu": {
-            "start": "Start",
+            "start": "התחל",
             "leaderboard": "Leaderboard",
-            "music": "Music",
-            "settings": "Settings",
-            "games-menu": "Games Menu"
+            "music": "מוזיקה",
+            "settings": "הגדרות",
+            "games-menu": "תפריט משחקים"
         },
         "backword-definition":{
-            "start-game": "תתחיל את המשחק",
             "question-info": "שאלה {{currentQuestion}}",
             "score": "השגת {{score}} מתוך {{questionsLength}}",
-             "title": "הגדרות BackWord",
-             "modalTitle": "תדריך",
-            "goBack": "חזור אחורה",
-            "description": "משחק מילים בו אתה בוחר מילה נכונה מרשימה מונחת בהגדרה ומרוויח נקודות עבור תשובות נכונות",
-            "continueToGame": "המשך למשחק",
-              "scoretitle":"תוצאה",
+            "title": "הגדרות BackWord",
+            "scoretitle":"תוצאה",
             "et":"זמן שחלף",
             "pg":"נקודות שנצברו",
             "timere":"זמן נותר",
@@ -102,12 +97,7 @@
                             ]
         },
         "memory-game":{
-            "start-game": "התחל משחק",
-            "modalTitle": "הנחיות",
             "title":"משחק זיכרון",
-            "goBack": "חזור אחורה",
-            "description":"משחק מילים בו אתה בוחר הגדרה ובוחר את המונח הנכון עבור זה ואת הנקודות עבור תשובות נכונות",
-            "continueToGame": "המשך למשחק",
             "score":"תוצאה",
             "not":"מספר נסיונות",
             "pg":"נקודות שנצברו",
@@ -136,16 +126,10 @@
                  		"id": "step6",
                  		"text": "בסוף המשחק, ניצפה הציון שלך."
                      	}
-                    ]
-                    
+                    ]   
         },
         "hangman-game":{
-            "start-game": "התחל משחק",
-            "modalTitle": "הנחיות",
             "title":"איש תלוי",
-            "goBack": "חזור אחורה",
-            "description":"משחק מילימשחק 'איש תלוי', מטרת המשחק היא לנחש נכון את המונח לפי ההגדרה שלו.",
-            "continueToGame": "המשך למשחק",
             "score":"תוצאה",
             "not":"מספר נסיונות",
             "pg":"נקודות שנצברו",
@@ -190,7 +174,8 @@
             	"id": "step10",
                 "text": "בסוף המשחק, הציון שלך יוצג."
             }
-        ]}
+        ]
+        }
     },
     "category-selector":{
         "category": "קטגוריה"
