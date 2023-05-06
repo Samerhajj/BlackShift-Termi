@@ -54,6 +54,16 @@ const SuggestConceptPage=()=>{
     setLinkEntered(e.target.value.length > 0);
   };
   
+  const validateUrl = (rule, value, callback) => {
+    if (!value) {
+      callback();
+    } else if (!/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/.test(value)) {
+      callback('Invalid URL');
+    } else {
+      callback();
+    }
+  };
+
   // --> 
   const [form] = Form.useForm();
 
@@ -70,6 +80,7 @@ const SuggestConceptPage=()=>{
     if(!searchRes.success && searchRes.error == false){
       values.suggestedBy=userData.fullName;
       values._id = userData._id;
+      console.log(values);
       // console.log(userData['suggestion'])
       const res = await UserAPI.suggestFromUser(values);
      values.suggestion = userData['suggestion'];
@@ -235,8 +246,8 @@ const SuggestConceptPage=()=>{
     
 
         {(
-        <Form.Item name={['link', 'english']} label={<BsLink style={{ fontSize: '24px' }} />} rules={[{ required: false }]}>
-         <Input onChange={handleEnglishNameChange} />
+        <Form.Item name={'readMore'} label={<BsLink style={{ fontSize: '24px' }} />}  rules={[{ required:false, validator: validateUrl }]}>
+         <Input />
         </Form.Item>
          )}
 

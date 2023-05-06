@@ -24,19 +24,16 @@ import Container from 'react-bootstrap/Container';
 
 const GamesPage = () => {
   const { t } = useTranslation();
-   const [isMounted, setIsMounted] = useState(false);
   const games = [
     { 
       id: 0,
       title: t('games.backword-definition.title'),
-      description:t('games.backword-definition.description'),
       instructions: t('games.backword-definition.step-by-step', { returnObjects: true }),
       path:"/games/backword-definition",
       img: BackwordImg
     },
     { 
       id: 1, title:t('games.memory-game.title'),
-      description:t('games.memory-game.description'),
       instructions:t('games.memory-game.step-by-step', { returnObjects: true }),
       path:"/games/memory-game",
       img: MemoryImg
@@ -44,7 +41,6 @@ const GamesPage = () => {
     { 
       id: 2,
       title:t('games.hangman-game.title'),
-      description:t('games.hangman-game.description'),
       instructions:t('games.hangman-game.step-by-step', { returnObjects: true }),
       path:"/games/hangman-game",
       img: HangmanImg

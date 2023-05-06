@@ -16,6 +16,7 @@ const UserSuggestions = () => {
         const res = await UserAPI.getAllSuggestList(userData.email);
         if(res.success){
             setList(res.body.data);
+             console.log(res.body.data);
         }
         else{
             console.log(res.message)
@@ -45,13 +46,14 @@ const UserSuggestions = () => {
     ? 
     <h1>you have no suggestion</h1> 
     :
+   
         list.map((item,index)=>{
         return(
         <div>
         <center>
-                {/*<h5>{item}</h5>*/}
-                {console.log(item)}
-                <h4>{index + 1} ) {item.conceptName['english']}</h4>
+               <h5>{item}</h5>
+              {/*
+                <h4>{index + 1} ) {item.conceptName['english']}</h4>*/}
         </center>
         <hr></hr>
         </div>
