@@ -203,20 +203,20 @@ const ProfilePage =  () => {
           <Col sm={8}>
             <Nav variant="pills" className="d-flex justify-content-evenly profile-menu">
               <Nav.Item>
-                <Nav.Link eventKey="first">General</Nav.Link>
+                <Nav.Link eventKey="first">{t('profile.navbar.general')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="second">Details</Nav.Link>
+                <Nav.Link eventKey="second">{t('profile.navbar.details')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="third">Progress</Nav.Link>
+                <Nav.Link eventKey="third">{t('profile.navbar.progress')}</Nav.Link>
               </Nav.Item>
               {/* Commented For No Stealing*/}
               <Nav.Item>
-                <Nav.Link eventKey="fourth">Achievements</Nav.Link>
+                <Nav.Link eventKey="fourth">{t('profile.navbar.achievements')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="fifth">Leaderboard</Nav.Link>
+                <Nav.Link eventKey="fifth">{t('profile.navbar.leaderboards')}</Nav.Link>
               </Nav.Item>
             </Nav>
             <Tab.Content>
