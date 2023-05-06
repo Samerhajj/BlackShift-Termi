@@ -1,5 +1,5 @@
 // React
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState, useContext,useRef} from "react";
 
 // Components
 import {LoginContext} from "../../components/LoginContext";
@@ -17,11 +17,15 @@ import { MdOutlineReplay,MdArrowBack } from "react-icons/md";
 import MemoryGameBG from "./MemoryGameBG/MemoryGameBG";
 import correctSFXaudio from "../../assets/sound/SFX/correct-sfx.wav";
 import incorrectSFXaudio from "../../assets/sound/SFX/incorrect-sfx.mp3";
+import { motion } from 'framer-motion/dist/framer-motion';
 
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
+import AchievementsAPI from '../../api/AchievementsAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
+
 
 
 const MemoryGame = () => {
@@ -37,6 +41,8 @@ const MemoryGame = () => {
 	const [numOfTries, setNumOfTries] = useState(0);
 	const [pointsGained, setPointsGained] = useState(0);
 	const [category, setCategory] = useState(userData.field);
+	const streakCountRef = useRef(0);
+	const [highestStreak, setHighestStreak] = useState(0);
 	const gameName = 'Memory Game';
 	
 	const [correctSFX] = useState(new Audio(correctSFXaudio));
@@ -108,14 +114,26 @@ const MemoryGame = () => {
 				prevState[0].feedbackClass = "correct";
 				prevState[1].feedbackClass = "correct";
 				correctSFX.play();
+				const newStreakCount = streakCountRef.current + 0.5;
+				 if(newStreakCount>highestStreak)
+			     {
+				setHighestStreak(newStreakCount);  
+				}
+				streakCountRef.current = newStreakCount;
+			      console.log(highestStreak);
+
 				return(prevState);
 			});
 		}
 		else{
 			setFlipped(prevState => {
+			
+				streakCountRef.current = 0;
+			    console.log(streakCountRef.current);
 				prevState[0].feedbackClass = "incorrect";
 				prevState[1].feedbackClass = "incorrect";
 				incorrectSFX.play();
+				
 				return(prevState);
 			});
 		}
@@ -149,6 +167,40 @@ const MemoryGame = () => {
 		}else{
 			console.log(response.message);
 		}
+		
+		if (numOfTries <=15) {
+	      const achievementsRes = await AchievementsAPI.getAllAchievements();
+	      const NoWayScoreAchievement = achievementsRes.body.find(
+	        (achievement) => achievement.name === "Game Master"
+	      );
+	      
+	      if (NoWayScoreAchievement != null) {
+	        await AchievementsAPI.updateAchievement(
+	          userData._id,
+	          NoWayScoreAchievement._id,
+	          true
+	        );
+	        
+			NotificationsAPI.achievementNotification(NoWayScoreAchievement, "Achievement Unlocked!");
+	      }
+	    }
+	    	if (numOfTries <=10 ){
+	      const achievementsRes = await AchievementsAPI.getAllAchievements();
+	      const FantasticScoreAchievement = achievementsRes.body.find(
+	        (achievement) => achievement.name === "Elite Player"
+	      );
+	      
+	      if (FantasticScoreAchievement != null) {
+	        await AchievementsAPI.updateAchievement(
+	          userData._id,
+	          FantasticScoreAchievement._id,
+	          true
+	        );
+			NotificationsAPI.achievementNotification(FantasticScoreAchievement, "Achievement Unlocked!");
+	      }
+	    }
+	   
+	
 		
 	};
 
@@ -211,27 +263,34 @@ const MemoryGame = () => {
 								{cards.map((card,index) =>{
 									 const { feedbackClass } = flipped.find(card=>card.index === index) || { feedbackClass: '' };
 									 return (
-										<div dir={LanguageMap[i18n.language].dir} key={index} className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${flipped.find(element => element.index == index) ? 'flipped' : ''}`}>
-											<div className="memory-card-inner">
-										
-											{flipped.find(element => element.index == index) ? (
-												<div className={`front ${feedbackClass==='correct' ? 'correct' :''} ${feedbackClass==='incorrect' ? 'incorrect' :''}`}>
-													{card[LanguageMap[i18n.language].name]}
-												</div>
-											):(
-												<>
-													{solved.includes(index) ? (
-														<div className="front">
-															{card[LanguageMap[i18n.language].name]}
-														</div>
-													):(
-														<div className={`back ${card.type==='concept name' ? 'concept-name-type' :'short-definition-type'}`} onClick={() => {flip(index)}}>
-															{card[LanguageMap[i18n.language].name]}
-														</div>
-													)}
-												</>
-											)}
-										</div>
+									<div dir={LanguageMap[i18n.language].dir} key={index} className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${flipped.find(element => element.index == index) ? 'flipped' : ''}`}>
+   <motion.div 
+  className="memory-card-inner"
+  initial={{ rotateY: 0 }}
+  animate={flipped.find(element => element.index == index) && !(solved.includes(index) && feedbackClass==='correct') ? { rotateY: 360 } : { rotateY: 0 }}
+  transition={{ duration: 0.5 }}
+>
+    {flipped.find(element => element.index == index) ? (
+        <div className={`front ${feedbackClass==='correct' ? 'correct' :''} ${feedbackClass==='incorrect' ? 'incorrect' :''}`}>
+            {card[LanguageMap[i18n.language].name]}
+        </div>
+    ):(
+        <>
+            {solved.includes(index) ? (
+                <div className="front">
+                    {card[LanguageMap[i18n.language].name]}
+                </div>
+            ):(
+                <div className={`back ${card.type==='concept name' ? 'concept-name-type' :'short-definition-type'}`} onClick={() => {flip(index)}}>
+                    {card[LanguageMap[i18n.language].name]}
+                </div>
+            )}
+        </>
+    )}
+</motion.div>
+
+
+									
 									</div>
 									)
 								})}
