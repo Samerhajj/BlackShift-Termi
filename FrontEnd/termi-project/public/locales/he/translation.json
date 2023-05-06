@@ -43,20 +43,16 @@
         "read_more": "קרא עוד",
         "human_resources": "משאבי אנוש"
     },
-    "home":{
-        "title-1":"שמור על המוטיבציה והמעורבת של המוח שלך",
-        "title-2":"אפילו מהבית",
-        "subtitle":"למד לדבר בגישה מתמרצת, המופעלת על ידי בינה מלאכותית.",
-        "hand-title":"מגוון רחב של חיפושים",
-        "hand-content":"כסה את כל המרכיבים החיוניים לחיפוש מונחים, באינטרנט או בטלפון",
-        "robot-title":"מונע בינה מלאכותית",
-        "robot-content":"כל הכלים והפלטפורמה לפלטפורמות מגוונות ביותר",
-        "game-title":"טכנולוגיית משחקים",
-        "game-content":"מזהה ומתקדם במשחקים"
-    },
     "games":{
-        "play-button": "שחק המשחק",
+        "play-button": "שחק במשחק",
         "back-button": "חזרה",
+        "menu": {
+            "start": "Start",
+            "leaderboard": "Leaderboard",
+            "music": "Music",
+            "settings": "Settings",
+            "games-menu": "Games Menu"
+        },
         "backword-definition":{
             "start-game": "תתחיל את המשחק",
             "question-info": "שאלה {{currentQuestion}}",
@@ -146,9 +142,9 @@
         "hangman-game":{
             "start-game": "התחל משחק",
             "modalTitle": "הנחיות",
-            "title":"משחק זיכרון",
+            "title":"איש תלוי",
             "goBack": "חזור אחורה",
-            "description":"משחק מילים בו אתה בוחר הגדרה ובוחר את המונח הנכון עבור זה ואת הנקודות עבור תשובות נכונות",
+            "description":"משחק מילימשחק 'איש תלוי', מטרת המשחק היא לנחש נכון את המונח לפי ההגדרה שלו.",
             "continueToGame": "המשך למשחק",
             "score":"תוצאה",
             "not":"מספר נסיונות",
@@ -156,46 +152,49 @@
             "step-by-step": [
             {
             	"id": "step1",
-            	"text": "Click the \"Start Game\" button to begin the game."
+            	"text": "לחץ על הכפתור 'התחל משחק' כדי להתחיל את המשחק."
             },
             {
             	"id": "step2",
-            	"text": "Read the definition carefully and choose the word that best matches it."
+            	"text": "קרא את ההגדרה בעיון, נסה לנחש את המונח המתאים לו."
             },
             {
             	"id": "step3",
-            	"text": "Click on your selected answer to submit it."
+            	"text": "כדי להרכיב את שם המונח, עליך ללחוץ על כפתורי האותיות המרכיבות את המונח."
             },
             {
             	"id": "step4",
-            	"text": "If your answer is correct, you will receive a point. If it is incorrect, you will not receive a point."
+            	"text": "בלחיצה על אות שנמצאת במונח, האות תופיע במילה."
             },
             {
                 "id": "step5",
-            	"text": "The game will move on to the next question automatically."
+            	"text": "בלחיצה על אות שלא נמצאת במונח, האות לא תופיע במילה, ובנוסף תפסיד ניסיון אחד מכלל הניסיונות."
          	},
          	{
             	"id": "step6",
-            	"text": "Repeat steps 2-5 until you have completed all 10 questions."
+            	"text": "בהפסד ניסיון, צעד נוסף בציור של האיש התלוי ימשיך."
             },
             {
             	"id": "step7",
-                "text": "At the end of the game, your score will be displayed."
+                "text": "הפסד כללי במשחק מתרחש כאשר נגמרו כל הניסיונות, הציור של האיש התלוי הושלם."
+            },
+            {
+            	"id": "step8",
+                "text": "המשחק יעבור לשאלה הבאה באופן אוטומטי."
+            },
+            {
+            	"id": "step9",
+                "text": "המטרה שלך במשחק היא לנחש כמה שיותר מונחים, כל עוד מספר הניסיונות לא נגמר, כלומר הציור לא הושלם."
+            },
+            {
+            	"id": "step10",
+                "text": "בסוף המשחק, הציון שלך יוצג."
             }
         ]}
-    },
-    "note":{
-        "delete" : "מחיקה",
-        "goTop" : "למעלה",
-        "myNote" : "הערות שלי",
-        "title":"כותרת הערה",
-        "body": "תוכן"
     },
     "category-selector":{
         "category": "קטגוריה"
     },
-    
-    
     "suggest_concept_page":{
         "suggest_title":"דף ההצעות",
         "category_he":"(קטגוריה (עברית",
@@ -212,38 +211,73 @@
         "l_def-ar"   :"הגדרה ארוכה (ערבית)",
         "sbtn":"תציע",
         "rbtn":"איפוס"
-    
     },
-            "profile":{
-            "title-first":"דף",
-            "title-last":" משתמש",
-            "name":"שם",
-            "gender":"מין",
-            "categories":"קטגוריה",
-            "phone":"טלפון",
-            "email":"דואר ",
-            "points":"נקודות",
-            "searches":"חיפושים",
-            "suggestions":"הצעות",
-            "mfullname":"שם מלא",
-            "mphonenumber":"מספר טלפון",
-            "mcategory":"קטגוריה",
-            "mplanguage":"שפה מועדפת",
-            "mcpassword":"סיסמה נוכחית",
-            "mnpassword":"סיסמה חדשה",
-            "mvpassword":"לאמת סיסמה",
-            "mclose":"סגור",
-            "msavechanges":"שמירת שינויים",
-            "medit":"עריכת פרופיל",
-            "mpassword":"עריכת סיסמה"
-        },
-         "favorite":{
-            "favtitle":"מועדפים",
-            "smbtn":"להציג עוד"
+    "profile":{
+        "title-first":"דף",
+        "title-last":" משתמש",
+        "name":"שם",
+        "gender":"מין",
+        "categories":"קטגוריה",
+        "phone":"טלפון",
+        "email":"דואר ",
+        "points":"נקודות",
+        "searches":"חיפושים",
+        "suggestions":"הצעות",
+        "mfullname":"שם מלא",
+        "mphonenumber":"מספר טלפון",
+        "mcategory":"קטגוריה",
+        "mplanguage":"שפה מועדפת",
+        "mcpassword":"סיסמה נוכחית",
+        "mnpassword":"סיסמה חדשה",
+        "mvpassword":"לאמת סיסמה",
+        "mclose":"סגור",
+        "msavechanges":"שמירת שינויים",
+        "medit":"עריכת פרופיל",
+        "mpassword":"עריכת סיסמה",
+        "status":"מצב",
+        "navbar": {
+            "general": "כללי",
+            "details": "פרטים",
+            "progress": "התקדמות",
+            "achievements": "הישגים",
+            "leaderboards": "לוחות תוצאות"
         }
-         ,"searchTimes":{
-            "search":"חפשו",
-            "times":"פעמים"
-        }
-    
+    },
+    "favorite":{
+        "favtitle":"מועדפים",
+        "smbtn":"להציג עוד"
+    },
+    "searchTimes":{
+        "search":"חפשו",
+        "times":"פעמים"
+    },
+    "user-suggestions":{
+        "viewsuggestions":"צפה בהצעות המשתמשים",
+        "backtopanel": "חזור לתפריט ניהול"
+    },
+    "admin-page":{
+        "get_activity_log": "קבל יומני פעילות של החלפת שפה",
+        "add_term": "הוסף מושג",
+        "total_terms": "מספר כולל של מונחים",
+        "top_ten": "10 המובילים",
+        "get_log_user": "קבל יומני משחק של חיפוש משתמשים",
+        "suggest_from_user": "הצעות המשתמשים"
+    },
+    "add-term-admin":{
+        "category_en": "קטגוריה (אנגלית)",
+        "category_ar": "קטגוריה (ערבית)",
+        "category_he": "קטגוריה (עברית)",
+        "concept_name_en": "מושג (אנגלית)",
+        "concept_name_ar": "מושג (ערבית)",
+        "concept_name_he": "מושג (עברית)",
+        "short_def_en": "הגדרה קצרה (אנגלית)",
+        "short_def_ar": "הגדרה קצרה (ערבית)",
+        "short_def_he": "הגדרה קצרה (עברית)",
+        "long_def_en": "הגדרה ארוכה (אנגלית)",
+        "long_def_ar": "הגדרה ארוכה (ערבית)",
+        "long_def_he": "הגדרה ארוכה (עברית)",
+        "url": "כתובת אתר",
+        "suggest_button": "הצע",
+        "reset_button": "איפוס"
+    }
 }

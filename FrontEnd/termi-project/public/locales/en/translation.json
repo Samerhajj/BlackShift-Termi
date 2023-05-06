@@ -43,29 +43,20 @@
         "read_more": "Read More",
         "human_resources": "Human Resources"
     },
-    "home":{
-        "title-1":"Keep your brain highly motivated and engaged",
-        "title-2":"even from home",
-        "subtitle":"Learn To Talk in a incentivized approach, powered by AI.",
-        "hand-title":"Wide Range Of Searches",
-        "hand-content":"Cover all the essential elements for term searching, In Web or on phone",
-        "robot-title":"AI Driven",
-        "robot-content":"All the tools and platform for highly versatile platforms",
-        "game-title":"Games Technology",
-        "game-content":"Identifies and progress through games"
-    },
     "games":{
         "play-button": "Play Game",
         "back-button": "Back",
+        "menu": {
+            "start": "Start",
+            "leaderboard": "Leaderboard",
+            "music": "Music",
+            "settings": "Settings",
+            "games-menu": "Games Menu"
+        },
         "backword-definition":{
-            "start-game": "Start Game",
             "question-info": "Question {{currentQuestion}}",
             "score": "You scored {{score}} out of {{questionsLength}}",
-            "modalTitle": "Instructions",
             "title":"BackWord Definitions",
-            "goBack": "Go Back",
-            "description":"Word game where you choose correct word from list given definition and earn points for correct answers",
-            "continueToGame": "Continue To Game",
             "scoretitle":"Score",
             "et":"Elapsed Time",
             "pg":"Points Gained",
@@ -106,12 +97,7 @@
             ]
         },
         "memory-game":{
-            "start-game": "Start Game",
-            "modalTitle": "Instruction",
             "title":"Memory Game",
-            "goBack": "Go Back",
-            "description":"Word game where you choose definition and choose the correct term for it and earn points for correct answers",
-            "continueToGame": "Continue To Game",
             "score":"Score",
             "not":"Number of Tries",
             "pg":"Points Gained",
@@ -144,58 +130,58 @@
             ]
         },
         "hangman-game":{
-                "start-game": "Start Game",
-                "modalTitle": "Instruction",
-                "title":"Hangman Game",
-                "goBack": "Go Back",
-                "description":"Hangman description goes here",
-                "continueToGame": "Continue To Game",
-                "score":"Score",
-                "not":"Number of Tries",
-                "pg":"Points Gained",
-                "step-by-step": [
-                {
-                	"id": "step1",
-                	"text": "Click the \"Start Game\" button to begin the game."
-                },
-                {
-                	"id": "step2",
-                	"text": "Read the definition carefully and choose the word that best matches it."
-                },
-                {
-                	"id": "step3",
-                	"text": "Click on your selected answer to submit it."
-                },
-                {
-                	"id": "step4",
-                	"text": "If your answer is correct, you will receive a point. If it is incorrect, you will not receive a point."
-                },
-                {
-                    "id": "step5",
-                	"text": "The game will move on to the next question automatically."
-             	},
-             	{
-                	"id": "step6",
-                	"text": "Repeat steps 2-5 until you have completed all 10 questions."
-                },
-                {
-                	"id": "step7",
-                    "text": "At the end of the game, your score will be displayed."
-                }
+            "title":"Hangman Game",
+            "score":"Score",
+            "not":"Number of Tries",
+            "pg":"Points Gained",
+            "step-by-step": [
+            {
+            	"id": "step1",
+            	"text": "Click the \"Start Game\" button to begin the game."
+            },
+            {
+            	"id": "step2",
+            	"text": "Read the definition carefully, try to guess the term that corresponds to it."
+            },
+            {
+            	"id": "step3",
+            	"text": "To form the name of the term, you must click on the letter buttons that make up the term."
+            },
+            {
+            	"id": "step4",
+            	"text": "By clicking on a letter that is in the term, the letter will appear in the word."
+            },
+            {
+                "id": "step5",
+            	"text": "By clicking on a letter that is not in the term, the letter will not appear in the word, and in addition we will lose one attempt out of all the attempts."
+         	},
+         	{
+            	"id": "step6",
+            	"text": "At a trial loss, another step in the Hangman drawing will continue."
+            },
+            {
+            	"id": "step7",
+                "text": "A general loss of the game occurs when all attempts are over, the Hangman drawing is complete."
+            },
+            {
+            	"id": "step8",
+                "text": "The game will move to the next question automatically."
+            },
+            {
+            	"id": "step9",
+                "text": "Your goal in the game is to guess as many terms as possible, as long as the number of attempts is not over, meaning the drawing is not completed."
+            },
+            {
+            	"id": "step10",
+                "text": "At the end of the game, your score will be displayed."
+            }
             ]
         }
-    },
-    "note":{
-        "delete" : "Delete",
-        "goTop" : "Go Top",
-        "myNote" : "MY NOTE",
-        "title":"Note Title",
-        "body": "body"
     },
     "category-selector":{
         "category": "Category"
     },
-      "suggest_concept_page":{
+    "suggest_concept_page":{
           "suggest_title":"Suggest Page",
             "category_he":"Category (Hebrew)",
             "category_en":"Category (English)",
@@ -212,7 +198,7 @@
             "sbtn":"Suggest",
             "rbtn":"Reset"
         },
-        "profile":{
+    "profile":{
             "title-first":"Profile",
             "title-last":"page",
             "name":"Name",
@@ -233,15 +219,51 @@
             "mclose":"Close",
             "msavechanges":"Save Changes",
             "medit":"Edit Profile",
-            "mpassword":"Change"
+            "mpassword":"Change",
+            "status":"Status",
+            "navbar": {
+                "general": "General",
+                "details": "Details",
+                "progress": "Progress",
+                "achievements": "Achievements",
+                "leaderboards": "Leaderboards"
+            }
         },
-        
-             "favorite":{
+    "favorite":{
             "favtitle":"Favourite",
             "smbtn":"Show More"
-        }
-        ,"searchTimes":{
+        },
+    "searchTimes":{
             "search":"Searched",
             "times":"Times"
-        }
+        },
+    "user-suggestions":{
+        "viewsuggestions":"View Suggestions",
+        "backtopanel": "Back To Panel"
+    },
+    "admin-page":{
+        "get_activity_log": "Get Data Switch Language Activity Logs",
+        "add_term": "Admin Add Terms",
+        "total_terms": "Total Number Of Terms",
+        "top_ten": "Top 10",
+        "get_log_user": "Get User Search Game Logs",
+        "suggest_from_user": "Suggestions from users"
+    },
+    "add-term-admin":{
+        "category_en": "Category (English)",
+        "category_ar": "Category (Arabic)",
+        "category_he": "Category (Hebrew)",
+        "concept_name_en": "Concept Name (English)",
+        "concept_name_ar": "Concept Name (Arabic)",
+        "concept_name_he": "Concept Name (Hebrew)",
+        "short_def_en": "Short Definition (English)",
+        "short_def_ar": "Short Definition (Arabic)",
+        "short_def_he": "Short Definition (Hebrew)",
+        "long_def_en": "Long Definition (English)",
+        "long_def_ar": "Long Definition (Arabic)",
+        "long_def_he": "Long Definition (Hebrew)",
+        "url": "URL",
+        "suggest_button": "Suggest",
+        "reset_button": "Reset"
+    }
 }

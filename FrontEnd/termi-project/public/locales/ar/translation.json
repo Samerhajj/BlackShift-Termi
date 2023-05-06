@@ -43,31 +43,21 @@
         "read_more": "اقرأ أكثر",
         "human_resources": "الموارد البشرية"
     },
-    "home":{
-        "title-1":"اجعل عقلك متحمسًا ومشاركًا للغاية",
-        "title-2":"حتى من المنزل",
-        "subtitle":"تعلم التحدث بأسلوب محفز ، مدعوم من الذكاء الاصطناعي.",
-        "hand-title":"مجموعة واسعة من عمليات البحث",
-        "hand-content":"قم بتغطية جميع العناصر الأساسية للبحث عن المصطلحات ، في الويب أو عبر الهاتف",
-        "robot-title":"محرك الذكاء الاصطناعي",
-        "robot-content":"كل الأدوات والمنصة لمنصات متعددة الاستخدامات للغاية",
-        "game-title":"كل الأدوات والمنصة لمنصات متعددة الاستخدامات للغاية",
-        "game-content":"يحدد ويتقدم من خلال الألعاب"
-    },
-    
     "games":{
         "play-button": "العب اللعبة",
         "back-button": "الرجوع",
+        "menu": {
+            "start": "Start",
+            "leaderboard": "Leaderboard",
+            "music": "Music",
+            "settings": "Settings",
+            "games-menu": "Games Menu"
+        },
         "backword-definition":{
-           "start-game": "ابدأ اللعبة",
             "question-info": "سؤال {{currentQuestion}}",
             "score": "لقد حصلت على {{score}} من {{questionsLength}}",
             "title": "تعاريف باك وورد",
-            "goBack": "عودة",
-            "modalTitle": "تعليمات",
-            "description": "لعبة كلمات حيث تختار الكلمة الصحيحة من القائمة المعطاة وتحصل على نقاط للإجابات الصحيحة",
-            "continueToGame": "متابعة اللعبة",
-             "scoretitle":"نتيجة",
+            "scoretitle":"نتيجة",
             "et":"الوقت المنقضي",
             "pg":"النقاط المكتسبة",
             "timere":"وقت المتبقي",
@@ -75,7 +65,7 @@
             "wronganswer":"الإجابة الصحيحة كانت",
             "correctanswer":"إجابة صحيحة",
             "timeout":"إنتهى الوقت",
-              "step-by-step": [
+            "step-by-step": [
          	{
          		"id": "step1",
          		"text": "انقر فوق زر \"ابدأ اللعبة\" لبدء اللعبة."
@@ -105,101 +95,91 @@
                 "text": "في نهاية اللعبة ، سيتم عرض نتيجتك."
                 }
              ]
-            
-            
         },
         "memory-game":{
-           "start-game": "بدء اللعبة",
-            "modalTitle": "التعليمات",
             "title":"لعبة الذاكرة",
-            "goBack": "عودة",
-            "description":"لعبة الكلمات حيث تختار التعريف وتختار المصطلح الصحيح له وتحصل على نقاط للإجابات الصحيحة",
-            "continueToGame": "الإستمرار لللعب",
             "score":"نتيجة",
             "not":"عدد المحاولات",
             "pg":"النقاط المكتسبة",
-            
-              "step-by-step": [
+            "step-by-step": [
          	{
          		"id": "step1",
          		"text": "انقر فوق زر \"ابدأ اللعبة\" لبدء اللعبة."
          	},
          	{
          		"id": "step2",
-         		"text": "اقرأ التعريانقر على المربعات الرمادية ، والصغير هو المصطلح ، والمربع الكبير سيكون التعريف قصير المدى.."
+         		"text": "اقرأ التعريانقر على المربعات الرمادية ، والصغير هو المصطلح ، والمربع الكبير سيكون التعريف قصير المدى."
          	},
          	{
          		"id": "step3",
-         		"text": "انقر فوالنقر فوق المصطلح وتعريفه سيتطابق مع كلا المربعين.."
+         		"text": "انقر فوالنقر فوق المصطلح وتعريفه سيتطابق مع كلا المربعين."
          	},
          	{
          		"id": "step4",
-         		"text": "إذا كاإذا كانت إجابتك صحيحة ، فسيظل المصطلح المعروض بتعريفه الصحيح قائمًا.."
+         		"text": "إذا كاإذا كانت إجابتك صحيحة ، فسيظل المصطلح المعروض بتعريفه الصحيح قائمًا."
          	},
-             {
+            {
                 "id": "step5",
-                "text": "سيتم الانتقال تلإنهاء اللعبة حسب الخطوات السابقة.."
-                },
-                {
+                "text": "سيتم الانتقال تلإنهاء اللعبة حسب الخطوات السابقة."
+            },
+            {
                 "id": "step6",
-                "text": "في نهفي نهاية اللعبة ، سيتم عرض نتيجتك.."
-                }
-             ]
-
+                "text": "في نهفي نهاية اللعبة ، سيتم عرض نتيجتك."
+            }
+            ]
         },
         "hangman-game":{
-            "start-game": "Start Game",
-              "modalTitle": "Instruction",
-              "title":"Hangman Game",
-               "goBack": "Go Back",
-               "description":"Hangman description goes here",
-                "continueToGame": "Continue To Game",
-                "score":"Score",
-                "not":"Number of Tries",
-                "pg":"Points Gained",
-                "step-by-step": [
-                {
-                	"id": "step1",
-                	"text": "Click the \"Start Game\" button to begin the game."
-                },
-                {
-                	"id": "step2",
-                	"text": "Read the definition carefully and choose the word that best matches it."
-                },
-                {
-                	"id": "step3",
-                	"text": "Click on your selected answer to submit it."
-                },
-                {
-                	"id": "step4",
-                	"text": "If your answer is correct, you will receive a point. If it is incorrect, you will not receive a point."
-                },
-                {
-                    "id": "step5",
-                	"text": "The game will move on to the next question automatically."
-             	},
-             	{
-                	"id": "step6",
-                	"text": "Repeat steps 2-5 until you have completed all 10 questions."
-                },
-                {
-                	"id": "step7",
-                    "text": "At the end of the game, your score will be displayed."
-                }
+            "title":"شنق الرجل",
+            "score":"نتيجة",
+            "not":"عدد المحاولات",
+            "pg":"النقاط المكتسبة",
+            "step-by-step": [
+            {
+            	"id": "step1",
+            	"text": "انقر فوق الزر 'بدء اللعبة' لبدء اللعبة."
+            },
+            {
+            	"id": "step2",
+            	"text": "اقرأ التعريف بعناية ، وحاول تخمين المصطلح الذي يتوافق معه."
+            },
+            {
+            	"id": "step3",
+            	"text": "لتشكيل اسم المصطلح ، يجب النقر فوق أزرار الأحرف التي يتكون منها المصطلح."
+            },
+            {
+            	"id": "step4",
+            	"text": "من خلال النقر على حرف موجود في المصطلح ، سيظهر الحرف في الكلمة."
+            },
+            {
+                "id": "step5",
+            	"text": "بالضغط على حرف غير موجود في المصطلح ، لن يظهر الحرف في الكلمة ، بالإضافة إلى أننا نخسر محاولة واحدة من كل المحاولات."
+         	},
+         	{
+            	"id": "step6",
+            	"text": "في حالة الخسارة التجريبية ، ستستمر خطوة أخرى في رسم الجلاد."
+            },
+            {
+            	"id": "step7",
+                "text": "تحدث الخسارة العامة للعبة عندما تنتهي جميع المحاولات ، ويكتمل رسم الجلاد."
+            },
+         	{
+            	"id": "step8",
+            	"text": "ستنتقل اللعبة إلى السؤال التالي تلقائيًا."
+            },
+            {
+            	"id": "step9",
+                "text": "هدفك في اللعبة هو تخمين أكبر عدد ممكن من المصطلحات ، طالما أن عدد المحاولات لم ينته ، مما يعني أن الرسم لم يكتمل."
+            },
+            {
+            	"id": "step10",
+                "text": "في نهاية اللعبة ، سيتم عرض نتيجتك."
+            }
             ]
         }
-    },
-    "note":{
-        "delete" : "حذف",
-        "goTop" : "الى الاعلى",
-        "myNote" : "ملاحظتي",
-        "title":"عنوان الملاحظة",
-        "body": "المحتوى"
     },
     "category-selector":{
         "category": "الفئة"
     },
-    
     "suggest_concept_page":{
         "suggest_title":"صفحة المصطلحات",
         "category_he":"الفئة (عبري)",
@@ -215,37 +195,74 @@
         "l_def-en"   :"تعريف طويل (انجليزي)",
         "l_def-ar"   :"تعريف طويل (عربي)",
         "sbtn":"اقترح",
-          "rbtn":"اعادة تعيين"
+        "rbtn":"اعادة تعيين"
     },
-            "profile":{
-            "title-first":"صفحة ",
-            "title-last":"الشخصية",
-            "name":"اسم",
-            "gender":"جنس",
-            "categories":"فئة",
-            "phone":"هاتف",
-            "email":"بريد ",
-            "points":"نقاط",
-            "searches":"بحث",
-            "suggestions":"اقترحات",
-            "mfullname":"اسم كامل",
-            "mphonenumber":"نمرة الهاتف",
-            "mcategory":"فئة",
-            "mplanguage":"لغة المرغوبة",
-            "mcpassword":"كلمة مرور الحالية",
-            "mnpassword":"كلمة المرور الجديدة",
-            "mvpassword":"تاكيد كلمة المرور",
-            "mclose":"اغلاق",
-            "msavechanges":"حفظ التغييرات",
-            "medit":"تغيير البروفايل",
-            "mpassword":"تغيير كلمة المرور"
-        },
-         "favorite":{
-            "favtitle":"المفضلات",
-            "smbtn":"إظهار المزيد"
+    "profile":{
+        "title-first":"صفحة ",
+        "title-last":"الشخصية",
+        "name":"اسم",
+        "gender":"جنس",
+        "categories":"فئة",
+        "phone":"هاتف",
+        "email":"بريد ",
+        "points":"نقاط",
+        "searches":"بحث",
+        "suggestions":"اقترحات",
+        "mfullname":"اسم كامل",
+        "mphonenumber":"نمرة الهاتف",
+        "mcategory":"فئة",
+        "mplanguage":"لغة المرغوبة",
+        "mcpassword":"كلمة مرور الحالية",
+        "mnpassword":"كلمة المرور الجديدة",
+        "mvpassword":"تاكيد كلمة المرور",
+        "mclose":"اغلاق",
+        "msavechanges":"حفظ التغييرات",
+        "medit":"تغيير البروفايل",
+        "mpassword":"تغيير كلمة المرور",
+        "status":"الحالة الاجتماعية",
+        "navbar": {
+            "general": "عام",
+            "details": "تفاصيل",
+            "progress": "تقدم",
+            "achievements": "إنجازات",
+            "leaderboards": "قائمة الزعماء"
         }
-         ,"searchTimes":{
-            "search":"تم البحث",
-            "times":"مرات"
-        }
+    },
+    "favorite":{
+        "favtitle":"المفضلات",
+        "smbtn":"إظهار المزيد"
+    },
+    "searchTimes":{
+        "search":"تم البحث",
+        "times":"مرات"
+    },
+    "user-suggestions":{
+        "viewsuggestions":"عرض الاقتراحات",
+        "backtopanel": "العودة إلى لوحة"
+    },
+    "admin-page":{
+        "get_activity_log": "احصل على سجلات نشاط تبديل لغة البيانات",
+        "add_term": "شروط إضافة المسؤول",
+        "total_terms": "العدد الإجمالي للمصطلحات",
+        "top_ten": "أعلى 10",
+        "get_log_user": "احصل على سجلات لعبة بحث المستخدم",
+        "suggest_from_user": "اقتراحات من المستخدمين"
+    },
+    "add-term-admin":{
+        "category_en": "الفئة (الإنجليزية)",
+        "category_ar": "الفئة (عربي)",
+        "category_he": "الفئة (عبري)",
+        "concept_name_en": "مفهوم (الإنجليزية)",
+        "concept_name_ar": "المفهوم (عربي)",
+        "concept_name_he": "مفهوم (عبري)",
+        "short_def_en": "تعريف قصير (إنجليزي)",
+        "short_def_ar": "تعريف قصير (عربي)",
+        "short_def_he": "تعريف قصير (عبري)",
+        "long_def_en": "تعريف طويل (إنجليزي)",
+        "long_def_ar": "تعريف طويل (عربي)",
+        "long_def_he": "تعريف طويل (عبري)",
+        "url": "عنوان موقع ويب",
+        "suggest_button": "ليقترح",
+        "reset_button": "إعادة ضبط"
+    }
 }
