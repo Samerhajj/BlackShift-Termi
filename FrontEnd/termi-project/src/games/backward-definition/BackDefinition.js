@@ -30,7 +30,8 @@ const BackwordDefinition = () =>{
 	const {userData, setUserData} = useContext(LoginContext);
 	// const { categories } = useContext(CategoriesContext);
     const streakCountRef = useRef(0);
-	const { t, i18n } = useTranslation();
+  const [highestStreak, setHighestStreak] = useState(0);
+  const { t, i18n } = useTranslation();
 	const [questions, setQuestions] = useState([]);
 	const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [showScore, setShowScore] = useState(false);
@@ -41,7 +42,7 @@ const BackwordDefinition = () =>{
 	const [isAchievementVisible, setIsAchievementVisible] = useState(false);
 	const [achievedAchievement, setAchievedAchievement] = useState(null);
 
-	const [highestStreak, setHighestStreak] = useState(0); // declare highestStreak variable using useState hook
+	
 	// Timer
 	const [elapsedTime, setElapsedTime] = useState(0);
 	const [timeLeft, setTimeLeft] = useState(30);
@@ -163,11 +164,14 @@ const BackwordDefinition = () =>{
     const correctAnswer = questions[currentQuestion].answerOptions.find(option => option.isCorrect).answerText[LanguageMap[i18n.language].name];
     
     if (isCorrect) {
-    	
-      streakCountRef.current += 1;
-      if(streakCountRef>highestStreak){
-      highestStreak=streakCountRef;
-      }
+    
+    const newStreakCount = streakCountRef.current + 1;
+      
+      if(newStreakCount>highestStreak)
+      {
+			setHighestStreak(newStreakCount);  
+			}
+			streakCountRef.current = newStreakCount;
       console.log(highestStreak);
       setScore(score + 1);
       setPoints(points + 10);
@@ -211,7 +215,7 @@ const BackwordDefinition = () =>{
 		setShowScore(true);
 		// const points = score * 10;
 		// setPoints(points);
-		
+	
 		const response = await GamesApi.updatePoints(
 	    userData._id,
 	    points,
@@ -240,9 +244,28 @@ const BackwordDefinition = () =>{
 		      threeAnswerStreakAchievement._id,
 		      true
 		    );
+		    NotificationsAPI.achievementNotification(threeAnswerStreakAchievement, "Achievement Unlocked!");
+		  	highestStreak=0;
 		  }
 		}
-	    if (score >= 1) {
+			    if (score >= 5) {
+	      const achievementsRes = await AchievementsAPI.getAllAchievements();
+	      const UnbeliveableScoreAchievement = achievementsRes.body.find(
+	        (achievement) => achievement.name === "Unbeliveable Score"
+	      );
+	      
+	      if (UnbeliveableScoreAchievement != null) {
+	        await AchievementsAPI.updateAchievement(
+	          userData._id,
+	          UnbeliveableScoreAchievement._id,
+	          true
+	        );
+	   //     setAchievedAchievement(perfectScoreAchievement);
+			 //setIsAchievementVisible(true);
+			NotificationsAPI.achievementNotification(UnbeliveableScoreAchievement, "Achievement Unlocked!");
+	      }
+	    }
+	    if (score >= 3) {
 	      const achievementsRes = await AchievementsAPI.getAllAchievements();
 	      const perfectScoreAchievement = achievementsRes.body.find(
 	        (achievement) => achievement.name === "Perfect Score"
