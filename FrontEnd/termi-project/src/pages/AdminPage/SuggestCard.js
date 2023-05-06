@@ -32,22 +32,6 @@ const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
      }
   }
   
-  const handleApprove=async()=>{
-    const id = data._id;
-    console.log(id);
-    console.log(data);
-    // const response = await AdminAPI.addSelectedTerm(data);
-    // if(response.success){
-    //   console.log(response);
-    //   const response = await AdminAPI.deleteSelectedTerm(data);
-    //   setSuggestList(suggestList.filter((item) => item['_id']!==id));
-
-    }
-    // else{
-    //   alert(response.message);
-    //}
- // }
-  
   const handleEdit=()=>{
     navigate("/admin/add-term", {
         state: {
@@ -70,21 +54,16 @@ const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
             hebrew: data.longDefinition ? data.longDefinition.hebrew: undefined,
           },
           suggestedBy: data.suggestedBy,
-          readMe: data.readMore
+          readMore: data.readMore
         }
     });
   };
-  
 
   const changeLanguage = (newLanguage) => { 
-    console.log("hi from Change Language");
-  setLanguage(newLanguage);
-};
-
+    setLanguage(newLanguage);
+  };
 
   return (
-
-    
     <div className="oneCard-e p-4">
      <div className="language-selector">
                          {
@@ -121,7 +100,6 @@ const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
           </div>
         )}
       <h6 className="suggest-card__subtitle">suggestedBy : {data['suggestedBy']}</h6>
-    {/*  <button className="btn" onClick={handleApprove}>Approve to database</button>*/}
     </div>
     
   );
