@@ -56,7 +56,7 @@ const updateAchievement=async(req,res,next)=>{
         //update the achievment for user if requirement met
         if(requirementMet){
             if(user.achievements.includes(achievementId)){
-                return res.send("Achievment already added");
+                return res.send("Achievement already added");
             }
             user.achievements.push(achievementId);
             await user.save();

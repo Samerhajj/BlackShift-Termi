@@ -55,7 +55,8 @@ const UserSchema = new mongoose.Schema({
   },
   status: {
     type: [String]
-  }
+  },
+  achievements: Array
 });
 
 UserSchema.methods.generatePasswordResetToken = function() {

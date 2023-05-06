@@ -2,8 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
+
 console.log(require('./swagger.json'));
   swaggerUi = require("swagger-ui-express");
  swaggerJsdoc = require("swagger-jsdoc");
@@ -58,7 +60,11 @@ app.use("/profile", require("./routes/profile"));
 app.use("/category", require("./routes/category"));
 app.use("/gameHistory", require("./routes/gameHistory"));
 app.use("/leaderboards", require("./routes/leaderboards"));
+app.use("/achievements", require("./routes/achievements"));
+app.use("/feedback",require("./routes/termFeedback"));
+
 // Set staic folder
+app.use("/Storage", express.static(path.join(__dirname, "Storage")));
 
 // app.use(express.static("public"));
 

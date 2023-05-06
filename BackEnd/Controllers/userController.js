@@ -84,15 +84,9 @@ const addFavorite = async (req,res) =>{
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
 const suggestTerm = async (req,res) =>{
-        console.log("->>>>" + req.body);
-        
         User.findByIdAndUpdate({_id:req.body._id},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
-          
           if (error) {
             console.log(error);
-          }
-          else{
-            console.log(res);
           }
         });
         
@@ -103,7 +97,8 @@ const suggestTerm = async (req,res) =>{
           conceptName: req.body.conceptName,
           suggestedBy: req.body.suggestedBy,
           longDefinition: req.body.longDefinition,
-          termSuggestedByID: req.body._id
+          termSuggestedByID: req.body._id,
+          readMore: req.body.readMore
         }
         );
         // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });

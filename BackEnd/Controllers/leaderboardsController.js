@@ -62,6 +62,21 @@ const getLeaderboard = async(req, res, next) => {
                                                             in: "$$lb.userId"}},
                                                             mongoose.Types.ObjectId(userId)]}, 1]
                                       },
+                                      userScore: {
+                                        $let: {
+                                          vars: {
+                                            user: { $arrayElemAt: [
+                                              { $filter: {
+                                                  input: "$leaderboard",
+                                                  as: "lb",
+                                                  cond: { $eq: ["$$lb.userId", mongoose.Types.ObjectId(userId)] }
+                                                }
+                                              }, 0]
+                                            }
+                                          },
+                                          in: "$$user.points"
+                                        }
+                                      },
                                       leaderboard: {
                                         $map: {
                                             input: {
