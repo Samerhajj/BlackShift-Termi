@@ -5,7 +5,7 @@ import GameHistoryAPI from "../../api/GameHistoryAPI";
 const gameColors = {
   "Memory Game": "blue",
   "Backward": "red",
-  "Other Game": "green",
+  "Hangman": "green",
 };
 
 function GameHistoryGraph() {
@@ -51,9 +51,9 @@ function GameHistoryGraph() {
     setIsLoading(false);
   }
 
-  const filteredGamesData = selectedGame
-    ? gamesData.filter((game) => game.gamelabel === selectedGame)
-    : gamesData;
+    const filteredGamesData = selectedGame
+      ? gamesData.filter((game) => game.gamelabel === selectedGame)
+      : gamesData;
 
   const chartData = filteredGamesData.reduce(
     (acc, { gamelabel, score }) =>

@@ -50,10 +50,10 @@ const TermCard = (props) =>{
   };
   
 
-const voices = window.speechSynthesis.getVoices();
-const englishVoice = voices.find((voice) => voice.lang === 'en-US');
-const arabicVoice = voices.find((voice) => voice.lang === 'ar-SA');
-const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
+// const voices = window.speechSynthesis.getVoices();
+// const englishVoice = voices.find((voice) => voice.lang === 'en-US');
+// const arabicVoice = voices.find((voice) => voice.lang === 'ar-SA');
+// const hebrewVoice = voices.find((voice) => voice.lang === 'he-IL');
 
 const handle_starsClick = async() =>{
         if(!isFav){
@@ -246,11 +246,11 @@ const handleCardEdit = () =>{
                 } 
             </div>
             <div className="term-box">
-               {/*isTrending && (
+               {isTrending && (
                       <span className="fs-2" role="img" aria-label="trending">
                         🔥
                       </span>
-                    )*/}
+                    )}
                 <div className="categories-box">
                     {
                     (isSearch)  &&
