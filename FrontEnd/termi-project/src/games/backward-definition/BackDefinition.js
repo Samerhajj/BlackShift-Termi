@@ -233,10 +233,10 @@ const BackwordDefinition = () =>{
 	    
 		// Check if the user earned the Three-Answer Streak achievement
 		let threeAnswerStreakAchievement = null;
-		if (highestStreak >= 2) {
+		if (highestStreak >= 3) {
 		  const achievementsRes = await AchievementsAPI.getAllAchievements();
 		  threeAnswerStreakAchievement = achievementsRes.body.find(
-		    (achievement) => achievement.name === "Three-Answer Streak"
+		    (achievement) => achievement.name === "Three Streak!"
 		  );
 		  if (threeAnswerStreakAchievement != null) {
 		    await AchievementsAPI.updateAchievement(
@@ -248,6 +248,55 @@ const BackwordDefinition = () =>{
 		  	highestStreak=0;
 		  }
 		}
+		let fiveAnswerStreakAchievement = null;
+		if (highestStreak >= 5) {
+		  const achievementsRes = await AchievementsAPI.getAllAchievements();
+		  fiveAnswerStreakAchievement = achievementsRes.body.find(
+		    (achievement) => achievement.name === "Five Streak!"
+		  );
+		  if (fiveAnswerStreakAchievement != null) {
+		    await AchievementsAPI.updateAchievement(
+		      userData._id,
+		      fiveAnswerStreakAchievement._id,
+		      true
+		    );
+		    NotificationsAPI.achievementNotification(fiveAnswerStreakAchievement, "Achievement Unlocked!");
+		  	highestStreak=0;
+		  }
+		}
+		
+		let tenAnswerStreakAchievement = null;
+		if (highestStreak >= 10) {
+		  const achievementsRes = await AchievementsAPI.getAllAchievements();
+		  tenAnswerStreakAchievement = achievementsRes.body.find(
+		    (achievement) => achievement.name === "LEGENDARY!"
+		  );
+		  if (tenAnswerStreakAchievement != null) {
+		    await AchievementsAPI.updateAchievement(
+		      userData._id,
+		      tenAnswerStreakAchievement._id,
+		      true
+		    );
+		    NotificationsAPI.achievementNotification(tenAnswerStreakAchievement, "Achievement Unlocked!");
+		  	highestStreak=0;
+		  }
+		}
+		 if (score >= 10) {
+	      const achievementsRes = await AchievementsAPI.getAllAchievements();
+	      const noMistakeScoreAchievement = achievementsRes.body.find(
+	        (achievement) => achievement.name === "No Mistake!"
+	      );
+	      
+	      if (noMistakeScoreAchievement != null) {
+	        await AchievementsAPI.updateAchievement(
+	          userData._id,
+	          noMistakeScoreAchievement._id,
+	          true
+	        );
+	   //     setAchievedAchievement(perfectScoreAchievement);
+			 //setIsAchievementVisible(true);
+			NotificationsAPI.achievementNotification(noMistakeScoreAchievement, "Achievement Unlocked!");
+	      }
 			    if (score >= 5) {
 	      const achievementsRes = await AchievementsAPI.getAllAchievements();
 	      const UnbeliveableScoreAchievement = achievementsRes.body.find(
@@ -265,22 +314,27 @@ const BackwordDefinition = () =>{
 			NotificationsAPI.achievementNotification(UnbeliveableScoreAchievement, "Achievement Unlocked!");
 	      }
 	    }
+	    
+	    
+	    
+	    
 	    if (score >= 3) {
 	      const achievementsRes = await AchievementsAPI.getAllAchievements();
 	      const perfectScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "Perfect Score"
+	        (achievement) => achievement.name === "Good Score"
 	      );
 	      
 	      if (perfectScoreAchievement != null) {
-	        await AchievementsAPI.updateAchievement(
+	      	const achivementResponse=await AchievementsAPI.updateAchievement(
 	          userData._id,
 	          perfectScoreAchievement._id,
 	          true
 	        );
-	   //     setAchievedAchievement(perfectScoreAchievement);
-			 //setIsAchievementVisible(true);
-			console.log(perfectScoreAchievement);
-			NotificationsAPI.achievementNotification(perfectScoreAchievement, "Achievement Unlocked!");
+	        
+					if(achivementResponse.success && achivementResponse.added)
+					{
+						NotificationsAPI.achievementNotification(perfectScoreAchievement, "Achievement Unlocked!");
+		      }
 	      }
 	    }
 	  } 
@@ -288,6 +342,7 @@ const BackwordDefinition = () =>{
 	    console.log(response.message);
 	  }
 	};	
+	}
 	
 	
 
@@ -364,6 +419,5 @@ const BackwordDefinition = () =>{
 );
 
 }
-
 
 export default BackwordDefinition;

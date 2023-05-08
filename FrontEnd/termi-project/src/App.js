@@ -7,7 +7,7 @@ import React,{useEffect} from "react";
 import {Login,  Register, TermsPage,  ProfilePage,
         ErrorPage,  HomePage, GamesPage,  ForgotPassword,
         SuggestConceptPage, Favorite, Top10,
-        AdminSuggestionPage,  AdminPage,  AddTermAdmin,UserSuggestions,ResetPasswordPage,VerifyPage
+        AdminSuggestionPage,  AdminPage,  AddTermAdmin,UserSuggestions,ResetPasswordPage,VerifyPage,TestPage
         
 } from "./pages/PageIndex";
 
@@ -75,6 +75,7 @@ const [userData, setUserData] = React.useState({});
           <Route path="/games/hangman-game" element={<DynamicTitleRoute title="Hangman Game" element={<WHangman/>} />}/>
           <Route path="/games/kart-jara" element={<DynamicTitleRoute title="Kart-jara" element={<MyWebGLGame/>}/>}/>
           <Route path="/about" element={<DynamicTitleRoute title="About | Termi" element={<HomePage/>} />}/>
+          <Route path ="/test" element={<DynamicTitleRoute title="Test | Termi" element={<TestPage/>} />}/>
           
           <Route element={<PageLayout/>}>
             
