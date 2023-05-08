@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import validator from 'validator';
 import { LoginContext } from '../../components/LoginContext';
 import AuthAPI from '../../api/AuthAPI';
+import NotificationsAPI from '../../api/NotificationsAPI'
 import 'font-awesome/css/font-awesome.min.css';
 import { Row, Col } from 'react-bootstrap';
 import LoginSytle from '../../styles/LoginStyle.css';
@@ -64,7 +65,7 @@ const Login = () => {
       setLogin(true);
       navigate('/');
     } else {
-      alert(response.message);
+     NotificationsAPI.errorNotification(response.message);
     }
   };
 
@@ -134,10 +135,7 @@ const Login = () => {
                                           <Link to ="/forgotpassword"> {t('login.forgot_password')}</Link>
                                       </div>
                                 </div>
-                                <div className="form-group form-check">
-                                      <input type="checkbox" className="form-check-input" id="rememberUsername" checked={rememberUsername} onChange={() => setRememberUsername(!rememberUsername)} />
-                                      <label className="form-check-label" htmlFor="rememberUsername">{"Remember username"}</label>
-                                    </div>
+                                
 
                           </Row>
                       </div>
