@@ -81,7 +81,7 @@ function GameHistoryGraph() {
                                     )})
                                 }
                             </select>
-                            <label for="gameSelect">Game</label>
+                            <label htmlFor="gameSelect">Game</label>
                         </div>
                        
                         </div>

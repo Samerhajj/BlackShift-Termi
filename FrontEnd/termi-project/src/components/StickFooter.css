@@ -1,0 +1,11 @@
+@media only screen and (min-width: 961px) {
+    .stick-footer {
+    display: none;
+  }
+}
+@media only screen and (max-width: 960px) {
+  /* hide footer on screens smaller than 768px */
+  .stick-footer {
+    display: block;
+  }
+}

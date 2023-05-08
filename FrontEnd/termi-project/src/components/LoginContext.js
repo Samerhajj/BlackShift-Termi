@@ -1,6 +1,9 @@
 import React, { createContext, useState,useEffect } from 'react';
 import axios from "axios";
+import {user_getUserData} from '../api/ApiRoutes';
 
+
+// user_getUserData
 // --> create LoginContext context 
 export const LoginContext = createContext();
 
@@ -15,7 +18,7 @@ const LoginProvider = (props) => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const res = await axios.get("http://dir.y2022.kinneret.cc:7013/user/getUserData", {
+        const res = await axios.get(user_getUserData, {
           headers: { 'x-auth-token': token }
         });
         console.log("****UPDATED DATA*****");

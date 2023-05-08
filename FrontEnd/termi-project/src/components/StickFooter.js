@@ -3,6 +3,7 @@ import {IoGameController, IoPersonCircle, IoInformationCircleSharp, IoSearch, Io
 import { Link ,useNavigate} from 'react-router-dom';
 import React, { useContext ,Fragment} from 'react';
 import { Modal, Button ,Col,Row} from "react-bootstrap";
+import './StickFooter.css'; // import the CSS file
 
 var style = {
     backgroundColor: "#F8F8F8",
@@ -14,8 +15,10 @@ var style = {
     bottom: "0",
     height: "60px",
     width: "100%",
-    "z-index":'5'
+    zIndex:'5',
 };
+
+  
 var phantom = {
   display: 'block',
   padding: '20px',
@@ -27,7 +30,7 @@ function StickFooter({ children }) {
     return (
    <div>
       <div style={phantom} />
-      <div style={style}>
+      <div style={style} className="stick-footer">
             <Row className="">
               <ul className="ul-in-stick-footer d-flex list-unstyled">
               <Col xs={3} xl={3}>

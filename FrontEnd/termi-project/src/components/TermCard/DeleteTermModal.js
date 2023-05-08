@@ -28,11 +28,10 @@ function DeleteTermModal(props) {
 
   return (
     <>
-      <div onClick={() => setShowModal(true)}>
-        <IconContext.Provider value={{ size: "3rem" }}>
-          <CiCircleRemove />
-        </IconContext.Provider>
-      </div>
+      <IconContext.Provider value={{ size: "2.5rem" }}>
+          <CiCircleRemove  onClick={() => setShowModal(true)}/>
+      </IconContext.Provider>
+        
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Confirmation</Modal.Title>

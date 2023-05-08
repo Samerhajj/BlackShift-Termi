@@ -131,11 +131,11 @@ body[dir="rtl"] .read-url:hover{
     cursor: pointer;
 }
 .edit-admin{
-    height: 30px;
-    width: 30px;
-    margin-left: auto;
+    /*height: 30px;*/
+    /*width: 30px;*/
+    /*margin-left: auto;*/
     cursor: pointer;
-    margin-right: 6px;
+    /*margin-right: 6px;*/
 }
 
 .language-btn{
@@ -163,10 +163,11 @@ body[dir="rtl"] .read-url:hover{
     .term-text{
         font-size: 10vw;
     }
+    .term-card{
+        width: 95%;
+    }
 }
 .trending-emoji {
-  font-size: 20px;
-  margin-left: 5px;
   animation: pulse-animation 1s infinite;
 }
 

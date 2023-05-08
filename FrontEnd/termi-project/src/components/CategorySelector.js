@@ -18,10 +18,10 @@ const CategorySelector = (props) => {
     };
     
     return(
-        <div class="form-floating" dir="ltr">
+        <div className="form-floating" dir="ltr">
             <select 
                 id="category"
-                className="selectpicker show-menu-arrow form-select pb-1"
+                className="form-select show-menu-arrow form-select pb-1"
                 data-style="btn-primary"
                 defaultValue={undefined}
                 title="Category"
@@ -36,7 +36,8 @@ const CategorySelector = (props) => {
                     )})
                 }
             </select>
-            <label for="category">{t("category-selector.category")}</label>
+            <label htmlFor="category">{t("category-selector.category")}</label>
+
         </div>
     );
 };
