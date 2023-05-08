@@ -10,7 +10,7 @@ import Image from "react-bootstrap/Image";
 const Achievement = (props) =>{
     return(
         <div className={`d-flex flex-column align-items-center achievement-container ${props.achieved ? 'achieved' : ''}`}>
-            <Image className="achievement-img" src={props.image.replace(/^\.\//, process.env.React_App_StorageURL)}/>
+            <Image className="achievement-img" src={process.env.React_App_StorageURL + props.image}/>
             <span className="fs-4 text-white fw-bold text-center">{props.name}</span>
             <span className="achievement-requirement text-white text-center">{props.requirement}</span>
         </div>

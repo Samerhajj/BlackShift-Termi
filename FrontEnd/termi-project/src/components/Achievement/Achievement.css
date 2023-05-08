@@ -3,7 +3,7 @@
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  width: 200px;
+  width: 150px;
   transition: 150ms;
   opacity: 0.3;
 }
@@ -29,4 +29,9 @@
 .achievement-requirement{
   margin-top: 10px;
   opacity: 0.6;
+}
+@media only screen and (max-width: 767px) {
+  .achievement-container{
+    width: 100px;
+  }
 }
