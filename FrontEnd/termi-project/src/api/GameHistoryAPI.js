@@ -5,7 +5,6 @@ import {gameHistoryUpdate,getGameHistoryUpdate} from './ApiRoutes'
 
 const updateGameHistory = async (userId, gameName, score) => {
   try {
-      //http://dir.y2022.kinneret.cc:7013/gameHistory/updateGameHistory
     const res = await axios.post(gameHistoryUpdate, {
       userId,
       gameName,

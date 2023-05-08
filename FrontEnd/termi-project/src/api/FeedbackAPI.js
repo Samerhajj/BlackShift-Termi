@@ -1,14 +1,16 @@
 import axios from "axios";
 import { addFeedbackRoute } from '../api/ApiRoutes';
 
-const addFeedback = async (userId, termId, overallRating, shortDefinitionRating, longDefinitionRating, feedbackText) => {
+const addFeedback = async (termId, overallRating, shortDefinitionRating, longDefinitionRating, feedbackText) => {
   try {
+      const token = localStorage.getItem('token');
       const res = await axios.post(`${addFeedbackRoute}/${termId}`, {
-      userId,
       overallRating,
       shortDefinitionRating,
       longDefinitionRating,
       feedbackText
+      },{
+        headers: { 'x-auth-token': token }
     });
     return { body: res.data, success: true };
   } catch (e) {
@@ -19,3 +21,7 @@ const addFeedback = async (userId, termId, overallRating, shortDefinitionRating,
     }
   }
 };
+
+
+
+export default {addFeedback};

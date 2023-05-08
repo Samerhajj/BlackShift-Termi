@@ -3,14 +3,17 @@ import { favoritesRoute,
 deleteFavoriteRoute,
 addFavoriteRoute,
 suggestUserRoute,
-suggestionsRoute
+suggestionsRoute,
+search_favorites,
+user_getUserData,
+user_activeLag
 } from '../api/ApiRoutes';
 
 const favorites = async (email) => {
     try{
         const usr = await axios.post(favoritesRoute, {email:email})//find the user
         // const res1 = await axios.post("http://dir.y2022.kinneret.cc:7013/user/favorite", {personId})
-        const favList =  await axios.post("http://dir.y2022.kinneret.cc:7013/search/display-myterms", {list:usr.data});// display all the fav
+        const favList =  await axios.post(search_favorites, {list:usr.data});// display all the fav
         
         let array = [];
         array = favList.data;
@@ -28,6 +31,7 @@ const favorites = async (email) => {
 const getAllSuggestList = async (email) => {
     try{
         const usr = await axios.post(suggestionsRoute, {email:email})
+        //router.post("/suggestions",suggestion); // new
         console.log("user :");
         console.log(usr);
         // const list = await axios.post("http://dir.y2022.kinneret.cc:7013/search/display-myterms",{list:usr.data})
@@ -109,7 +113,7 @@ const languageChanged = async (email,activity,page,isCounterChanged,currentConce
     const sCount = parseInt(localStorage.getItem('searchCounter'));
     
     const data = { cLang, pLang,email,activity,page,sCount,points,currentConceptLang,previousConceptLang };
-        const result = await axios.post("http://dir.y2022.kinneret.cc:7013/user/active-lag", data);
+        const result = await axios.post(user_activeLag, data);
         return {body: result, success: true};
     }
     catch(err){
@@ -122,7 +126,7 @@ const getUserData = async () => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const res = await axios.get("http://dir.y2022.kinneret.cc:7013/user/getUserData", {
+        const res = await axios.get(user_getUserData, {
           headers: { 'x-auth-token': token }
         });
         return {body: res.data, success: true};

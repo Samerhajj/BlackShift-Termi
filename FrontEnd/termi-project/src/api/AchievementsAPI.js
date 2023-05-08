@@ -18,11 +18,13 @@ const getAllAchievements = async ()=>{
 
 const updateAchievement = async (userId, achievementId, requirementMet) => {
   try {
-   const res = await axios.put(`${achievementUpdateRoute}/${userId}/${achievementId}`, {
-  requirementMet: requirementMet,
-});
-
-    return { body: res.data, success: true };
+    const res = await axios.put(`${achievementUpdateRoute}/${userId}/${achievementId}`, {
+      requirementMet: requirementMet,
+    });
+    if(res.status == 201){
+      return {body: res.data, success: true, added: false };
+    }
+    return { body: res.data, success: true, added: true  };
   } catch (e) {
     if (e.response) {
       return { success: false, message: e.response.data };

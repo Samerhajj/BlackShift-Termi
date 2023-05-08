@@ -1,4 +1,6 @@
 import axios from "axios";
+// import { logoutRoute, loginRoute, registerRoute, privateRoute,forgotPasswordRoute} from './ApiRoutes';
+
 import { logoutRoute, loginRoute, registerRoute, privateRoute,forgotPasswordRoute} from '../api/ApiRoutes';
 
 
@@ -7,6 +9,7 @@ const login = async (loginData) =>{
       try{
           // --> send a req to the server and chack if the user is found
           //const res = await axios.post(loginRoute, loginData);
+          console.log(loginRoute);
            const res = await axios.post(loginRoute, loginData,{headers: { 'Authorization': `${localStorage.getItem('token')}`}});
           
           console.log(res.headers);

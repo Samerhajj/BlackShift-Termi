@@ -1,9 +1,13 @@
 import axios from "axios";
-import { searchRoute, autocompleteRoute,SearchActiviyUserRoute } from '../api/ApiRoutes';
+import {searchRoute,
+        autocompleteRoute,
+        SearchActiviyUserRoute,
+        search_historySearch,
+        search_returnAllCategories} from '../api/ApiRoutes';
 
-const allCloseResults = [];
+// const allCloseResults = [];
 
-const closestResult = {};
+// const closestResult = {};
 
 const search = async (term, language, category) =>{
     try{
@@ -17,27 +21,22 @@ const search = async (term, language, category) =>{
         if(res.status != 200){
             return {success: false, message: res.statusText};
         }
-        if(res.data.length != 0){
+        if(res.data){
             // Take all the close terms
-            Object.assign(allCloseResults, res.data);
+            // Object.assign(allCloseResults, res.data);
             // Take the closest term
-            Object.assign(closestResult, res.data[0], {category: category});
-            console.log(res.data[0]);
+            // Object.assign(closestResult, res.data[0], {category: category});
+            console.log(res.data);
             
             
-            console.log(closestResult['categories'])
-            const ur = "http://dir.y2022.kinneret.cc:7013/search/returnAllCategories";
-            const categoryNames = await axios.post(ur,{categoryIds:closestResult['categories']},{
+            console.log(res.data['categories'])
+            const categoryNames = await axios.post(search_returnAllCategories,{categoryIds:res.data['categories']},{
                 headers: {
                     'x-auth-token': localStorage.getItem('token')
                 }
             });
-            console.log("*****(((((((((((((((((((((((((((((((((((**")
-            console.log(categoryNames);
-            console.log("*****((((((((((((((((((((((((((((((((((**")
-
             
-            return {body: {closestResult,categoryNames}, success: true};
+            return {body: {closestResult: res.data, categoryNames: categoryNames}, success: true};
         }else{
             // Add the alert to suggest the searched term
             return {success: false, error:false, message: "Term doesn't exist, would you like to suggest it ?"};
@@ -66,18 +65,21 @@ const autocomplete = async (input, language,category)=>{
 };
 
 const historySearch = async() =>{
-    console.log(localStorage.getItem('token'))
     try{
         // {headers: {headers: { 'Authorization': `${localStorage.getItem('token')}`}}});
-        const res = await axios.post("http://dir.y2022.kinneret.cc:7013/search/historySearch",{
+        const res = await axios.post(search_historySearch,{
             headers: {
                 'x-auth-token': localStorage.getItem('token')}
             });
-        return {body: res.data, success: true};
+            let finishedHistory = [];
+            res.data.map((item) => {
+                finishedHistory.push({conceptName: item, isHistory: true});
+            });
+        return {body: finishedHistory, success: true};
     }
     catch(err){
         return {success: false, message: err.message};
     }
 }
 
-export default {search, autocomplete, closestResult, allCloseResults,historySearch};
+export default {search, autocomplete,historySearch};

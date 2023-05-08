@@ -1,13 +1,15 @@
 // Search Routes
 const searchRoute = process.env.React_App_BaseURL + "search";
 const autocompleteRoute = process.env.React_App_BaseURL + "search" + "/" + "auto-complete";
-
+const search_historySearch = process.env.React_App_BaseURL + "search" + "/" + "historySearch";
+const search_returnAllCategories = process.env.React_App_BaseURL + "search" + "/" + "returnAllCategories";
+const search_favorites = process.env.React_App_BaseURL + "search" + "/" + "display-myterms";
 
 // Games Routes
 const randomRoute = process.env.React_App_BaseURL + "search" + "/" + "random";
-const updatePointsRoute = process.env.React_App_BaseURL + "profile" + "/"  + "updatePoints";
 const gameHistoryUpdate = process.env.React_App_BaseURL + "gameHistory" + "/" + "updateGameHistory";
 const getGameHistoryUpdate = process.env.React_App_BaseURL + "gameHistory" + "/" + "getGameHistory";
+const updatePointsRoute = process.env.React_App_BaseURL + "profile" + "/"  + "updatePoints";
 
 
 // Auth Routes
@@ -16,6 +18,13 @@ const privateRoute = process.env.React_App_BaseURL + "auth" + "/" + "private";
 const registerRoute = process.env.React_App_BaseURL + "auth" + "/" + "register";
 const logoutRoute = process.env.React_App_BaseURL + "auth" + "/" + "logout";
 const forgotPasswordRoute = process.env.React_App_BaseURL + "auth" + "/" + "forgotpassword";
+
+
+// Profile
+const profile_edit = process.env.React_App_BaseURL + "profile" + "/"  + "edit";
+const profile_change_password = process.env.React_App_BaseURL + "profile" + "/"  + "change-password";
+const profile_get_point = process.env.React_App_BaseURL + "profile" + "/"  + "getPoints";
+const profile_getSearchCount = process.env.React_App_BaseURL + "user" + "/"  + "inc-search-counter";
 
 
 // Category Routes
@@ -29,7 +38,8 @@ const addFavoriteRoute = process.env.React_App_BaseURL + "user" + "/" + "add-fav
 const suggestUserRoute = process.env.React_App_BaseURL + "user" + "/" + "suggest-term";
 const SearchActiviyUserRoute = process.env.React_App_BaseURL + "user" + "/" + "gameSearchActivity";
 const suggestionsRoute = process.env.React_App_BaseURL + "user" + "/" + "suggestions";
-
+const user_getUserData =  process.env.React_App_BaseURL + "user" + "/" + "getUserData";
+const user_activeLag = process.env.React_App_BaseURL + "user" + "/" + "active-lag";
 
 // Leaderboard Routes
 const leaderboardRoute = process.env.React_App_BaseURL + "leaderboards";
@@ -59,6 +69,9 @@ export {
         // Search Routes
         searchRoute,
         autocompleteRoute,
+        search_historySearch,
+        search_returnAllCategories,
+        search_favorites,
         
         // Games Routes
         randomRoute,
@@ -83,6 +96,8 @@ export {
         suggestUserRoute,
         suggestionsRoute,
         SearchActiviyUserRoute,
+        user_getUserData,
+        user_activeLag,
         
         // Leaderboard Routes
         availableContextsRoute,
@@ -106,4 +121,11 @@ export {
         // Other Routes
         top10,
         displayMytermsRoute1,
+        
+        
+        //profile
+        profile_change_password,
+        profile_edit,
+        profile_get_point,
+        profile_getSearchCount,
 };
