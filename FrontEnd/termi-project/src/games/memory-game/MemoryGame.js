@@ -127,11 +127,11 @@ const MemoryGame = () => {
 		}
 		else{
 			setFlipped(prevState => {
-			
-				streakCountRef.current = 0;
 			    console.log(streakCountRef.current);
 				prevState[0].feedbackClass = "incorrect";
 				prevState[1].feedbackClass = "incorrect";
+				streakCountRef.current = 0;
+
 				incorrectSFX.play();
 				
 				return(prevState);
@@ -168,10 +168,43 @@ const MemoryGame = () => {
 			console.log(response.message);
 		}
 		
+		let threeAnswerStreakAchievement = null;
+		if (highestStreak >= 3) {
+		  const achievementsRes = await AchievementsAPI.getAllAchievements();
+		  threeAnswerStreakAchievement = achievementsRes.body.find(
+		    (achievement) => achievement.name === "Three Streak!"
+		  );
+		  if (threeAnswerStreakAchievement != null) {
+		    await AchievementsAPI.updateAchievement(
+		      userData._id,
+		      threeAnswerStreakAchievement._id,
+		      true
+		    );
+		    NotificationsAPI.achievementNotification(threeAnswerStreakAchievement, "Achievement Unlocked!");
+		  	highestStreak=0;
+		  }
+		}
+		let fiveAnswerStreakAchievement = null;
+		if (highestStreak >= 5) {
+		  const achievementsRes = await AchievementsAPI.getAllAchievements();
+		  fiveAnswerStreakAchievement = achievementsRes.body.find(
+		    (achievement) => achievement.name === "Five Streak!"
+		  );
+		  if (fiveAnswerStreakAchievement != null) {
+		    await AchievementsAPI.updateAchievement(
+		      userData._id,
+		      fiveAnswerStreakAchievement._id,
+		      true
+		    );
+		    NotificationsAPI.achievementNotification(fiveAnswerStreakAchievement, "Achievement Unlocked!");
+		  	highestStreak=0;
+		  }
+		}
+		
 		if (numOfTries <=15) {
 	      const achievementsRes = await AchievementsAPI.getAllAchievements();
 	      const NoWayScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "Game Master"
+	        (achievement) => achievement.name === "NO WAY!"
 	      );
 	      
 	      if (NoWayScoreAchievement != null) {
@@ -186,17 +219,33 @@ const MemoryGame = () => {
 	    }
 	    	if (numOfTries <=10 ){
 	      const achievementsRes = await AchievementsAPI.getAllAchievements();
-	      const FantasticScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "Elite Player"
+	      const fantasticScoreAchievement = achievementsRes.body.find(
+	        (achievement) => achievement.name === "FANTASTIC!"
 	      );
 	      
-	      if (FantasticScoreAchievement != null) {
+	      if (fantasticScoreAchievement != null) {
 	        await AchievementsAPI.updateAchievement(
 	          userData._id,
-	          FantasticScoreAchievement._id,
+	          fantasticScoreAchievement._id,
 	          true
 	        );
-			NotificationsAPI.achievementNotification(FantasticScoreAchievement, "Achievement Unlocked!");
+			NotificationsAPI.achievementNotification(fantasticScoreAchievement, "Achievement Unlocked!");
+	      }
+	    }
+	    
+	    	    	if (numOfTries <=5 ){
+	      const achievementsRes = await AchievementsAPI.getAllAchievements();
+	      const impossibleScoreAchievement = achievementsRes.body.find(
+	        (achievement) => achievement.name === "IMPOSSIBLE!"
+	      );
+	      
+	      if (impossibleScoreAchievement != null) {
+	        await AchievementsAPI.updateAchievement(
+	          userData._id,
+	          impossibleScoreAchievement._id,
+	          true
+	        );
+			NotificationsAPI.achievementNotification(impossibleScoreAchievement, "Achievement Unlocked!");
 	      }
 	    }
 	   
