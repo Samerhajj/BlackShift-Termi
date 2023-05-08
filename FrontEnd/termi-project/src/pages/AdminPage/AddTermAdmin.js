@@ -2,13 +2,20 @@ import React,{useState, useContext} from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Form, Input,Select, Button } from 'antd';
 import { useTranslation } from 'react-i18next';
+import yaml from 'js-yaml';
 
 // --> APIs
 import AdminAPI from '../../api/AdminAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
+
 
 // --> Contexts 
 import { CategoriesContext } from "../../components/CategoryContext";
 import { LoginContext } from "../../components/LoginContext";
+
+// --> Components
+import TermDiff from "../../components/TermDiff"
+
 
 import './Admin.css'
 
@@ -34,9 +41,9 @@ const AddTermAdmin=()=> {
   const { userData } = useContext(LoginContext);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.state);
-  console.log(userData);
-
+  const [initialText, setInitialText] = useState();
+  const [modifiedText, setModifiedText] = useState();
+  const [showModal, setShowModal] = useState(false);
   const validateUrl = (rule, value, callback) => {
   if (!value) {
     callback();
@@ -47,32 +54,157 @@ const AddTermAdmin=()=> {
   }
 };
   const onFinish = async(values) => {
-    values['categories'] = [values.selectedCategory];
-    values['suggestedBy'] = location.state ? location.state.suggestedBy : userData.fullName;
-    values['termSuggestedByID'] = location.state ? location.state.termSuggestedByID : userData._id;// new
-    delete values['selectedCategory'];
-
-    console.log(values);
-    const response = await AdminAPI.addSelectedTerm(values);
+    // const modifiedValues = formatFormData(values);
+    // console.log(modifiedValues);//new values
+    // console.log(location.state);//initial values
     
-    if(response.success){
-      console.log(response);
-      if(location.state && location.state['_id']){
-        values['_id'] = location.state['_id'];
-        await AdminAPI.deleteSelectedTerm(values);
-        navigate('/admin/suggestions');
-      }
-      navigate('/admin');
+    // const data = location.state ? location.state : null;
+    let data = null;
+    if(location.state){
+      data={...location.state};
+      delete data._idTerm;
+      delete data.suggestedBy;
+      // setOriginalData({...location.state});
     }
-    else{
-      alert(response.message);
-    }
+    
+   // // // // // 
+    
+    
+    setInitialText(inputCollector(data));
+    setModifiedText(inputCollector(form.getFieldsValue()));
+    
+    setShowModal(true);
+    
+    // if(location.state && location.state._idTerm){
+    //   values['_id'] = location.state._idTerm;
+    // }
+    
+    
+    // values['categories'] = [values.selectedCategory];
+    // values['suggestedBy'] = location.state ? location.state.suggestedBy : userData.fullName;
+    // values['termSuggestedByID'] = location.state ? location.state.termSuggestedByID : userData._id;
+    // const response = await AdminAPI.addSelectedTerm(values);
+    
+    // delete values['selectedCategory'];
+    
+    // inputCollector();
+
+    // if(response.success){
+    //   NotificationsAPI.successNotification("Successfully added to the Database!");
+    //   console.log(response);
+    //   if(location.state && location.state['_idSuggest']){
+    //     values['_id'] = location.state['_idSuggest'];
+    //     await AdminAPI.deleteSelectedTerm(values);
+    //     navigate('/admin/suggestions');
+    //   }
+    //   navigate('/admin');
+    // }
+    // else{
+    //   NotificationsAPI.errorNotification("Something Went Wrong!");
+      
+    // }
   };
   
   const [form] = Form.useForm();
   const onReset = () => {
     form.resetFields();
   };
+
+
+
+const handleSuggest = async () => {
+  
+    const newText=form.getFieldsValue();
+    console.log(location.state);
+    newText['categories'] = [newText.selectedCategory];
+    delete newText['selectedCategory'];
+    newText['suggestedBy'] = location.state ? location.state.suggestedBy : userData.fullName;
+    newText['termSuggestedByID'] = location.state ? location.state.termSuggestedByID : userData._id;
+    
+    
+    if(location.state && location.state._idTerm){
+      newText['_id'] = location.state._idTerm;
+    }
+    
+    console.log(newText);
+  const response = await AdminAPI.addSelectedTerm(newText);
+  
+    if(response.success){
+      NotificationsAPI.successNotification("Successfully added to the Database!");
+      console.log(response);
+      if(location.state && location.state['_idSuggest']){
+        newText['_id'] = location.state['_idSuggest'];
+        await AdminAPI.deleteSelectedTerm(newText);
+        navigate('/admin/suggestions');
+      }else{
+        navigate('/admin');
+      }
+    }
+    else{
+      NotificationsAPI.errorNotification("Something Went Wrong!");
+      
+    }
+};
+
+
+function inputCollector(data){
+  const formData = data;
+  const jsonData = JSON.stringify(formData);
+  let parsedFormData;
+  try {
+    parsedFormData = JSON.parse(jsonData);
+  } catch (error) {
+    console.error(`Error parsing JSON: ${error}`);
+  }
+  const yamlData = yaml.dump(parsedFormData);
+  // console.log(yamlData);
+  
+  let parsedYamlData;
+  try {
+    parsedYamlData = yaml.load(yamlData);
+  } catch (error) {
+    console.error(`Error parsing YAML: ${error}`);
+  }
+  const jsonData1 = JSON.stringify(parsedYamlData);
+  const formattedJsonData = jsonData1.replace(/":/g, ': ');
+  const textData = yaml.dump(parsedFormData).replace(/\n/g, '\r\n');
+  
+  console.log(textData); // the old text
+  return textData;
+}// this function collect all the inputs
+
+// inputCollector();
+// console.log(text);
+
+// // Remove curly brackets and quotation marks from the text
+// const cleanText = text.replace(/[{}"]/g, '');
+
+// // Split the text by commas to get each line
+// const lines = cleanText.split(',');
+
+// // Print each line without quotation marks
+// lines.forEach(line => console.log(line.trim().replace(/"/g, '')));
+
+
+function formatFormData(formData) {
+  // create a deep copy of the form data object
+  const modifiedFormData = JSON.parse(JSON.stringify(formData));
+
+  // delete the selectedCategory property from the copied object
+  delete modifiedFormData.selectedCategory;
+
+  // add suggestedBy and termSuggestedByID properties if they don't exist
+  if (!modifiedFormData.suggestedBy) {
+    modifiedFormData.suggestedBy = location.state ? location.state.suggestedBy : userData.fullName;
+  }
+
+  if (!modifiedFormData.termSuggestedByID) {
+    modifiedFormData.termSuggestedByID = location.state ? location.state.termSuggestedByID : userData._id;
+  }
+
+  return modifiedFormData;
+}
+
 
   function handleAdminPanel(){
     navigate('/admin');
@@ -181,12 +313,14 @@ const AddTermAdmin=()=> {
               {t('add-term-admin.reset_button')}
             </Button>
           </div>
-          
-          
           </Form.Item>
         </Form>
           </div>
-          
+        {initialText!=null && (
+          <div>
+            <TermDiff oldTerm={initialText} newTerm={modifiedText} showModal={showModal} setShowModal={setShowModal} handleSuggest={handleSuggest}/>
+          </div>
+        )}
       </div>
     );
 };

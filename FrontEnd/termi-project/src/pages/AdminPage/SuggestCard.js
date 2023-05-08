@@ -3,7 +3,6 @@ import axios from "axios";
 import { Input,Select, Button } from 'antd';
 import AdminAPI from '../../api/AdminAPI';
 import {Form, Modal} from "react-bootstrap";
-import EditModal from './EditCard/EditModal.js';
 import PropTypes from 'prop-types';
 import LanguageMap from '../../api/LanguageAPI';
 import './Admin.css'
@@ -36,7 +35,7 @@ const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
     navigate("/admin/add-term", {
         state: {
           termSuggestedByID:data.termSuggestedByID,
-          _id: data._id,
+          _idSuggest: data._id,
           selectedCategory: data.categories ? data.categories[0]: undefined,
           conceptName:{
             english: data.conceptName ? data.conceptName.english: undefined,

@@ -86,35 +86,34 @@ return (
           </div>
         </div>
       </div>
-            <div className="container d-flex justify-content-center">
-                <div className="admin-body">
-                    <button className=" su-button mb-2" onClick={handleSuggestionPage}>
+            <div className="container d-flex gap-2 flex-wrap justify-content-center">
+                    <button className="w-100 su-button p-3" onClick={handleSuggestionPage}>
                       {t('admin-page.suggest_from_user')}</button>
                       
-                    <button className=" su-button mb-2" onClick={top10}>
+                    <button className="w-100 su-button p-3" onClick={top10}>
                       {t('admin-page.top_ten')}</button>
                       
                     <button id = "style "
-                        className={`flapping-button su-button mb-2 ${isFlapped ? 'flapped' : ''}`}
+                        className={`w-100 p-3 flapping-button su-button ${isFlapped ? 'flapped' : ''}`}
                         onClick={handleClick}>
                         {isResultShown ? <div>{t('admin-page.total_terms')} : <strong>{counRes}</strong></div> : <span>{t('admin-page.total_terms')}</span>}
                       </button>
                       
-                    <button className="su-button mb-2" onClick={handleAddTerms}>
+                    <button className="w-100 p-3 su-button" onClick={handleAddTerms}>
                       {t('admin-page.add_term')}</button>
                 
-                    <button className="su-button mb-2" onClick={
+                    <button className="w-100 p-3 su-button" onClick={
                     ()=> getAllUsersLogs()}
                     >{t('admin-page.get_activity_log')}</button>
                     
-                    <button className="su-button mb-2" onClick={
+                    <button className="w-100 p-3 su-button" onClick={
                     ()=> getAllUsersSearchGameLogs()}
                     >{t('admin-page.get_log_user')}</button>
                 </div>
             <div>
         </div>
     </div>
-</div>
+
 )
     
 function top10(){
