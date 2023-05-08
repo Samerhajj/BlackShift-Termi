@@ -12,13 +12,7 @@ import BackwordImg from "../assets/images/backword-definition-img.jpg";
 import MemoryImg from "../assets/images/memory-game-img.jpg";
 import HangmanImg from "../assets/images/hangman-game-img.jpg";
 import Kara from "../assets/images/kara.png";
-// import { useTrail, animated } from 'react-spring';
-import {AnimatePresence,useAnimation, motion, stagger, animate} from 'framer-motion/dist/framer-motion'
-  // import { ToastContainer, toast } from 'react-toastify';
-  // import 'react-toastify/dist/ReactToastify.css';
-
-// Navigation
-import { useNavigate } from "react-router-dom";
+import { motion, stagger, animate } from 'framer-motion/dist/framer-motion';
 
 import Container from 'react-bootstrap/Container';
 
@@ -46,13 +40,6 @@ const GamesPage = () => {
       img: HangmanImg
     },
   ];
-  const controls = useAnimation();
-  
-  // const gamesTransition = useTrail(games.length, {
-  //   from: { y: -50, opacity:0 },
-  //   to: { y: 0, opacity:1 },
-  //   config:{ duration: 250, delay: 500 }
-  // });
   
   useEffect(() => {
     animate(".item", { y: 30, opacity: 1 },{duration: 0.2, delay: stagger(0.1, { startDelay: 0.15 }) });
@@ -69,8 +56,8 @@ const GamesPage = () => {
 
        <Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-4">
         {games.map((game, index) => (
-          <motion.div className="item">
-            <GameCard key={game.id} game={game} />
+          <motion.div key={game.id} className="item">
+            <GameCard game={game} />
           </motion.div>
         ))}
       </Container>

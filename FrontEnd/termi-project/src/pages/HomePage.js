@@ -65,75 +65,36 @@ import { FaMicrophone } from 'react-icons/fa';
 const HomePage = () => {
   const [text, setText] = useState('');
   const [voices, setVoices] = useState([]);
-  const [selectedVoice, setSelectedVoice] = useState(null);
-  const [speechSynthesis, setSpeechSynthesis] = useState(null);
-  const [speechRecognition, setSpeechRecognition] = useState(null);
-  const [listening, setListening] = useState(false);
 
   useEffect(() => {
-    // Wait for the window object to be available
-    if (typeof window !== 'undefined') {
-      // Create SpeechSynthesis object
-      const synth = window.speechSynthesis;
-      setSpeechSynthesis(synth);
-
-      // Create SpeechRecognition object
-      const recognition = new window.webkitSpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      setSpeechRecognition(recognition);
-
-      // Load available voices
-      const loadVoices = () => {
-        const voices = synth.getVoices();
-        setVoices(voices);
-        setSelectedVoice(voices[0]);
-      };
-      synth.onvoiceschanged = loadVoices;
-      loadVoices();
+    speechSynthesis.addEventListener('voiceschanged', handleVoicesChanged);
+    console.log(speechSynthesis.getVoices());
+    return () => {
+      speechSynthesis.removeEventListener('voiceschanged', handleVoicesChanged);
     }
   }, []);
 
-  const handleSpeak = () => {
-    if (speechSynthesis && selectedVoice) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = selectedVoice;
-      speechSynthesis.speak(utterance);
-    }
-  };
+  const handleVoicesChanged = () => {
+    setVoices(speechSynthesis.getVoices());
+  }
 
-  const handleSelectVoice = (event) => {
-    const voiceURI = event.target.value;
-    setSelectedVoice(voices.find((voice) => voice.voiceURI === voiceURI));
-  };
+  const speakTerm = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = voices[0];
+    utterance.lang = 'en-US';
+    speechSynthesis.speak(utterance);
+  }
 
-  const handleListen = () => {
-    if (speechRecognition) {
-      if (!listening) {
-        speechRecognition.start();
-        setListening(true);
-      } else {
-        speechRecognition.stop();
-        setListening(false);
-      }
-    }
-  };
-
-  const handleRecognitionResult = (event) => {
-    const result = event.results[event.resultIndex][0].transcript;
-    setText(result);
-  };
+  const handleVoiceChange = (event) => {
+    const selectedVoice = voices.find(voice => voice.name === event.target.value);
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = selectedVoice;
+    utterance.lang = selectedVoice.lang;
+    speechSynthesis.speak(utterance);
+  }
 
   return (
     <div>
-      <select onChange={handleSelectVoice}>
-        <option value="">Select a voice</option>
-        {voices.map((voice) => (
-          <option key={voice.voiceURI} value={voice.voiceURI}>
-            {voice.name} ({voice.lang})
-          </option>
-        ))}
-      </select>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -147,12 +108,14 @@ const HomePage = () => {
           margin: '10px 0',
         }}
       />
-      <button onClick={handleSpeak} style={{ fontSize: '32px' }}>
+      <button onClick={speakTerm} style={{ fontSize: '32px' }}>
         <FaMicrophone />
       </button>
-      <button onClick={handleListen} style={{ fontSize: '32px' }}>
-        {listening ? 'Stop Listening' : 'Start Listening'}
-      </button>
+      <select value={voices[0]} onChange={handleVoiceChange}>
+        {voices.map((voice, index) => (
+          <option key={index} value={voice.name}>{`${voice.name} (${voice.lang})`}</option>
+        ))}
+      </select>
     </div>
   );
 };

@@ -16,6 +16,16 @@ const EditProfileModal = (props)=>{
   const [selectedCategory, setSelectedCategory] = useState(user.userData.field);
   const [gender, setGender] = useState(user.userData.gender);
   const [language, setLanguage] = useState(user.userData.language);
+     const [selectedStatus, setSelectedStatus] = useState(user.userData.status);
+
+console.log(user);
+const statusOptions = [
+  { value: "Student", label: "Student" },
+  { value: "Works in the field", label: "Works in the field" },
+  { value: "Other", label: "Other" }
+];
+
+
   
   const onCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -31,6 +41,14 @@ const EditProfileModal = (props)=>{
     setLanguage(e.target.value);
     props.handleChange(e);
   };
+  
+ 
+  const onStatusChange = (e) => {
+  const selectedValues = Array.from(e.target.selectedOptions, option => option.value);
+  setSelectedStatus(selectedValues);
+  props.handleChange({target: {name: "status" , value: selectedValues}});
+};
+
   
     return(
     <Modal show={props.showModal} onHide={props.handleCloseModal}>
@@ -99,6 +117,40 @@ const EditProfileModal = (props)=>{
                 <option value="other">⚧</option>
             </select>
             </form>
+            
+   <label>{t('profile.status')}</label>
+{statusOptions.map((option) => (
+  <div key={option.value} className="form-check">
+    <input
+      className="form-check-input"
+      type="checkbox"
+      name="status"
+      value={option.value}
+      checked={selectedStatus.includes(option.value)}
+     onChange={(e) => {
+  if (e.target.checked) {
+    setSelectedStatus([...selectedStatus, option.value]);
+  } else {
+    setSelectedStatus(selectedStatus.filter((s) => s !== option.value));
+  }
+  setSelectedStatus((updatedStatus) => {
+    props.handleChange({
+      target: {
+        name: "status",
+        value: updatedStatus,
+      },
+    });
+    return updatedStatus;
+  });
+}}
+
+    />
+        <label>{t(`profile.statusOptions.${option.label}`)}</label>
+  </div>
+))}
+
+
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleCloseModal}>

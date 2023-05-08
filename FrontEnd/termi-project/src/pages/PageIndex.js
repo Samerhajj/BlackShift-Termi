@@ -12,6 +12,7 @@ export { default as AdminSuggestionPage } from"./AdminPage/ViewSuggestions";
 export { default as UserSuggestions } from"./UserSuggestions/UserSuggestions";
 export { default as ResetPasswordPage } from"./ResetPasswordPage";
 export { default as VerifyPage} from "./VerifyPage";
+export { default as TestPage} from "./TestPage";
 
 export { default as HomePage } from"./HomePage";
 export { default as ForgotPassword } from"./ForgotPassword";

@@ -7,7 +7,8 @@ import { BsLink } from "react-icons/bs";
 
 import UserAPI from './../api/UserAPI';
 import SearchApi from '../api/SearchAPI';
-import LanguageMap from '../api/LanguageAPI';
+import NotificationsAPI from '../api/NotificationsAPI';
+
 // Contexts
 import { LoginContext } from '../components/LoginContext';
 import { CategoriesContext } from "../components/CategoryContext";
@@ -15,16 +16,16 @@ import { CategoriesContext } from "../components/CategoryContext";
 const layout = {
   labelCol: { span: 8}
 };
-const validateMessages = {
-  required: '${label} is required!',
-  types: {
-    email: '${label} is not validate email!',
-    number: '${label} is not a validate number!',
-  },
-  number: {
-    range: '${label} must be between ${min} and ${max}',
-  },
-};
+// const validateMessages = {
+//   required: '${label} is required!',
+//   types: {
+//     email: '${label} is not validate email!',
+//     number: '${label} is not a validate number!',
+//   },
+//   number: {
+//     range: '${label} must be between ${min} and ${max}',
+//   },
+// };
 
 const SuggestConceptPage=()=>{
   
@@ -48,11 +49,11 @@ const SuggestConceptPage=()=>{
   const handleHebrewNameChange = (e) => {
     setHebrewNameEntered(e.target.value.length > 0);
   };
-    const [longTermEntered, setLongTermEntered] = useState(false);
-  const [linkEntered, setLinkEntered] = useState(false);
-    const handleLinkChange = (e) => {
-    setLinkEntered(e.target.value.length > 0);
-  };
+  //   const [longTermEntered, setLongTermEntered] = useState(false);
+  // const [linkEntered, setLinkEntered] = useState(false);
+  //   const handleLinkChange = (e) => {
+  //   setLinkEntered(e.target.value.length > 0);
+  // };
   
   const validateUrl = (rule, value, callback) => {
     if (!value) {
@@ -87,13 +88,14 @@ const SuggestConceptPage=()=>{
       console.log(res);
       if(res.success){
   			setUserData({...userData, suggestConceptCounter: userData.suggestConceptCounter + 1});
+  				NotificationsAPI.successNotification("Suggestion Submited!");
       }
       else{
         console.log(res.message);
       }
       onReset();
     }else{
-      alert("Concept already exists");
+      NotificationsAPI.errorNotification("Concept already exists!");
     }
   };
   
@@ -151,7 +153,7 @@ const SuggestConceptPage=()=>{
     </div>
     
     <div className="wrapper">
-    {
+      {
      <Form {...layout} className="mt-5"  form ={form} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
           <Form.Item label={t('suggest_concept_page.category_en')}  name="selectedCategory" rules={[{ required: true, message: 'Please select a category' }]}>
             <Select
@@ -260,7 +262,7 @@ const SuggestConceptPage=()=>{
           </Button>
         </Form.Item>
       </Form>}
-        </div>
+    </div>
         
     </>
         );

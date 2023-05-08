@@ -10,6 +10,12 @@ import TermCard from '../components/TermCard/TermCard';
 import { useNavigate} from 'react-router-dom';
 import CategorySelector from "../components/CategorySelector";
 import {LoginContext} from "../components/LoginContext";
+import {Image} from 'react-bootstrap'
+import NewImg from '../assets/images/Icons/New.png';
+import TrendingImg from '../assets/images/Icons/Trending.png';
+
+import { IconContext } from "react-icons";
+import { AiOutlineHistory } from 'react-icons/ai';
 
 
 const TermsPage = () =>{
@@ -230,15 +236,26 @@ return(
             <div className='wrapper'>
                 <div className="banner_content fade-in-element">
                     {/*<h1><span><strong>{t('search.title')}</strong></span><br/></h1>*/}
-                    <div className="search-box">
-                        <input className="search-input" dir={i18n.dir(inputLanguage)} placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}} onFocus={() => handleSearchFocus()}/>
+                    <div className="search-box" dir={i18n.dir(inputLanguage)}>
+                        <input className="search-input" placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}} onFocus={() => handleSearchFocus()}/>
                         <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm, LanguageMap[inputLanguage].name, category)}}></i>
                         { suggestions.length != 0 ? 
                             <div className="autocomplete-box">
                                 {
                                     suggestions.map((item,index) => {
                                         return(
-                                            <div className="autocomplete-item" key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item)}>{item}</div>
+                                            <div className="autocomplete-item d-flex flex-wrap align-items-center gap-3 justify-content-center" key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item.conceptName)}>
+                                                <div>{item.conceptName}</div>
+                                                <div>
+                                                    {item.isTrending ?<Image style={{width: "35px"}} src={TrendingImg}/> : null}
+                                                    {item.isNew ?<Image style={{width: "50px"}} src={NewImg}/> : null}
+                                                    {item.isHistory ?
+                                                        <IconContext.Provider value={{ size: "1.5rem" }}>
+                                                          <AiOutlineHistory />
+                                                        </IconContext.Provider> 
+                                                        : null}
+                                                </div>
+                                            </div>
                                         );
                                     })
                                 }

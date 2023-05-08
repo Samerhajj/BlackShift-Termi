@@ -87,7 +87,9 @@ const ProfilePage =  () => {
             phone: formValues['phone'],
             field: formValues['field'],
             gender: formValues['gender'],
-            language: formValues['language']});
+            language: formValues['language'],
+            status:formValues['status'],
+          });
         setShowModal(false);
       } else {
         console.log('Error updating profile: ' + response.message);
@@ -211,13 +213,14 @@ const ProfilePage =  () => {
               <Nav.Item>
                 <Nav.Link eventKey="third">{t('profile.navbar.progress')}</Nav.Link>
               </Nav.Item>
-              {/* Commented For No Stealing*/}
+               {/*Commented For No Stealing
               <Nav.Item>
                 <Nav.Link eventKey="fourth">{t('profile.navbar.achievements')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="fifth">{t('profile.navbar.leaderboards')}</Nav.Link>
               </Nav.Item>
+              */}
             </Nav>
             <Tab.Content>
             {/*General Section*/}
@@ -322,7 +325,7 @@ const ProfilePage =  () => {
                     </div>
                     <div>
                       {user.userData.status && user.userData.status.map((status, index) => (
-                        <div key={index} className="fs-5 text-success">{status}</div>
+                        <div key={index} className="fs-5 text-success">{t(`profile.statusOptions.${status}`)}</div>
                       ))}
                     </div>
                   </div>
