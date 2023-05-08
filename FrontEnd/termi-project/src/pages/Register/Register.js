@@ -233,7 +233,8 @@ const handleSubmit = async (e) => {
     {currentStep===3 &&
      <div className={`${styles.class_card_register} wrapper`}>
      <div className="alert alert-success" role="alert">
-"Thank you for registering. Please check your email inbox for further instructions on how to validate your email address so that you can log in."
+      {t('register.finish_message')}
+
   </div>
   </div>
   }

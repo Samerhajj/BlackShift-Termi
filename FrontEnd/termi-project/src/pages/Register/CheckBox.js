@@ -12,7 +12,7 @@ const CheckBox = ({ selectedStatus, setSelectedStatus, setData }) => {
   };
 
   useEffect(() => {
-    setData({ ...setData, status: selectedStatus });
+    setData(prevData => ({ ...prevData, status: selectedStatus }));
     console.log(`Updated data to:`, { ...setData, status: selectedStatus });
   }, [selectedStatus]);
 
@@ -35,3 +35,9 @@ const CheckBox = ({ selectedStatus, setSelectedStatus, setData }) => {
 };
 
 export default CheckBox;
+
+            // "statusOptions":{
+            //     "Student" : "Student",
+            //     "Works in the field": "Works in the field",
+            //     "Other": "Other" 
+            // }
