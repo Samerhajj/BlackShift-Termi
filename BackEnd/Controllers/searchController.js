@@ -9,7 +9,6 @@ const searchTerm = async(req,res)=>{
   try{
     let term = req.body.term;
     let category = req.body.category;
-    let activity = req.body.activity;
     let language = req.body.language;
     let token = req.headers["x-auth-token"];
     
@@ -34,69 +33,41 @@ const searchTerm = async(req,res)=>{
                                   .replace("(", "\\(")
                                   .replace(")", "\\)")
                                   .replace("/", "\\/"));
-      console.log(term + " != " + sanitizedTerm);
-      
-      let respond = await Search.find({
+                                  
+      let respond = await Search.findOne({
         [`conceptName.${language}`]: {'$regex': "^"+ sanitizedTerm +"\\s*$" ,$options:'i'},
         "categories": { $in : [categoryNum] }
       });
-      
-      
-      
-      console.log("respond↓")
-      console.log(respond[0]);
-      console.log("respond↑")
 
-
-
-      if(respond.length != 0){
+      if(respond){
         let decoded;
         try {
           decoded = jwt.verify(token, process.env.SECRET);
           // const user = await User.findByIdAndUpdate({_id :decoded.id},{$inc: { searchCounter: 1 }});
           console.log("gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg")
           // Await
-          await User.updateOne(
-            { _id: decoded.id },
-            {
-              $push: {
-                recentSearch: {
-                  $each: [respond[0].conceptName[language]],
-                  $position: 0,
-                  $slice: 5
-                }
-              }
-            }
-          );
-          // const user = await User.findById(decoded.id);
-
-          // user.updateRecentSearch(searchTerm);
-
+          // await User.updateOne(
+          //   { _id: decoded.id },
+          //   {
+          //     $push: {
+          //       recentSearch: {
+          //         $each: [respond.conceptName[language]],
+          //         $position: 0,
+          //         $slice: 5
+          //       }
+          //     }
+          //   }
+          // );
           
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
+          const user = await User.findById(decoded.id);
+          if(user){
+            user.updateRecentSearch(respond.conceptName[language]);
+          }
           console.log("Update the search count");
         } catch (err) {
           console.log("Not auth");
         }
-
-        
-        Search.updateOne({ _id: respond[0]._id }, { $inc: { searchCount: 1 } }, function(error,res) {
-          
+        Search.updateOne({ _id: respond._id }, { $inc: { searchCount: 1 } }, function(error,res) {
           if (error) {
             console.log(error);
           }
@@ -104,9 +75,16 @@ const searchTerm = async(req,res)=>{
             console.log(res);
           }
         });
+        const currentDate = new Date();
+        const trendingTerms = await Search.find({}).sort({searchCount : -1}).limit(10); 
+        
+        const resultTerm=respond.toObject();
+        const newOrTrendRes = isNewOrTrending(resultTerm, trendingTerms, currentDate);
+        resultTerm.isNew = newOrTrendRes.isNew;
+        resultTerm.isTrending = newOrTrendRes.isTrending;
+        respond=resultTerm;
       }
       gameSearchActivity(token, req.body.activity, category);
-
       res.send(respond);
     }else{
       res.status(400).send("Missing data");
@@ -140,7 +118,6 @@ const autoCompleteTerm = async(req,res) =>{
       "categories": { $in : [categoryNum] }
     }).limit(10);
     
-    console.log(respones);
     
     // let respones = await Search.find({
     //           "$text": {
@@ -153,8 +130,16 @@ const autoCompleteTerm = async(req,res) =>{
             
     // Fix this to be done within the query itself
     let temp = [];
+    // respones.forEach((item)=>{
+    //     temp.push(item.conceptName[language]);
+    // });
+    
+    const currentDate = new Date();
+    const trendingTerms = await Search.find({}).sort({searchCount : -1}).limit(10);
+    
     respones.forEach((item)=>{
-        temp.push(item.conceptName[language]);
+        const newOrTrendingRes = isNewOrTrending(item, trendingTerms, currentDate);
+        temp.push({conceptName: item.conceptName[language], isNew: newOrTrendingRes.isNew, isTrending: newOrTrendingRes.isTrending});
     });
     res.send(temp);
   }else{
@@ -326,9 +311,6 @@ const getCategorie = async (req,res)=>{
       let decoded;
       try{
           decoded = jwt.verify(token, process.env.SECRET);
-          const user = await User.findByIdAndUpdate({_id :decoded.id},{$inc: { searchCounter: 1 }});
-          
-          console.log("Update the search count");
       }
       catch(err){
         console.log("Not auth");
@@ -356,13 +338,6 @@ const getCategorie = async (req,res)=>{
   console.log("*******")
   res.send(arrayOfCategorys);
   
-  
-  
-  
-  
-  
-  
-  
   // const cat_res = await Category.find({categoryId :{$in: cat }});
   
   // console.log(cat_res[0]['categoryName']);
@@ -373,7 +348,6 @@ const getCategorie = async (req,res)=>{
 const historySearch = async (req, res) => {
   try {
     let token = req.body.headers["x-auth-token"];
-    console.log(JSON.stringify(token))
     if (!token) {
       // Return an error response if token is missing
       return res.status(401).send("JWT token must be provided");
@@ -397,6 +371,14 @@ const historySearch = async (req, res) => {
 };
 
 
+//This functions is a local one to check if the term is trending or new
+const isNewOrTrending = (term, trendingTerms, currentDate) =>{
+    const lastEdited = new Date(term.lastEdited);
+    const timeDiff = currentDate.getTime() - lastEdited.getTime();
+    const daysDiff = timeDiff / (1000 * 3600 * 24);
+    return {isTrending: trendingTerms.some(trendingItem => trendingItem._id.equals(term._id)), isNew: daysDiff <= 14};
+};
+
 
 module.exports = {autoCompleteTerm,
                   searchTerm,
@@ -409,3 +391,29 @@ module.exports = {autoCompleteTerm,
                   getAllSuggestList,
                   historySearch
 };
+
+
+
+
+//       if (respond.length != 0) {
+//   let decoded;
+//   try {
+//     decoded = jwt.verify(token, process.env.SECRET);
+
+//     await User.updateRecentSearch(decoded.id, respond[0].conceptName[language]);
+//     console.log("Update the search count");
+//   } catch (err) {
+//     console.log("Not auth");
+//   }
+
+//   Search.updateOne({ _id: respond[0]._id }, { $inc: { searchCount: 1 } }, function(error, res) {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log(res);
+//     }
+//   });
+// }
+
+// gameSearchActivity(token, req.body.activity, category);
+// res.send(respond);

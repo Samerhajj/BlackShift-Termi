@@ -1,8 +1,8 @@
 const User = require("../Models/userSchema");
 const Search = require("../Models/searchSchema");
 const Suggest = require("../Models/suggestSchema");
-const UserActivity = require("../Models/activitySchema");
-const UserActivity2 = require("../Models/activitySchema2");
+const UserActivity = require("../Models/activitySchema"); // GetDataSwitchLanguageActivityLogs
+const UserActivity2 = require("../Models/activitySchema2"); // GetUserSearchGameLogs
 const jwt = require("jsonwebtoken");
 var ObjectID = require('mongodb').ObjectID;
 
@@ -35,8 +35,13 @@ const suggestion = async (req,res) =>{
     console.log("9999999999999999999999999999999");
 
     const res_user =  await User.findOne({email:req.body.email});
-    console.log(res_user.suggestion);
-    res.send(res_user.suggestion);
+
+    // console.log(res_user.suggestion);
+    // res.send(res_user.suggestion);
+    const searchResults = await Search.find({ _id: { $in: res_user.suggestion } });
+
+    res.send(searchResults);
+
   }
   catch(err){
     console.log(err); 
@@ -76,6 +81,7 @@ const addFavorite = async (req,res) =>{
     // const updateRes = await User.updateOne({ "_id": ObjectID(req.body.person_id)}, { $addToSet: { favorite: req.body.id } });
     // res.send(updateRes.modifiedCount== 1); // --> update done succ
     const response = await User.findByIdAndUpdate(req.body.personId,{ $addToSet: { favorite: req.body.termId }},{ new: true });
+    console.log()
     res.send(response.favorite);
   }
   catch(err){
@@ -84,11 +90,13 @@ const addFavorite = async (req,res) =>{
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
 const suggestTerm = async (req,res) =>{
-        User.findByIdAndUpdate({_id:req.body._id},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
-          if (error) {
-            console.log(error);
-          }
-        });
+        
+
+        // User.findByIdAndUpdate({_id:req.body._id},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
+        //   if (error) {
+        //     console.log(error);
+        //   }
+        // });
         
          const newSuggest = await new Suggest({
           categories: req.body.selectedCategory,
@@ -120,7 +128,25 @@ const suggestTerm = async (req,res) =>{
 }; // The suggestions that the users send.
 
 
+const deleteTerm = async (req,res) =>{
+try{
+console.log(req.body)
+console.log(req.body.TermID)
 
+// const response = Search.deleteOne({"_id" : req.body.termId});
+// const response = await Search.findOne({"_id" : req.body.TermID});
+const response = await Search.deleteOne({ "_id": req.body.TermID});
+console.log("res From DEL SEARCH");
+console.log(response);
+console.log("res From DEL SEARCH");
+res.send(response);
+}
+catch(err){
+console.log(err);
+res.send(err);
+}
+
+}// Admin delete the selected term. HAS API
 
 
 
@@ -203,7 +229,7 @@ const deleteLog2 = async (req,res)=>{
  }   
 }
 //-------------------------------------------------------------------------------------------------------------------------------------
-// delete all logs
+// delete all logs GetDataSwitchLanguageActivityLogs
 const deleteLog = async (req,res)=>{
  try{
   await UserActivity.deleteMany({});
@@ -290,58 +316,70 @@ const deleteOneSuggest = async (req,res)=>{
 
 
 const addSelectedTerm = async(req,res)=>{
-  
-  console.log("RRRRRR");
-  console.log(req.body);
-  console.log("RRRRRR");
-  //termSuggestedByID
+  try{
+
+    console.log("RRRRRR");
+    console.log(req.body);
+    console.log("RRRRRR");
+    //termSuggestedByID
     const id = req.body._id;
-    const existingTerm = await Search.findOne({ _id: id });
-    if (existingTerm) {
-        // Update the existing term
-        existingTerm.categories = req.body.categories;
-        existingTerm.conceptName = req.body.conceptName;
-        existingTerm.shortDefinition = req.body.shortDefinition;
-        existingTerm.longDefinition = req.body.longDefinition;
-        existingTerm.readMore = req.body.readMore;
-        existingTerm.suggestedBy = existingTerm.suggestedBy;
-        await existingTerm.save();
-        res.send(existingTerm);
-    } else {
-        // Create a new term
-        const newTerm = new Search({
-            categories: req.body.categories,
-            conceptName: req.body.conceptName,
-            shortDefinition: req.body.shortDefinition,
-            longDefinition: req.body.longDefinition,
-            readMore: req.body.readMore,
-            suggestedBy: req.body.suggestedBy,
+    if(id){
+      const existingTerm = await Search.findById(id);
+      // Update the existing term
+      existingTerm.categories = req.body.categories;
+      existingTerm.conceptName = req.body.conceptName;
+      existingTerm.shortDefinition = req.body.shortDefinition;
+      existingTerm.longDefinition = req.body.longDefinition;
+      existingTerm.readMore = req.body.readMore;
+      existingTerm.suggestedBy = existingTerm.suggestedBy;
+      existingTerm.lastEdited = new Date(); // new
+      await existingTerm.save();
+      res.send(existingTerm);
+    }else{
+      // Create a new term
+      const newTerm = new Search({
+          categories: req.body.categories,
+          conceptName: req.body.conceptName,
+          shortDefinition: req.body.shortDefinition,
+          longDefinition: req.body.longDefinition,
+          readMore: req.body.readMore,
+          suggestedBy: req.body.suggestedBy,
+          lastEdited: new Date() // new
+      });
+       User.findByIdAndUpdate({_id:req.body.termSuggestedByID},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
+          if (error) {
+            console.log(error);
+          }
         });
-        const savedTerm = await newTerm.save();
-        console.log(savedTerm)
-        
-        // Update the leaderboard for each 
-        req.body.categories.forEach(category => addLeaderboardPoints(req.body.termSuggestedByID, category, "Suggestions", 1));
-        
-        const response = await User.findByIdAndUpdate({_id:req.body.termSuggestedByID},{ $addToSet: { suggestion: savedTerm._id.toString() }},{ new: true });
-          console.log("TTTTT");
+      const savedTerm = await newTerm.save();
+      console.log(savedTerm)
+      
+      // Update the leaderboard for each 
+      req.body.categories.forEach(category => addLeaderboardPoints(req.body.termSuggestedByID, category, "Suggestions", 1));
+      
+      const response = await User.findByIdAndUpdate({_id:req.body.termSuggestedByID},{ $addToSet: { suggestion: savedTerm._id.toString() }},{ new: true });
+        console.log("TTTTT");
 
-        console.log(response)
-                  console.log("TTTTT");
+      console.log(response)
+                console.log("TTTTT");
 
-        // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
+      // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
 
-        // console.log("______________________________")
-        // console.log(newSuggest['_id'].toString());
-        // console.log(response);
+      // console.log("______________________________")
+      // console.log(newSuggest['_id'].toString());
+      // console.log(response);
 
-        res.send(savedTerm);
-    }
+      res.send(savedTerm);
+      }
+  }catch(err){
+    console.log(err);
+     res.status(401).json("Internal server error");
+  } 
 }// Admin adds the selected term.
 
 
 
-
+// Approve the term that the user suggested.
 
 
 //------------------------------------------------------------------------------------------------------------------------------------
@@ -427,6 +465,17 @@ const findUserByEmail = async (req,res)=>{
   const response = await User.findOne({email:"m7md@gmail.com"});
   res.send(response);
 }
+//------------------------------------------------------------------------------------------------------------------------------------
+const deleteAllUsers = async (req, res) => {
+  try {
+      const result = await User.deleteMany({});
+      console.log(`Deleted ${result.deletedCount} documents from the User collection.`);
+      res.send(`${result.deletedCount} documents deleted successfully.`);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal server error');
+  }
+};
 
 
 
@@ -450,7 +499,9 @@ module.exports = {favorites,
                   gameSearchActivity,
                   clearGameSearchActivity,
                   findUserByEmail,
-                  suggestion
+                  suggestion,
+                  deleteTerm,
+                  deleteAllUsers
 };
 
 

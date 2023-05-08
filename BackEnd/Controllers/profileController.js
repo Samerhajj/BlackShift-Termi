@@ -15,10 +15,10 @@ const changeProfile = async(req,res)=>{
       // update the user document with the new profile information
       user.fullName = updatedProfile.fullName;
       user.phone = updatedProfile.phone;
-      // user.email = updatedProfile.email;
       user.field = updatedProfile.field;
       user.language = updatedProfile.language;
       user.gender = updatedProfile.gender;
+      user.status=updatedProfile.status;
 
       // save the updated user document to the database
       user.save((error) => {

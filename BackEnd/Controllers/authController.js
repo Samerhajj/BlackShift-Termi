@@ -98,7 +98,7 @@ const login = async (req, res) => {
   //const { email, password } = req.body.loginData;
      const { email, password } = req.body;
 
-  User.findOne({ email: { '$regex': email, $options: 'i' } },async function (err, foundUser) {
+  User.findOne({ email: { '$regex': email, $options: 'i' },isVerified:true },async function (err, foundUser) {
     if (err) {
       return res.status(500).json({ error: 'Error while checking for user' });
     } 

@@ -56,11 +56,13 @@ const updateAchievement=async(req,res,next)=>{
         //update the achievment for user if requirement met
         if(requirementMet){
             if(user.achievements.includes(achievementId)){
-                return res.send("Achievement already added");
+              
+                return res.status(201).send("Achievement already added");
             }
             user.achievements.push(achievementId);
             await user.save();
-            res.send("Achievement added");
+          
+            res.status(200).send("Achievement added");
         }
         else{
               res.send("Achievement not found for the user");

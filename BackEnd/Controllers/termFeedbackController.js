@@ -1,20 +1,36 @@
 const TermFeedback = require("../Models/termFeedbackSchema");
 const mongoose = require("mongoose");
+const jwt = require('jsonwebtoken');
 
 const addFeedback=async(req,res)=>{
     try{
-        const {userId,overallRating,shortDefinitionRating,longDefinitionRating,feedbackText }=req.body;
+        const {overallRating,shortDefinitionRating,longDefinitionRating,feedbackText }=req.body;
         const termId=req.params.termId;
-        const feedback=new TermFeedback({
-            userId,
-            termId,
-            overallRating,
-            shortDefinitionRating,
-            longDefinitionRating,
-            feedbackText
-        });
-        await feedback.save();
-        res.status(201).json(feedback);
+        
+        const token=req.header('x-auth-token');
+        const decoded = jwt.verify(token, process.env.SECRET);
+        const userId = decoded.id;
+        const existingFeedback = TermFeedback.findOne({userId: userId, termId: termId});
+        
+        if(existingFeedback){
+            existingFeedback.overallRating = overallRating;
+            existingFeedback.shortDefinitionRating = shortDefinitionRating;
+            existingFeedback.longDefinitionRating = longDefinitionRating;
+            existingFeedback.feedbackText = feedbackText;
+            await existingFeedback.save;
+            res.status(201).json(existingFeedback);
+        }else{
+            const feedback=new TermFeedback({
+                userId,
+                termId,
+                overallRating,
+                shortDefinitionRating,
+                longDefinitionRating,
+                feedbackText
+            });
+            await feedback.save();
+            res.status(201).json(feedback);
+        }
     }catch(err){
         console.log(err);
         res.status(500).send('Server error');
