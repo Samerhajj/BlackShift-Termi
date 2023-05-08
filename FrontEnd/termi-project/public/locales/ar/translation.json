@@ -25,7 +25,11 @@
         "lang_en":"الإنجليزية",
         "lang_ar":"العربية",
         "lang_he":"العبرية",
-        "register":"تسجيل الدخول"
+        "register":"تسجيل الدخول",
+        "next":"التالي ",
+        "details":"التفاصيل",
+        "finish":"النهايه",
+        "finish_message":"شكرًا لتسجيلك. يرجى التحقق من صندوق البريد الوارد الخاص بك لمزيد من التعليمات حول كيفية تحقق من عنوان بريدك الإلكتروني حتى تتمكن من تسجيل الدخول."
     },
     "forgot_password":{
         "forgot_password":"هل نسيت كلمة السر",
@@ -48,7 +52,7 @@
         "back-button": "الرجوع",
         "menu": {
             "start": "ابدأ",
-            "leaderboard": "Leaderboard",
+            "leaderboard": "ليدربورد",
             "music": "موسيقى",
             "settings": "الإعدادات",
             "games-menu": "قائمة الألعاب"
@@ -225,8 +229,14 @@
             "details": "تفاصيل",
             "progress": "تقدم",
             "achievements": "إنجازات",
-            "leaderboards": "قائمة الزعماء"
-        }
+            "leaderboards": "ليدربورد"
+        },
+        
+  "statusOptions": {
+    "Student": "طالب",
+    "Works in the field": "يعمل في المجال",
+    "Other": "أخرى"
+  }
     },
     "favorite":{
         "favtitle":"المفضلات",

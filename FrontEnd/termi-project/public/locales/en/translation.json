@@ -25,7 +25,11 @@
         "lang_en":"English",
         "lang_ar":"Arabic",
         "lang_he":"Hebrew",
-        "register":"Register"
+        "register":"Register",
+        "next":"Next",
+        "details":"Details",
+        "finish":"Finish",
+        "finish_message":"Thank you for registering. Please check your email inbox for further instructions on how to validate your email address so that you can log in."
     },
     "forgot_password":{
         "forgot_password":"Forgot Password",
@@ -227,7 +231,13 @@
                 "progress": "Progress",
                 "achievements": "Achievements",
                 "leaderboards": "Leaderboards"
+            },
+              "statusOptions":{
+                "Student": "Student",
+                "Works in the field": "Works in the field",
+                "Other": "Other"
             }
+          
         },
     "favorite":{
             "favtitle":"Favourite",

@@ -25,7 +25,11 @@
         "lang_en":"אנגלית",
         "lang_ar":"ערבית",
         "lang_he":"עברית",
-        "register":"הרשמה"
+        "register":"הרשמה",
+        "next":"הבא",
+        "details":"פרטים",
+        "finish":"סיום",
+        "finish_message":"תודה על הרשמתך. אנא בדוק את תיבת הדואר הנכנס שלך להוראות נוספות על כיצד לאמת את כתובת האימייל שלך כדי שתוכל להתחבר"
     },
     "forgot_password":{
        "forgot_password":"שכחת את הסיסמא",
@@ -48,7 +52,7 @@
         "back-button": "חזרה",
         "menu": {
             "start": "התחל",
-            "leaderboard": "Leaderboard",
+            "leaderboard": "לוח התוצאות",
             "music": "מוזיקה",
             "settings": "הגדרות",
             "games-menu": "תפריט משחקים"
@@ -226,7 +230,12 @@
             "progress": "התקדמות",
             "achievements": "הישגים",
             "leaderboards": "לוחות תוצאות"
-        }
+        },
+        "statusOptions": {
+    "Student": "סטודנט",
+    "Works in the field": "עובד בתחום",
+    "Other": "אחר"
+  }
     },
     "favorite":{
         "favtitle":"מועדפים",
