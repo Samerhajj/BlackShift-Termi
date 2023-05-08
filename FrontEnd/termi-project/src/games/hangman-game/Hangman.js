@@ -40,7 +40,7 @@ const Game = ({ actualGuesses = 7, pickedCategory }) => {
  	const { t, i18n } = useTranslation();
   const all_letters_en = 'abcdefghijklmnopqrstuvwxyz';
     const all_letters_he = 'אבגדהוזחטיכלמנסעפצקרשת';
-      const all_letters_ar = 'دذرزسشصضطظعغفقكلمنهـوي';
+      const all_letters_ar = 'أبتثجحخدذرزسشصضطظعغفقلمنهوي';
   const [showGame1, setShowGame1] = useState(true);
     const [showGame2, setShowGame2] = useState(false);
         const [showGame3, setShowGame3] = useState(false);
