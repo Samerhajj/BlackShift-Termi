@@ -66,7 +66,7 @@ const register = async (req, res) => {
     });
 
     const mailOptions = {
-       from: 'termishift@gmail.com',
+      from: process.env.EMAIL_USERNAME,
       to: newUser.email,
       subject: 'Verify Your Account',
       html: `
