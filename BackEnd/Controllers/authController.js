@@ -233,14 +233,14 @@ const forgotPassword = async(req,res)=>{
     const transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
-        user: 'termishift@gmail.com',
-        pass: 'cdhzxscoempowrwy'
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD
       }
     });
 
     // Define the email options
     const mailOptions = {
-      from: 'termishift@gmail.com',
+      from: process.env.EMAIL_USERNAME,
       to: user.email,
       subject: 'Password reset request',
       text: `Please click on the following link to reset your password: http://dir.y2022.kinneret.cc:7024/reset-password/${token}`
