@@ -32,7 +32,8 @@ const AchievementBoard = (props) => {
   const gameAchievementsRef = useRef(null);
   const isInView = useInView(gameAchievementsRef);
   const swiperRef = useRef(null);
-   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+   
   const fetchAchievements = async () => {
     const response = await AchievementsAPI.getAllAchievements();
     if (response.success) {

@@ -12,9 +12,10 @@
 }
 
 .admin-sg{
-    background-color: #F8F9D7;
+    /*background-color: #F8F9D7;*/
+    /*background-color: #c23c81;*/
     color:#1A0000;
-    padding:15px;
+    /*padding:15px;*/
     height: 10%;
     margin-right: 10px;
   text-align: center;
@@ -85,3 +86,18 @@ font-size: 20px;
 .accordion-header{
       z-index:0;
 }
+
+.my-card-inside-feedback {
+  background-color: blue; /* Change this to the desired light color */
+  border-color: green; /* Change this to the desired border color */
+}
+.my-card-inside-feedback .card-title,
+.my-card-inside-feedback .card-subtitle,
+.my-card-inside-feedback .list-group-item {
+  color: red; /* Change this to the desired text color */
+}
+.feedback-inside-box-bg-color{
+    /*background-color:#ffe8ab;*/
+    background-color: #f0ebdf;
+}
+

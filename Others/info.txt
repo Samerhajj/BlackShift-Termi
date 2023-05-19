@@ -57,3 +57,40 @@ npm install validator
 npm i react-hook-form
 ---------------------------------------------------------------------
 npm i react-spring
+
+
+
+
+
+allusersactivitydatabases ----->>> GetDataSwitchLanguageActivityLogs
+
+allusersactivity2databases ----->>> GetUserSearchGameLogs
+
+
+----------------------------------------------------
+Delete All Users !!!
+
+DELETE
+http://dir.y2022.kinneret.cc:7013/user/delete-all-users
+
+----------------------------------------------------
+Delete allusersactivitydatabases === GetDataSwitchLanguageActivityLogs
+
+DELETE
+http://dir.y2022.kinneret.cc:7013/user/delete-log
+
+----------------------------------------------------
+Delete allusersactivity2databases === GetUserSearchGameLogs
+
+DELETE
+http://dir.y2022.kinneret.cc:7013/user/delete-game-search
+
+----------------------------------------------------
+
+aws s3 ls y2022
+
+
+
+https://ser.y2022.kinneret.cc
+
+

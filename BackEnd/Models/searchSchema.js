@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const TermFeedback = require("./termFeedbackSchema");
 
 const searchSchema = new mongoose.Schema({
   categories:Array,  
@@ -17,6 +18,18 @@ const searchSchema = new mongoose.Schema({
 });
 
 searchSchema.index({"conceptName.english": 'text', "conceptName.hebrew": 'text', "conceptName.arabic": 'text'});
+
+searchSchema.pre("remove", function (next) {
+  const termId = this._id;
+  
+  // Remove associated feedback documents
+  TermFeedback.deleteMany({ termId: termId }, (err) => {
+    if (err) {
+      console.error("Error deleting associated feedback:", err);
+    }
+    next();
+  });
+});
 
 const SEARCH = mongoose.model("allconceptsdatabase", searchSchema);
 

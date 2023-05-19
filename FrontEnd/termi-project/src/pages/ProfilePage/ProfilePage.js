@@ -9,6 +9,7 @@ import { CategoriesContext } from "../../components/CategoryContext";
 import Leaderboard from "../../components/Leaderboard/Leaderboard";
 import GameHistoryGraph from "../../components/graph/GameHistoryGraph";
 import AchievementBoard from "../../components/AchievementBoard/AchievementBoard";
+import ImageUpload from "../../components/Profile/ImageUploader";
 
 // --> Style & Media
 import "./ProfilePage.css";
@@ -184,8 +185,9 @@ const ProfilePage =  () => {
       <Tab.Container defaultActiveKey="first">
         <Row className="gap-4">
           <Col sm={3}>
-            <div className="d-flex justify-content-center flex-column mb-3">
-              <Image className="mx-4 mb-3" src={avatarImageUrl}/>
+            <div className="d-flex justify-content-center align-items-center flex-column mb-3">
+              {/*<Image className="mx-4 mb-3" src="https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png"/>*/}
+              <ImageUpload/>
               <h3 className="text-center text-capitalize fw-bold">{user.userData.fullName}</h3>
               <div className="d-flex flex-wrap justify-content-center gap-2">
                 <a className="favorites-button text-center" role="button" onClick={() => {navigate('/favorite')}}>
@@ -208,19 +210,17 @@ const ProfilePage =  () => {
                 <Nav.Link eventKey="first">{t('profile.navbar.general')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="second">{t('profile.navbar.details')}</Nav.Link>
+                <Nav.Link eventKey="second">{t('profile.navbar.personal')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="third">{t('profile.navbar.progress')}</Nav.Link>
               </Nav.Item>
-               {/*Commented For No Stealing
               <Nav.Item>
                 <Nav.Link eventKey="fourth">{t('profile.navbar.achievements')}</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="fifth">{t('profile.navbar.leaderboards')}</Nav.Link>
               </Nav.Item>
-              */}
             </Nav>
             <Tab.Content>
             {/*General Section*/}

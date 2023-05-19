@@ -7,7 +7,8 @@ import React,{useEffect} from "react";
 import {Login,  Register, TermsPage,  ProfilePage,
         ErrorPage,  HomePage, GamesPage,  ForgotPassword,
         SuggestConceptPage, Favorite, Top10,
-        AdminSuggestionPage,  AdminPage,  AddTermAdmin,UserSuggestions,ResetPasswordPage,VerifyPage,TestPage
+        AdminSuggestionPage,  AdminPage,  AddTermAdmin,UserSuggestions,ResetPasswordPage,VerifyPage,TestPage,
+        ManageUsersPage,FeedBack
         
 } from "./pages/PageIndex";
 
@@ -45,7 +46,7 @@ function App() {
   const WMemoryGame = withAuth(MemoryGame);
   const WCrosswordGame = withAuth(CrosswordGame);
   const WFavorite=withAuth(Favorite);
-  
+  const WUserSuggestions=withAuth(UserSuggestions);
   
   const WForgotPassword = withNotAuth(ForgotPassword);
   const WLogin = withNotAuth(Login);
@@ -55,7 +56,7 @@ function App() {
   const WAdminSuggestionPage = withAdminAuth(AdminSuggestionPage,'admin');
   const WAddTermAdmin = withAdminAuth(AddTermAdmin,'admin');
   const WTop10 = withAdminAuth(Top10,'admin');
-  
+  const WFeedBack= withAdminAuth(FeedBack,'admin');
 
   
 const [login, setLogin] = React.useState(localStorage.getItem('login') || false);
@@ -97,7 +98,12 @@ const [userData, setUserData] = React.useState({});
             <Route path="/admin/suggestions" element={<DynamicTitleRoute title="User Suggestions" element={<WAdminSuggestionPage/>} />}/>
             <Route path="/admin/add-term" element={<DynamicTitleRoute title="Admin Add Term" element={<WAddTermAdmin/>} />}/>
             <Route path="/admin/top-10" element={<DynamicTitleRoute title="Top 10 Concepts" element={<WTop10/>} />}/>
-            <Route path="/UserSuggestions" element={<DynamicTitleRoute title="User Suggestions" element={<UserSuggestions/>} />}/>
+            <Route path="/UserSuggestions" element={<DynamicTitleRoute title="User Suggestions" element={<WUserSuggestions/>} />}/>
+            
+            <Route path="/admin/table" element={<DynamicTitleRoute title="Table" element={<ManageUsersPage/>} />}/>
+            <Route path="/admin/FeedBack" element={<DynamicTitleRoute title="FeedBack" element={<WFeedBack/>} />}/>
+
+            
             {/*<Route path="/games/wordle" element={<DynamicTitleRoute title="Wordle" element={<WWordleGame/>} />}/>
             <Route path="/games/crossword-game" element={<DynamicTitleRoute title="Crossword Game" element={<WCrosswordGame/>} />}/>*/}
           

@@ -1,7 +1,7 @@
 .points span {
-    color : black;
+    color : white;
     font-weight: bold;
-     margin-bottom: 10px;
+     margin-bottom: 0px;
 }
 .score-box span {
     color : black;
@@ -10,18 +10,31 @@
 }
 
 .game-container1 {
-  width: 400px; 
+  width: 100px; 
   height: 200px;
   display: flex;
   justify-content: flex-start;
 }
 .left-text {
-  width: 300px;
-  text-align: center;
+  width: 400px;
+  
   font-weight: bold;
   display: flex;
+ 
 }
-
+.text-white {
+  width: 300px;
+  
+  font-weight: bold;
+  display: flex;
+ 
+}
+.question-color {
+  color: #EADDCA;
+  font-family: 'Arial', sans-serif; 
+  font-size: 1.2rem; 
+  font-weight: bold; 
+}
 
 .defination
 {
@@ -34,7 +47,7 @@
   margin-top: 120px;
   font-size: 0.8rem;
   font-weight: bold;
-  text-align: left;
+  text-align: center;
   height: 10rem;
   width:4.5rem; 
   color: rgb(255, 255, 255);
@@ -59,18 +72,6 @@
 
 
 
-.letter {
-    background-color: rgb(0, 169, 130);  
-  width: 100px;
-  height: 100px;
-  font-size: 1.5rem;
-  text-align: center;
-  font-weight: bold;
-  display: flex;
-
-  
-}
-
 
 
 @keyframes letter-guessed {
@@ -85,26 +86,14 @@
     transform: scale(1);
   }
 }
-.blankSquare, .letter {
-  width: 33px;
-  height: 40px;
-  border: 3px solid rgb(255, 255, 255);
-  border-radius: 7px;
-  color: rgb(0, 0, 0);
-  text-align: center;
 
-  margin: 2px;
-  font-weight: bold;
-  display: inline-block;
-  transition: all 0.2s ease-in-out;
-}
 
 
 /* the place hangman and the buttons*/
 .category-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
+
 
   }
 
@@ -114,11 +103,66 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  max-width: 560px;
+  width: 90%;
+
  
    
 }
+
+
+.letter {
+  background-color: rgb(255, 255, 255);  
+  font-size: 1.5rem;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  
+}
+.letter2 {
+  background-color: rgb(255, 255, 255);  
+  font-size: 1.5rem;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+ 
+  
+}
+
+.hebrewContainer {
+  direction: rtl;
+
+}
+
+.blankSquare2, .letter2 {
+  width: 33px;
+  height: 40px;
+  border: 2.6px solid rgb(0, 0, 0);
+  border-radius: 8px;
+  color: rgb(0, 0, 0);
+  justify-content: center;
+  align-items: center;
+
+  margin: 1px;
+  font-weight: bold;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+}
+
+.blankSquare, .letter {
+  width: 33px;
+  height: 40px;
+  border: 2.6px solid rgb(0, 0, 0);
+  border-radius: 8px;
+  color: rgb(0, 0, 0);
+  justify-content: center;
+  align-items: center;
+
+  margin: 1px;
+  font-weight: bold;
+  display: inline-block;
+  transition: all 0.2s ease-in-out;
+}
+
 
 .letters-table .letter-opt {
   display: flex;
@@ -131,7 +175,7 @@
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: black;
   background-color: rgb(255, 255, 255);
-  border: 2px solid black;
+  border: 2px solid white;
   border-radius: 4px;
   
   margin: 0.7rem;
@@ -145,22 +189,23 @@
 
 .letters-table .letter-opt.guessed {
   opacity: 0.9;
-  color: white;
+  
   pointer-events: none;
 }
 
 
 .letters-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2em;
+  justify-content: left;
+  align-items: left;
+  font-size: 1em;
   margin: 1em;
+  
 }
 
 .correct-guess {
   animation-name: correct-guess-animation;
-  animation-duration: 2s;
+  animation-duration: 1s;
 }
 
 @keyframes correct-guess-animation {
@@ -178,14 +223,17 @@
 .wrong-guess {
   animation-name: wrong-guess-animation;
   animation-duration: 0.5s;
-  background-color: red;
+  background-color: rgba(255, 0, 0, 0.7);
   color : black;
   width:  100%;
-  
   text-align: center;
  
  
 }
+.letters-table .letter-opt.correct-guess {
+  background-color: rgba(0, 255, 0, 0.9);
+}
+
 
 @keyframes wrong-guess-animation {
   0% {
@@ -206,16 +254,39 @@
 }
 }
 
+.timer{
+  
+}
+
 .hangman-img{
   mix-blend-mode: multiply;
+  width: 65px;
+  
+  justify-content: center;
+  align-items: center;
+
+}
+.hangman-img__img {
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: auto;
 }
 
-.letters-table .letter-opt.correct-guess {
-  background-color: rgb(0, 169, 130);
+.timer {
+  background-color: #000;
+  color: #fff;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
 .icon-selector-container {
-  margin-top: 200px;
+  margin-top: 10px;
 }
 
 .icon-center{

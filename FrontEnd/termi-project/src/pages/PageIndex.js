@@ -9,6 +9,10 @@ export { default as AdminPage } from"./AdminPage/AdminPage";
 export { default as Top10 } from"./AdminPage/Top10";
 export { default as AddTermAdmin } from"./AdminPage/AddTermAdmin";
 export { default as AdminSuggestionPage } from"./AdminPage/ViewSuggestions";
+export { default as ManageUsersPage } from"./AdminPage/ManageUsersPage";
+export { default as FeedBack } from"./AdminPage/FeedBack";
+
+
 export { default as UserSuggestions } from"./UserSuggestions/UserSuggestions";
 export { default as ResetPasswordPage } from"./ResetPasswordPage";
 export { default as VerifyPage} from "./VerifyPage";

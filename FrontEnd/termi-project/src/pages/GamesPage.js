@@ -18,7 +18,7 @@ import Container from 'react-bootstrap/Container';
 
 const GamesPage = () => {
   const { t } = useTranslation();
-  const games = [
+  const games  = [
     { 
       id: 0,
       title: t('games.backword-definition.title'),
@@ -39,10 +39,11 @@ const GamesPage = () => {
       path:"/games/hangman-game",
       img: HangmanImg
     },
+    
   ];
   
   useEffect(() => {
-    animate(".item", { y: 30, opacity: 1 },{duration: 0.2, delay: stagger(0.1, { startDelay: 0.15 }) });
+    animate(".item", { y: 50, opacity: 1 },{duration: 0.3, delay: stagger(0.1, { startDelay: 0.15 }) });
   }, []);
 
   return (

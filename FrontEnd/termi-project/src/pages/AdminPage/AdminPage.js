@@ -81,7 +81,8 @@ return (
         <div className="wrapper">
           <div className="banner_content">
             <h1 className="">
-              <strong className="text-white">Welcome Admin User...</strong>
+              <strong style={{color:"white"}} className="">Welcome Admin User...</strong>
+
             </h1>
           </div>
         </div>
@@ -101,7 +102,10 @@ return (
                       
                     <button className="w-100 p-3 su-button" onClick={handleAddTerms}>
                       {t('admin-page.add_term')}</button>
-                
+                      
+                    <button className="w-100 su-button p-3" onClick={handleFeedbackPage}>
+                      {t('admin-page.feedback_page')}</button>
+                      
                     <button className="w-100 p-3 su-button" onClick={
                     ()=> getAllUsersLogs()}
                     >{t('admin-page.get_activity_log')}</button>
@@ -125,6 +129,9 @@ function handleAddTerms(){
 function handleSuggestionPage(){
     navigate('/admin/suggestions');
 };
+function handleFeedbackPage(){
+    navigate('/admin/feedback');
+}
   
 };
 

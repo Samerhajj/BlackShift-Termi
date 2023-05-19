@@ -10,14 +10,15 @@ const addFeedback=async(req,res)=>{
         const token=req.header('x-auth-token');
         const decoded = jwt.verify(token, process.env.SECRET);
         const userId = decoded.id;
-        const existingFeedback = TermFeedback.findOne({userId: userId, termId: termId});
+        const existingFeedback = await TermFeedback.findOne({userId: userId, termId: termId});
         
         if(existingFeedback){
+            console.log("We are in existing");
             existingFeedback.overallRating = overallRating;
             existingFeedback.shortDefinitionRating = shortDefinitionRating;
             existingFeedback.longDefinitionRating = longDefinitionRating;
             existingFeedback.feedbackText = feedbackText;
-            await existingFeedback.save;
+            await existingFeedback.save();
             res.status(201).json(existingFeedback);
         }else{
             const feedback=new TermFeedback({

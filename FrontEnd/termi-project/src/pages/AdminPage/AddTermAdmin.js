@@ -223,7 +223,7 @@ function formatFormData(formData) {
         </div>
           <div className="container d-flex justify-content-center mb-2">
              <div className="admin-sg goAndChange">
-                <button className="su-button" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
+                <button className="su-button style_for_button_in_viewSuggestions" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
             </div>
           </div>
              <div className="wrapper">

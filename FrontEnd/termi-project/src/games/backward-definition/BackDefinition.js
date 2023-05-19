@@ -39,8 +39,6 @@ const BackwordDefinition = () =>{
 	const [start, setStart] = useState(false);
 	const [message,setMessage]=useState('');
 	const [disabled, setDisabled] = useState(false);
-	const [isAchievementVisible, setIsAchievementVisible] = useState(false);
-	const [achievedAchievement, setAchievedAchievement] = useState(null);
 
 	
 	// Timer
@@ -90,7 +88,6 @@ const BackwordDefinition = () =>{
 	  
 	const initGame = async () => {
 		console.log(category);
-		setIsAchievementVisible(true);
 		if(category !== undefined){
 			let numOfTerms = 10;
 			// let categoryId = category.categoryId;
@@ -141,9 +138,10 @@ const BackwordDefinition = () =>{
 					allQuestions.push(newQuestion);
 				}
 				setQuestions(allQuestions);
-			    setElapsedTime(0);  // reset elapsed time to 0
-			    setShowScore(false);  // hide the score modal
-			    setCurrentQuestion(0);  // reset the current question to the first question
+				setHighestStreak(0);
+		    setElapsedTime(0);  // reset elapsed time to 0
+		    setShowScore(false);  // hide the score modal
+		    setCurrentQuestion(0);  // reset the current question to the first question
 				setScore(0);
 				setPoints(0);
 				setTimeLeft(30);  // reset the time left
@@ -211,11 +209,13 @@ const BackwordDefinition = () =>{
 	};
 	
 	const finishGame = async (score, points) => {
+		const achievementsRes = await AchievementsAPI.getAllAchievements();
+		const allAchievements = achievementsRes.body;
+		const achievements = allAchievements.filter((achievement) => achievement.relevantGame === "Definition Game");
+		
 		console.log(score);
 		setShowScore(true);
-		// const points = score * 10;
-		// setPoints(points);
-	
+		
 		const response = await GamesApi.updatePoints(
 	    userData._id,
 	    points,
@@ -223,129 +223,66 @@ const BackwordDefinition = () =>{
 	    category
 	  );
 	  if (response.success) {
-	    setUserData({ ...userData, points: userData.points + points });
+	    
 	    localStorage.setItem("points", points);
+	    
 	    const addToHistory = await GameHistoryAPI.updateGameHistory(
 	      userData._id,
 	      "Backward",
 	      points
 	    );
 	    
-		// Check if the user earned the Three-Answer Streak achievement
-		let threeAnswerStreakAchievement = null;
-		if (highestStreak >= 3) {
-		  const achievementsRes = await AchievementsAPI.getAllAchievements();
-		  threeAnswerStreakAchievement = achievementsRes.body.find(
-		    (achievement) => achievement.name === "Three Streak!"
-		  );
-		  if (threeAnswerStreakAchievement != null) {
-		    await AchievementsAPI.updateAchievement(
-		      userData._id,
-		      threeAnswerStreakAchievement._id,
-		      true
-		    );
-		    NotificationsAPI.achievementNotification(threeAnswerStreakAchievement, "Achievement Unlocked!");
-		  	highestStreak=0;
-		  }
-		}
-		let fiveAnswerStreakAchievement = null;
-		if (highestStreak >= 5) {
-		  const achievementsRes = await AchievementsAPI.getAllAchievements();
-		  fiveAnswerStreakAchievement = achievementsRes.body.find(
-		    (achievement) => achievement.name === "Five Streak!"
-		  );
-		  if (fiveAnswerStreakAchievement != null) {
-		    await AchievementsAPI.updateAchievement(
-		      userData._id,
-		      fiveAnswerStreakAchievement._id,
-		      true
-		    );
-		    NotificationsAPI.achievementNotification(fiveAnswerStreakAchievement, "Achievement Unlocked!");
-		  	highestStreak=0;
-		  }
-		}
-		
-		let tenAnswerStreakAchievement = null;
-		if (highestStreak >= 10) {
-		  const achievementsRes = await AchievementsAPI.getAllAchievements();
-		  tenAnswerStreakAchievement = achievementsRes.body.find(
-		    (achievement) => achievement.name === "LEGENDARY!"
-		  );
-		  if (tenAnswerStreakAchievement != null) {
-		    await AchievementsAPI.updateAchievement(
-		      userData._id,
-		      tenAnswerStreakAchievement._id,
-		      true
-		    );
-		    NotificationsAPI.achievementNotification(tenAnswerStreakAchievement, "Achievement Unlocked!");
-		  	highestStreak=0;
-		  }
-		}
-		 if (score >= 10) {
-	      const achievementsRes = await AchievementsAPI.getAllAchievements();
-	      const noMistakeScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "No Mistake!"
-	      );
-	      
-	      if (noMistakeScoreAchievement != null) {
-	        await AchievementsAPI.updateAchievement(
-	          userData._id,
-	          noMistakeScoreAchievement._id,
-	          true
-	        );
-	   //     setAchievedAchievement(perfectScoreAchievement);
-			 //setIsAchievementVisible(true);
-			NotificationsAPI.achievementNotification(noMistakeScoreAchievement, "Achievement Unlocked!");
-	      }
-			    if (score >= 5) {
-	      const achievementsRes = await AchievementsAPI.getAllAchievements();
-	      const UnbeliveableScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "Unbeliveable Score"
-	      );
-	      
-	      if (UnbeliveableScoreAchievement != null) {
-	        await AchievementsAPI.updateAchievement(
-	          userData._id,
-	          UnbeliveableScoreAchievement._id,
-	          true
-	        );
-	   //     setAchievedAchievement(perfectScoreAchievement);
-			 //setIsAchievementVisible(true);
-			NotificationsAPI.achievementNotification(UnbeliveableScoreAchievement, "Achievement Unlocked!");
-	      }
-	    }
+	    let achievedAchievement = [];
 	    
-	    
-	    
-	    
-	    if (score >= 3) {
-	      const achievementsRes = await AchievementsAPI.getAllAchievements();
-	      const perfectScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "Good Score"
-	      );
-	      
-	      if (perfectScoreAchievement != null) {
-	      	const achivementResponse=await AchievementsAPI.updateAchievement(
-	          userData._id,
-	          perfectScoreAchievement._id,
-	          true
-	        );
-	        
-					if(achivementResponse.success && achivementResponse.added)
-					{
-						NotificationsAPI.achievementNotification(perfectScoreAchievement, "Achievement Unlocked!");
-		      }
-	      }
-	    }
-	  } 
-	  else {
-	    console.log(response.message);
-	  }
-	};	
+			if (highestStreak >= 3) {
+				const achievementUnlocked = await unlockAchievement("Three Streak!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+			if (highestStreak >= 5) {
+			  const achievementUnlocked = await unlockAchievement("Five Streak!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+			if (highestStreak >= 10) {
+			 const achievementUnlocked = await unlockAchievement("LEGENDARY!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+			if (score >= 10) {
+				const achievementUnlocked = await unlockAchievement("No Mistake!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+			if (score >= 5) {
+				const achievementUnlocked = await unlockAchievement("Unbeliveable Score", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+			if (score >= 3) {
+				const achievementUnlocked = await unlockAchievement("Good Score", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+			// Updating the cached data
+			setUserData({...userData,
+					points: userData.points + points,
+					achievements: [...userData.achievements,...achievedAchievement]
+			});
 	}
-	
-	
-
+};
 	
 	const minutes = Math.floor(elapsedTime / 60);
 	const seconds = elapsedTime % 60;
@@ -364,6 +301,30 @@ const BackwordDefinition = () =>{
 	      height: '144px'
 	    }}}
 	
+	
+	
+	const unlockAchievement = async (achievementName,achievements) => {
+  //const achievementsRes = await AchievementsAPI.getAllAchievements();
+  const achievement = achievements.find(
+    (achievement) => achievement.name === achievementName
+  );
+  
+  if (achievement != null) {
+    	const achivementResponse=await AchievementsAPI.updateAchievement(
+	          userData._id,
+	          achievement._id,
+	          true
+	        );
+    
+    console.log(achievementName);
+  	if(achivementResponse.success && achivementResponse.added)
+			{
+				NotificationsAPI.achievementNotification(achievement, "Achievement Unlocked!");
+				// setUserData({...userData,achievements: [...userData.achievements,achievement._id]});
+				return achievement._id;
+			}
+  }
+}
 	//NEED TO SEND	
 	return (
   <>

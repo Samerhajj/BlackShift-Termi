@@ -32,6 +32,9 @@ import GamesApi from '../../api/GamesAPI';
 import LanguageMap from '../../api/LanguageAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
 
+
+import useInterval from './useInterval';
+
 const Game = ({ actualGuesses = 7, pickedCategory }) => {
   const {userData, setUserData} = useContext(LoginContext);
   
@@ -76,6 +79,10 @@ const Game = ({ actualGuesses = 7, pickedCategory }) => {
 	const [musicPlaying, setMusicPlaying] = useState(true);
 	const toggleMusic = () => setMusicPlaying(!musicPlaying);
 	
+const [elapsedTime, setElapsedTime] = useState(3 * 60);
+
+const [timerActive, setTimerActive] = useState(false);
+	
   const init = () => {
     setPickedWord1("");
     setPickedWord2("");
@@ -95,9 +102,12 @@ const Game = ({ actualGuesses = 7, pickedCategory }) => {
     setLetterOptions3([]);
     setHangmanImage(0);
     setScore(0);
+    setElapsedTime(3 * 60);
   };
   
-  
+
+
+
 useEffect(() => {
     if (i18n.language === 'en') {
       handleShowGame1();
@@ -125,7 +135,7 @@ const getPointsText = () => {
 useEffect(() => {
   if (guessedLetters1.length === uniqueLetters1.length && uniqueLetters1.length !== 0) {
     
-    setScore((currentScore) => currentScore + 100);
+    setScore((currentScore) => currentScore + 10);
     fetchQuestions2();
   }
 
@@ -134,7 +144,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (guessedLetters2.length === uniqueLetters2.length && uniqueLetters2.length !== 0) {
-    setScore((currentScore) => currentScore + 100);
+    setScore((currentScore) => currentScore + 10);
     fetchQuestions2();
   }
 
@@ -144,7 +154,7 @@ useEffect(() => {
 useEffect(() => {
   if (guessedLetters3.length === uniqueLetters3.length && uniqueLetters3.length !== 0) {
     
-    setScore((currentScore) => currentScore + 100);
+    setScore((currentScore) => currentScore + 10);
     fetchQuestions2();
   }
 
@@ -223,6 +233,7 @@ const fetchQuestions2 = async () => {
     setLetterOptions1([]);
         setLetterOptions2([]);
           setLetterOptions3([]);
+          
  
 
     const numOfTerms = 5;
@@ -292,47 +303,7 @@ const fetchQuestions2 = async () => {
   }
 };
 
-const handleSubmit1 = useCallback((l) => {
-  if (pickedWord1.includes(l)) {
-    if (!guessedLetters1.includes(l)) {
-      setGuessedLetters1((actualGuessedLetters) => [ ...actualGuessedLetters, l ]);
-    }
-  } else {
-    if (!wrongLetters1.includes(l)) {
-      setWrongLetters1((actualWrongLetters) => [...actualWrongLetters, l]);
-      setGuesses((actualGuesses) => actualGuesses - 1);
-      setHangmanImage(hangmanImage + 1);
-    }
-  }
-}, [pickedWord1, guessedLetters1, wrongLetters1]);
 
-const handleSubmit2 = useCallback((l) => {
-  if (pickedWord2.includes(l)) {
-    if (!guessedLetters2.includes(l)) {
-      setGuessedLetters2((actualGuessedLetters) => [ ...actualGuessedLetters, l ]);
-    }
-  } else {
-    if (!wrongLetters2.includes(l)) {
-      setWrongLetters2((actualWrongLetters) => [...actualWrongLetters, l]);
-      setGuesses((actualGuesses) => actualGuesses - 1);
-      setHangmanImage(hangmanImage + 1);
-    }
-  }
-}, [pickedWord2, guessedLetters2, wrongLetters2]);
-
-const handleSubmit3 = useCallback((l) => {
-  if (pickedWord3.includes(l)) {
-    if (!guessedLetters3.includes(l)) {
-      setGuessedLetters3((actualGuessedLetters) => [ ...actualGuessedLetters, l ]);
-    }
-  } else {
-    if (!wrongLetters3.includes(l)) {
-      setWrongLetters3((actualWrongLetters) => [...actualWrongLetters, l]);
-      setGuesses((actualGuesses) => actualGuesses - 1);
-      setHangmanImage(hangmanImage + 1);
-    }
-  }
-}, [pickedWord3, guessedLetters3, wrongLetters3]);
 
 
   const checkIfAlreadyGuessed1 = (l) =>
@@ -386,10 +357,82 @@ const handleSubmit3 = useCallback((l) => {
     setHangmanImage(0);
     setScore(0);
     setShowGame(false);
+    setElapsedTime(0);
   };
+  
+  const handleSubmit1 = useCallback((l) => {
+  if (pickedWord1.includes(l)) {
+    if (!guessedLetters1.includes(l)) {
+      setGuessedLetters1((actualGuessedLetters) => [ ...actualGuessedLetters, l ]);
+    }
+  } else {
+    if (!wrongLetters1.includes(l)) {
+      setWrongLetters1((actualWrongLetters) => [...actualWrongLetters, l]);
+      setGuesses((actualGuesses) => actualGuesses - 1);
+      setHangmanImage(hangmanImage + 1);
+    }
+  }
+}, [pickedWord1, guessedLetters1, wrongLetters1]);
+
+const handleSubmit2 = useCallback((l) => {
+  if (pickedWord2.includes(l)) {
+    if (!guessedLetters2.includes(l)) {
+      setGuessedLetters2((actualGuessedLetters) => [ ...actualGuessedLetters, l ]);
+    }
+  } else {
+    if (!wrongLetters2.includes(l)) {
+      setWrongLetters2((actualWrongLetters) => [...actualWrongLetters, l]);
+      setGuesses((actualGuesses) => actualGuesses - 1);
+      setHangmanImage(hangmanImage + 1);
+    }
+  }
+}, [pickedWord2, guessedLetters2, wrongLetters2]);
+
+const handleSubmit3 = useCallback((l) => {
+  if (pickedWord3.includes(l)) {
+    if (!guessedLetters3.includes(l)) {
+      setGuessedLetters3((actualGuessedLetters) => [ ...actualGuessedLetters, l ]);
+    }
+  } else {
+    if (!wrongLetters3.includes(l)) {
+      setWrongLetters3((actualWrongLetters) => [...actualWrongLetters, l]);
+      setGuesses((actualGuesses) => actualGuesses - 1);
+      setHangmanImage(hangmanImage + 1);
+    }
+  }
+}, [pickedWord3, guessedLetters3, wrongLetters3]);
+
+  useEffect(() => {
+    
+   setHangmanImage(0);
+  }, [pickedWord1] ,[pickedWord2] , [pickedWord3]); 
+  
+  
+  
+  
+const formatTime = (time) => {
+  const remainingTime = time; // Start from 3 minutes 
+  const minutes = Math.floor(remainingTime / 60);
+  const seconds = remainingTime % 60;
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+};
+
+useInterval(() => {
+  if (timerActive && elapsedTime > 0) {
+    setElapsedTime(elapsedTime - 1);
+  } else { 
+    setHangmanImage(7);
+  }
+}, 1000);
+
+useEffect(() => {
+  if (letters1.length > 0) {
+    setTimerActive(true); // Start the timer when the first letter appears
+  }
+}, [letters1]);
 
 return (
-  <div dir="ltr" className="game">
+  <div  className="game">
   <HangmanGameBG/>
     {!showGame ? (
 			  <Menu
@@ -402,6 +445,7 @@ return (
             const shouldStart = await fetchQuestions2();
             if (shouldStart) {
               setShowGame(true);
+              setElapsedTime(3 * 60);
             }
           }}
 			  />
@@ -443,6 +487,8 @@ return (
                   </p>
                     {showGame1 && (
                       <Game1
+                      formatTime={formatTime}
+                      elapsedTime = {elapsedTime}
                               letterOptions1={letterOptions1}
                   checkIfAlreadyGuessed1={checkIfAlreadyGuessed1}
                   handleSubmit1={handleSubmit1}
@@ -459,6 +505,8 @@ return (
                     )}
                     {showGame2 && (
                       <Game2
+                                            formatTime={formatTime}
+                      elapsedTime = {elapsedTime}
                                   letterOptions2={letterOptions2}
                     checkIfAlreadyGuessed2={checkIfAlreadyGuessed2}
                     handleSubmit2={handleSubmit2}
@@ -474,6 +522,8 @@ return (
                     )}
                     {showGame3 && (
                       <Game3
+                                            formatTime={formatTime}
+                      elapsedTime = {elapsedTime}
                                   letterOptions3={letterOptions3}
                     checkIfAlreadyGuessed3={checkIfAlreadyGuessed3}
                     handleSubmit3={handleSubmit3}
@@ -499,18 +549,26 @@ return (
 
 
   };
-function Game1({ letterOptions1, checkIfAlreadyGuessed1, handleSubmit1, letters1, guessedLetters1, wrongLetters1,  hangmanImage, pickedWord1, correctAudio, wrongAudio, questions, myQuestion }) {
-
-
+function Game1({ formatTime ,elapsedTime , letterOptions1, checkIfAlreadyGuessed1, handleSubmit1, letters1, guessedLetters1, wrongLetters1,  hangmanImage, pickedWord1, correctAudio, wrongAudio, questions, myQuestion }) {
   const handleAudioPlay = (audio) => {
     audio.currentTime = 0;
     audio.play();
   };
 
 
+
+  useEffect(() => {
+    handleSubmit1(" ");
+  }, [letters1]); 
+
   return (
-    <div className="d-flex flex-column align-items-center justify-items-center">
+    <div className=" d-flex flex-column align-items-center justify-items-center ">
+          <div className="timer">
+        {formatTime(elapsedTime)}
+      </div>
       <div className="hangman-img">
+      
+
         {letters1.length > 0 && (
           <img
             src={
@@ -533,124 +591,131 @@ function Game1({ letterOptions1, checkIfAlreadyGuessed1, handleSubmit1, letters1
           />
         )}
       </div>
-      <div className="mt-3 d-flex flex-wrap">
+      <div className=" mt-3 d-flex flex-wrap">
       {letters1.map((letter1, i) =>
         guessedLetters1.includes(letter1) ? (
-          <span key={i} className="letter">
-            <center> {letter1} </center>
-          </span>
+<span key={i} className="letter" style={letter1 === " " && guessedLetters1.includes(letter1) ? { backgroundColor: "transparent", borderColor: "transparent" } : { backgroundColor: "white", borderColor: "black" }}>
+  <center>
+    {letter1}
+  </center>
+</span>
+
         ) : (
           <span
             key={i}
-            className="blankSquare"
-            style={{ marginTop: "0px" }}
+            className="blankSquare2"
+           
           ></span>
         )
       )}
       </div>
-<div className="left-text">
-  <center className="text-white">
-    {letters1.length > 0 && <span>{myQuestion.english}</span>}
-  </center>
-</div>
 
-      <section className="letters-table" style={{ marginTop: "0px" }}>
+  <center className="text-white">
+  <div className = "question-color">
+    {letters1.length > 0 && <span>{myQuestion.english} </span>}
+    </div>
+  </center>
+
+
+      <section className="letters-table" style={{ marginTop: "0px" }} >
         {letterOptions1.map((l) => {
-          let buttonClassName = "letter-opt letter-opt-default";
-          if (!guessedLetters1.includes(l) && !pickedWord1.includes(l)) {
-            buttonClassName += " default-guess";
-          } else if (
-            guessedLetters1.includes(l) &&
-            pickedWord1.includes(l)
-          ) {
-            buttonClassName += " correct-guess";
-          } else if (
-            guessedLetters1.includes(l) &&
-            !pickedWord1.includes(l)
-          ) {
-            buttonClassName += " wrong-guess";
-          }
-          return (
-            <span
-              className={buttonClassName}
-              onClick={() => {
-                if (pickedWord1.includes(l)) {
-                  handleAudioPlay(correctAudio);
-                  
-               
-                } else {
-                 
-                }
-                handleSubmit1(l);
-              }}
-              key={l}
-            >
-              {checkIfAlreadyGuessed1(l) && !pickedWord1.includes(l) ? (
-                <span className="wrong-guess">{l}</span>
-              ) : (
-                <span>{l}</span>
-              )}
-            </span>
-          );
+let buttonClassName = "letter-opt letter-opt-default";
+if (!guessedLetters1.includes(l) && !pickedWord1.includes(l)) {
+  buttonClassName += " default-guess";
+} else if (guessedLetters1.includes(l) && pickedWord1.includes(l)) {
+  buttonClassName += " correct-guess";
+} else if (guessedLetters1.includes(l) && !pickedWord1.includes(l)) {
+  buttonClassName += " wrong-guess";
+}
+
+return (
+  <span
+    className={buttonClassName}
+    onClick={() => {
+      if (pickedWord1.includes(l)) {
+        handleSubmit1(correctAudio);
+      } else {
+
+      }
+      handleSubmit1(l);
+      //console.log(pickedWord1);
+    }}
+    key={l}
+    style={guessedLetters1.includes(l) ? { opacity: "0.5" } : null}
+  >
+    {checkIfAlreadyGuessed1(l) && !pickedWord1.includes(l) ? (
+      <span className="wrong-guess">{l}</span>
+    ) : (
+      <span>{l}</span>
+    )}
+  </span>
+);
+
         })}
       </section>
     </div>
   );
 }
   
-function Game2({ letterOptions2, checkIfAlreadyGuessed2, handleSubmit2, letters2, guessedLetters2, wrongLetters2,  hangmanImage, pickedWord2, correctAudio, wrongAudio, questions, myQuestion }) {
-
-
+function Game2({ formatTime ,elapsedTime , letterOptions2, checkIfAlreadyGuessed2, handleSubmit2, letters2, guessedLetters2, wrongLetters2, hangmanImage, pickedWord2, correctAudio, wrongAudio, questions, myQuestion }) {
   const handleAudioPlay = (audio) => {
     audio.currentTime = 0;
     audio.play();
   };
-
-
+  useEffect(() => {
+    handleSubmit2(" ");
+  }, [letters2]); 
   return (
-    <div className="d-flex flex-column align-items-center justify-items-center">
+    <div className="d-flex flex-column align-items-center justify-items-center ">
+              <div className="timer">
+        {formatTime(elapsedTime)}
+      </div>
       <div className="hangman-img">
         {letters2.length > 0 && (
-    <img
-      src={
-        hangmanImage === 0
-          ? hangman1
-          : hangmanImage === 1
-          ? hangman2
-          : hangmanImage === 2
-          ? hangman3
-          : hangmanImage === 3
-          ? hangman4
-          : hangmanImage === 4
-          ? hangman5
-          : hangmanImage === 5
-          ? hangman6
-          : hangman7
-      }
-      alt={`Hangman stage ${hangmanImage}`}
-      className="hangman-img__img"
-    />
-  )}
+          <img
+            src={
+              hangmanImage === 0
+                ? hangman1
+                : hangmanImage === 1
+                ? hangman2
+                : hangmanImage === 2
+                ? hangman3
+                : hangmanImage === 3
+                ? hangman4
+                : hangmanImage === 4
+                ? hangman5
+                : hangmanImage === 5
+                ? hangman6
+                : hangman7
+            }
+            alt={`Hangman stage ${hangmanImage}`}
+            className="hangman-img__img"
+          />
+        )}
       </div>
-      {letters2.map((letter2, i) =>
-        guessedLetters2.includes(letter2) ? (
-          <span key={i} className="letter">
-            <center> {letter2} </center>
-          </span>
-        ) : (
-          <span
-            key={i}
-            className="blankSquare"
-            style={{ marginTop: "0px" }}
-          ></span>
-        )
-      )}
-
-<div className="left-text">
+      <div className="hebrewContainer mt-3 d-flex flex-wrap">
+        {letters2.map((letter2, i) =>
+          guessedLetters2.includes(letter2) ? (
+<span key={i} className="letter" style={letter2 === " " && guessedLetters2.includes(letter2) ? { backgroundColor: "transparent", borderColor: "transparent" } : { backgroundColor: "white", borderColor: "black" }}>
   <center>
-    {letters2.length > 0 && <span>{myQuestion.hebrew}</span>}
+    {letter2}
   </center>
-</div>
+</span>
+          ) : (
+            <span
+              key={i}
+              className="blankSquare2"
+            ></span>
+          )
+        )}
+      </div>
+     
+        <center className="text-white">
+         <div className = "question-color">
+          {letters2.length > 0 && <span>{myQuestion.hebrew} </span>}
+           </div>
+        </center>
+     
       <section className="letters-table" style={{ marginTop: "0px" }}>
         {letterOptions2.map((l) => {
           let buttonClassName = "letter-opt letter-opt-default";
@@ -673,14 +738,14 @@ function Game2({ letterOptions2, checkIfAlreadyGuessed2, handleSubmit2, letters2
               onClick={() => {
                 if (pickedWord2.includes(l)) {
                   handleAudioPlay(correctAudio);
-                  
-            
                 } else {
                   // handleAudioPlay(wrongAudio);
                 }
                 handleSubmit2(l);
+                //console.log(pickedWord2);
               }}
               key={l}
+              style={guessedLetters2.includes(l) ? { opacity: "0.5" } : null}
             >
               {checkIfAlreadyGuessed2(l) && !pickedWord2.includes(l) ? (
                 <span className="wrong-guess">{l}</span>
@@ -695,8 +760,10 @@ function Game2({ letterOptions2, checkIfAlreadyGuessed2, handleSubmit2, letters2
   );
 }
 
+
+
   
-function Game3({ letterOptions3, checkIfAlreadyGuessed3, handleSubmit3, letters3, guessedLetters3, wrongLetters3,  hangmanImage, pickedWord3, correctAudio, wrongAudio, questions, myQuestion }) {
+function Game3({ formatTime ,elapsedTime , letterOptions3, checkIfAlreadyGuessed3, handleSubmit3, letters3, guessedLetters3, wrongLetters3,  hangmanImage, pickedWord3, correctAudio, wrongAudio, questions, myQuestion }) {
 
 
   const handleAudioPlay = (audio) => {
@@ -704,9 +771,14 @@ function Game3({ letterOptions3, checkIfAlreadyGuessed3, handleSubmit3, letters3
     audio.play();
   };
 
-
+  useEffect(() => {
+    handleSubmit3(" ");
+  }, [letters3]); 
   return (
-    <div className="d-flex flex-column align-items-center justify-items-center">
+   <div className=" d-flex flex-column align-items-center justify-items-center   ">
+             <div className="timer">
+        {formatTime(elapsedTime)}
+      </div>
       <div className="hangman-img">
     {letters3.length > 0 && (
       <img
@@ -730,25 +802,30 @@ function Game3({ letterOptions3, checkIfAlreadyGuessed3, handleSubmit3, letters3
       />
     )}
   </div>
+     <div className="hebrewContainer mt-3 d-flex flex-wrap">
         {letters3.map((letter3, i) =>
           guessedLetters3.includes(letter3) ? (
-            <span key={i} className="letter">
-              <center> {letter3} </center>
-            </span>
+<span key={i} className="letter" style={letter3 === " " && guessedLetters3.includes(letter3) ? { backgroundColor: "transparent", borderColor: "transparent" } : { backgroundColor: "white", borderColor: "black" }}>
+  <center>
+    {letter3}
+  </center>
+</span>
           ) : (
             <span
               key={i}
-              className="blankSquare"
+              className="blankSquare2"
               style={{ marginTop: "0px" }}
             ></span>
           )
         )}
-  
-  <div className="left-text">
-    <center>
-      {letters3.length > 0 && <span>{myQuestion.arabic}</span>}
-    </center>
   </div>
+  
+    <center className="text-white">
+     <div className = "question-color">
+      {letters3.length > 0 && <span>{myQuestion.arabic} </span>}
+       </div>
+    </center>
+
         <section className="letters-table" style={{ marginTop: "0px" }}>
           {letterOptions3.map((l) => {
             let buttonClassName = "letter-opt letter-opt-default";
@@ -777,8 +854,10 @@ function Game3({ letterOptions3, checkIfAlreadyGuessed3, handleSubmit3, letters3
                     // handleAudioPlay(wrongAudio);
                   }
                   handleSubmit3(l);
+                  //console.log(pickedWord3);
                 }}
                 key={l}
+                style={guessedLetters3.includes(l) ? { opacity: "0.5" } : null}
               >
                 {checkIfAlreadyGuessed3(l) && !pickedWord3.includes(l) ? (
                   <span className="wrong-guess">{l}</span>

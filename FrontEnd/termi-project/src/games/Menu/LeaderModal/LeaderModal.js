@@ -15,7 +15,7 @@ function LeaderModal({ onClose, gameName }) {
         <Modal.Title>{gameName} Leaderboard</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/*<Leaderboard context={gameName} changeable={false}/>*/}
+        <Leaderboard context={gameName} changeable={false}/>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>

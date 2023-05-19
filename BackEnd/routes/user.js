@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
+
 router.use(express.json());
 
 // imported from other local javaScript files
 const { favorites,
-        deleteFavorite1,
+        deleteFavorite,
         addFavorite,
         suggestTerm,
         getAllSuggestedTerms,
@@ -21,8 +22,21 @@ const { favorites,
         gameSearchActivity,
         clearGameSearchActivity,
         findUserByEmail,
-        suggestion
+        suggestion,
+        deleteTerm,
+        deleteAllUsers,uploadImage
 } = require("../Controllers/userController");
+
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+
+router.post('/upload',upload.single('file'), uploadImage);
+
+
+
+router.delete("/delete-all-users",deleteAllUsers);
 
 
 // Router Functions
@@ -56,7 +70,7 @@ router.post("/favorites", favorites);
 router.post("/suggestions",suggestion); // new
 
 
-router.put("/delete-favorite", deleteFavorite1);
+router.put("/delete-favorite", deleteFavorite);
 
 router.put("/add-favorite", addFavorite);
 
@@ -137,14 +151,14 @@ router.put("/approve-term",addSelectedTerm);
 
 router.post("/active-lag",handleLanguageChange);
 
-router.delete("/delete-log",deleteLog);
+router.delete("/delete-log",deleteLog); // GetDataSwitchLanguageActivityLogs
 
 router.get("/get-all-logs",getAllLogs);
 
 
 //handleLanguageChange2
 router.post("/active-game-search",handleLanguageChange2)
-router.delete("/delete-game-search",deleteLog2)
+router.delete("/delete-game-search",deleteLog2) // GetUserSearchGameLogs
 router.get("/get-all-search-game-logs",getAllLogsSearchGames)
 
 
@@ -159,8 +173,40 @@ router.post("/gameSearchActivity",gameSearchActivity);
 router.delete("/clearGameSearchActivity",clearGameSearchActivity);
 
 
+/**
+ * @swagger
+ * tags:
+ *   - name: search
+ *     description: Search related operations
+ * paths:
+ *  /user/deleteTerm:
+ *    delete:
+ *      tags: [search]
+ *      summary: Delete a term from search
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                TermID:
+ *                  type: string
+ *                  description: ID of the term to be deleted
+ *                  required: true
+ *      responses:
+ *        200:
+ *          description: Term deleted successfully
+ *        400:
+ *          description: Bad request
+ *        404:
+ *          description: Term not found
+ */
+router.delete("/deleteterm",deleteTerm);// deleteTerm : admin delete incorrect term # API SWAGGER
+
 //
 router.get("/findUserByEmail",findUserByEmail);
+
 
 module.exports = router;
 

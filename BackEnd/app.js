@@ -48,7 +48,7 @@ const db = require("./config/database");
 // Get the Coffees Orders
 // Core
 app.use(cors({
-  origin:"*"
+  origin:"*"  
 }));
 
 app.use("/search", require("./routes/search"));

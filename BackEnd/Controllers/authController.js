@@ -73,6 +73,8 @@ const register = async (req, res) => {
         <h3>Hello ${fullName},</h3>
         <p>Thank you for registering for our app. To start using the app, please verify your account by clicking the link below:</p>
         <a href=" http://dir.y2022.kinneret.cc:7024/verify/${newUser.verificationToken}">Verify Account</a>
+        <p> If you can't see the link, please paste this in your Web-Browser</p>
+        <p>http://dir.y2022.kinneret.cc:7024/verify/${newUser.verificationToken}</p>
         <p>The verification link will expire in 24 hours.</p>
       `
     };
@@ -121,6 +123,7 @@ const login = async (req, res) => {
     refreshTokens.push(refreshToken);
          
   
+  foundUser.hashUserId();
   res.json({token, refreshToken});
 //res.send({message:"logged in successfully"});
   });

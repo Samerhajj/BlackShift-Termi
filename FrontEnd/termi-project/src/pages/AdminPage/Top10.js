@@ -20,13 +20,13 @@ const Top10 = () =>{
     useEffect(()=>{
         getTop10();
     },[])
-
+// banner_trending
     return(<div>
         <div className="banner banner_admin">
         <div className="wrapper">
           <div className="banner_content">
             <h1 className="">
-              <strong className="text-white">Most searched Terms</strong>
+              <strong style={{color:"white"}} className="">Most searched Terms</strong>
             </h1>
           </div>
         </div>
@@ -34,7 +34,7 @@ const Top10 = () =>{
     
     <div className="container d-flex justify-content-center mb-2">
         <div className="admin-sg goAndChange">
-            <button className="su-button" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
+            <button className="su-button style_for_button_in_viewSuggestions" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
         </div>
     </div>
     

@@ -331,14 +331,10 @@ const TermCard = (props) =>{
                        <FacebookShareButton className="w-auto" url={shareData.url} quote={shareData.quote}>
                             <FacebookIcon size={40} round={true} />
                         </FacebookShareButton>
-                        <TwitterShareButton className="w-auto" url={'https://github.com/next-share'} title={shareData.text} hashtags={shareData.hashtags}>
+                        <TwitterShareButton className="w-auto" url={shareData.url} title={shareData.text} hashtags={shareData.hashtags}>
                             <TwitterIcon size={40} round={true} />
                         </TwitterShareButton>
-                       <WhatsappShareButton
-                          url={shareData.url}
-                        title={shareData.title}
-                          separator=":: "
-                          >
+                       <WhatsappShareButton url={shareData.url} title={shareData.title} separator=":: ">
                           <WhatsappIcon size={40} round />
                         </WhatsappShareButton>
                         <LinkedinShareButton className="w-auto" url={shareData.url} title={shareData.title}>

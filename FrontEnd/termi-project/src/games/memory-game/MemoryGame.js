@@ -17,7 +17,7 @@ import { MdOutlineReplay,MdArrowBack } from "react-icons/md";
 import MemoryGameBG from "./MemoryGameBG/MemoryGameBG";
 import correctSFXaudio from "../../assets/sound/SFX/correct-sfx.wav";
 import incorrectSFXaudio from "../../assets/sound/SFX/incorrect-sfx.mp3";
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion, AnimatePresence } from 'framer-motion/dist/framer-motion';
 
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
@@ -59,6 +59,8 @@ const MemoryGame = () => {
 		initGame();
 	};
 	
+	
+	
 	const initGame = async () => {
 		// get 5 random terms from the choosen category
 		if(category !== undefined){
@@ -83,8 +85,7 @@ const MemoryGame = () => {
 		        	
 		        	answers.set(terms[i].conceptName.english, terms[i].shortDefinition.english);
 		        }
-		        console.log(answers)
-		        console.log(allCards)
+				setHighestStreak(0);
 	        	setAnswers(answers);
 		        setCards(allCards);
 				setShowScore(false);
@@ -133,7 +134,7 @@ const MemoryGame = () => {
 				streakCountRef.current = 0;
 
 				incorrectSFX.play();
-				
+				 //return [...prevState];
 				return(prevState);
 			});
 		}
@@ -145,113 +146,94 @@ const MemoryGame = () => {
 	};
 	
 	const finishGame = async() => {
+		const achievementsRes = await AchievementsAPI.getAllAchievements();
+		const allAchievements = achievementsRes.body;
+		const achievements = allAchievements.filter((achievement) => achievement.relevantGame === "Memory Game");
+		
 		let points = 0;
 		let numOfCards = cards.length;
 		points = Math.floor((numOfCards/numOfTries) * 100);
-		setPointsGained(points);//GamesApi//not putting in pointsGained
+		setPointsGained(points);
 		setShowScore(true);
+		
 		const response = await GamesApi.updatePoints(userData._id, points, 'Memory Game', category);
-        // const gameData = {
-        //     userId: userData._id,
-        //     gameName: 'Memory Game',
-        //     score: points
-        // };
-        
-		// const send = await GamesApi.
+		
 		if(response.success)
 		{
-			setUserData({...userData, points: userData.points + points});
+			
 			localStorage.setItem("points",points);
 			
 			const addToHistory = await GameHistoryAPI.updateGameHistory(userData._id, 'Memory Game', points);
+			
+		    let achievedAchievement = [];
+		    
+			if (highestStreak >= 3) {
+				const achievementUnlocked = await unlockAchievement("Three Streak!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+			if (highestStreak >= 5) {
+				const achievementUnlocked = await unlockAchievement("Five Streak!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+			if (numOfTries <= 15) {
+				const achievementUnlocked = await unlockAchievement("NO WAY!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+			}
+			
+	    	if (numOfTries <=10 ){
+				const achievementUnlocked = await unlockAchievement("FANTASTIC!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+	    	}
+	    	
+	    	if (numOfTries <=5 ){
+				const achievementUnlocked = await unlockAchievement("IMPOSSIBLE!", achievements);
+				if(achievementUnlocked){
+					achievedAchievement.push(achievementUnlocked);
+				}
+		    }
+		    
+			// Updating the cached data
+			setUserData({...userData,
+					points: userData.points + points,
+					achievements: [...userData.achievements,...achievedAchievement]
+			});
 		}else{
 			console.log(response.message);
 		}
-		
-		let threeAnswerStreakAchievement = null;
-		if (highestStreak >= 3) {
-		  const achievementsRes = await AchievementsAPI.getAllAchievements();
-		  threeAnswerStreakAchievement = achievementsRes.body.find(
-		    (achievement) => achievement.name === "Three Streak!"
-		  );
-		  if (threeAnswerStreakAchievement != null) {
-		    await AchievementsAPI.updateAchievement(
-		      userData._id,
-		      threeAnswerStreakAchievement._id,
-		      true
-		    );
-		    NotificationsAPI.achievementNotification(threeAnswerStreakAchievement, "Achievement Unlocked!");
-		  	highestStreak=0;
-		  }
-		}
-		let fiveAnswerStreakAchievement = null;
-		if (highestStreak >= 5) {
-		  const achievementsRes = await AchievementsAPI.getAllAchievements();
-		  fiveAnswerStreakAchievement = achievementsRes.body.find(
-		    (achievement) => achievement.name === "Five Streak!"
-		  );
-		  if (fiveAnswerStreakAchievement != null) {
-		    await AchievementsAPI.updateAchievement(
-		      userData._id,
-		      fiveAnswerStreakAchievement._id,
-		      true
-		    );
-		    NotificationsAPI.achievementNotification(fiveAnswerStreakAchievement, "Achievement Unlocked!");
-		  	highestStreak=0;
-		  }
-		}
-		
-		if (numOfTries <=15) {
-	      const achievementsRes = await AchievementsAPI.getAllAchievements();
-	      const NoWayScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "NO WAY!"
-	      );
-	      
-	      if (NoWayScoreAchievement != null) {
-	        await AchievementsAPI.updateAchievement(
-	          userData._id,
-	          NoWayScoreAchievement._id,
-	          true
-	        );
-	        
-			NotificationsAPI.achievementNotification(NoWayScoreAchievement, "Achievement Unlocked!");
-	      }
-	    }
-	    	if (numOfTries <=10 ){
-	      const achievementsRes = await AchievementsAPI.getAllAchievements();
-	      const fantasticScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "FANTASTIC!"
-	      );
-	      
-	      if (fantasticScoreAchievement != null) {
-	        await AchievementsAPI.updateAchievement(
-	          userData._id,
-	          fantasticScoreAchievement._id,
-	          true
-	        );
-			NotificationsAPI.achievementNotification(fantasticScoreAchievement, "Achievement Unlocked!");
-	      }
-	    }
-	    
-	    	    	if (numOfTries <=5 ){
-	      const achievementsRes = await AchievementsAPI.getAllAchievements();
-	      const impossibleScoreAchievement = achievementsRes.body.find(
-	        (achievement) => achievement.name === "IMPOSSIBLE!"
-	      );
-	      
-	      if (impossibleScoreAchievement != null) {
-	        await AchievementsAPI.updateAchievement(
-	          userData._id,
-	          impossibleScoreAchievement._id,
-	          true
-	        );
-			NotificationsAPI.achievementNotification(impossibleScoreAchievement, "Achievement Unlocked!");
-	      }
-	    }
-	   
-	
-		
 	};
+	
+	
+	const unlockAchievement = async (achievementName,achievements) => {
+	  const achievement = achievements.find(
+	    (achievement) => achievement.name === achievementName
+	  );
+	  
+	  if (achievement != null) {
+	    	const achivementResponse=await AchievementsAPI.updateAchievement(
+		          userData._id,
+		          achievement._id,
+		          true
+		        );
+	    
+	    console.log(achievementName);
+	  	if(achivementResponse.success && achivementResponse.added)
+				{
+					NotificationsAPI.achievementNotification(achievement, "Achievement Unlocked!");
+					// setUserData({...userData,achievements: [...userData.achievements,achievement._id]});
+					return achievement._id;
+				}
+	  }
+	}
 
 	useEffect(() => {
 		console.log(flipped);
@@ -311,36 +293,29 @@ const MemoryGame = () => {
 							<div className="memory-cards-grid">
 								{cards.map((card,index) =>{
 									 const { feedbackClass } = flipped.find(card=>card.index === index) || { feedbackClass: '' };
+									 const isSolved = solved.includes(index);
+									 const isFlipped = flipped.find(element => element.index == index);
 									 return (
-									<div dir={LanguageMap[i18n.language].dir} key={index} className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${flipped.find(element => element.index == index) ? 'flipped' : ''}`}>
-   <motion.div 
-  className="memory-card-inner"
-  initial={{ rotateY: 0 }}
-  animate={flipped.find(element => element.index == index) && !(solved.includes(index) && feedbackClass==='correct') ? { rotateY: 360 } : { rotateY: 0 }}
-  transition={{ duration: 0.5 }}
->
-    {flipped.find(element => element.index == index) ? (
-        <div className={`front ${feedbackClass==='correct' ? 'correct' :''} ${feedbackClass==='incorrect' ? 'incorrect' :''}`}>
-            {card[LanguageMap[i18n.language].name]}
-        </div>
-    ):(
-        <>
-            {solved.includes(index) ? (
-                <div className="front">
-                    {card[LanguageMap[i18n.language].name]}
-                </div>
-            ):(
-                <div className={`back ${card.type==='concept name' ? 'concept-name-type' :'short-definition-type'}`} onClick={() => {flip(index)}}>
-                    {card[LanguageMap[i18n.language].name]}
-                </div>
-            )}
-        </>
-    )}
-</motion.div>
-
-
-									
-									</div>
+										<motion.div dir={LanguageMap[i18n.language].dir} 
+										key={"card_" + index} 
+										className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${isFlipped ? 'flipped' : ''}`}
+										  initial={{ rotateY: 180 }}
+										  animate={isFlipped || isSolved || feedbackClass==='correct' ? { rotateY: 0 } : { rotateY: 180 }}
+										  transition={{ duration: 0.5 }}>
+										  
+							        		<AnimatePresence exitBeforeEnter>
+										    {isFlipped ? (
+										        <div className={`front ${feedbackClass==='correct' ? 'correct' :''} ${feedbackClass==='incorrect' ? 'incorrect' :''}`}>
+										            {card[LanguageMap[i18n.language].name]}
+												</div>
+										    ):(
+										        <div className={`${isSolved ? 'front' : `${card.type==='concept name' ? 'back concept-name-type' :'back short-definition-type'}`}`} 
+										        	 onClick={() => {if(!isSolved){flip(index)}}}>
+									                    {card[LanguageMap[i18n.language].name]}
+										        </div>
+										    )}
+						            	</AnimatePresence>
+										</motion.div>
 									)
 								})}
 							</div>

@@ -111,7 +111,7 @@ const Leaderboard = (props) =>{
                 <div className="leaderboard-info">
                     <div className="user-rank-container text-center">
                         <motion.div className="d-flex flex-column"
-                                    key={leaderboardInfo.context + "_userRank" || leaderboardInfo.category + "_userRank"}
+                                    key={leaderboardInfo.context + leaderboardInfo.category + "_userRank" + isInView}
                                     initial={{opacity: 0, x:-60}}
                                     animate={{opacity: isInView ? 1 : 0, x: isInView ? 0 : -60}}
                                     
@@ -121,24 +121,28 @@ const Leaderboard = (props) =>{
                         </motion.div>
                         
                         <motion.div 
-                                key={leaderboardInfo.context + "_img" || leaderboardInfo.category + "_img"}
+                                key={leaderboardInfo.context + leaderboardInfo.category + "_img" + isInView}
                                 initial={{opacity: 0, y: -20}}
                                 animate={{opacity: isInView ? 1 : 0, y: isInView? 0 : -20}}
                                 transition={{duration: 0.6}}>
                             { leaderboardInfo.userRank == 1 ?
-                                    <Image className="rank-img-display" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "1st.png"}/>
+                                <Image className="rank-img-display" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "Rank1.png"}/>
                             :null}
                             
                             { leaderboardInfo.userRank == 2 ?
-                                    <Image className="rank-img-display" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "2nd.png"}/>
+                                <Image className="rank-img-display" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "Rank2.png"}/>
                             :null}
                             
                             { leaderboardInfo.userRank == 3 ?
-                                    <Image className="rank-img-display" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "3rd.png"}/>
+                                <Image className="rank-img-display" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "Rank3.png"}/>
+                            :null}
+                            
+                            { leaderboardInfo.userRank >= 4?
+                                <Image className="rank-img-display" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "RankReset.png"}/>
                             :null}
                         </motion.div>
                         <motion.div className="d-flex flex-column"
-                                key={leaderboardInfo.context + "_score" || leaderboardInfo.category + "_score"}
+                                key={leaderboardInfo.context + leaderboardInfo.category + "_score" + isInView}
                                 initial={{opacity: 0, x: 60}}
                                 animate={{opacity: isInView ? 1 : 0, x: isInView ? 0 : 60}}
                                 transition={{duration: 0.6}}>
@@ -150,23 +154,26 @@ const Leaderboard = (props) =>{
                     {
                         leaderboard.map((element, index) => (
                             <motion.div
-                                key={leaderboardInfo.context + `${index}_rank` + isInView || leaderboardInfo.category + `${index}_rank` + isInView}
+                                key={leaderboardInfo.context + `${index}_rank` + leaderboardInfo.category + isInView}
                                 initial={{opacity: 0, y: 30}}
                                 animate={{opacity: isInView ? 1 : 0, y: isInView ? 0 : 30}}
                                 transition={{duration: 0.6, delay: index * 0.2}}>
                                 <div className="user-profile">
                                     <div className="d-flex flex-column">
                                         { index + 1 == 1 ?
-                                            <Image className="rank-img" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "1st.png"}/>
-    
+                                            <Image className="rank-img" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "Rank1.png"}/>
                                         :null}
                                         
                                         { index + 1 == 2 ?
-                                            <Image className="rank-img" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "2nd.png"}/>
+                                            <Image className="rank-img" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "Rank2.png"}/>
                                         :null}
                                         
                                         { index + 1 == 3 ?
-                                            <Image className="rank-img" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "3rd.png"}/>
+                                            <Image className="rank-img" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "Rank3.png"}/>
+                                        :null}
+                                        
+                                        { index + 1 >= 4?
+                                            <Image className="rank-img" src={process.env.React_App_BaseURL + "Storage" + "/" + "Ranks" + "/" + "RankReset.png"}/>
                                         :null}
                                         <h3 className="fw-bold fs-4 user-rank text-center">
                                             #{index + 1}

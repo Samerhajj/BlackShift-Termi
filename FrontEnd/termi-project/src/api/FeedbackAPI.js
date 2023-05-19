@@ -1,5 +1,5 @@
 import axios from "axios";
-import { addFeedbackRoute } from '../api/ApiRoutes';
+import { addFeedbackRoute,getAllFeedback } from '../api/ApiRoutes';
 
 const addFeedback = async (termId, overallRating, shortDefinitionRating, longDefinitionRating, feedbackText) => {
   try {
@@ -23,5 +23,24 @@ const addFeedback = async (termId, overallRating, shortDefinitionRating, longDef
 };
 
 
+const handle_getAllFeedback = async () => {
 
-export default {addFeedback};
+  try {
+      const token = localStorage.getItem('token');
+      const res = await axios.get(getAllFeedback, {
+      },{
+        headers: { 'x-auth-token': token }
+    });
+    return { body: res.data, success: true };
+  } catch (e) {
+    if (e.response) {
+      return { success: false, message: e.response.data };
+    } else {
+      return { success: false, message: e.message };
+    }
+  }
+};
+
+
+
+export default {addFeedback,handle_getAllFeedback};

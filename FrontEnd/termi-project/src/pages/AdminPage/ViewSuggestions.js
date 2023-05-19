@@ -70,15 +70,15 @@ return (
         <div className="wrapper">
           <div className="banner_content">
             <h1 className="">
-              <strong className="text-white">Suggestions</strong>
+              <strong style={{color:"white"}} className="">Suggestions</strong>
             </h1>
           </div>
         </div>
       </div>
       
     <div className="admin-sg">
-        <button className="su-button mb-2" onClick={handleGetAllSuggest}>{t('user-suggestions.viewsuggestions')}</button>
-        <button className="su-button mb-2" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
+        <button className="su-button style_for_button_in_viewSuggestions" onClick={handleGetAllSuggest}>{t('user-suggestions.viewsuggestions')}</button>
+        <button className="su-button style_for_button_in_viewSuggestions" onClick={handleAdminPanel}>{t('user-suggestions.backtopanel')}</button>
     </div>
                     
                    

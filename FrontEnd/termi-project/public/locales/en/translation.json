@@ -227,7 +227,7 @@
             "status":"Status",
             "navbar": {
                 "general": "General",
-                "details": "Details",
+                "personal": "Personal",
                 "progress": "Progress",
                 "achievements": "Achievements",
                 "leaderboards": "Leaderboards"
@@ -257,7 +257,9 @@
         "total_terms": "Total Number Of Terms",
         "top_ten": "Top 10",
         "get_log_user": "Get User Search Game Logs",
-        "suggest_from_user": "Suggestions from users"
+        "suggest_from_user": "Suggestions from users",
+        "feedback_page" : "Feedback Page",
+        "fetch_feedback": "Fetch Feedbacks"
     },
     "add-term-admin":{
         "category_en": "Category (English)",
@@ -275,5 +277,17 @@
         "url": "URL",
         "suggest_button": "Suggest",
         "reset_button": "Reset"
+    },
+    "user_suggestions":{
+        "User_Suggestions": "User Suggestions",
+        "Get_My_Suggestions": "Get My Suggestions",
+        "You_have_no_suggestions": "You have no suggestions."
+    },
+    "admin_feedback_page":{
+        "title": "FEEDBACK BY USERS",
+        "Overall_Rating": "Overall Rating",
+        "Short_Definition_Rating": "Short Definition Rating",
+        "Long_Definition_Rating": "Long Definition Rating",
+        "Feedback_Text": "Feedback Text"
     }
 }

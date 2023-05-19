@@ -87,7 +87,7 @@ const SuggestConceptPage=()=>{
      values.suggestion = userData['suggestion'];
       console.log(res);
       if(res.success){
-  			setUserData({...userData, suggestConceptCounter: userData.suggestConceptCounter + 1});
+  		// 	setUserData({...userData, suggestConceptCounter: userData.suggestConceptCounter + 1});
   				NotificationsAPI.successNotification("Suggestion Submited!");
       }
       else{

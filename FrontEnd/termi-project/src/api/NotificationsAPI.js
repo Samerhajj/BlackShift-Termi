@@ -8,7 +8,7 @@ function achievementNotification(achievement, notificationMessage) {
         <>
             <div className="d-flex flex-column align-items-center justify-items-center">
                 <h4>{notificationMessage}</h4>
-            	<Image style={{width: "100px"}} src={achievement.image.replace(/^\.\//, process.env.React_App_StorageURL)} alt={achievement.name + " image"} />
+            	<Image style={{width: "100px"}} src={process.env.React_App_StorageURL + "blackshift" + "/" + achievement.image} alt={achievement.name + " image"} />
             	<div className="fs-5 fw-bold">{achievement.name}</div>
             </div>
         </>,

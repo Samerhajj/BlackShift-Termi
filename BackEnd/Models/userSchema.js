@@ -50,13 +50,16 @@ const UserSchema = new mongoose.Schema({
   },
   recentSearch: {
     type: [String], // Array of strings
-    maxItems: 10, // Maximum number of items in the array
-    unique: true
+    maxItems: 5, // Maximum number of items in the array
   },
   status: {
     type: [String]
   },
-  achievements: Array
+  achievements: Array,
+  profileImage: {
+    type: String,
+    default: ""
+  }
 });
 
 UserSchema.methods.generatePasswordResetToken = function() {
@@ -68,6 +71,31 @@ UserSchema.methods.generatePasswordResetToken = function() {
 };
 
 
+UserSchema.methods.hashUserId=function(){
+  const userIdString=String(this._id);
+  const hashedIdToken=crypto.createHash('sha256').update(userIdString).digest('hex');
+  console.log("userIdString = :   "+userIdString);
+  console.log("hashedToken: = " + hashedIdToken);
+  return hashedIdToken;
+}
+
+//New code 
+
+// UserSchema.methods.updateRecentSearch = function(term) {
+//   const MAX_SEARCH_ITEMS = 5;
+//   if (!this.recentSearch.includes(term)) {
+//     if (this.recentSearch.length >= MAX_SEARCH_ITEMS) {
+//       // remove the oldest search term
+//       this.recentSearch.shift();
+//     }
+//     // add the new search term to the end of the array
+//     this.recentSearch.push(term);
+//     // save the updated user object to the database
+//     this.save();
+//   }
+// };
+
+//End of the new code
 
 
 //New code 
@@ -88,6 +116,44 @@ UserSchema.methods.generatePasswordResetToken = function() {
 
 //End of the new code
 
+// TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+// this funtion is work but has a problem that if the team is already exist not pushing again
+// UserSchema.methods.updateRecentSearch = function(term) {
+//   const MAX_SEARCH_ITEMS = 5;
+//   if (!this.recentSearch.includes(term)) {
+//     if (this.recentSearch.length >= MAX_SEARCH_ITEMS) {
+//       // remove the oldest search term
+//       this.recentSearch.pop();
+//     }
+//     // add the new search term to the beginning of the array
+//     this.recentSearch.unshift(term);
+//     // save the updated user object to the database
+//     this.save();
+//   }
+// };
+
+
+UserSchema.methods.updateRecentSearch = function(term) {
+  const MAX_SEARCH_ITEMS = 5;
+  if (!this.recentSearch.includes(term)) {
+    if (this.recentSearch.length >= MAX_SEARCH_ITEMS) {
+      // remove the oldest search term
+      this.recentSearch.pop();
+    }
+    // add the new search term to the beginning of the array
+    this.recentSearch.unshift(term);
+  } else {
+    // remove the existing search term from the array
+    const index = this.recentSearch.indexOf(term);
+    this.recentSearch.splice(index, 1);
+    // add the existing search term to the beginning of the array
+    this.recentSearch.unshift(term);
+  }
+  this.searchCounter = this.searchCounter + 1;// new to update the search counter
+  
+  // save the updated user object to the database
+  this.save();
+};
 
 
 

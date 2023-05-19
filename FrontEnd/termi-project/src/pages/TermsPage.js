@@ -13,6 +13,7 @@ import {LoginContext} from "../components/LoginContext";
 import {Image} from 'react-bootstrap'
 import NewImg from '../assets/images/Icons/New.png';
 import TrendingImg from '../assets/images/Icons/Trending.png';
+import NotificationAPI from '../api/NotificationsAPI'
 
 import { IconContext } from "react-icons";
 import { AiOutlineHistory } from 'react-icons/ai';
@@ -135,8 +136,8 @@ const TermsPage = () =>{
     };
     
     const selectAutoCompleteTerm = (term)=>{
-        search(term, LanguageMap[checkInputLang(term)].name, category);
         setSuggestions([]);
+        search(term, LanguageMap[checkInputLang(term)].name, category);
     };
     
     const checkInputLang = (s)=>{
@@ -215,15 +216,17 @@ const TermsPage = () =>{
         }
     }, [showResult]);
     
-    const handleSearchFocus = async () =>{
-        if (searchedTerm.length === 0 && login) {
+    const handleSearchFocus = async (e) =>{
+        console.log(e);
+        
+        if (searchedTerm.length === 0 && login && (!e.target || !e.target.classList.contains("autocomplete-item"))) {
           // Make API call here
-          console.log("API call made");
+          console.log("In Search History")
           const res = await SearchApi.historySearch();
           if(res.success){
                 setSuggestions(res.body);
           }else{
-                alert(res.message);
+                NotificationAPI.errorNotification("Unable to retrieve recent searches");
           }
         //   setSuggestions(res);
           console.log(res);
@@ -236,15 +239,19 @@ return(
             <div className='wrapper'>
                 <div className="banner_content fade-in-element">
                     {/*<h1><span><strong>{t('search.title')}</strong></span><br/></h1>*/}
-                    <div className="search-box" dir={i18n.dir(inputLanguage)}>
-                        <input className="search-input" placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}} onFocus={() => handleSearchFocus()}/>
+                      <div className="search-box" dir={i18n.dir(inputLanguage)} onBlur={(e) => {
+                        if (!e.currentTarget.contains(e.relatedTarget)){
+                            setSuggestions([]);
+                        }}} onFocus={(e) => handleSearchFocus(e)}>
+                        
+                        <input className="search-input" placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
                         <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm, LanguageMap[inputLanguage].name, category)}}></i>
                         { suggestions.length != 0 ? 
                             <div className="autocomplete-box">
                                 {
                                     suggestions.map((item,index) => {
                                         return(
-                                            <div className="autocomplete-item d-flex flex-wrap align-items-center gap-3 justify-content-center" key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item.conceptName)}>
+                                            <div tabIndex="0" className="autocomplete-item d-flex flex-wrap align-items-center gap-3 justify-content-center" key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item.conceptName)}>
                                                 <div>{item.conceptName}</div>
                                                 <div>
                                                     {item.isTrending ?<Image style={{width: "35px"}} src={TrendingImg}/> : null}

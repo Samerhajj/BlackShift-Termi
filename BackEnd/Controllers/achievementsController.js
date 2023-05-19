@@ -1,6 +1,7 @@
 const Achievement = require("../Models/achievementSchema");
 const User = require("../Models/userSchema");
 
+// Get Achievements
 const getAchievements = async(req, res, next) => {
     try{
         let respond = await Achievement.find({});
@@ -11,6 +12,7 @@ const getAchievements = async(req, res, next) => {
     }
 };
 
+// Add Achievement
 const addAchievement = async(req, res, next) => {
     try{
         let name = req.body.name;
@@ -35,6 +37,7 @@ const addAchievement = async(req, res, next) => {
     }
 };
 
+// Update Achievement
 const updateAchievement=async(req,res,next)=>{
     try{
         const userId=req.params.userId;
@@ -74,6 +77,7 @@ const updateAchievement=async(req,res,next)=>{
   }
 };
 
+// Remove Achievment
 const removeAchievement=async(req,res,next)=>{
     try{
         const userId=req.params.userId;

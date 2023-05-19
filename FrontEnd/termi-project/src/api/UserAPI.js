@@ -6,7 +6,8 @@ suggestUserRoute,
 suggestionsRoute,
 search_favorites,
 user_getUserData,
-user_activeLag
+user_activeLag,
+uploadProfileImageRoute
 } from '../api/ApiRoutes';
 
 const favorites = async (email) => {
@@ -28,6 +29,7 @@ const favorites = async (email) => {
         return {success: false, message: err.message};
     }   
 }
+
 const getAllSuggestList = async (email) => {
     try{
         const usr = await axios.post(suggestionsRoute, {email:email})
@@ -137,7 +139,16 @@ const getUserData = async () => {
     }
 };
 
-export default {favorites, deleteFavorite, addFavorite,suggestFromUser,languageChanged,getUserData,getAllSuggestList};
+const uploadProfileImage = async (formData) => {
+    try{
+        const res = await axios.post(uploadProfileImageRoute, formData);
+        return {body: res.data, success: true};
+    }catch(ex){
+        return {success: false, message: "Can't upload image"};
+    }
+};
+
+export default {favorites, deleteFavorite, addFavorite,suggestFromUser,languageChanged,getUserData,getAllSuggestList,uploadProfileImage};
 
 {
     // const email = "m7md@gmail.com";// comment this 

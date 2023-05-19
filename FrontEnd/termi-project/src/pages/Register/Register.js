@@ -66,19 +66,11 @@ const handleStepSubmit = async (e) => {
 
 
 const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // const errors = validate(data); // validate the data
-    // if (Object.keys(errors).length > 0) {
-    // // If there are errors, display them to the user
-    // return;
-    // }
-    // setData((prevState) => ({ ...prevState, status: selectedStatus }));// new
-    // await setData({...data,status : selectedStatus})
-    
-    // Update the data state in the parent component
-    // setData({ ...setData, status: selectedStatus });
-    // If there are no errors, make the API call
-    
+   
+    e.preventDefault();
+    const newErrors=validate(data,2);
+    if(Object.keys(newErrors).length===0)
+    {
     setData((prevState) => ({ ...prevState, status: selectedStatus })); // update data state with selectedStatus
 
     console.log(data);
@@ -87,10 +79,14 @@ const handleSubmit = async (e) => {
     if(response.success){
        setCurrentStep(currentStep+1);//set to
     }
+    
     else{
         alert(response.message);
     }
+    }
+    
     console.log(selectedStatus)
+    
   };
   
     return(

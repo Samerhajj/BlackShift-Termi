@@ -1,5 +1,6 @@
 import axios from "axios";
 import {allsuggestedterms,approveTerm,deleteTerm,AllChangeLanguageLogs,AllSearchGameLogs} from "./ApiRoutes";
+
 // return all the suggested terms from the clients
 const getAllSuggestedTerms = async (termId) => {
     try{
@@ -62,9 +63,6 @@ const deleteTermFromSearch = async(data) =>{
         return {success: false, message: err.message};
     }
 }
-
-
-
 // return to the admin all the change languages activity (activitySchema)
 const fetchAllLogs = async ()=>{
     try{

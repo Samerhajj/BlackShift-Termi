@@ -3,4 +3,24 @@
   border-radius: 20px;
 }
 
+.achievement-container{
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  width: 150px;
+  transition: 150ms;
+  opacity: 0.3;
+}
 
+@media only screen and (max-width: 767px) {
+  .achievement-container{
+    width: 100px;
+  }
+}
+
+@media (max-width: 340px) {
+  .achievement-container{
+    width: 100%;
+  }
+}

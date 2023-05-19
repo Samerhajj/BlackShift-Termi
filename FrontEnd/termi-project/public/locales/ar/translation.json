@@ -226,7 +226,7 @@
         "status":"الحالة الاجتماعية",
         "navbar": {
             "general": "عام",
-            "details": "تفاصيل",
+            "personal": "شخصي",
             "progress": "تقدم",
             "achievements": "إنجازات",
             "leaderboards": "ليدربورد"
@@ -256,7 +256,9 @@
         "total_terms": "العدد الإجمالي للمصطلحات",
         "top_ten": "أعلى 10",
         "get_log_user": "احصل على سجلات لعبة بحث المستخدم",
-        "suggest_from_user": "اقتراحات من المستخدمين"
+        "suggest_from_user": "اقتراحات من المستخدمين",
+        "feedback_page": "صفحة الملاحظات",
+        "fetch_feedback": "إحضار الملاحظات"
     },
     "add-term-admin":{
         "category_en": "الفئة (الإنجليزية)",
@@ -274,5 +276,17 @@
         "url": "عنوان موقع ويب",
         "suggest_button": "ليقترح",
         "reset_button": "إعادة ضبط"
+    },
+        "user_suggestions":{
+        "User_Suggestions": "اقتراحات المستخدم",
+        "Get_My_Suggestions": "احصل على اقتراحاتي",
+        "You_have_no_suggestions": "ليس لديك اقتراحات."
+    },
+        "admin_feedback_page":{
+        "title": "ردود فعل المستخدمين",
+        "Overall_Rating": "تقييم عام",
+        "Short_Definition_Rating": "تصنيف التعريف المختصر",
+        "Long_Definition_Rating": "تصنيف تعريف طويل",
+        "Feedback_Text": "نص الملاحظات"
     }
 }

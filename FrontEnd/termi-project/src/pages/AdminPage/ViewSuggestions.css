@@ -7,11 +7,53 @@
     text-overflow: ellipsis;
     color: #0D6EFD;
     font-size: 25px;
+    /*the edit*/
+    min-width: 250px;
 }
 
 .bodyAccordion{
     background-color: #F8F9D7;
 }
+
+.style_for_button_in_viewSuggestions{
+    padding:15px;
+    font-size: 14px;
+    margin: 3px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    z-index:999;
+    
+    /* From https://css.glass */
+/*background: rgba(255, 255, 255, 0.07);*/
+/*background: c23c81;*/
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+/*backdrop-filter: blur(3.6px);*/
+-webkit-backdrop-filter: blur(3.6px);
+border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/*.no-suggestions {*/
+/*  font-size: 24px;*/
+/*  font-weight: bold;*/
+/*  text-align: center;*/
+/*  margin: 50px 0;*/
+/*  color: #555;*/
+/*}*/
+
+
+.no-suggestions {
+  font-size: 20px;
+  text-align: center;
+  margin: 20px 0;
+  color: #666;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+
 
 /*.accordion-header{*/
 /*    background-color: yellow;*/

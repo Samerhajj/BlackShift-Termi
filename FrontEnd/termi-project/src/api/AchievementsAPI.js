@@ -24,6 +24,8 @@ const updateAchievement = async (userId, achievementId, requirementMet) => {
     if(res.status == 201){
       return {body: res.data, success: true, added: false };
     }
+    
+    // Update the local user profile data
     return { body: res.data, success: true, added: true  };
   } catch (e) {
     if (e.response) {

@@ -3,12 +3,29 @@ const Search = require("../Models/searchSchema");
 const Suggest = require("../Models/suggestSchema");
 const UserActivity = require("../Models/activitySchema"); // GetDataSwitchLanguageActivityLogs
 const UserActivity2 = require("../Models/activitySchema2"); // GetUserSearchGameLogs
+const AWS = require('aws-sdk');
+const fs = require('fs');
 const jwt = require("jsonwebtoken");
 var ObjectID = require('mongodb').ObjectID;
 
 const { addLeaderboardPoints } = require("./leaderboardsController");
 
 
+
+const s3 = new AWS.S3({
+ 
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  
+});
+
+
+// AWS.config.update({region:'eu-west-1'
+// });
+// const s3 = new AWS.S3({
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+//   });
 const favorites = async (req,res) =>{
   try{
     console.log("%%%%%%%%%%%%%%%%%%%%%%%");
@@ -49,22 +66,22 @@ const suggestion = async (req,res) =>{
 };
 
 //-------------------------------------------------------------------------------------------------------------------------------------
-const deleteFavorite = async(req,res) =>{
-  try{
-      const response = await User.updateOne(
-      { "_id": req.body.personId},
-      { $pull: { favorite: req.body.card_id } });
-      console.log("res From DEL FAV");
-      console.log(response);
-      console.log("res From DEL FAV");
-      res.send(response);
-  }
-  catch(err){
-    console.log(err);
-  }
-};
+// const deleteFavorite = async(req,res) =>{
+//   try{
+//       const response = await User.updateOne(
+//       { "_id": req.body.personId},
+//       { $pull: { favorite: req.body.card_id } });
+//       console.log("res From DEL FAV");
+//       console.log(response);
+//       console.log("res From DEL FAV");
+//       res.send(response);
+//   }
+//   catch(err){
+//     console.log(err);
+//   }
+// };
 //-------------------------------------------------------------------------------------------------------------------------------------
-const deleteFavorite1 = async(req,res) =>{
+const deleteFavorite = async(req,res) =>{
   try{
     console.log(req.body);
     const deleteResponse = await User.findByIdAndUpdate(req.body.personId,{ $pull: { favorite: req.body.termId }},{ new: true });
@@ -128,6 +145,7 @@ const suggestTerm = async (req,res) =>{
 }; // The suggestions that the users send.
 
 
+
 const deleteTerm = async (req,res) =>{
 try{
 console.log(req.body)
@@ -135,7 +153,7 @@ console.log(req.body.TermID)
 
 // const response = Search.deleteOne({"_id" : req.body.termId});
 // const response = await Search.findOne({"_id" : req.body.TermID});
-const response = await Search.deleteOne({ "_id": req.body.TermID});
+const response = await Search.remove({ "_id": req.body.TermID});
 console.log("res From DEL SEARCH");
 console.log(response);
 console.log("res From DEL SEARCH");
@@ -479,9 +497,50 @@ const deleteAllUsers = async (req, res) => {
 
 
 
+
+const uploadImage = (req, res) => {
+  const { id, fileExtension } = req.body;
+  const file = req.file;
+  console.log(req.body);
+  User.findById(id, (err, user) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+      return;
+    }
+    if (!user) {
+      res.status(404).send('User not found');
+      return;
+    }
+    const hashedUserId = user.hashUserId();
+    console.log(hashedUserId);
+    console.log(fileExtension);
+    const key = `blackshift/profileImages/${hashedUserId}.${fileExtension}`;
+    const params = {
+      Bucket: 'y2022',
+      Key: key,
+      Body: file.buffer,
+    };
+    
+    s3.upload(params, (err, data) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        console.log(data);
+        user.profileImage = key;
+        user.save();
+        res.send(key);
+      }
+    });
+  });
+};
+// admin request
+
+
+
 module.exports = {favorites,
                   deleteFavorite,
-                  deleteFavorite1,
                   addFavorite,
                   suggestTerm,
                   getAllSuggestedTerms,
@@ -501,7 +560,10 @@ module.exports = {favorites,
                   findUserByEmail,
                   suggestion,
                   deleteTerm,
-                  deleteAllUsers
+                  deleteAllUsers,
+                  uploadImage
+                  
+                  
 };
 
 

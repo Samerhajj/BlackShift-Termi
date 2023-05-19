@@ -226,7 +226,7 @@
         "status":"מצב",
         "navbar": {
             "general": "כללי",
-            "details": "פרטים",
+            "personal": "אישי",
             "progress": "התקדמות",
             "achievements": "הישגים",
             "leaderboards": "לוחות תוצאות"
@@ -255,7 +255,9 @@
         "total_terms": "מספר כולל של מונחים",
         "top_ten": "10 המובילים",
         "get_log_user": "קבל יומני משחק של חיפוש משתמשים",
-        "suggest_from_user": "הצעות המשתמשים"
+        "suggest_from_user": "הצעות המשתמשים",
+        "feedback_page": "דף משוב",
+        "fetch_feedback": "להביא משוב"
     },
     "add-term-admin":{
         "category_en": "קטגוריה (אנגלית)",
@@ -273,5 +275,18 @@
         "url": "כתובת אתר",
         "suggest_button": "הצע",
         "reset_button": "איפוס"
+    },
+        "user_suggestions":{
+        "User_Suggestions": "הצעות משתמשים",
+        "Get_My_Suggestions": "קבל את ההצעות שלי",
+        "You_have_no_suggestions": "אין לך הצעות"
+    },
+        "admin_feedback_page":{
+        "title": "משוב על ידי משתמשים",
+        "Overall_Rating": "דירוג כולל",
+        "Short_Definition_Rating": "דירוג הגדרה קצר",
+        "Long_Definition_Rating": "דירוג הגדרה ארוך",
+        "Feedback_Text": "טקסט משוב"
     }
+
 }

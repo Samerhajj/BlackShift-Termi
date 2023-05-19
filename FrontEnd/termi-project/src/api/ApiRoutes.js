@@ -32,6 +32,7 @@ const allCategoriesRoute = process.env.React_App_BaseURL + "category";
 
 
 // User Routes
+const uploadProfileImageRoute = process.env.React_App_BaseURL + "user" + "/" + "upload";
 const favoritesRoute = process.env.React_App_BaseURL + "user" + "/" + "favorites";
 const deleteFavoriteRoute = process.env.React_App_BaseURL + "user" + "/" + "delete-favorite";
 const addFavoriteRoute = process.env.React_App_BaseURL + "user" + "/" + "add-favorite";
@@ -58,8 +59,8 @@ const AllChangeLanguageLogs = process.env.React_App_BaseURL + "user" + "/" + "ge
 const AllSearchGameLogs = process.env.React_App_BaseURL + "user" + "/" + "get-all-search-game-logs";
 
 // Feedback Routes
-const addFeedbackRoute=process.env.React_App_BaseURL + "feedback" + "/" + "term";
-
+const addFeedbackRoute= process.env.React_App_BaseURL + "feedback" + "/" + "term";
+const getAllFeedback = process.env.React_App_BaseURL + "feedback" + "/" + "term";
 
 // Others
 const top10 = process.env.React_App_BaseURL + "search" + "/" + "get-top10";
@@ -98,6 +99,7 @@ export {
         SearchActiviyUserRoute,
         user_getUserData,
         user_activeLag,
+        uploadProfileImageRoute,
         
         // Leaderboard Routes
         availableContextsRoute,
@@ -117,6 +119,7 @@ export {
         
         // Feedback Routes
         addFeedbackRoute,
+        getAllFeedback,
         
         // Other Routes
         top10,
