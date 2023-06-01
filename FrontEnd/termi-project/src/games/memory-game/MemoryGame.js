@@ -17,7 +17,6 @@ import { MdOutlineReplay,MdArrowBack } from "react-icons/md";
 import MemoryGameBG from "./MemoryGameBG/MemoryGameBG";
 import correctSFXaudio from "../../assets/sound/SFX/correct-sfx.wav";
 import incorrectSFXaudio from "../../assets/sound/SFX/incorrect-sfx.mp3";
-import { motion, AnimatePresence } from 'framer-motion/dist/framer-motion';
 
 // APIs
 import LanguageMap from '../../api/LanguageAPI';
@@ -296,14 +295,10 @@ const MemoryGame = () => {
 									 const isSolved = solved.includes(index);
 									 const isFlipped = flipped.find(element => element.index == index);
 									 return (
-										<motion.div dir={LanguageMap[i18n.language].dir} 
-										key={"card_" + index} 
-										className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${isFlipped ? 'flipped' : ''}`}
-										  initial={{ rotateY: 180 }}
-										  animate={isFlipped || isSolved || feedbackClass==='correct' ? { rotateY: 0 } : { rotateY: 180 }}
-										  transition={{ duration: 0.5 }}>
+										<div dir={LanguageMap[i18n.language].dir} 
+											key={"card_" + index} 
+											className={`memory-card ${disabled ? "disabled-memory-card" : ""} ${isFlipped ? 'flipped' : ''}`}>
 										  
-							        		<AnimatePresence exitBeforeEnter>
 										    {isFlipped ? (
 										        <div className={`front ${feedbackClass==='correct' ? 'correct' :''} ${feedbackClass==='incorrect' ? 'incorrect' :''}`}>
 										            {card[LanguageMap[i18n.language].name]}
@@ -314,8 +309,7 @@ const MemoryGame = () => {
 									                    {card[LanguageMap[i18n.language].name]}
 										        </div>
 										    )}
-						            	</AnimatePresence>
-										</motion.div>
+										</div>
 									)
 								})}
 							</div>
