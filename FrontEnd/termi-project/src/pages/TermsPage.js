@@ -14,9 +14,11 @@ import {Image} from 'react-bootstrap'
 import NewImg from '../assets/images/Icons/New.png';
 import TrendingImg from '../assets/images/Icons/Trending.png';
 import NotificationAPI from '../api/NotificationsAPI'
-
+import { FaMicrophone } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 import { AiOutlineHistory } from 'react-icons/ai';
+import { franc } from 'franc';
+
 
 
 const TermsPage = () =>{
@@ -33,6 +35,8 @@ const TermsPage = () =>{
     const [showResult, setShowResult] = useState(false);
     const [show,setShow]=useState(false);
     const handleClose=()=>setShow(false);
+    const [listening, setListening] = useState(false);
+    const [recognition, setRecognition] = useState(null);
     const termCardRef = useRef(null);
     const handleClick = () => {
         navigate('/suggest');
@@ -42,7 +46,7 @@ const TermsPage = () =>{
     const search = async (term, lang, category) => {
         if(category !== undefined){
             setShowResult(false);
-            
+           
             if(term != ""){
                 const res = await SearchApi.search(term, lang, category);
                 console.log(res);
@@ -73,18 +77,8 @@ const TermsPage = () =>{
                         category: category
                     });
                     console.log(searchParams)
-                    
-                    // if(closestResult.categoryId == category) 
-                //     {
-                //     setResultTerm({term: closestResult, isFav: favorite.includes(closestResult._id),category:category,categoryNames:categoryResult});
-                //     setResultLanguage(inputLanguage);
-                //     setShowResult(true);
-                //     setInputLanguage(i18n.language);
-                // } else {
-                //     // show an error message or alert to the user that no terms were found in the selected category
-                //     alert("No terms were found in the selected category, please try again with a different category.");
-                // }
-
+                
+                
                 }else{
                     //show modal, ask user if wants to add concept or not
                     setShow(true);
@@ -216,6 +210,88 @@ const TermsPage = () =>{
         }
     }, [showResult]);
     
+  const initializeRecognition = (category,language) => {
+    const SpeechRecognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition ||
+      window.mozSpeechRecognition;
+    console.log(category);
+
+    if (SpeechRecognition) {
+      const newRecognition = new SpeechRecognition();
+      newRecognition.continuous = false;
+      newRecognition.interimResults = false;
+      console.log(language);
+      switch (language) {
+  case 'english':
+    newRecognition.lang = 'en-US'; // Specify English language with US accent
+    break;
+  case 'hebrew':
+    newRecognition.lang = 'he-IL'; // Specify Hebrew language with Israel accent
+    break;
+  case 'arabic':
+    newRecognition.lang = 'ar-SA'; // Specify Arabic language with Saudi Arabia accent
+    break;
+  default:
+    newRecognition.lang = 'en-US'; // Set a default language if none matches
+    break;
+}
+     
+
+
+    const supportedLanguages = newRecognition.lang.split(','); // Get the list of supported languages
+
+    console.log('Supported Languages:', supportedLanguages)
+      newRecognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript;
+        const cleanedTranscript = transcript.replace(/[.\s]+$/, ''); // Remove dot and trailing whitespace
+       setSearchedTerm(cleanedTranscript);
+       
+    
+        setListening(false);
+      };
+
+      newRecognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        setRecognition(null);
+        setListening(false);
+      };
+
+      return newRecognition;
+    } else {
+      console.error('Speech recognition not supported in this browser.');
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const recognition = initializeRecognition(category,LanguageMap[i18n.language].name);
+    console.log(LanguageMap[i18n.language].name);
+   setRecognition(recognition);
+    return () => {
+      if (recognition) {
+        recognition.abort();
+        setListening(false);
+      }
+    };
+  }, [category,i18n.language]);
+
+
+
+const handleStartListening = () => {
+  if (!listening && recognition) {
+    setSearchedTerm('');
+    console.log(category);
+    setListening(true);
+    recognition.start();
+  } else {
+    console.error('Speech recognition is already active or not available.');
+  }
+};
+
+
+
+    
     const handleSearchFocus = async (e) =>{
         console.log(e);
         
@@ -233,235 +309,124 @@ const TermsPage = () =>{
         }
     };
 
-return(
-    <>
-        <div className="banner banner_home">
-            <div className='wrapper'>
-                <div className="banner_content fade-in-element">
-                    {/*<h1><span><strong>{t('search.title')}</strong></span><br/></h1>*/}
-                      <div className="search-box" dir={i18n.dir(inputLanguage)} onBlur={(e) => {
-                        if (!e.currentTarget.contains(e.relatedTarget)){
-                            setSuggestions([]);
-                        }}} onFocus={(e) => handleSearchFocus(e)}>
-                        
-                        <input className="search-input" placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onKeyUp={(e) => handleEnterClick(e)} onChange={(e) => {updateInput(e.target.value)}}/>
-                        <i className="fa fa-search search-button" onClick={()=>{search(searchedTerm, LanguageMap[inputLanguage].name, category)}}></i>
-                        { suggestions.length != 0 ? 
-                            <div className="autocomplete-box">
-                                {
-                                    suggestions.map((item,index) => {
-                                        return(
-                                            <div tabIndex="0" className="autocomplete-item d-flex flex-wrap align-items-center gap-3 justify-content-center" key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item.conceptName)}>
-                                                <div>{item.conceptName}</div>
-                                                <div>
-                                                    {item.isTrending ?<Image style={{width: "35px"}} src={TrendingImg}/> : null}
-                                                    {item.isNew ?<Image style={{width: "50px"}} src={NewImg}/> : null}
-                                                    {item.isHistory ?
-                                                        <IconContext.Provider value={{ size: "1.5rem" }}>
-                                                          <AiOutlineHistory />
-                                                        </IconContext.Provider> 
-                                                        : null}
-                                                </div>
-                                            </div>
-                                        );
-                                    })
-                                }
-                            </div>
-                            :
-                            null
-                        }
+return (
+  <>
+    <div className="banner banner_home">
+      <div className="wrapper">
+        <div className="banner_content fade-in-element">
+          {/*<h1><span><strong>{t('search.title')}</strong></span><br/></h1>*/}
+          <div
+            className="search-box"
+            dir={i18n.dir(inputLanguage)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                setSuggestions([]);
+              }
+            }}
+            onFocus={(e) => handleSearchFocus(e)}
+          >
+            <input
+              className="search-input"
+              placeholder={t('search.search_placeholder')}
+              value={searchedTerm}
+              type="text"
+              onKeyUp={(e) => handleEnterClick(e)}
+              onChange={(e) => {
+                updateInput(e.target.value);
+              }}
+            />
+            <button
+              className="microphone-button"
+              onClick={handleStartListening}
+              disabled={listening}
+            >
+              <FaMicrophone />
+            </button>
+
+            <i
+              className="fa fa-search search-button"
+              onClick={() => {
+                search(searchedTerm, LanguageMap[inputLanguage].name, category);
+              }}
+            ></i>
+            {suggestions.length !== 0 ? (
+              <div className="autocomplete-box">
+                {suggestions.map((item, index) => {
+                  return (
+                    <div
+                      tabIndex="0"
+                      className="autocomplete-item d-flex flex-wrap align-items-center gap-3 justify-content-center"
+                      key={index}
+                      type="button"
+                      onClick={(e) => selectAutoCompleteTerm(item.conceptName)}
+                    >
+                      <div>{item.conceptName}</div>
+                      <div>
+                        {item.isTrending ? (
+                          <Image style={{ width: '35px' }} src={TrendingImg} />
+                        ) : null}
+                        {item.isNew ? (
+                          <Image style={{ width: '50px' }} src={NewImg} />
+                        ) : null}
+                        {item.isHistory ? (
+                          <IconContext.Provider value={{ size: '1.5rem' }}>
+                            <AiOutlineHistory />
+                          </IconContext.Provider>
+                        ) : null}
+                      </div>
                     </div>
-                    <div className="flex-container">
-                        <div className="small-category-selector">
-                            <CategorySelector category={category} categoryChanged={(newCategory) => {changeCategory(newCategory)}}/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        {showResult ? (
-            <div ref={termCardRef}>
-              <TermCard
-                role = {userData.role}
-                categories={resultTerm.categoryNames}
-                term={resultTerm.term}
-                isSearch={true}
-                isFavorite={resultTerm.isFav}
-                initialLanguage={resultLanguage}
+                  );
+                })}
+              </div>
+            ) : null}
+          </div>
+          <div className="flex-container">
+            <div className="small-category-selector">
+              <CategorySelector
+                category={category}
+                categoryChanged={(newCategory) => {
+                  changeCategory(newCategory);
+                }}
               />
             </div>
-          ) : null}
-        
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Add Concept</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>If you would like to suggest a concept, please press Suggest Concept</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClick}>
-              Suggest Concept
-            </Button>
-          </Modal.Footer>
-        </Modal>
-         
-    </>
+    {showResult ? (
+      <div ref={termCardRef}>
+        <TermCard
+          role={userData.role}
+          categories={resultTerm.categoryNames}
+          term={resultTerm.term}
+          isSearch={true}
+          isFavorite={resultTerm.isFav}
+          initialLanguage={resultLanguage}
+        />
+      </div>
+    ) : null}
+
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Add Concept</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        If you would like to suggest a concept, please press Suggest Concept
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={handleClick}>
+          Suggest Concept
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  </>
 );
+
 };
 
 export default TermsPage;
 
-{
-//Extra:
-// <div className="term-box" ref={definitionElement}>
-//         <div className="categories-box">
-//             <div className="category-tag">
-//                 {definitions.category == "0" ? t('search.human_resources') : "Other Category"}
-//             </div>
-//             {/*<div class="star" id="star"/>*/}
-//             <img className="star" src={stars_1} onClick = {handle_starsClick}/>
-//         </div>
-//         <div className="definitions-box">
-//             <h3 className="trem-text">{definitions.term}</h3>
-//               <Accordion className="my-3" defaultActiveKey="0">
-//  <Accordion.Item eventKey="0">
-//      <Accordion.Header>{t('search.short_definition')}</Accordion.Header>
-//      <Accordion.Body>{definitions.shortDef}</Accordion.Body>
-//  </Accordion.Item>
-//      <Accordion.Item eventKey="1">
-//          <Accordion.Header>{t('search.long_definition')}</Accordion.Header>
-//          <Accordion.Body>{definitions.longDef}</Accordion.Body>
-//      </Accordion.Item>
-//  </Accordion>
-//  <div>
-//   <a className="read-url" href={definitions.readMore}>{t('search.read_more')}</a>
-//                 <p className="suggestedby-text">{t('search.suggested_by')} {definitions.suggestedBy}</p>
-
-//           {/*  <p className="short-definition-text">{definitions.shortDef}</p>
-//             <p className="long-definition-text">{definitions.longDef}</p>
-//             <div className="term-box-footer">*/}
-               
-//             </div>
-//         </div>
-//     </div>
-//OLD TERM DEFINITION:
-// <Card className="m-3 mb-3">
-//     <Card.Header as="h5">{definitions.category == "0" ? t('search.human_resources') : "Other Category"}</Card.Header>
-//     <Card.Body>
-//         <blockquote className="blockquote mb-0">
-//             <h3>{' '}{definitions.term}{' '}</h3>
-//             <p className="blockquote-footer mt-2">
-//                 {t('search.suggested_by')} <cite title="Suggested By">{definitions.suggestedBy}</cite>
-//             </p>
-//         </blockquote>
-        
-//         <Accordion className="my-3" defaultActiveKey="0">
-//             <Accordion.Item eventKey="0">
-//                 <Accordion.Header>{t('search.short_definition')}</Accordion.Header>
-//                 <Accordion.Body>{definitions.shortDef}</Accordion.Body>
-//             </Accordion.Item>
-//             <Accordion.Item eventKey="1">
-//                 <Accordion.Header>{t('search.long_definition')}</Accordion.Header>
-//                 <Accordion.Body>{definitions.longDef}</Accordion.Body>
-//             </Accordion.Item>
-//         </Accordion>
-        
-//         <a href={definitions.readMore}>{t('search.read_more')}</a>
-//     </Card.Body>
-// </Card>
-
-// OLD SEARCH BAR:
-// <h1><span><strong>{t('search.title')}</strong></span><br/></h1>
-// <div className="flex d-flex">
-//     <input dir={i18n.dir(inputLanguage)} className="form-control" placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onChange={(e) => {updateInput(e.target.value)}}/>
-//     <button className="btn btn-primary w-auto" onClick={()=>{search()}}><i className="fa fa-search"></i></button>
-// </div>
-// <div className="list-group mt-2">
-//     {
-//         suggestions.map((item,index) => {
-//             return(
-//                 <button key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item)} className="list-group-item list-group-item-action">{item}</button>
-//             );
-//         })
-//     }
-// </div>
-
-
-// <Row md={2} xs={12} dir="ltr" className="mt-3 d-flex justify-content-center">
-//     <Col>
-//         <InputGroup>
-//             <input dir={i18n.dir(inputLanguage)} className="form-control" placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onChange={(e) => {updateInput(e.target.value)}}/>
-//             <button className="btn btn-primary" onClick={()=>{search()}}><i className="fa fa-search"></i></button>
-//         </InputGroup>
-//         <div className="list-group mt-2">
-//             {
-//                 suggestions.map((item,index) => {
-//                     return(
-//                         <button key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item)} className="list-group-item list-group-item-action">{item}</button>
-//                     );
-//                 })
-//             }
-//         </div>
-//     </Col>
-// </Row>
-
-
-
-// <Row className="mt-5 text-center">
-//     <h1 className={styles.title}>Termi</h1>
-// </Row>
-// <Row md={2} xs={12} dir="ltr" className="mt-3 d-flex justify-content-center">
-//     <Col>
-//         <InputGroup>
-//             <input dir={i18n.dir(i18n.language)} className="form-control" placeholder={t('search.search_placeholder')} value={searchedTerm} type="text" onChange={(e) => {setSearchedTerm(e.target.value)}}/>
-//             <button className="btn btn-primary" onClick={()=>{search()}}><i className="fa fa-search"></i></button>
-//         </InputGroup>
-//         <div className="list-group mt-2">
-//             {
-//                 suggestions.map((item,index) => {
-//                     return(
-//                         <button key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item)} className="list-group-item list-group-item-action">{item}</button>
-//                     );
-//                 })
-//             }
-//         </div>
-//     </Col>
-// </Row>
-
-
-// <Row className="mt-3">
-//             <Col lg={3} xs={0}/>
-//             <Col lg={4} xs={10}>
-//                 <input placeholder={t('search.search_placeholder')} value={searchedTerm} className="form-control" type="text" onChange={(e) => {setSearchedTerm(e.target.value)}}/>
-//                 <div className="list-group">
-//                     {
-//                         suggestions.map((item,index) => {
-//                             return(
-//                                 <button key={index} type="button" onClick={(e)=>selectAutoCompleteTerm(item)} className="list-group-item list-group-item-action">{item}</button>
-//                             );
-//                         })
-//                     }
-//                 </div>
-//             </Col>
-//             <Col lg={2} xs={2}>
-//                 <Button className="btn btn-primary" size="s" onClick={search}><i className="fa fa-search"></i></Button>
-//             </Col>
-//             <Col lg={3} xs={0}/>
-//         </Row>
-
-
-// Different Styles:
-// ---------------
-
-// <div className="d-flex justify-center">
-//     <div className={styles.searchbar}>
-//         <input placeholder={t('search.search_placeholder')} value={searchedTerm} className={styles.search_input} type="text" onChange={(e) => {setSearchedTerm(e.target.value)}}/>
-//         <a href="#" className={styles.search_icon}><i className="fa fa-search" onClick={search}></i></a>
-//     </div>
-// </div>
-// ---------------
-}
