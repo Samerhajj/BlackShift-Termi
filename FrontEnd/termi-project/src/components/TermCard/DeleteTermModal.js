@@ -1,20 +1,24 @@
-import React,{ useState } from 'react';
+import React,{ useState,useContext } from 'react';
 
 import { Modal, Button } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { CiCircleRemove } from "react-icons/ci";
-
+import { LoginContext } from "./../LoginContext"
 //api 
 import AdminAPI from '../../api/AdminAPI';
 
 function DeleteTermModal(props) {
+  
+  const user = useContext(LoginContext);
+  const role = user.userData.role;
+  
   const [showModal, setShowModal] = useState(false);
   
   const handleDelete = async () => {
     // Code to delete the term
     // let data = "6452c209585c45bea205f809";
     let data = props.id;
-    const res = await AdminAPI.deleteTermFromSearch(data);
+    const res = await AdminAPI.deleteTermFromSearch(data,role);
     if (res.success) {
         console.log(res);
     } else {
