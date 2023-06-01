@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import validator from 'validator';
-
+// import regexpNormalize from 'regexp-normalize';
 const RegisterHook = (initialState) => {
   const [errors, setErrors] = useState({});
 
@@ -15,6 +15,16 @@ const RegisterHook = (initialState) => {
         if (!data.fullName) {
           newErrors.fullName = 'Full name is required';
         }
+        else if (
+          data.fullName.length < 5 ||
+          data.fullName.length > 20 ||
+          validator.isEmail(data.fullName)
+        ) {
+          newErrors.fullName = 'Full name must be 5-20 characters long and cannot be an email';
+        }
+        // else if (!regexpNormalize(data.fullName).match(/^[a-zA-Z]+$/)) {
+        //   newErrors.fullName = 'Full name must only contain letters';
+        // }
        
         // Validate email
         if (!data.email) {

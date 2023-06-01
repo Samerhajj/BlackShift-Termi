@@ -1,6 +1,8 @@
 import React,{ useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const CheckBox = ({ selectedStatus, setSelectedStatus, setData }) => {
+  const {t, i18n} = useTranslation(); 
   const status = ["Student", "Works in the field", "Other"];
   
   const handleCheckboxChange = (value) => {
@@ -15,7 +17,7 @@ const CheckBox = ({ selectedStatus, setSelectedStatus, setData }) => {
     setData(prevData => ({ ...prevData, status: selectedStatus }));
     console.log(`Updated data to:`, { ...setData, status: selectedStatus });
   }, [selectedStatus]);
-
+// {t('profile.statusOptions.')
   return (
     <div>
       <h3>Status:</h3>
