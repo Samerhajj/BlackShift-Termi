@@ -39,6 +39,7 @@ const AddTermAdmin=()=> {
   const {t} = useTranslation();
   const { categories } = useContext(CategoriesContext);
   const { userData } = useContext(LoginContext);
+  const role = userData.role;
   const navigate = useNavigate();
   const location = useLocation();
   const [initialText, setInitialText] = useState();
@@ -127,14 +128,17 @@ const handleSuggest = async () => {
     }
     
     console.log(newText);
-  const response = await AdminAPI.addSelectedTerm(newText);
+    
+  // const response = await AdminAPI.addSelectedTerm(newText);
+  const response = await AdminAPI.addSelectedTerm(newText,role);
+
   
     if(response.success){
       NotificationsAPI.successNotification("Successfully added to the Database!");
       console.log(response);
       if(location.state && location.state['_idSuggest']){
         newText['_id'] = location.state['_idSuggest'];
-        await AdminAPI.deleteSelectedTerm(newText);
+        await AdminAPI.deleteSelectedTerm(newText,role);
         navigate('/admin/suggestions');
       }else{
         navigate('/admin');

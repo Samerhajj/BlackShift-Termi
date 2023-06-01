@@ -1,15 +1,18 @@
-import React,{useState,useEffect,useCallback} from 'react';
+import React,{useState,useEffect,useCallback,useContext} from 'react';
 import { useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AdminAPI from '../../api/AdminAPI';
+import {LoginContext} from "./../../components/LoginContext";
 
 const Top10 = () =>{
     const navigate = useNavigate();
     const [list,setList]= useState([]);
     const {t} = useTranslation();
-    
+    const user = useContext(LoginContext);
+    const role = user.userData.role;
+
     const getTop10 = async () =>{
-        const res = await AdminAPI.top10();
+        const res = await AdminAPI.top10(role);
         if(res.success){
             setList(res.body.data);
         }
@@ -42,12 +45,12 @@ const Top10 = () =>{
     list.map((item,index)=>{
     //console.log(item);
         return(
-        <div>
-        <center>
-                <h5>{item['conceptName']['english']}</h5>
-                <h5>With Search Count : {item['searchCount']}</h5>
-        </center>
-        <hr></hr>
+        <div key={index}>
+            <center>
+                    <h5>{item['conceptName']['english']}</h5>
+                    <h5>With Search Count : {item['searchCount']}</h5>
+            </center>
+            <hr></hr>
         </div>
         )
     })

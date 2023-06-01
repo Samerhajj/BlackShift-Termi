@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useContext} from 'react';
 import { useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 // --> components
@@ -10,9 +10,15 @@ import AdminAPI from '../../api/AdminAPI';
 
 import './Admin.css'
 import './ViewSuggestions.css';
+import {LoginContext} from "./../../components/LoginContext";
 
 const ViewSuggestions = ()=> {
-    
+const user = useContext(LoginContext);
+const role = user.userData.role;
+
+// if(role == 'admin'){
+//     console.log("nice")
+// }
 const navigate = useNavigate();
 const [suggestList,setSuggestList] = useState([]);
 const { i18n } = useTranslation();
@@ -21,7 +27,7 @@ const { t } = useTranslation();
 
  // --> functions
  const handleGetAllSuggest = async() =>{
-    const response = await AdminAPI.getAllSuggestedTerms();
+    const response = await AdminAPI.getAllSuggestedTerms(role);
       if(response.success){
         console.log("**********************");
         console.log(response.body);

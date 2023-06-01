@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import AdminAPI from '../../api/AdminAPI';
@@ -6,11 +6,15 @@ import {numberOfWordsInTheApp} from './../../api/ApiRoutes'
 import axios from 'axios'
 import json2csv from 'json2csv';
 import fileDownload from 'js-file-download';
+import {LoginContext} from "./../../components/LoginContext";
 
 // --> components
 import './Admin.css'
 
 const AdminPage=()=> {
+  
+  const user = useContext(LoginContext);
+  const role = user.userData.role;
   const navigate=useNavigate();
   const {t} = useTranslation();
   const [isFlapped, setIsFlapped] = useState(false);
@@ -29,7 +33,7 @@ const AdminPage=()=> {
   };
   
   const getAllUsersLogs = async () => {
-  const res = await AdminAPI.fetchAllLogs();
+  const res = await AdminAPI.fetchAllLogs(role);
   if (res.success) {
     const fields = Object.keys(res.body[0]);
     const opts = { fields };
@@ -45,7 +49,7 @@ const AdminPage=()=> {
 };
 //AdminAPI.fetchAllSearchGameLogs
   const getAllUsersSearchGameLogs = async () => {
-  const res = await AdminAPI.fetchAllSearchGameLogs();
+  const res = await AdminAPI.fetchAllSearchGameLogs(role);
   if (res.success) {
     res.body.forEach(log => {
       switch (log.category) {
@@ -115,9 +119,18 @@ return (
                     >{t('admin-page.get_log_user')}</button>
                 </div>
             <div>
+            <div>
+              <div className="row row-cols-1 row-cols-lg-2 g-3 m-3">
+                <div className="col">
+                  <iframe className="admin-most-played-game-chart" src="https://charts.mongodb.com/charts-project-0-jhcuv/embed/charts?id=64734579-2bd3-4a3e-8d10-068df9f7162f&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+                </div>
+                <div className="col">
+                  <iframe className="admin-top10-chart" src="https://charts.mongodb.com/charts-project-0-jhcuv/embed/charts?id=64744e73-979e-4710-8dce-8224fdd947ee&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
-
 )
     
 function top10(){
