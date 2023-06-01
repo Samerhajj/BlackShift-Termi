@@ -270,7 +270,7 @@ const TermsPage = () =>{
    setRecognition(recognition);
     return () => {
       if (recognition) {
-        recognition.abort();
+        recognition.stop();
         setListening(false);
       }
     };
@@ -279,13 +279,22 @@ const TermsPage = () =>{
 
 
 const handleStartListening = () => {
-  if (!listening && recognition) {
+  if (!listening) {
     setSearchedTerm('');
-    console.log(category);
     setListening(true);
-    recognition.start();
+    if (recognition) {
+      recognition.start();
+    } else {
+      const newRecognition = initializeRecognition(category, LanguageMap[i18n.language].name);
+      if (newRecognition) {
+        setRecognition(newRecognition);
+        newRecognition.start();
+      } else {
+        console.error('Speech recognition is not supported in this browser.');
+      }
+    }
   } else {
-    console.error('Speech recognition is already active or not available.');
+    console.error('Speech recognition is already active.');
   }
 };
 
