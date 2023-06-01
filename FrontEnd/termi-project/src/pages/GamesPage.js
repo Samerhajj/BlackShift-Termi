@@ -31,7 +31,7 @@ const GamesPage = () => {
       instructions:t('games.memory-game.step-by-step', { returnObjects: true }),
       path:"/games/memory-game",
       img: MemoryImg
-    },
+    },  
     { 
       id: 2,
       title:t('games.hangman-game.title'),
