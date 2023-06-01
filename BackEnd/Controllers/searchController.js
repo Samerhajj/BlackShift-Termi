@@ -28,11 +28,9 @@ const searchTerm = async(req,res)=>{
       }
       
       // To avoid SQL injection
-      let sanitizedTerm = sanitize(term
-                                  .trim()
-                                  .replace("(", "\\(")
-                                  .replace(")", "\\)")
-                                  .replace("/", "\\/"));
+     let sanitizedTerm = sanitize(term
+        .trim()
+        .replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&"));
                                   
       let respond = await Search.findOne({
         [`conceptName.${language}`]: {'$regex': "^"+ sanitizedTerm +"\\s*$" ,$options:'i'},
@@ -107,11 +105,12 @@ const autoCompleteTerm = async(req,res) =>{
     let categoryNum = parseInt(category);
     
     //Sanitaze the input before the query
-    let sanitizedInput = sanitize(input
-                                  .trim()
-                                  .replace("(", "\\(")
-                                  .replace(")", "\\)")
-                                  .replace("/", "\\/"));
+    // let sanitizedInput = sanitize(input
+    //                               .trim()
+    //                               .replace("(", "\\(")
+    //                               .replace(")", "\\)")
+    //                               .replace("/", "\\/"));
+    let sanitizedInput = sanitize(input.trim()).replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&");
     
     let respones = await Search.find({
       [`conceptName.${language}`]: {'$regex': "^"+sanitizedInput ,$options:'i'},
@@ -119,20 +118,9 @@ const autoCompleteTerm = async(req,res) =>{
     }).limit(10);
     
     
-    // let respones = await Search.find({
-    //           "$text": {
-    //             "$search": input
-    //           },
-    //           "categories": { $in : [categoryNum] }
-    //         }).sort( 
-    //           { score: { $meta : 'textScore' } }
-    //         );
-            
+   
     // Fix this to be done within the query itself
     let temp = [];
-    // respones.forEach((item)=>{
-    //     temp.push(item.conceptName[language]);
-    // });
     
     const currentDate = new Date();
     const trendingTerms = await Search.find({}).sort({searchCount : -1}).limit(10);
@@ -256,17 +244,34 @@ const suggestTerm = async (req,res) =>{
   res.send("hello");
 } // not that important
 
-const getTop10 = async (req,res)=>{
-  try{
-      const response = await Search.find().sort({searchCount : -1}).limit(10);
-      res.send(response);
-      console.log(response);
+// const getTop10 = async (req,res)=>{
+//   try{
+//       const response = await Search.find().sort({searchCount : -1}).limit(10);
+//       res.send(response);
+//       console.log(response);
+//   }
+//   catch(err){
+//       console.log(err);
+//       res.send(err);
+//   }
+// }
+
+const getTop10 = async (req, res) => {
+  try {
+    const role = req.query.role;
+    if (role !== "admin") {
+      return res.status(401).json("Unauthorized");
+    }
+
+    const response = await Search.find().sort({ searchCount: -1 }).limit(10);
+    res.send(response);
+    console.log(response);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
   }
-  catch(err){
-      console.log(err);
-      res.send(err);
-  }
-}
+};// return the top 10 
+
 
 const addNewCategories = async (req,res) =>{
   try{

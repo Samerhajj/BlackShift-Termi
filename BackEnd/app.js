@@ -48,7 +48,7 @@ const db = require("./config/database");
 // Get the Coffees Orders
 // Core
 app.use(cors({
-  origin:"*"  
+  origin:"https://p7024.y2022.kinneret.cc"
 }));
 
 app.use("/search", require("./routes/search"));

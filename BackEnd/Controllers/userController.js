@@ -146,25 +146,46 @@ const suggestTerm = async (req,res) =>{
 
 
 
-const deleteTerm = async (req,res) =>{
-try{
-console.log(req.body)
-console.log(req.body.TermID)
+// const deleteTerm = async (req,res) =>{
+// try{
+// console.log(req.body)
+// console.log(req.body.TermID)
 
-// const response = Search.deleteOne({"_id" : req.body.termId});
-// const response = await Search.findOne({"_id" : req.body.TermID});
-const response = await Search.remove({ "_id": req.body.TermID});
-console.log("res From DEL SEARCH");
-console.log(response);
-console.log("res From DEL SEARCH");
-res.send(response);
-}
-catch(err){
-console.log(err);
-res.send(err);
-}
+// // const response = Search.deleteOne({"_id" : req.body.termId});
+// // const response = await Search.findOne({"_id" : req.body.TermID});
+// const response = await Search.remove({ "_id": req.body.TermID});
+// console.log("res From DEL SEARCH");
+// console.log(response);
+// console.log("res From DEL SEARCH");
+// res.send(response);
+// }
+// catch(err){
+// console.log(err);
+// res.send(err);
+// }
 
-}// Admin delete the selected term. HAS API
+// }// Admin delete the selected term. HAS API
+
+const deleteTerm = async (req, res) => {
+  try {
+    const role = req.body.role;
+    if (role !== "admin") {
+      return res.status(401).json("Unauthorized");
+    }
+
+    console.log(req.body);
+    console.log(req.body.TermID);
+
+    const response = await Search.remove({ _id: req.body.TermID });
+    console.log("res From DEL SEARCH");
+    console.log(response);
+    console.log("res From DEL SEARCH");
+    res.send(response);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+};
 
 
 
@@ -231,10 +252,25 @@ const handleLanguageChange2 = async(req,res) => {
   }
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
-const getAllLogsSearchGames = async (req,res) =>{
-  const fetch = await UserActivity2.find({});
-  res.send(fetch);
-}
+// const getAllLogsSearchGames = async (req,res) =>{
+//   const fetch = await UserActivity2.find({});
+//   res.send(fetch);
+// }
+const getAllLogsSearchGames = async (req, res) => {
+  try {
+    const role = req.query.role;
+    if (role !== "admin") {
+      return res.status(401).json("Unauthorized");
+    }
+
+    const fetch = await UserActivity2.find({});
+    res.send(fetch);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
+  }
+};
+
 //-------------------------------------------------------------------------------------------------------------------------------------
 // delete all logs
 const deleteLog2 = async (req,res)=>{
@@ -262,33 +298,101 @@ const activity = async (req,res)=>{
   res.send("hello");
 }
 //-------------------------------------------------------------------------------------------------------------------------------------
-const getAllLogs = async (req,res) =>{
-  const fetch = await UserActivity.find({});
-  res.send(fetch);
-}
-//-------------------------------------------------------------------------------------------------------------------------------------
-const getAllSuggestedTerms = async (req,res) =>{
-  try{
-      const response = await Suggest.find();
-      console.log(response);
-      res.send(response)
-  }catch(err){
-       res.send(err);
-  }
-}
-//-------------------------------------------------------------------------------------------------------------------------------------
-const deleteOneSuggest = async (req,res)=>{
-  try{
-      const response = await Suggest.deleteOne({ "_id": req.body.suggestId});
-      console.log("res From DEL SUG");
-      console.log(response);
-      console.log("res From DEL SUG");
-      res.send(response);
+// const getAllLogs = async (req,res) =>{
+//   const fetch = await UserActivity.find({});
+//   res.send(fetch);
+// }
+const getAllLogs = async (req, res) => {
+  try {
+    const role = req.query.role;
+    if (role !== "admin") {
+      return res.status(401).json("Unauthorized");
+    }
 
-  }catch(err){
-        console.log(err);
+    const fetch = await UserActivity.find({});
+    res.send(fetch);
+  } catch (err) {
+    console.log(err);
+    res.send(err);
   }
-}
+};
+
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+// const getAllSuggestedTerms = async (req,res) =>{
+//   try{
+//       const response = await Suggest.find();
+//       console.log(response);
+//       res.send(response)
+//   }catch(err){
+//       res.send(err);
+//   }
+// }
+// const getAllSuggestedTerms = async (req, res) => {
+//   try {
+//     const { role } = req.query;
+
+//     if (role === "admin") {
+//       const response = await Suggest.find();
+//       console.log(response);
+//       res.send(response);
+//     } else {
+//       res.status(403).send("Access denied. Only admins are allowed.");
+//     }
+//   } catch (err) {
+//     res.status(500).send(err);
+//   }
+// };
+const getAllSuggestedTerms = async (req, res) => {
+  try {
+    const { role } = req.query;
+  
+  console.log(role);
+    if (!role || role !== "admin") {
+      res.status(403).send("Access denied. Only admins are allowed.");
+      return;
+    }
+
+    const response = await Suggest.find();
+    console.log(response);
+    res.send(response);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+// const deleteOneSuggest = async (req,res)=>{
+//   try{
+//       const response = await Suggest.deleteOne({ "_id": req.body.suggestId});
+//       console.log("res From DEL SUG");
+//       console.log(response);
+//       console.log("res From DEL SUG");
+//       res.send(response);
+
+//   }catch(err){
+//         console.log(err);
+//   }
+// }
+const deleteOneSuggest = async (req, res) => {
+  try {
+    const role = req.body.role;
+    if (role !== "admin") {
+      return res.status(401).json("Unauthorized");
+    }
+
+    const response = await Suggest.deleteOne({ _id: req.body.suggestId });
+    console.log("res From DEL SUG");
+    console.log(response);
+    console.log("res From DEL SUG");
+    res.send(response);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 //-------------------------------------------------------------------------------------------------------------------------------------
 {
 // const addSelectedTerm = async(req,res)=>{
@@ -333,15 +437,82 @@ const deleteOneSuggest = async (req,res)=>{
 }
 
 
-const addSelectedTerm = async(req,res)=>{
-  try{
+// const addSelectedTerm = async(req,res)=>{
+//   try{
 
+//     console.log("RRRRRR");
+//     console.log(req.body);
+//     console.log("RRRRRR");
+//     //termSuggestedByID
+//     const id = req.body._id;
+//     if(id){
+//       const existingTerm = await Search.findById(id);
+//       // Update the existing term
+//       existingTerm.categories = req.body.categories;
+//       existingTerm.conceptName = req.body.conceptName;
+//       existingTerm.shortDefinition = req.body.shortDefinition;
+//       existingTerm.longDefinition = req.body.longDefinition;
+//       existingTerm.readMore = req.body.readMore;
+//       existingTerm.suggestedBy = existingTerm.suggestedBy;
+//       existingTerm.lastEdited = new Date(); // new
+//       await existingTerm.save();
+//       res.send(existingTerm);
+//     }else{
+//       // Create a new term
+//       const newTerm = new Search({
+//           categories: req.body.categories,
+//           conceptName: req.body.conceptName,
+//           shortDefinition: req.body.shortDefinition,
+//           longDefinition: req.body.longDefinition,
+//           readMore: req.body.readMore,
+//           suggestedBy: req.body.suggestedBy,
+//           lastEdited: new Date() // new
+//       });
+//       User.findByIdAndUpdate({_id:req.body.termSuggestedByID},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
+//           if (error) {
+//             console.log(error);
+//           }
+//         });
+//       const savedTerm = await newTerm.save();
+//       console.log(savedTerm)
+      
+//       // Update the leaderboard for each 
+//       req.body.categories.forEach(category => addLeaderboardPoints(req.body.termSuggestedByID, category, "Suggestions", 1));
+      
+//       const response = await User.findByIdAndUpdate({_id:req.body.termSuggestedByID},{ $addToSet: { suggestion: savedTerm._id.toString() }},{ new: true });
+//         console.log("TTTTT");
+
+//       console.log(response)
+//                 console.log("TTTTT");
+
+//       // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
+
+//       // console.log("______________________________")
+//       // console.log(newSuggest['_id'].toString());
+//       // console.log(response);
+
+//       res.send(savedTerm);
+//       }
+//   }catch(err){
+//     console.log(err);
+//     res.status(401).json("Internal server error");
+//   } 
+// }// Admin adds the selected term.
+
+const addSelectedTerm = async (req, res) => {
+  try {
     console.log("RRRRRR");
     console.log(req.body);
     console.log("RRRRRR");
-    //termSuggestedByID
+
+    // Check if the role is "admin"
+    const role = req.body.role;
+    if (role !== "admin") {
+      return res.status(401).json("Unauthorized"); // Return an error if the role is not "admin"
+    }
+
     const id = req.body._id;
-    if(id){
+    if (id) {
       const existingTerm = await Search.findById(id);
       // Update the existing term
       existingTerm.categories = req.body.categories;
@@ -353,48 +524,51 @@ const addSelectedTerm = async(req,res)=>{
       existingTerm.lastEdited = new Date(); // new
       await existingTerm.save();
       res.send(existingTerm);
-    }else{
+    } else {
       // Create a new term
       const newTerm = new Search({
-          categories: req.body.categories,
-          conceptName: req.body.conceptName,
-          shortDefinition: req.body.shortDefinition,
-          longDefinition: req.body.longDefinition,
-          readMore: req.body.readMore,
-          suggestedBy: req.body.suggestedBy,
-          lastEdited: new Date() // new
+        categories: req.body.categories,
+        conceptName: req.body.conceptName,
+        shortDefinition: req.body.shortDefinition,
+        longDefinition: req.body.longDefinition,
+        readMore: req.body.readMore,
+        suggestedBy: req.body.suggestedBy,
+        lastEdited: new Date(), // new
       });
-       User.findByIdAndUpdate({_id:req.body.termSuggestedByID},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
+      User.findByIdAndUpdate(
+        { _id: req.body.termSuggestedByID },
+        { $inc: { suggestConceptCounter: 1 } },
+        function (error, res) {
           if (error) {
             console.log(error);
           }
-        });
+        }
+      );
       const savedTerm = await newTerm.save();
-      console.log(savedTerm)
-      
-      // Update the leaderboard for each 
-      req.body.categories.forEach(category => addLeaderboardPoints(req.body.termSuggestedByID, category, "Suggestions", 1));
-      
-      const response = await User.findByIdAndUpdate({_id:req.body.termSuggestedByID},{ $addToSet: { suggestion: savedTerm._id.toString() }},{ new: true });
-        console.log("TTTTT");
+      console.log(savedTerm);
 
-      console.log(response)
-                console.log("TTTTT");
+      // Update the leaderboard for each category
+      req.body.categories.forEach((category) =>
+        addLeaderboardPoints(req.body.termSuggestedByID, category, "Suggestions", 1)
+      );
 
-      // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
+      const response = await User.findByIdAndUpdate(
+        { _id: req.body.termSuggestedByID },
+        { $addToSet: { suggestion: savedTerm._id.toString() } },
+        { new: true }
+      );
+      console.log("TTTTT");
 
-      // console.log("______________________________")
-      // console.log(newSuggest['_id'].toString());
-      // console.log(response);
+      console.log(response);
+      console.log("TTTTT");
 
       res.send(savedTerm);
-      }
-  }catch(err){
+    }
+  } catch (err) {
     console.log(err);
-     res.status(401).json("Internal server error");
-  } 
-}// Admin adds the selected term.
-
+    res.status(500).json("Internal server error");
+  }
+};
 
 
 // Approve the term that the user suggested.
@@ -450,6 +624,7 @@ const gameSearchActivity = async (req,res)=>{
   }    
 }
 //------------------------------------------------------------------------------------------------------------------------------------
+//THIS CODE WAS COMMENT FOR THE PILO
 const clearGameSearchActivity = async (req,res)=>{
   const res1 = await UserActivity2.deleteMany({});
   res.send("done");

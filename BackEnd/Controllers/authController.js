@@ -72,9 +72,9 @@ const register = async (req, res) => {
       html: `
         <h3>Hello ${fullName},</h3>
         <p>Thank you for registering for our app. To start using the app, please verify your account by clicking the link below:</p>
-        <a href=" http://dir.y2022.kinneret.cc:7024/verify/${newUser.verificationToken}">Verify Account</a>
+        <a href=" https://p7024.y2022prod.kinneret.cc/verify/${newUser.verificationToken}">Verify Account</a>
         <p> If you can't see the link, please paste this in your Web-Browser</p>
-        <p>http://dir.y2022.kinneret.cc:7024/verify/${newUser.verificationToken}</p>
+        <p>https://p7024.y2022prod.kinneret.cc/verify/${newUser.verificationToken}</p>
         <p>The verification link will expire in 24 hours.</p>
       `
     };
@@ -219,7 +219,7 @@ const privateAccess = async(req,res) =>{
 
 const forgotPassword = async(req,res)=>{
   try{
-    const user = await User.findOne({ email: req.body.email });
+   const user = await User.findOne({ email: { $regex: new RegExp(req.body.email, 'i') } });
     if (!user) {
       return res.status(404).json({ message: 'User with provided email not found.' });
     }
@@ -239,12 +239,19 @@ const forgotPassword = async(req,res)=>{
     });
 
     // Define the email options
-    const mailOptions = {
-      from: process.env.EMAIL_USERNAME,
-      to: user.email,
-      subject: 'Password reset request',
-      text: `Please click on the following link to reset your password: http://dir.y2022.kinneret.cc:7024/reset-password/${token}`
-    };
+   const mailOptions = {
+  from: process.env.EMAIL_USERNAME,
+  to: user.email,
+  subject: 'Password reset request',
+  html: `
+    <div style="font-family: Arial, sans-serif;">
+      <h1>Password Reset Request</h1>
+      <p>Please click on the following link to reset your password:</p>
+      <a href="https://p7024.y2022prod.kinneret.cc/reset-password/${token}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Reset Password</a>
+    </div>
+  `
+};
+
   
     // Send the email
    transporter.sendMail(mailOptions, (error, info) => {
