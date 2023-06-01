@@ -36,6 +36,11 @@ import LoginProvider  from './components/LoginContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+//google analytics
+import ReactGA from 'react-ga4';
+
+
+
 function App() {
   // --> wrapped components to check if you have the legitimacy to reach specific pages
   const WProfilePage = withAuth(ProfilePage);
@@ -65,11 +70,20 @@ const [userData, setUserData] = React.useState({});
  console.log(userData);
   {/*<LoginProvider value={{ login, setLogin,userData,setUserData}}>*/}
   
+  useEffect(() => {
+  ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID); // Replace with your Measurement ID
+  
+  console.log(process.env.REACT_APP_GA_MEASUREMENT_ID);
+  // Optional: Set page view
+  
+  //ReactGA.pageview(window.location.pathname + window.location.search);
+  
+}, []);
 
   return (
     <>
 
-    <Router>
+    <Router onUpdate={()=> ReactGA.pageview(window.location.pathname + window.location.search)}>
       <Routes>
           <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
           <Route path="/games/backword-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>

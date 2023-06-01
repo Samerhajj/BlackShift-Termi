@@ -63,9 +63,9 @@ const addFeedbackRoute= process.env.React_App_BaseURL + "feedback" + "/" + "term
 const getAllFeedback = process.env.React_App_BaseURL + "feedback" + "/" + "term";
 
 // Others
-const top10 = process.env.React_App_BaseURL + "search" + "/" + "get-top10";
+const top10Route = process.env.React_App_BaseURL + "search" + "/" + "get-top10";
 const displayMytermsRoute1 = process.env.React_App_User_Favorite_DISPLAY_MYTERMS;
-
+const deleteTermFromSearchRoute = process.env.React_App_BaseURL + "user" + "/" + "deleteterm";
 export {
         // Search Routes
         searchRoute,
@@ -122,9 +122,9 @@ export {
         getAllFeedback,
         
         // Other Routes
-        top10,
+        top10Route,
         displayMytermsRoute1,
-        
+        deleteTermFromSearchRoute,
         
         //profile
         profile_change_password,
