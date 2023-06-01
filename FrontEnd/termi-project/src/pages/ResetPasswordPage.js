@@ -27,7 +27,7 @@ function ResetPasswordPage() {
 
       console.log(response.data);
       setSuccess(true); // Set success state to true if response is successful
-      NotificationsAPI.successNotification("oassword changed successfully");
+      NotificationsAPI.successNotification("Password changed successfully");
     } catch (error) {
       console.log(error.response.data);
       setError(error.response.data.message);
