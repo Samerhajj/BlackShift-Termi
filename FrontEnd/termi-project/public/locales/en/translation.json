@@ -232,11 +232,12 @@
                 "achievements": "Achievements",
                 "leaderboards": "Leaderboards"
             },
-              "statusOptions":{
-                "Student": "Student",
-                "Works in the field": "Works in the field",
-                "Other": "Other"
-            }
+              "statusOptions":[
+                "Student",
+                "Works in the field",
+                "Other",
+                "test"
+            ]
           
         },
     "favorite":{
