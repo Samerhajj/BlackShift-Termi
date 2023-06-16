@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "typeface-roboto";
 import { FaMusic, FaVolumeMute, FaPlay, FaBars } from 'react-icons/fa';
 import { MdHome, MdSettings } from 'react-icons/md';
+
 import buttonClickSFXaudio from "../../assets/sound/SFX/button-mouse-click-sfx.wav";
 import buttonEnterSFXaudio from "../../assets/sound/SFX/button-mouse-enter-sfx.wav";
 import buttonLeaveSFXaudio from "../../assets/sound/SFX/button-mouse-leave-sfx.wav";
@@ -19,7 +20,7 @@ import buttonLeaveSFXaudio from "../../assets/sound/SFX/button-mouse-leave-sfx.w
 import LeaderModal from './LeaderModal/LeaderModal';
 import SettingsModal from './SettingsModal/SettingsModal';
 
-function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying, gameName, selectedCategory, categoryChanged }) {
+function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying, gameName, selectedCategory, categoryChanged, edition, settings }) {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 	const [buttonClickSFX] = useState(new Audio(buttonClickSFXaudio));
@@ -51,22 +52,21 @@ function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying,
     return () => {
       links.forEach(link => {
         link.removeEventListener("mouseenter", enterSound);
-      link.addEventListener("mouseleave", leaveSound);
-      link.addEventListener("click", clickSound);
+        link.removeEventListener("mouseleave", leaveSound);
+        link.removeEventListener("click", clickSound);
       });
     };
-  }, []);
+  }, [musicPlaying]);
   
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   
-  
   return (
     <>
       <div dir="ltr" className="menu-container">
          <h1>{gameName}</h1>
-         <h3>First Edition</h3>
+         <h3>{edition}</h3>
          
          <div className="menu-item" onClick={() => handleStart()}>
           <FaPlay className="menu-icon" />
@@ -110,6 +110,7 @@ function Menu({ handleStart, handleLeaderboard, handleMusicToggle, musicPlaying,
           <SettingsModal
                     initialCategory={selectedCategory}
                     categoryChanged={(newCategory) => {categoryChanged(newCategory)}}
+                    settings={settings}
                     onClose={() => setShowSettings(false)} />
           :
           null
