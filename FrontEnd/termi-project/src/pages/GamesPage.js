@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import BackwordImg from "../assets/images/backword-definition-img.jpg";
 import MemoryImg from "../assets/images/memory-game-img.jpg";
 import HangmanImg from "../assets/images/hangman-game-img.jpg";
-import Kara from "../assets/images/kara.png";
+import TranslateImg from "../assets/images/translate-game-img.png";
 import { motion, stagger, animate } from 'framer-motion/dist/framer-motion';
 
 import Container from 'react-bootstrap/Container';
@@ -39,7 +39,13 @@ const GamesPage = () => {
       path:"/games/hangman-game",
       img: HangmanImg
     },
-    
+    { 
+      id: 3,
+      title: "Translate Game",
+      instructions:t('games.hangman-game.step-by-step', { returnObjects: true }),
+      path:"/games/translate-game",
+      img: TranslateImg
+    },
   ];
   
   useEffect(() => {
