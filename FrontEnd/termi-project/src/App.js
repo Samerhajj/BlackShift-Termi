@@ -8,7 +8,7 @@ import {Login,  Register, TermsPage,  ProfilePage,
         ErrorPage,  HomePage, GamesPage,  ForgotPassword,
         SuggestConceptPage, Favorite, Top10,
         AdminSuggestionPage,  AdminPage,  AddTermAdmin,UserSuggestions,ResetPasswordPage,VerifyPage,TestPage,
-        ManageUsersPage,FeedBack
+        ManageUsersPage,FeedBack,ChatGptPage
         
 } from "./pages/PageIndex";
 
@@ -17,7 +17,7 @@ import PageLayout from "./components/PageLayout";
 import DynamicTitleRoute from "./components/DynamicTitleRoute";
 
 //Games
-import {BackDefinitionGame, Hangman} from "./games/GameIndex.js"
+import {BackDefinitionGame, Hangman, TranslateGame} from "./games/GameIndex.js"
 
 // import BackDefinitionGame from "./games/backward-definition/BackDefinition";
 import WordleGame from "./games/wordle/Wordle";
@@ -49,9 +49,11 @@ function App() {
   const WHangman = withAuth(Hangman);
   const WBackDefinitionGame = withAuth(BackDefinitionGame);
   const WMemoryGame = withAuth(MemoryGame);
+  const WTranslateGame = withAuth(TranslateGame);
   const WCrosswordGame = withAuth(CrosswordGame);
   const WFavorite=withAuth(Favorite);
   const WUserSuggestions=withAuth(UserSuggestions);
+  const WChatPage=withAuth(ChatGptPage);
   
   const WForgotPassword = withNotAuth(ForgotPassword);
   const WLogin = withNotAuth(Login);
@@ -62,6 +64,7 @@ function App() {
   const WAddTermAdmin = withAdminAuth(AddTermAdmin,'admin');
   const WTop10 = withAdminAuth(Top10,'admin');
   const WFeedBack= withAdminAuth(FeedBack,'admin');
+  
 
   
 const [login, setLogin] = React.useState(localStorage.getItem('login') || false);
@@ -72,7 +75,6 @@ const [userData, setUserData] = React.useState({});
   
   useEffect(() => {
   ReactGA.initialize(process.env.REACT_APP_GA_MEASUREMENT_ID); // Replace with your Measurement ID
-  
   console.log(process.env.REACT_APP_GA_MEASUREMENT_ID);
   // Optional: Set page view
   
@@ -82,12 +84,13 @@ const [userData, setUserData] = React.useState({});
 
   return (
     <>
-
     <Router onUpdate={()=> ReactGA.pageview(window.location.pathname + window.location.search)}>
       <Routes>
           <Route path="/games/memory-game" element={<DynamicTitleRoute title="Memory Game" element={<WMemoryGame/>} />}/>
           <Route path="/games/backword-definition" element={<DynamicTitleRoute title="Definition Game" element={<WBackDefinitionGame/>} />}/>
           <Route path="/games/hangman-game" element={<DynamicTitleRoute title="Hangman Game" element={<WHangman/>} />}/>
+          <Route path="/games/translate-game" element={<DynamicTitleRoute title="Translate Game" element={<WTranslateGame/>} />}/>
+          
           <Route path="/games/kart-jara" element={<DynamicTitleRoute title="Kart-jara" element={<MyWebGLGame/>}/>}/>
           <Route path="/about" element={<DynamicTitleRoute title="About | Termi" element={<HomePage/>} />}/>
           <Route path ="/test" element={<DynamicTitleRoute title="Test | Termi" element={<TestPage/>} />}/>
@@ -102,6 +105,7 @@ const [userData, setUserData] = React.useState({});
             <Route path="/profile" element={<DynamicTitleRoute title="Profile" element={<WProfilePage/>} />}/>
             <Route path="/verify/:token" element={<DynamicTitleRoute title="Profile" element={<VerifyPage/>} />}/>
             <Route path="/games" element={<DynamicTitleRoute title="Games" element={<WGamesPage/>}/>}/>
+            <Route path="/gpt" element={<DynamicTitleRoute title="ChatGpt" element={<WChatPage/>}/>}/>
             
            
             <Route path="/reset-password/:token" element={<DynamicTitleRoute title="Reset Password" element={<ResetPasswordPage/>} />}/>
