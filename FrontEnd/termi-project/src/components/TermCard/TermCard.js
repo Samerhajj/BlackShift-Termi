@@ -264,7 +264,7 @@ const TermCard = (props) =>{
                 } 
             </div>
             <div className="term-box">   
-                   <h2>{props.term.name}</h2>
+                   <h2 >{props.term.name}</h2>
                    <p>{props.term.definition}</p>
                 
                 <div className="categories-box">
@@ -293,7 +293,7 @@ const TermCard = (props) =>{
                   
                 <div className="definitions-box">
                 <div className="search-count">{t('searchTimes.search')} {props.term.searchCount} {t('searchTimes.times')}</div>
-                    <h3 className="term-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
+                    <h3 id="id_term_card_title" className="term-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
                     <Accordion className="my-3 go-back-in-term-card" defaultActiveKey="0">
                         <Accordion.Item eventKey="0">
                             <Accordion.Header><h2><strong className="font-weight-bold">{t('.')}</strong></h2></Accordion.Header>
