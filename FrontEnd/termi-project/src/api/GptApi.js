@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const API_KEY =process.env.REACT_APP_OPEN_API_KEY;
-console.log(API_KEY);
 const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
