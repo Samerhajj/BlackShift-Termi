@@ -43,7 +43,7 @@ const BackwordDefinition = () =>{
 	
 	// Timer
 	const [elapsedTime, setElapsedTime] = useState(0);
-	const [timeLeft, setTimeLeft] = useState(30);
+	const [timeLeft, setTimeLeft] = useState(60);
 	const [points,setPoints]=useState(0);
 	const [category, setCategory] = useState(userData.field);
 	
@@ -59,7 +59,7 @@ const BackwordDefinition = () =>{
 			const nextQuestion = currentQuestion + 1;
 	        if (nextQuestion < questions.length) {
 	          setCurrentQuestion(nextQuestion);
-	          setTimeLeft(30);
+	          setTimeLeft(60);
 		    }
 		    else{
 		    	finishGame(score, points);
@@ -76,7 +76,7 @@ const BackwordDefinition = () =>{
 		        const nextQuestion = currentQuestion + 1;
 		        if (nextQuestion < questions.length) {
 		          setCurrentQuestion(nextQuestion);
-		          setTimeLeft(30);
+		          setTimeLeft(60);
 		          setMessage(null);
 		          setDisabled(false);
 		        } else {
@@ -144,7 +144,7 @@ const BackwordDefinition = () =>{
 		    setCurrentQuestion(0);  // reset the current question to the first question
 				setScore(0);
 				setPoints(0);
-				setTimeLeft(30);  // reset the time left
+				setTimeLeft(60);  // reset the time left
 				setStart(true);
 				setDisabled(false);
 				setMessage("");
@@ -194,7 +194,7 @@ const BackwordDefinition = () =>{
 				if (nextQuestion < questions.length) {
 					// stopTimer();
 					// setTimer(30);
-						setTimeLeft(30);
+						setTimeLeft(60);
 				setMessage('');
 					// startTimer();
 			setCurrentQuestion(nextQuestion);
@@ -213,7 +213,6 @@ const BackwordDefinition = () =>{
 		const allAchievements = achievementsRes.body;
 		const achievements = allAchievements.filter((achievement) => achievement.relevantGame === "Definition Game");
 		
-		console.log(score);
 		setShowScore(true);
 		
 		const response = await GamesApi.updatePoints(
@@ -331,12 +330,15 @@ const BackwordDefinition = () =>{
     <DefinitionGameBG/>
     {!start ? (
       <Menu
-        selectedCategory={category}
-        categoryChanged={(newCategory => setCategory(newCategory))}
         gameName="Definition Game"
         handleMusicToggle={toggleMusic}
         musicPlaying={musicPlaying}
         handleStart={initGame}
+        edition={"Quiz Master"}
+        settings={
+							{
+								category: {initialCategory: category, categoryChanged: (newCategory => setCategory(newCategory))},
+							}}
       />
     ) : (
       <>
