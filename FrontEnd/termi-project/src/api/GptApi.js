@@ -36,7 +36,6 @@ Example Output Format:
 No need to give additional information. just the output. no need to say anything more. , and dont forget to give exact output format. with all parenthesis required`;
 const sendRequest = async (userInput) => {
   try {
-    console.log(process.env.OPENAI_API_KEY);
 
     
     const userPrompt=PROMPT.replace("[UserTerm]",userInput);
