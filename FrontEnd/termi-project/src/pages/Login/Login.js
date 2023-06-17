@@ -17,6 +17,7 @@ const Login = () => {
     wrongPass: false,
     validEmail: false,
   });
+  
   const [token, setToken] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
   const { login, setLogin } = useContext(LoginContext);
@@ -41,15 +42,16 @@ const Login = () => {
     }
 
     if (loginData['email'] === '' && loginData['password'] === '') {
-      setError({ ...error, validEmail: true, wrongPass: true });
+      setError({ ...error, validEmail: true, wrongPass: false });
       return;
     }
 
     if (!validator.isEmail(loginData['email'])) {
-      setError({ ...error, validEmail: true });
+      setError({ ...error, validEmail: true,wrongPass: false });
       return;
     } else {
-      setError({ ...error, validEmail: false });
+      setError({ ...error, validEmail: true ,wrongPass: false });
+      
     }
 
     if (loginData['password'].length < 6) {
@@ -66,6 +68,7 @@ const Login = () => {
       navigate('/');
     } else {
      NotificationsAPI.errorNotification(response.message);
+    setError({ ...error, wrongPass: true ,validEmail: false});// Mohamed add this
     }
   };
 
@@ -97,6 +100,7 @@ const Login = () => {
                                 </Col>
                                 <Col xs = {10} lg={10}>
                                     <input
+                                      id="id_input_email_login"
                                       type="text"
                                       className="form-control rounded-left"
                                       placeholder={t('login.email')}
@@ -112,18 +116,21 @@ const Login = () => {
                                 </Col>
                                 <Col xs = {10} lg={10}>
                                     <input
+                                    id="id_input_password_login"
                                     type="password"
                                     className="form-control rounded-left"
                                     placeholder={t('login.password')}
                                     onChange = {(e)=>setLoginData({...loginData,password:e.target.value})}
                                     />
                                     {error['wrongPass'] ? <label className="text-danger">Wrong password</label> : "" }
+                                    {error['validEmail'] ? <label className="text-danger"> Not valid email</label> : "" }
                                 </Col>
                           </Row>
 
                           <Row>
                                 <div className="form-group">
                                       <button
+                                        id="id_button_login"
                                         type="submit"
                                         className="form-control btn btn-primary rounded submit px-3"
                                       >
