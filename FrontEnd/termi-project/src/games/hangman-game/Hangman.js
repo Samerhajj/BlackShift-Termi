@@ -436,11 +436,10 @@ return (
   <HangmanGameBG/>
     {!showGame ? (
 			  <Menu
-			    selectedCategory={category}
-			    categoryChanged={(newCategory => setCategory(newCategory))}
 			    gameName="Hangman"
 			    handleMusicToggle={toggleMusic}
 			    musicPlaying={musicPlaying}
+			    edition={"Ocean Man"}
 			    handleStart={async () => {
             const shouldStart = await fetchQuestions2();
             if (shouldStart) {
@@ -448,6 +447,10 @@ return (
               setElapsedTime(3 * 60);
             }
           }}
+          settings={
+        			{
+        				category: {initialCategory: category, categoryChanged: (newCategory => setCategory(newCategory))},
+  						}}
 			  />
     ) : (
       <>
@@ -875,27 +878,3 @@ function Game3({ formatTime ,elapsedTime , letterOptions3, checkIfAlreadyGuessed
 
 export default Game;
 
-
-{/*
-<div className="icon-selector-container">
-  <CategorySelector
-    category={category}
-    categoryChanged={(newCategory) => {
-      changeCategory(newCategory);
-    }}
-  />
-  {errorMessage && <div className="error-message">{errorMessage}</div>}
-  <div className="icon-center">
-  <AiFillPlayCircle
-    className="icon-button"
-    onClick={async () => {
-      const shouldStart = await fetchQuestions2();
-      if (shouldStart) {
-        setShowGame(true);
-      }
-    }}
-  />
-
-  </div>
-</div>
-*/}

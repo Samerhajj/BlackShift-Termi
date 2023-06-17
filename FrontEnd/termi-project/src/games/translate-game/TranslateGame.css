@@ -1,0 +1,42 @@
+.translate-game-background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;    
+    left: 0;
+    overflow: hidden;
+    z-index: -1;    
+    background: -webkit-linear-gradient(172deg, #172b4d, #0a192f);
+    background: -moz-linear-gradient(172deg, #172b4d, #0a192f);
+    background: -o-linear-gradient(172deg, #172b4d, #0a192f);
+    background: linear-gradient(262deg, #172b4d, #0a192f);
+}
+
+.dragging {
+  background-color: lightblue;
+  transform: scale(1.1);
+}
+
+.drop-background{
+    /*background-color: #a6ceff;*/
+    min-width: 300px;
+    min-height: 100px;
+    /*background: #ffffff;*/
+    /*box-shadow: inset 24px 24px 48px #c7c7c7,*/
+    /*            inset -24px -24px 48px #ffffff;*/
+    background: #11223E;
+    box-shadow: inset -7px 7px 14px #0a1425,
+            inset 7px -7px 14px #183057;
+}
+
+.correct{
+    background-color: #55cc3b !important;
+}
+
+.incorrect{
+    background-color: red !important;
+}
+
+.icon-center{
+  margin-left:25%
+}
