@@ -42,7 +42,9 @@ const TermsPage = () =>{
         navigate('/suggest');
     };
     
-
+  const handleGPT = () => {
+        navigate('/gpt');
+    };
     const search = async (term, lang, category) => {
         if(category !== undefined){
             setShowResult(false);
@@ -335,6 +337,7 @@ return (
             onFocus={(e) => handleSearchFocus(e)}
           >
             <input
+              id="id_search_termi_page"
               className="search-input"
               placeholder={t('search.search_placeholder')}
               value={searchedTerm}
@@ -352,7 +355,7 @@ return (
               <FaMicrophone />
             </button>
 
-            <i
+            <i id="id_search_bar_button"
               className="fa fa-search search-button"
               onClick={() => {
                 search(searchedTerm, LanguageMap[inputLanguage].name, category);
@@ -429,6 +432,9 @@ return (
         </Button>
         <Button variant="primary" onClick={handleClick}>
           Suggest Concept
+        </Button>
+        <Button variant="info"  onClick={handleGPT}>
+        ChatGPT
         </Button>
       </Modal.Footer>
     </Modal>
