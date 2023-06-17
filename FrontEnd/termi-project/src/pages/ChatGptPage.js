@@ -3,6 +3,8 @@ import { Form, Input, Button, Spin,Select  } from 'antd';
 import GptApi from '../api/GptApi';
 import TermCard from '../components/TermCard/TermCard';
 import CategorySelector from '../components/CategorySelector';
+import UserAPI from "./../api/UserAPI";
+import {LoginContext} from "./../components/LoginContext";
 
 // Contexts
 import { CategoriesContext } from "../components/CategoryContext";
@@ -10,6 +12,8 @@ import { CategoriesContext } from "../components/CategoryContext";
 const { Option } = Select;
 const ChatGptPage = () => {
   const { categories } = useContext(CategoriesContext);
+    const user = useContext(LoginContext);
+  console.log(user)
   const [form] = Form.useForm();
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -20,26 +24,22 @@ const [gptConcept,setGptConcept]=useState();
     const field2 = getFieldValue('field2');
     setButtonDisabled(!field1);
   };
-  const handleButtonClick = async () => {
-    try {
-      const { getFieldValue } = form;
-      const termName = getFieldValue('field1');
-      const field2 = getFieldValue('field2');
-      
-      const category = categories.find(categry => categry.categoryId == field2);
-      
-      
-      // Perform your logic here with the form values
-      setLoading(true);
-      setButtonDisabled(true); // Disable the button
-      const concept = await GptApi.sendRequest(termName);
-      setLoading(false);
-      //console.log('Response from the API:\n', concept);
-      
-// Deconstruct the response object
- const parsedConcept  = JSON.parse(concept);
+const handleButtonClick = async () => {
+  try {
+    const { getFieldValue } = form;
+    const termName = getFieldValue('field1');
+    const field2 = getFieldValue('field2');
 
- // Access the individual values
+    const category = categories.find((categry) => categry.categoryId === field2);
+
+    setLoading(true);
+    setButtonDisabled(true);
+
+    // Perform your logic here with the form values
+    const concept = await GptApi.sendRequest(termName);
+    const parsedConcept = JSON.parse(concept);
+
+    // Access the individual values
     const termEnglish = parsedConcept.conceptName.english;
     const termArabic = parsedConcept.conceptName.arabic;
     const termHebrew = parsedConcept.conceptName.hebrew;
@@ -51,8 +51,8 @@ const [gptConcept,setGptConcept]=useState();
     const longDefEnglish = parsedConcept.longDefinition.english;
     const longDefArabic = parsedConcept.longDefinition.arabic;
     const longDefHebrew = parsedConcept.longDefinition.hebrew;
-    
-    parsedConcept.categories = {data:[category.categoryName]};
+
+    parsedConcept.categories = { data: [category.categoryName] };
 
     // Print the individual values
     console.log("Term in English:", termEnglish);
@@ -66,17 +66,42 @@ const [gptConcept,setGptConcept]=useState();
     console.log("Long Definition in English:", longDefEnglish);
     console.log("Long Definition in Arabic:", longDefArabic);
     console.log("Long Definition in Hebrew:", longDefHebrew);
-    
-    console.log(concept);
+
+    console.log(parsedConcept);
     setGptConcept(parsedConcept);
-      // Handle the concept response as needed
-    } catch (error) {
-      setLoading(false);
-      console.error('Error fetching concept from the API:', error);
-    } finally {
-      setButtonDisabled(false); // Enable the button
-    }
-  };
+
+    // Call the suggestFromUser function to send the values to the backend
+    const response = await UserAPI.suggestFromUser({
+      selectedCategory: [category.categoryId],
+      shortDefinition: {
+        english: shortDefEnglish,
+        arabic: shortDefArabic,
+        hebrew: shortDefHebrew,
+      },
+      conceptName: {
+        english: termEnglish,
+        arabic: termArabic,
+        hebrew: termHebrew,
+      },
+      suggestedBy: user.userData.fullName, // Replace with the actual suggested by value
+      longDefinition: {
+        english: longDefEnglish,
+        arabic: longDefArabic,
+        hebrew: longDefHebrew,
+      },
+      _id: user.userData._id, // Replace with the actual user ID value
+      readMore: "", // Replace with the actual read more value
+    });
+
+    setLoading(false);
+    console.log("Suggestion Response:", response);
+  } catch (error) {
+    setLoading(false);
+    console.error('Error fetching concept from the API:', error);
+  } finally {
+    setButtonDisabled(false); // Enable the button
+  }
+};
 
   const handleCategoryChange = value => {
     console.log(value); // Log the value of field2

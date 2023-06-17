@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import axios from "axios";
 import { Input,Select, Button } from 'antd';
 import AdminAPI from '../../api/AdminAPI';
@@ -8,7 +8,7 @@ import LanguageMap from '../../api/LanguageAPI';
 import './Admin.css'
 import {Image } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-
+import {LoginContext} from "./../../components/LoginContext";
 // --> import Icons
 
 import { IconContext } from "react-icons";
@@ -17,10 +17,11 @@ import {AiTwotoneEdit,AiFillDelete} from 'react-icons/ai';
 const SuggestCard = ({ data,setSuggestList,suggestList,initialLanguage }) => {
     const [currentLanguage, setLanguage] = useState(initialLanguage);
     const navigate = useNavigate();
-
+const user = useContext(LoginContext);
+const role = user.userData.role;
   
   const handleDelete = async () =>{
-      const response = await AdminAPI.deleteSelectedTerm(data);
+      const response = await AdminAPI.deleteSelectedTerm(data,role);
       if(response.success){
         console.log(response);
         setSuggestList(suggestList.filter((item) => item['_id'] !== response.body.del_ID));
