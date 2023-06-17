@@ -55,7 +55,9 @@
             "leaderboard": "ليدربورد",
             "music": "موسيقى",
             "settings": "الإعدادات",
-            "games-menu": "قائمة الألعاب"
+            "games-menu": "قائمة الألعاب",
+            "language": "اللغة",
+            "difficulty": "صعوبة"
         },
         "backword-definition":{
             "question-info": "سؤال {{currentQuestion}}",

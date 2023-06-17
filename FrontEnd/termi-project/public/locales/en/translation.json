@@ -55,7 +55,9 @@
             "leaderboard": "Leaderboard",
             "music": "Music",
             "settings": "Settings",
-            "games-menu": "Games Menu"
+            "games-menu": "Games Menu",
+            "language": "Language",
+            "difficulty": "Difficulty"
         },
         "backword-definition":{
             "question-info": "Question {{currentQuestion}}",
@@ -232,7 +234,7 @@
                 "achievements": "Achievements",
                 "leaderboards": "Leaderboards"
             },
-              "statusOptions":[
+            "statusOptions":[
                 "Student",
                 "Works in the field",
                 "Other",

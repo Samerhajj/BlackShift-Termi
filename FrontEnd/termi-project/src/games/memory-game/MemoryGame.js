@@ -265,12 +265,14 @@ const MemoryGame = () => {
 		   {/*musicPlaying && <audio src={songTest} autoPlay loop />*/}
 			{!start ? (
 			  <Menu
-			    selectedCategory={category}
-			    categoryChanged={(newCategory => setCategory(newCategory))}
 			    gameName={gameName}
 			    handleMusicToggle={toggleMusic}
 			    musicPlaying={musicPlaying}
 			    handleStart={initGame}
+			    edition={"First Edition"}
+			    settings={{
+					category: {initialCategory: category, categoryChanged: (newCategory => setCategory(newCategory))}
+			    }}
 			  />
 			) : (
 				<div dir="ltr">
