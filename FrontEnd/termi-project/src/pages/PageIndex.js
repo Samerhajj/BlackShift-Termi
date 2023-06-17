@@ -25,3 +25,4 @@ export { default as ProfilePage } from"./ProfilePage/ProfilePage";
 export { default as SuggestConceptPage } from"./SuggestConceptPage";
 export { default as TermsPage } from"./TermsPage";
 export { default as ErrorPage } from"./ErrorPage";
+export { default as ChatGptPage} from "./ChatGptPage";
