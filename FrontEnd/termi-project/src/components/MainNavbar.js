@@ -88,7 +88,7 @@ const MainNavbar = ({setTitle,location}) => {
             {login ?(
              <Fragment>
               <li>
-                <Link to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
+                <Link id="id_link_games" to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
                   <IconContext.Provider value={{ size: "2rem" }}>
                     <IoGameController/>
                   </IconContext.Provider>
@@ -135,7 +135,7 @@ const MainNavbar = ({setTitle,location}) => {
                 </li>
               ):(
                <li>
-                  <a className="nav-link" href="login" onClick={(event) => {handleLogout();}}>
+                  <a id="id_logout_mainnabbar"  className="nav-link" href="login" onClick={(event) => {handleLogout();}}>
                     <IconContext.Provider value={{ size: "2rem" }}>
                       <IoLogOut/>
                     </IconContext.Provider>

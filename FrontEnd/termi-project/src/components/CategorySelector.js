@@ -13,8 +13,8 @@ const CategorySelector = (props) => {
     const { i18n, t } = useTranslation();
     
     const onCategoryChange = (newCategory) => {
-        console.log("Category Changed " + newCategory);
         props.categoryChanged(newCategory);
+  
     };
     
     return(
