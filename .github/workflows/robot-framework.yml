@@ -71,7 +71,7 @@ jobs:
         run: pip install --upgrade pip
 
       - name: Install Robot Framework and SeleniumLibrary
-        run: pip install robotframework robotframework-seleniumlibrary
+        run: pip install --upgrade robotframework-seleniumlibrary
 
       - name: Install Chrome browser and ChromeDriver
         run: |
@@ -97,7 +97,7 @@ jobs:
           echo "DISABLE_SANDBOX=true" >> $GITHUB_ENV
 
       - name: Start ChromeDriver
-        run: chromedriver --port=4444 --url-base=/wd/hub &
+        run: nohup chromedriver --port=4444 --url-base=/wd/hub &
 
       - name: Wait for ChromeDriver to start
         run: sleep 10  # Adjust the wait time as needed
