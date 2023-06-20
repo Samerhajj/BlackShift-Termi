@@ -25,7 +25,10 @@ jobs:
       run: pip install selenium==4.9.1
      
     - name: Install webdriver_manager
-      run: pip install --upgrade webdriver_manager
+      run: pip install webdrivermanager
+      
+    - name: Install chrome driver
+      run: webdrivermanager chrome --linkpath /usr/local/bin
 
     - name: Run Robot Framework tests
       run: robot --outputdir results robot_automation/robot_basics
