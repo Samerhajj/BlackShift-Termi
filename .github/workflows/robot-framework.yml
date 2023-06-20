@@ -97,14 +97,17 @@ jobs:
           echo "DISABLE_SANDBOX=true" >> $GITHUB_ENV
 
       - name: Wait for Chrome to start
-        run: sleep 5  # Adjust the wait time as needed
+        run: sleep 10  # Adjust the wait time as needed
+
       - name: Check running processes
-        run: |
-            ps -ef | grep chrome
-            netstat -tuln | grep 9515  # Verify if ChromeDriver is listening on port 9515
+        run: ps -ef | grep chrome
+        
+      - name: Check ChromeDriver port
+        run: netstat -tuln | grep 9515
         
       - name: List files in /usr/local/bin directory
         run: ls -la /usr/local/bin
+
       - name: Run Robot Framework tests
         run: robot --outputdir results robot_automation/robot_basics
       
