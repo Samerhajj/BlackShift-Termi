@@ -30,6 +30,12 @@ jobs:
     - name: setup-chromedriver
       uses: nanasess/setup-chromedriver@v2.0.0
 
+    - name: Set up Chrome environment variables
+      run: |
+        echo "DISABLE_SANDBOX=true" >> $GITHUB_ENV
+
+    - name: Wait for Chrome to start
+      run: sleep 5  # Adjust the wait time as needed
 
     - name: Run Robot Framework tests
       run: robot --outputdir results robot_automation/robot_basics
