@@ -72,4 +72,4 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: Test Results
-          path: robot_automation/logs
+          path: ${{ github.workspace }}/robot_automation/logs
