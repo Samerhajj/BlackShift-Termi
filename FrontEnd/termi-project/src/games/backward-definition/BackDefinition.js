@@ -26,10 +26,13 @@ import NotificationsAPI from '../../api/NotificationsAPI';
 
 
 const BackwordDefinition = () =>{
-	  //localStorage.setItem('currentPage', 'BackDefinition')//test
+	const gameName = "Backword Game";
+	const basePointsPerQuestion = 10;
+	const difficultyMultiplierPerQuestion = 0.3; // => Easy: basePointsPerQuestion, Medium: basePointsPerQuestion * difficultyMultiplier
+	const difficulties = [{name: "Easy", start:()=>{initEasyGame()}}, {name: "Medium", start:()=>{initMediumGame()}}]
+	
 	const {userData, setUserData} = useContext(LoginContext);
-	// const { categories } = useContext(CategoriesContext);
-    const streakCountRef = useRef(0);
+	const streakCountRef = useRef(0);
   const [highestStreak, setHighestStreak] = useState(0);
   const { t, i18n } = useTranslation();
 	const [questions, setQuestions] = useState([]);
@@ -39,6 +42,7 @@ const BackwordDefinition = () =>{
 	const [start, setStart] = useState(false);
 	const [message,setMessage]=useState('');
 	const [disabled, setDisabled] = useState(false);
+	const [difficultyIndex, setDifficultyIndex] = useState(0);
 
 	
 	// Timer
@@ -86,13 +90,16 @@ const BackwordDefinition = () =>{
 	    }
 	  }, [timeLeft, currentQuestion]);
 	  
-	const initGame = async () => {
-		console.log(category);
+	const startGame = () => {
+		difficulties[difficultyIndex].start();
+	};
+	  
+	const initEasyGame = async () => {
 		if(category !== undefined){
 			let numOfTerms = 10;
 			// let categoryId = category.categoryId;
 			let numOfCards = numOfTerms * 2;
-		    const res = await GamesApi.random(numOfTerms, category,"Definition Game");
+		    const res = await GamesApi.random(numOfTerms, category, "Definition Game");
 			// get 10 random terms from category 0
 	        if(res.success){
 		        let terms = res.body;
@@ -155,6 +162,10 @@ const BackwordDefinition = () =>{
 		else{
 			alert("Must choose a category first");
 		}
+	};
+	
+	const initMediumGame = async () => {
+		console.log("not implemented yet");
 	};
 	
   const handleAnswerOptionClick = (event, isCorrect) => {
@@ -324,7 +335,7 @@ const BackwordDefinition = () =>{
 			}
   }
 }
-	//NEED TO SEND	
+
 	return (
   <>
     <DefinitionGameBG/>
@@ -333,11 +344,12 @@ const BackwordDefinition = () =>{
         gameName="Definition Game"
         handleMusicToggle={toggleMusic}
         musicPlaying={musicPlaying}
-        handleStart={initGame}
+        handleStart={startGame}
         edition={"Quiz Master"}
         settings={
 							{
 								category: {initialCategory: category, categoryChanged: (newCategory => setCategory(newCategory))},
+								difficulty: {availableDifficulties: Array.from(difficulties, difficulty => difficulty.name), difficultyChanged: (newDifficultyIndex => setDifficultyIndex(newDifficultyIndex)), initialDifficultyIndex: difficultyIndex}
 							}}
       />
     ) : (
@@ -355,7 +367,7 @@ const BackwordDefinition = () =>{
               <h4>{t('games.backword-definition.score', {score: score, questionsLength: questions.length})}</h4>
               <h4>{t('games.backword-definition.et')}: {minutes}:{seconds}</h4>
               <h4>{t('games.backword-definition.pg')}: +{points} points</h4>
-              <MdOutlineReplay className="restart-button" onClick={() => {initGame()}}/>
+              <MdOutlineReplay className="restart-button" onClick={() => {initEasyGame()}}/>
             </div>
           ) : (
             <div className="question-background m-5">

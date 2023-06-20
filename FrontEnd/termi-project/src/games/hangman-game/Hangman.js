@@ -79,7 +79,7 @@ const Game = ({ actualGuesses = 7, pickedCategory }) => {
 	const [musicPlaying, setMusicPlaying] = useState(true);
 	const toggleMusic = () => setMusicPlaying(!musicPlaying);
 	
-const [elapsedTime, setElapsedTime] = useState(3 * 60);
+const [elapsedTime, setElapsedTime] = useState(5 * 60);
 
 const [timerActive, setTimerActive] = useState(false);
 	
@@ -102,7 +102,7 @@ const [timerActive, setTimerActive] = useState(false);
     setLetterOptions3([]);
     setHangmanImage(0);
     setScore(0);
-    setElapsedTime(3 * 60);
+    setElapsedTime(5 * 60);
   };
   
 
@@ -444,7 +444,7 @@ return (
             const shouldStart = await fetchQuestions2();
             if (shouldStart) {
               setShowGame(true);
-              setElapsedTime(3 * 60);
+              setElapsedTime(5 * 60);
             }
           }}
           settings={
