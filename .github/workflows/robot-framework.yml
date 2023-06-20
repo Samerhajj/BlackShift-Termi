@@ -1,0 +1,31 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install dependencies
+      run: pip install --upgrade pip
+          
+    - name: Install Robot Framework and SeleniumLibrary
+      run: pip install robotframework robotframework-seleniumlibrary
+
+    - name: Run Robot Framework tests
+      run: robot --outputdir results robot_automation/robot_basics
+      
+    - name: Archive test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: Test Results
+        path: results
