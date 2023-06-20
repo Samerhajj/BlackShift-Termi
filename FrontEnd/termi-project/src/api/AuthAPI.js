@@ -74,6 +74,7 @@ const register = async (registerData) =>{
 const forgotPassword = async (email) =>{
     try{
         const res = await axios.post(forgotPasswordRoute, email );
+        console.log(res.status)
         return {body: res, success: true};
     }
     catch(err){
