@@ -37,6 +37,10 @@ jobs:
     - name: Wait for Chrome to start
       run: sleep 5  # Adjust the wait time as needed
 
+    
+    - name: Check running processes
+      run: ps -ef | grep chrome
+
     - name: Run Robot Framework tests
       run: robot --outputdir results robot_automation/robot_basics
       
