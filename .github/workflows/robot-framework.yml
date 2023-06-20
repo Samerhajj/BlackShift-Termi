@@ -28,7 +28,7 @@ jobs:
       run: pip install webdrivermanager
       
     - name: Install chrome driver
-      run: webdrivermanager chrome -linkpath /usr/local/bin
+      run: webdrivermanager chrome -installpath /usr/local/bin
 
     - name: Run Robot Framework tests
       run: robot --outputdir results robot_automation/robot_basics
