@@ -56,3 +56,9 @@ jobs:
         with:
           name: Test Results
           path: robot_automation/logs
+
+      - name: Download test results
+        uses: actions/download-artifact@v2
+        with:
+          name: Test Results
+          path: robot_automation/logs
