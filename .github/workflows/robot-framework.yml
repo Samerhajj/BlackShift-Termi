@@ -117,6 +117,62 @@
 #           name: Test Results
 #           path: results
 
+# name: CI
+
+# on: [push]
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v2
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.x
+
+#       - name: Install dependencies
+#         run: pip install --upgrade pip
+
+#       - name: Install Robot Framework and SeleniumLibrary
+#         run: pip install --upgrade robotframework-seleniumlibrary
+
+#       - name: Install Firefox browser
+#         run: sudo apt-get update && sudo apt-get install -y firefox
+
+#       - name: Install geckodriver
+#         run: |
+#           GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r '.tag_name')
+#           wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
+#           tar -xf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
+#           sudo mv geckodriver /usr/local/bin/
+#           sudo chmod +x /usr/local/bin/geckodriver
+
+#       - name: Install webdriver_manager
+#         run: pip install --upgrade webdriver_manager
+        
+#       - name: Install Selenium
+#         run: pip install selenium==4.9.1
+
+#       - name: Check running processes
+#         run: |
+#           echo "Running processes:"
+#           ps -ef | grep firefox
+#           ps -ef | grep geckodriver
+
+#       - name: Run Robot Framework tests
+#         run: robot --outputdir results robot_automation/robot_basics
+      
+#       - name: Archive test results
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: Test Results
+#           path: results
+
+
 name: CI
 
 on: [push]
@@ -141,13 +197,13 @@ jobs:
         run: pip install --upgrade robotframework-seleniumlibrary
 
       - name: Install Firefox browser
-        run: sudo apt-get update && sudo apt-get install -y firefox
-
-      - name: Install geckodriver
+        run: sudo apt-get install -y firefox
+     
+      - name: Install GeckoDriver
         run: |
-          GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r '.tag_name')
-          wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
-          tar -xf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
+          GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+          wget https://github.com/mozilla/geckodriver/releases/download/${GECKODRIVER_VERSION}/geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
+          tar -xzf geckodriver-${GECKODRIVER_VERSION}-linux64.tar.gz
           sudo mv geckodriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/geckodriver
 
@@ -157,11 +213,9 @@ jobs:
       - name: Install Selenium
         run: pip install selenium==4.9.1
 
-      - name: Check running processes
+      - name: Set up Firefox environment variables
         run: |
-          echo "Running processes:"
-          ps -ef | grep firefox
-          ps -ef | grep geckodriver
+          echo "MOZ_HEADLESS=1" >> $GITHUB_ENV
 
       - name: Run Robot Framework tests
         run: robot --outputdir results robot_automation/robot_basics
