@@ -20,6 +20,12 @@ jobs:
           
     - name: Install Robot Framework and SeleniumLibrary
       run: pip install robotframework robotframework-seleniumlibrary
+      
+    - name: Install Selenium
+      run: pip install --upgrade selenium webdriver_manager
+     
+    - name: Install webdriver_manager
+      run: pip install --upgrade webdriver_manager
 
     - name: Run Robot Framework tests
       run: robot --outputdir results robot_automation/robot_basics
