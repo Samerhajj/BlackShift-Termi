@@ -50,6 +50,73 @@
 #         name: Test Results
 #         path: results
 
+# name: CI
+
+# on: [push]
+
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v2
+
+#       - name: Set up Python
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.x
+
+#       - name: Install dependencies
+#         run: pip install --upgrade pip
+
+#       - name: Install Robot Framework and SeleniumLibrary
+#         run: pip install --upgrade robotframework-seleniumlibrary
+
+#       - name: Install Chrome browser and ChromeDriver
+#         run: |
+#           sudo apt-get update
+#           sudo apt-get install -y unzip
+#           wget -N https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#           sudo dpkg -i google-chrome-stable_current_amd64.deb
+#           CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+#           wget -N "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+#           unzip chromedriver_linux64.zip
+#           sudo mv chromedriver /usr/local/bin/
+#           sudo chown root:root /usr/local/bin/chromedriver
+#           sudo chmod +x /usr/local/bin/chromedriver
+
+#       - name: Install webdriver_manager
+#         run: pip install --upgrade webdriver_manager
+        
+#       - name: Install Selenium
+#         run: pip install selenium==4.9.1
+
+#       - name: Set up Chrome environment variables
+#         run: |
+#           echo "DISABLE_SANDBOX=true" >> $GITHUB_ENV
+
+#       - name: Start ChromeDriver
+#         run: nohup chromedriver --port=4444 --url-base=/wd/hub &
+
+#       - name: Wait for ChromeDriver to start
+#         run: sleep 10  # Adjust the wait time as needed
+
+#       - name: Check running processes
+#         run: ps -ef | grep chrome
+
+#       - name: List files in /usr/local/bin directory
+#         run: ls -la /usr/local/bin
+
+#       - name: Run Robot Framework tests
+#         run: robot --outputdir results robot_automation/robot_basics
+      
+#       - name: Archive test results
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: Test Results
+#           path: results
+
 name: CI
 
 on: [push]
@@ -73,18 +140,16 @@ jobs:
       - name: Install Robot Framework and SeleniumLibrary
         run: pip install --upgrade robotframework-seleniumlibrary
 
-      - name: Install Chrome browser and ChromeDriver
+      - name: Install Firefox browser
+        run: sudo apt-get update && sudo apt-get install -y firefox
+
+      - name: Install geckodriver
         run: |
-          sudo apt-get update
-          sudo apt-get install -y unzip
-          wget -N https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb
-          CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget -N "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/
-          sudo chown root:root /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
+          GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r '.tag_name')
+          wget https://github.com/mozilla/geckodriver/releases/download/$GECKODRIVER_VERSION/geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
+          tar -xf geckodriver-$GECKODRIVER_VERSION-linux64.tar.gz
+          sudo mv geckodriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/geckodriver
 
       - name: Install webdriver_manager
         run: pip install --upgrade webdriver_manager
@@ -92,21 +157,11 @@ jobs:
       - name: Install Selenium
         run: pip install selenium==4.9.1
 
-      - name: Set up Chrome environment variables
-        run: |
-          echo "DISABLE_SANDBOX=true" >> $GITHUB_ENV
-
-      - name: Start ChromeDriver
-        run: nohup chromedriver --port=4444 --url-base=/wd/hub &
-
-      - name: Wait for ChromeDriver to start
-        run: sleep 10  # Adjust the wait time as needed
-
       - name: Check running processes
-        run: ps -ef | grep chrome
-
-      - name: List files in /usr/local/bin directory
-        run: ls -la /usr/local/bin
+        run: |
+          echo "Running processes:"
+          ps -ef | grep firefox
+          ps -ef | grep geckodriver
 
       - name: Run Robot Framework tests
         run: robot --outputdir results robot_automation/robot_basics

@@ -3,7 +3,7 @@ Library    SeleniumLibrary
 
 *** Variables ***
 ${LOGIN URL}    https://p7024.y2022.kinneret.cc/login
-${BROWSER}  Chrome
+${BROWSER}  Firefox
 
 #${Search}   Networking
 
