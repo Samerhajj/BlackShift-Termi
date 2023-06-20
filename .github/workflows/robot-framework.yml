@@ -101,11 +101,13 @@ jobs:
 
       - name: Check running processes
         run: ps -ef | grep chrome
-        
-        
+
       - name: List files in /usr/local/bin directory
         run: ls -la /usr/local/bin
 
+      - name: Run ChromeDriver
+        run: chromedriver --port=4444 --url-base=/wd/hub
+        
       - name: Run Robot Framework tests
         run: robot --outputdir results robot_automation/robot_basics
       
