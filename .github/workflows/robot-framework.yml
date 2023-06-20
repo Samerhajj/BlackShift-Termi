@@ -27,8 +27,9 @@ jobs:
     - name: Install webdriver_manager
       run: pip install webdrivermanager
       
-    - name: Install chrome driver
-      run: webdrivermanager chrome -installpath /usr/local/bin
+    - name: setup-chromedriver
+      uses: nanasess/setup-chromedriver@v2.0.0
+
 
     - name: Run Robot Framework tests
       run: robot --outputdir results robot_automation/robot_basics
