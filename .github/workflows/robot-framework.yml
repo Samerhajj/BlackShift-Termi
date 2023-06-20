@@ -22,7 +22,7 @@ jobs:
       run: pip install robotframework robotframework-seleniumlibrary
       
     - name: Install Selenium
-      run: pip install --upgrade selenium webdriver_manager
+      run: pip install selenium==4.9.1
      
     - name: Install webdriver_manager
       run: pip install --upgrade webdriver_manager
