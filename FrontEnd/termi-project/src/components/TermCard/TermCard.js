@@ -292,7 +292,7 @@ const TermCard = (props) =>{
               </IconContext.Provider>*/}
                   
                 <div className="definitions-box">
-                <div className="search-count">{t('searchTimes.search')} {props.term.searchCount} {t('searchTimes.times')}</div>
+                <div  className="search-count">{t('searchTimes.search')} <span id="id_search_count_num">{props.term.searchCount} </span>{t('searchTimes.times')}</div>
                     <h3 id="id_term_card_title" className="term-text" dir={LanguageMap[language].dir}>{props.term.conceptName[LanguageMap[language].name]}</h3>
                     <Accordion className="my-3 go-back-in-term-card" defaultActiveKey="0">
                         <Accordion.Item eventKey="0">

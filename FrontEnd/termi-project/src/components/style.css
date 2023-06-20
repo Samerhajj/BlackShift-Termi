@@ -1403,6 +1403,14 @@ ul-in-stick-footer {
 li-in-stick-footer {
     display: inline-block;
 }
+
+@media (min-width: 576px) {
+  .ant-form-item-concept-page {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 /*.go-back-in-term-card:active,*/
 /*.go-back-in-term-card:focus,*/
 /*.go-back-in-term-card:hover*/

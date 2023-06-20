@@ -16,13 +16,13 @@ const GameCard = (props) =>{
         <div className="game-card img-fluid" onClick={() => navigate(props.game.path)}>
             <img className="game-img" src={props.game.img}/>
             
-                <Popup trigger={<button className="game-instructions-button btn btn-light fw-bold">?</button>}
+                <Popup trigger={<button id={`id_${props.game.title}_instructions`} className="game-instructions-button btn btn-light fw-bold">?</button>}
                        position="bottom center"
                        modal
                        className="instructions-popup">
                     {close => (
                         <div className="instructions-popup-background">
-                            <div className="instructions-popup-title">{props.game.title}</div>
+                            <div id="id_instructions_popup_title" className="instructions-popup-title">{props.game.title}</div>
                             <div className="instructions-popup-container">
                                 <div className="instructions-popup-text">
                                     {props.game.instructions.map((step) => (
@@ -33,7 +33,7 @@ const GameCard = (props) =>{
                             
                             <div className="instructions-popup-actions d-flex justify-content-around">
                                 <button className="btn btn-primary" onClick={() => navigate(props.game.path)}>{t('games.play-button')}</button>
-                                <button className="btn btn-outline-secondary" onClick={() => close()}>{t('games.back-button')}</button>
+                                <button id="id_back_popup_button" className="btn btn-outline-secondary" onClick={() => close()}>{t('games.back-button')}</button>
                             </div>
                         </div>
                         )}

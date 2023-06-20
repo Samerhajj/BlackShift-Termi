@@ -87,8 +87,8 @@ const MainNavbar = ({setTitle,location}) => {
               </li>
             {login ?(
              <Fragment>
-              <li>
-                <Link id="id_link_games" to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
+              <li id="id_link_games">
+                <Link to={'/games'} className={location && location.pathname==='games' ? 'active' : 'nav-link'}>
                   <IconContext.Provider value={{ size: "2rem" }}>
                     <IoGameController/>
                   </IconContext.Provider>
