@@ -105,9 +105,16 @@ jobs:
       - name: List files in /usr/local/bin directory
         run: ls -la /usr/local/bin
 
-      - name: Run ChromeDriver
-        run: chromedriver --port=4444 --url-base=/wd/hub
-        
+      - name: Start ChromeDriver
+        run: chromedriver --port=4444 --url-base=/wd/hub &
+        background: true
+
+      - name: Wait for ChromeDriver to start
+        run: sleep 5  # Adjust the wait time as needed
+
+      - name: Check running processes
+        run: ps -ef | grep chrome
+
       - name: Run Robot Framework tests
         run: robot --outputdir results robot_automation/robot_basics
       
