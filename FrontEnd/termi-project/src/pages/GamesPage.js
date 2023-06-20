@@ -64,7 +64,7 @@ const GamesPage = () => {
        <Container className="d-flex flex-wrap mt-3 justify-content-evenly align-items-stretch gap-4">
         {games.map((game, index) => (
           <motion.div key={game.id} className="item">
-            <GameCard game={game} />
+            <GameCard id={`id_${game.title}`}  game={game} />
           </motion.div>
         ))}
       </Container>
