@@ -100,8 +100,8 @@ jobs:
         run: sleep 5  # Adjust the wait time as needed
       - name: Check running processes
         run: |
-        ps -ef | grep chrome
-        netstat -tuln | grep 9515  # Verify if ChromeDriver is listening on port 9515
+            ps -ef | grep chrome
+            netstat -tuln | grep 9515  # Verify if ChromeDriver is listening on port 9515
         
       - name: List files in /usr/local/bin directory
         run: ls -la /usr/local/bin
