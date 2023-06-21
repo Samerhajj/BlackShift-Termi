@@ -47,6 +47,7 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
+          geckodriver --log=robot_automation/logs/geckodriver.log --log-file=robot_automation/logs/geckodriver.log --log-file-override
           robot --outputdir robot_automation/logs --log robot_automation/logs/log.html robot_automation/robot_basics
           if [ $? -eq 0 ]; then
             echo -e "\e[32mTests passed!\e[0m"
