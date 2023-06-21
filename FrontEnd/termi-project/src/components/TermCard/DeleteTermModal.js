@@ -4,8 +4,10 @@ import { Modal, Button } from "react-bootstrap";
 import { IconContext } from "react-icons";
 import { CiCircleRemove } from "react-icons/ci";
 import { LoginContext } from "./../LoginContext"
+
 //api 
 import AdminAPI from '../../api/AdminAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 
 function DeleteTermModal(props) {
   
@@ -22,7 +24,7 @@ function DeleteTermModal(props) {
     if (res.success) {
         console.log(res);
     } else {
-        console.log(res.message);
+        NotificationsAPI.errorNotification(res.message);
     }
     setShowModal(false);
   };

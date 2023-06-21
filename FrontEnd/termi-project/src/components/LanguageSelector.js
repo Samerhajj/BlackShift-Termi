@@ -86,10 +86,3 @@ const LanguageSelector = () => {
 
 };
 export default LanguageSelector;
-
-
- // <Button className="m-0 p-2" variant="transparent" key={language} onClick={() =>{
- //             i18n.changeLanguage(language);
- //           }}>
- //           <Image className="img-fluid" src={LanguageMap[language].src}/>
- //         </Button>

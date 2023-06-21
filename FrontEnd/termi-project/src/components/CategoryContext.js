@@ -2,6 +2,7 @@ import React, { createContext, useState,useEffect } from 'react';
 
 // APIs
 import CategoryApi from '../api/CategoryAPI';
+import NotificationsAPI from '../api/NotificationsAPI';
 
 // --> create LoginContext context 
 export const CategoriesContext = createContext();
@@ -15,10 +16,9 @@ const CategoriesProvider = (props) => {
     const getCategories = async () => {
         const res = await CategoryApi.getAllCategories();
         if(res.success){
-            console.log(res.body);
             setCategories(res.body);
         }else{
-            alert(res.message);
+            NotificationsAPI.errorNotification(res.message);
         }
     };
    

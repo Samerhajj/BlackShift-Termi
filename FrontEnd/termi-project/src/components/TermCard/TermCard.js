@@ -82,7 +82,6 @@ const TermCard = (props) =>{
     // }
     
     const handle_starsClick = async(e) =>{
-        console.log(e);
         if(!isFav){
             const res = await UserApi.addFavorite(props.term._id,userData._id);
             if(res.success){
@@ -111,7 +110,7 @@ const TermCard = (props) =>{
                 }
                 setUserData({...userData,favorite: res.body.updatedList});
             }else{
-                alert(res.message);
+                NotificationsAPI.errorNotification(res.message);
             }
         }
     };
