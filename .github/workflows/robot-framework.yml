@@ -48,7 +48,7 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          robot --outputdir robot_automation/logs --log robot_automation/logs/log.html robot_automation/robot_basics
+          robot --outputdir robot_automation/logs --log robot_automation/logs/robot_automation/logs/log.html robot_automation/robot_basics
           if [ $? -eq 0 ]; then  # Check the exit code of the previous command
             echo -e "\e[32mTests passed!\e[0m"  # Set text color to green for pass
           else
@@ -58,7 +58,7 @@ jobs:
       - name: Display Robot Framework logs
         run: |
           echo -e "\nTest Results:\n"
-          cat robot_automation/logs/log.html | awk -v RS='</tr>' -F '</td>' '{
+          cat robot_automation/logs/robot_automation/logs/log.html | awk -v RS='</tr>' -F '</td>' '{
             if (match($0, "<td class=\"fail\">")) {
               printf "\e[31m%s\e[0m\n", $2
             } else if (match($0, "<td class=\"pass\">")) {
