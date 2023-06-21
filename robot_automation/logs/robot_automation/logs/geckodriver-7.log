@@ -1,0 +1,20 @@
+1687332829131	geckodriver	INFO	Listening on 127.0.0.1:48227
+*** You are running in headless mode.
+1687332829514	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "45621" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile2ag46Y"
+*** You are running in headless mode.
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+[GFX1-]: glxtest: Unable to open a connection to the X server
+1687332829904	Marionette	INFO	Marionette enabled
+1687332829909	Marionette	INFO	Listening on port 40713
+Read port: 40713
+WebDriver BiDi listening on ws://127.0.0.1:45621
+1687332830078	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+[GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
+console.error: ({})
+DevTools listening on ws://127.0.0.1:45621/devtools/browser/c43b9276-7b1a-4733-9501-d7a31a26935c
+JavaScript warning: https://p7024.y2022.kinneret.cc/static/js/main.chunk.js, line 6917: unreachable code after return statement
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://p7024.y2022.kinneret.cc."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://p7024.y2022.kinneret.cc."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://p7024.y2022.kinneret.cc."
+1687332839327	Marionette	INFO	Stopped listening on port 40713
