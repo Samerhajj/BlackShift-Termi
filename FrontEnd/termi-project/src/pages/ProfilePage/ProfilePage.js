@@ -103,7 +103,7 @@ const ProfilePage =  () => {
   async function handleSavePasswordChanges(event) {
     event.preventDefault();
     if(user.userData.password!==formValues.currentPassword){
-      alert("Make sure you have the current password right");
+      NotificationsAPI.errorNotification("Make sure you have the current password right");
     }else{
       // Compare newPassword and validatePassword
       if (formValues.newPassword !== formValues.validatePassword) {
@@ -122,9 +122,9 @@ const ProfilePage =  () => {
             NotificationsAPI.successNotification('Successfully changed your password');
           }
         }else if(formValues.newPassword.length<6 && formValues.validatePassword.length<6){
-          alert('Please Enter More Than 6 Letters');
+          NotificationsAPI.errorNotification('Please Enter More Than 6 Letters');
         } else {
-          alert("ERROR SAVING PASSWORD CHANGES");
+          NotificationsAPI.errorNotification("ERROR SAVING PASSWORD CHANGES");
         }
       }
     }
@@ -148,7 +148,7 @@ const ProfilePage =  () => {
               console.log("OUT:::");
               console.log(response.body);
           } else {
-            alert(response.message);
+            NotificationsAPI.errorNotification(response.message);
           }
   }
   
