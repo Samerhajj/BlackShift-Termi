@@ -5,6 +5,7 @@ import TermCard from '../../components/TermCard/TermCard';
 import { useTranslation } from 'react-i18next';
 // --> Import APIs
 import UserAPI from '../../api/UserAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 
 // --> Contexts
 import { LoginContext } from "../../components/LoginContext";
@@ -25,7 +26,7 @@ const Favorite  = ({initialLanguage}) =>{
             setList([...response.body]);
             setIsOpen(!isOpen);
         } else {
-          alert(response.message);
+          NotificationsAPI.errorNotification(response.message);
         }
     };
     
