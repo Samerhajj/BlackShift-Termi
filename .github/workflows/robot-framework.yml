@@ -42,16 +42,13 @@ jobs:
         run: |
           echo "MOZ_HEADLESS=1" >> $GITHUB_ENV
 
-      - name: List workspace contents
-        run: ls $GITHUB_WORKSPACE
-            
       - name: Run Robot Framework tests
         run: |
           robot --outputdir robot_automation/logs --log robot_automation/logs/log.html robot_automation/robot_basics
-          if [ $? -eq 0 ]; then  # Check the exit code of the previous command
-            echo -e "\e[32mTests passed!\e[0m"  # Set text color to green for pass
+          if [ $? -eq 0 ]; then
+            echo -e "\e[32mTests passed!\e[0m"
           else
-            echo -e "\e[31mTests failed!\e[0m"  # Set text color to red for fail
+            echo -e "\e[31mTests failed!\e[0m"
           fi
 
       - name: Display Robot Framework logs
@@ -65,14 +62,13 @@ jobs:
             }
           }'
           
-      - name: Archive test results
-        uses: actions/upload-artifact@v2
-        with:
-          name: Test Results
-          path: robot_automation/logs
-
-      - name: Download test results
-        uses: actions/download-artifact@v2
-        with:
-          name: Test Results
-          path: ${{ github.workspace }}/robot_automation/logs
+      - name: Store Robot Framework logs
+        run: |
+          mkdir -p ${{ github.workspace }}/robot_automation/logs
+          cp robot_automation/logs/* ${{ github.workspace }}/robot_automation/logs
+          cd ${{ github.workspace }}
+          git config --global user.name "Your Name"
+          git config --global user.email "your-email@example.com"
+          git add robot_automation/logs
+          git commit -m "Add Robot Framework logs"
+          git push
