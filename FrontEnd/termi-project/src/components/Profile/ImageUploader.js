@@ -9,10 +9,16 @@ function ImageUploader() {
   const {userData, setUserData} = useContext(LoginContext);
   const [image, setImage] = useState({url: userData.profileImage});
   const fileInputRef = useRef(null);
+const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB
 
  const handleImageUpload = async (event) => {
   const selectedFile = event.target.files[0];
    if(selectedFile !== null){
+       if (selectedFile.size > MAX_FILE_SIZE) {
+         // File size exceeds the limit
+      NotificationsAPI.errorNotification("File Limit is 25mb");
+      return;
+    }
       console.log(selectedFile);
       const fileName = selectedFile.name;
       const lastDotIndex = fileName.lastIndexOf('.');
@@ -33,7 +39,7 @@ function ImageUploader() {
       }else{
         NotificationsAPI.errorNotification(respond.message);
       }
-   }
+   }  
 };
 
   const handleImageClick = () => {
