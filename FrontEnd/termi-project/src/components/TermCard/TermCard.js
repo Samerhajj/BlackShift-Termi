@@ -186,7 +186,7 @@ const TermCard = (props) =>{
         props.term._id,
         values.overallRating,
         values.shortTermRating,
-        values.longTermRating,
+        values.longTermRwating,
         values.feedbackText
       );
       if (respond.success) {
@@ -196,19 +196,29 @@ const TermCard = (props) =>{
       }
     };
     
-    const changeLanguage = async (newLanguage) => {
-        if(newLanguage!==language){
-            const res = await UserApi.languageChanged(userData.email,"Change concept language",document.title,false,newLanguage,language);
-            if(res.success){
+   const changeLanguage = async (newLanguage) => {
+    if (login) {
+        if (newLanguage !== language) {
+            const res = await UserApi.languageChanged(
+                userData.email,
+                "Change concept language",
+                document.title,
+                false,
+                newLanguage,
+                language
+            );
+            if (res.success) {
                 console.log(res);
-            }else{
+            } else {
                 console.log(res.message);
             }
             setLanguage(newLanguage);
-            // data = data.concat({term: props.term.conceptName["english"], language: newLanguage});
-            // localStorage.setItem("termCardLanguage", JSON.stringify(data));
         }
-    };
+    } else {
+        console.log("User is not logged in.");
+    }
+};
+
     
     const handleCardEdit = () =>{
         let term = props.term;
