@@ -13,12 +13,11 @@ import {LoginContext} from "../components/LoginContext";
 import {Image} from 'react-bootstrap'
 import NewImg from '../assets/images/Icons/New.png';
 import TrendingImg from '../assets/images/Icons/Trending.png';
-import NotificationAPI from '../api/NotificationsAPI'
+import NotificationsAPI from '../api/NotificationsAPI'
 import { FaMicrophone } from 'react-icons/fa';
 import { IconContext } from "react-icons";
 import { AiOutlineHistory } from 'react-icons/ai';
 import { franc } from 'franc';
-
 
 
 const TermsPage = () =>{
@@ -51,15 +50,11 @@ const TermsPage = () =>{
            
             if(term != ""){
                 const res = await SearchApi.search(term, lang, category);
-                console.log(res);
                 if(res.success){
-                    
                     // MUST REMOVE
                     var attempts = (parseInt(localStorage.getItem('searchCounter'))+1);
                     localStorage.setItem("searchCounter",attempts );
-                    
-			        setUserData({...userData, searchCounter: userData.searchCounter + 1});
-                    
+			              setUserData({...userData, searchCounter: userData.searchCounter + 1});
                     let closestResult = res.body['closestResult'];
                     closestResult = Object.assign({}, closestResult, { category });
                     let categoryResult = res.body['categoryNames'];
@@ -78,9 +73,6 @@ const TermsPage = () =>{
                         lang: lang,
                         category: category
                     });
-                    console.log(searchParams)
-                
-                
                 }else{
                     //show modal, ask user if wants to add concept or not
                     setShow(true);
@@ -89,7 +81,7 @@ const TermsPage = () =>{
             
             setSearchedTerm("");
         }else{
-    		alert("Must choose a category first");
+    		NotificationsAPI.errorNotification("Must choose a category first");
     	}
     };
     
@@ -103,12 +95,10 @@ const TermsPage = () =>{
             setShowResult(false);
             let input = searchedTerm;
             const res = await SearchApi.autocomplete(input, LanguageMap[inputLanguage].name,category);
-            console.log(res);
             if(res.success){
-                console.log(res.body);
                 setSuggestions(res.body);
             }else{
-                alert(res.message);
+                NotificationsAPI.errorNotification(res.message);
             }
         {
         // if the length of the text less than 3 no need to see any result
@@ -127,7 +117,7 @@ const TermsPage = () =>{
         }
         }
         else if( handleEnterClick(true)){
-            alert("Must choose a category first");
+            NotificationsAPI.errorNotification("Must choose a category first");
         }
     };
     
@@ -313,7 +303,7 @@ const handleStartListening = () => {
           if(res.success){
                 setSuggestions(res.body);
           }else{
-                NotificationAPI.errorNotification("Unable to retrieve recent searches");
+                NotificationsAPI.errorNotification("Unable to retrieve recent searches");
           }
         //   setSuggestions(res);
           console.log(res);
