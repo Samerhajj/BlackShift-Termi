@@ -155,10 +155,6 @@ const autoCompleteTerm = async(req,res) =>{
 
 const getRandomConcepts = async(req,res)=>{
   try{
-    // let numOfTerms = parseInt(req.query.numOfTerms, 10);
-    // let category = parseInt(req.query.category, 10);
-    
-     console.log("i am inside here");
      console.log(req.body);
      console.log(req.body.numOfTerms);
     const numOfTerms = parseInt(req.body.numOfTerms, 10);
@@ -208,8 +204,7 @@ const getRandomConcepts = async(req,res)=>{
       // });
     }
   }catch(e){
-    res.send()
-    console.log(e);
+    res.send();
   }
 };
 
