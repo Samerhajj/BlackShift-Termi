@@ -11,6 +11,7 @@ import styles from "./RegisterPage.module.css";
 // --> APIs
 import AuthAPI from '../../api/AuthAPI';
 import LanguageMap from '../../api/LanguageAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 
 // --> Contexts
 import { CategoriesContext } from "../../components/CategoryContext";
@@ -81,7 +82,7 @@ const handleSubmit = async (e) => {
     }
     
     else{
-        alert(response.message);
+        NotificationsAPI.errorNotification(response.message);
     }
     }
     
