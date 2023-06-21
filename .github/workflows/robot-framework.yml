@@ -42,6 +42,9 @@ jobs:
         run: |
           echo "MOZ_HEADLESS=1" >> $GITHUB_ENV
 
+      - name: List workspace contents
+        run: ls $GITHUB_WORKSPACE
+            
       - name: Run Robot Framework tests
         run: |
           robot --outputdir robot_automation/logs --log robot_automation/logs/log.html robot_automation/robot_basics
