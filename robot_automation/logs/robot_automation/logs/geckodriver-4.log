@@ -1,20 +1,20 @@
-1687339640713	geckodriver	INFO	Listening on 127.0.0.1:54475
+1687366479154	geckodriver	INFO	Listening on 127.0.0.1:60769
 *** You are running in headless mode.
-1687339641131	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "43725" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileERzSxq"
+1687366479559	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "51475" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile1JwIO0"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1687339641449	Marionette	INFO	Marionette enabled
-1687339641453	Marionette	INFO	Listening on port 37667
-Read port: 37667
-WebDriver BiDi listening on ws://127.0.0.1:43725
-1687339641633	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1687366479901	Marionette	INFO	Marionette enabled
+1687366479906	Marionette	INFO	Listening on port 43403
+Read port: 43403
+WebDriver BiDi listening on ws://127.0.0.1:51475
+1687366480075	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
-DevTools listening on ws://127.0.0.1:43725/devtools/browser/e63f1d38-69de-48a4-8840-63929f8b76cc
-JavaScript warning: https://p7024.y2022.kinneret.cc/static/js/main.chunk.js, line 6880: unreachable code after return statement
+DevTools listening on ws://127.0.0.1:51475/devtools/browser/2aa02b77-9b75-4898-a7c3-e165f8a3d3c5
+JavaScript warning: https://p7024.y2022.kinneret.cc/static/js/main.chunk.js, line 6714: unreachable code after return statement
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://p7024.y2022.kinneret.cc."
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://p7024.y2022.kinneret.cc."
-JavaScript warning: https://p7024.y2022.kinneret.cc/static/js/main.chunk.js, line 6880: unreachable code after return statement
-1687339650997	Marionette	INFO	Stopped listening on port 37667
+JavaScript warning: https://p7024.y2022.kinneret.cc/static/js/main.chunk.js, line 6714: unreachable code after return statement
+1687366490736	Marionette	INFO	Stopped listening on port 43403
