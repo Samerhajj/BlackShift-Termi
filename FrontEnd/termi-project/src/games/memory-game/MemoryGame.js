@@ -92,10 +92,10 @@ const MemoryGame = () => {
 				setNumOfTries(0);
 				setPointsGained(0);
 		    }else{
-		    	alert(res.message);
+		    	NotificationsAPI.errorNotification(res.message);
 		    }
 		}else{
-			alert("Must choose a category first");
+			NotificationsAPI.errorNotification("Must choose a category first");
 		}
 	};
 	

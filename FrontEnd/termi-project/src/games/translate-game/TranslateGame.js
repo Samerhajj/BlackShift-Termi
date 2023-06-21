@@ -26,7 +26,6 @@ import { IconContext } from "react-icons";
 import LanguageMap from '../../api/LanguageAPI';
 import GamesApi from '../../api/GamesAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
-import AchievementsAPI from '../../api/AchievementsAPI';
 import NotificationsAPI from '../../api/NotificationsAPI';
 
 const TranslateGame = () => {
@@ -68,10 +67,6 @@ const TranslateGame = () => {
 		    const res = await GamesApi.random(numOfTerms, category,'Translation Game');
 		    if(res.success){
 		        let terms = res.body;
-		        console.log(terms);
-		        console.log(terms.slice(0, numOfTerms/2));
-		        console.log(terms.slice(numOfTerms/2, numOfTerms + 1));
-		        
 		        let allQuestions = [];
 		        let allAnswers = [];
 		        for (var i = 0; i < terms.length; i++) {
@@ -116,10 +111,10 @@ const TranslateGame = () => {
 		        setShowScore(false);
 		        setStart(true);
 		    }else{
-		    	alert(res.message);
+		    	NotificationsAPI.errorNotification(res.message);
 		    }
 		}else{
-			alert("Must choose a category first");
+			NotificationsAPI.errorNotification("Must choose a category first");
 		}
 	};
 	
@@ -175,10 +170,10 @@ const TranslateGame = () => {
 		        setShowScore(false);
 		        setStart(true);
 		    }else{
-		    	alert(res.message);
+		    	NotificationsAPI.errorNotification(res.message);
 		    }
 		}else{
-			alert("Must choose a category first");
+			NotificationsAPI.errorNotification("Must choose a category first");
 		}
 	};
 
@@ -191,7 +186,6 @@ const TranslateGame = () => {
 	}
 	
 	const finishGame = async (pointsToAdd) => {
-		console.log(pointsToAdd);
 		setShowScore(true);
 		const response = await GamesApi.updatePoints(
 		    userData._id,

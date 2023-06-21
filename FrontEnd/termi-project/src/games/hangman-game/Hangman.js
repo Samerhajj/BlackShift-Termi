@@ -31,6 +31,7 @@ import {LoginContext} from "../../components/LoginContext";
 import GamesApi from '../../api/GamesAPI';
 import LanguageMap from '../../api/LanguageAPI';
 import GameHistoryAPI from '../../api/GameHistoryAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 
 
 import useInterval from './useInterval';
@@ -74,7 +75,6 @@ const Game = ({ actualGuesses = 7, pickedCategory }) => {
 
 	const [category, setCategory] = useState(userData.field);
   const[showGame,setShowGame] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
 	const [musicPlaying, setMusicPlaying] = useState(true);
 	const toggleMusic = () => setMusicPlaying(!musicPlaying);
@@ -292,13 +292,12 @@ const fetchQuestions2 = async () => {
                         setUpGameState3(correctAnswer1.arabic);
       return true;
     } else {
-      setErrorMessage(res.message);
-      alert(res.message);
+      NotificationsAPI.errorNotification(res.message);
       return false;
     }
   } catch (error) {
     console.log(error);
-    setErrorMessage("An error occurred while fetching questions.");
+    NotificationsAPI.errorNotification("An error occurred while fetching questions.");
     return false;
   }
 };

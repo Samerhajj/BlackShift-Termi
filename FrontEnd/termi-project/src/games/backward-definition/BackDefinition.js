@@ -30,6 +30,7 @@ const BackwordDefinition = () =>{
 	const basePointsPerQuestion = 10;
 	const difficultyMultiplierPerQuestion = 0.3; // => Easy: basePointsPerQuestion, Medium: basePointsPerQuestion * difficultyMultiplier
 	const difficulties = [{name: "Easy", start:()=>{initEasyGame()}}, {name: "Medium", start:()=>{initMediumGame()}}]
+	const timerSeconds = 60;
 	
 	const {userData, setUserData} = useContext(LoginContext);
 	const streakCountRef = useRef(0);
@@ -47,7 +48,7 @@ const BackwordDefinition = () =>{
 	
 	// Timer
 	const [elapsedTime, setElapsedTime] = useState(0);
-	const [timeLeft, setTimeLeft] = useState(60);
+	const [timeLeft, setTimeLeft] = useState(timerSeconds);
 	const [points,setPoints]=useState(0);
 	const [category, setCategory] = useState(userData.field);
 	
@@ -63,10 +64,13 @@ const BackwordDefinition = () =>{
 			const nextQuestion = currentQuestion + 1;
 	        if (nextQuestion < questions.length) {
 	          setCurrentQuestion(nextQuestion);
-	          setTimeLeft(60);
+	          setTimeLeft(timerSeconds);
 		    }
 		    else{
-		    	finishGame(score, points);
+				let difficultyPointsToAdd = basePointsPerQuestion * score * difficultyMultiplierPerQuestion * difficultyIndex;
+				let basePointsToAdd = basePointsPerQuestion * score;
+				let pointsToAdd = Math.round(basePointsToAdd + difficultyPointsToAdd);
+		    	finishGame(score, pointsToAdd);
 		    }
 		 }
 	}, start && !showScore ? 1000 : null);
@@ -80,12 +84,16 @@ const BackwordDefinition = () =>{
 		        const nextQuestion = currentQuestion + 1;
 		        if (nextQuestion < questions.length) {
 		          setCurrentQuestion(nextQuestion);
-		          setTimeLeft(60);
+		          setTimeLeft(timerSeconds);
 		          setMessage(null);
 		          setDisabled(false);
-		        } else {
-		          finishGame(score, points);
-		        }
+		        } 
+		   //     else {
+					// let difficultyPointsToAdd = basePointsPerQuestion * score * difficultyMultiplierPerQuestion * difficultyIndex;
+					// let basePointsToAdd = basePointsPerQuestion * score;
+					// let pointsToAdd = Math.round(basePointsToAdd + difficultyPointsToAdd);
+					// finishGame(score, pointsToAdd);
+		   //     }
 	      }, 1000);// wait for 10 seconds before moving on
 	    }
 	  }, [timeLeft, currentQuestion]);
@@ -98,7 +106,6 @@ const BackwordDefinition = () =>{
 		if(category !== undefined){
 			let numOfTerms = 10;
 			// let categoryId = category.categoryId;
-			let numOfCards = numOfTerms * 2;
 		    const res = await GamesApi.random(numOfTerms, category, "Definition Game");
 			// get 10 random terms from category 0
 	        if(res.success){
@@ -146,12 +153,12 @@ const BackwordDefinition = () =>{
 				}
 				setQuestions(allQuestions);
 				setHighestStreak(0);
-		    setElapsedTime(0);  // reset elapsed time to 0
-		    setShowScore(false);  // hide the score modal
-		    setCurrentQuestion(0);  // reset the current question to the first question
+			    setElapsedTime(0);  // reset elapsed time to 0
+			    setShowScore(false);  // hide the score modal
+			    setCurrentQuestion(0);  // reset the current question to the first question
 				setScore(0);
 				setPoints(0);
-				setTimeLeft(60);  // reset the time left
+				setTimeLeft(timerSeconds);  // reset the time left
 				setStart(true);
 				setDisabled(false);
 				setMessage("");
@@ -160,39 +167,97 @@ const BackwordDefinition = () =>{
 		    }
 			}
 		else{
-			alert("Must choose a category first");
+			NotificationsAPI.errorNotification("Must choose a category first");
 		}
 	};
 	
 	const initMediumGame = async () => {
-		console.log("not implemented yet");
+		// get 20 random terms from the choosen category
+		if(category !== undefined){
+			// Number of questions = numOfTerms / 2
+			let numOfTerms = 20;
+		    const res = await GamesApi.random(numOfTerms, category, "Definition Game");
+		    if(res.success){
+	        let terms = res.body;
+	        let allQuestions = [];
+	        for (var i = 0; i < numOfTerms/2; i++) {
+						let numberOfAnswers = 4;
+						let answers = new Array(numberOfAnswers);
+						
+						// get a random index for the correct answer
+	        	let correctIndex = Math.floor(Math.random() * numberOfAnswers);
+						let usedIndexs = new Map();
+						
+						// add the wrong answers
+						for(var answerIndex = 0; answerIndex < numberOfAnswers; answerIndex++){
+							if(answerIndex == correctIndex){
+								// add the correct answer
+								answers[correctIndex] = {answerText: terms[i].conceptName, isCorrect: true};
+								terms.splice(i, 1);
+							}else{
+								// random number for the wrong concept name
+			        			let wrongTermIndex = Math.floor(Math.random() * terms.length);
+			        			
+			        			// check if the term already in the answers or its the correct answer
+								if(usedIndexs.has(wrongTermIndex) || wrongTermIndex == i){
+									answerIndex--;
+									continue;
+								}
+								
+								// add the wrong answers
+								answers[answerIndex] = {answerText: terms[wrongTermIndex].conceptName, isCorrect: false};
+								usedIndexs.set(wrongTermIndex);
+							}
+						}
+						
+						// create the full question
+						let newQuestion = {
+							questionText: terms[i].shortDefinition,
+							answerOptions: answers
+						};
+						
+						// add the new question to the questions array
+						allQuestions.push(newQuestion);
+					}
+					setQuestions(allQuestions);
+					setHighestStreak(0);
+				    setElapsedTime(0);  // reset elapsed time to 0
+				    setShowScore(false);  // hide the score modal
+				    setCurrentQuestion(0);  // reset the current question to the first question
+					setScore(0);
+					setPoints(0);
+					setTimeLeft(timerSeconds);  // reset the time left
+					setStart(true);
+					setDisabled(false);
+					setMessage("");
+		    }else{
+		    	NotificationsAPI.errorNotification(res.message);
+		    }
+		}else{
+			NotificationsAPI.errorNotification("Must choose a category first");
+		}
 	};
 	
-  const handleAnswerOptionClick = (event, isCorrect) => {
+	const handleAnswerOptionClick = (event, isCorrect) => {
     setDisabled(true);
     const correctAnswer = questions[currentQuestion].answerOptions.find(option => option.isCorrect).answerText[LanguageMap[i18n.language].name];
     
     if (isCorrect) {
-    
-    const newStreakCount = streakCountRef.current + 1;
+    	const newStreakCount = streakCountRef.current + 1;
       
-      if(newStreakCount>highestStreak)
-      {
+		if(newStreakCount>highestStreak)
+		{
 			setHighestStreak(newStreakCount);  
-			}
+		}
 			streakCountRef.current = newStreakCount;
-      console.log(highestStreak);
-      setScore(score + 1);
-      setPoints(points + 10);
-      setMessage(t('games.backword-definition.correctanswer'));
-      event.target.classList.add('btn-success');
-    } else {
-      event.target.classList.add('btn-danger');
-      setMessage(t('games.backword-definition.wronganswer')+' : ' + correctAnswer);
-      streakCountRef.current = 0;
-    };
-    	
-		
+			setScore(score + 1);
+			setMessage(t('games.backword-definition.correctanswer'));
+			event.target.classList.add('btn-success');
+	    } else {
+			event.target.classList.add('btn-danger');
+			setMessage(t('games.backword-definition.wronganswer')+' : ' + correctAnswer);
+			streakCountRef.current = 0;
+    	}
 	
 		setTimeout(() => {
 			// reset the classes of the answer options
@@ -202,17 +267,17 @@ const BackwordDefinition = () =>{
 	
 	
 		const nextQuestion = currentQuestion + 1;
-				if (nextQuestion < questions.length) {
-					// stopTimer();
-					// setTimer(30);
-						setTimeLeft(60);
-				setMessage('');
-					// startTimer();
+		if (nextQuestion < questions.length) {
+			setTimeLeft(timerSeconds);
+			setMessage('');
 			setCurrentQuestion(nextQuestion);
-			
 		} else {
-			// setScore(score + (isCorrect ? 1:0));
-			finishGame(score + (isCorrect ? 1:0), points + (isCorrect ? 10:0));
+			let updatedScore = score + (isCorrect ? 1:0);
+			let difficultyPointsToAdd = basePointsPerQuestion * updatedScore * difficultyMultiplierPerQuestion * difficultyIndex;
+			let basePointsToAdd = basePointsPerQuestion * updatedScore;
+			let pointsToAdd = Math.round(basePointsToAdd + difficultyPointsToAdd);
+			setPoints(pointsToAdd);
+			finishGame(updatedScore, pointsToAdd);
 		
 		}
 		//reset timer and message
@@ -220,6 +285,7 @@ const BackwordDefinition = () =>{
 	};
 	
 	const finishGame = async (score, points) => {
+		console.log(score, points)
 		const achievementsRes = await AchievementsAPI.getAllAchievements();
 		const allAchievements = achievementsRes.body;
 		const achievements = allAchievements.filter((achievement) => achievement.relevantGame === "Definition Game");
@@ -298,20 +364,7 @@ const BackwordDefinition = () =>{
 	const seconds = elapsedTime % 60;
 	const timePlayed = `min ${minutes} | sec ${seconds}`;
 	localStorage.setItem("timePlayed",timePlayed);
-	
-	const style = {Containers: {
-	    DefaultStyle: {
-	      fontFamily: 'inherit',
-	      position: 'fixed',
-	      padding: '0 10px 10px 10px',
-	      zIndex: 9998,
-	      WebkitBoxSizing: 'border-box',
-	      MozBoxSizing: 'border-box',
-	      boxSizing: 'border-box',
-	      height: '144px'
-	    }}}
-	
-	
+
 	
 	const unlockAchievement = async (achievementName,achievements) => {
   //const achievementsRes = await AchievementsAPI.getAllAchievements();
@@ -320,13 +373,11 @@ const BackwordDefinition = () =>{
   );
   
   if (achievement != null) {
-    	const achivementResponse=await AchievementsAPI.updateAchievement(
-	          userData._id,
-	          achievement._id,
-	          true
-	        );
-    
-    console.log(achievementName);
+	const achivementResponse=await AchievementsAPI.updateAchievement(
+          userData._id,
+          achievement._id,
+          true
+        );
   	if(achivementResponse.success && achivementResponse.added)
 			{
 				NotificationsAPI.achievementNotification(achievement, "Achievement Unlocked!");
