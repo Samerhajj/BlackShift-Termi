@@ -48,7 +48,6 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          geckodriver --log=robot_automation/logs/geckodriver.log
           robot --outputdir robot_automation/logs --log robot_automation/logs/log.html robot_automation/robot_basics
           if [ $? -eq 0 ]; then  # Check the exit code of the previous command
             echo -e "\e[32mTests passed!\e[0m"  # Set text color to green for pass
