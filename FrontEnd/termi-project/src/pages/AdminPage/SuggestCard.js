@@ -5,6 +5,7 @@ import AdminAPI from '../../api/AdminAPI';
 import {Form, Modal} from "react-bootstrap";
 import PropTypes from 'prop-types';
 import LanguageMap from '../../api/LanguageAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 import './Admin.css'
 import {Image } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
@@ -25,10 +26,9 @@ const role = user.userData.role;
       if(response.success){
         console.log(response);
         setSuggestList(suggestList.filter((item) => item['_id'] !== response.body.del_ID));
-        // setSuggestList([...response.body])
      }
      else{
-       alert(response.message);
+       NotificationsAPI.errorNotification(response.message);
      }
   }
   

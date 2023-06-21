@@ -5,6 +5,7 @@ import SuggestCard from './SuggestCard';
 import Accordion from 'react-bootstrap/Accordion';
 import { Row, Col } from 'react-bootstrap/';
 import AdminAPI from '../../api/AdminAPI';
+import NotificationsAPI from '../../api/NotificationsAPI';
 import './Admin.css';
 import './ViewSuggestions.css';
 import { LoginContext } from './../../components/LoginContext';
@@ -26,7 +27,7 @@ const ViewSuggestions = () => {
       console.log("**********************");
       setSuggestList([...response.body]);
     } else {
-      alert(response.message);
+      NotificationsAPI.errorNotification(response.message);
     }
   };
 
