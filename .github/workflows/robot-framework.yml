@@ -1,6 +1,9 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -23,7 +26,7 @@ jobs:
 
       - name: Install Firefox browser
         run: sudo apt-get install -y firefox
-     
+
       - name: Install GeckoDriver
         run: |
           GECKODRIVER_VERSION=$(curl -sS https://api.github.com/repos/mozilla/geckodriver/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
@@ -34,7 +37,7 @@ jobs:
 
       - name: Install webdriver_manager
         run: pip install --upgrade webdriver_manager
-        
+
       - name: Install Selenium
         run: pip install selenium==4.9.1
 
@@ -45,23 +48,17 @@ jobs:
       - name: Run Robot Framework tests
         run: |
           robot --outputdir robot_automation/logs --log robot_automation/logs/log.html robot_automation/robot_basics
-          if [ $? -eq 0 ]; then  # Check the exit code of the previous command
-            echo -e "\e[32mTests passed!\e[0m"  # Set text color to green for pass
+          if [ $? -eq 0 ]; then
+            echo -e "\e[32mTests passed!\e[0m"
           else
-            echo -e "\e[31mTests failed!\e[0m"  # Set text color to red for fail
+            echo -e "\e[31mTests failed!\e[0m"
           fi
 
       - name: Display Robot Framework logs
         run: |
           echo -e "\nTest Results:\n"
-          cat robot_automation/logs/log.html | awk -v RS='</tr>' -F '</td>' '{
-            if (match($0, "<td class=\"fail\">")) {
-              printf "\e[31m%s\e[0m\n", $2
-            } else if (match($0, "<td class=\"pass\">")) {
-              printf "\e[32m%s\e[0m\n", $2
-            }
-          }'
-          
+          cat robot_automation/logs/output.xml | awk -F'"' '/failures="|errors="|tests=/{gsub(/<\/?[^>]+(>|$)/, "", $2);print "\033[31m"$2"\033[0m"} /<test id=|<status status=/{split($0, a, "\"");print "\033[32m"$2"\033[0m"}'
+
       - name: Commit and push logs
         run: |
           git config --local user.email "actions@github.com"
