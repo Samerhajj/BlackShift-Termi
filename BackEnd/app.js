@@ -48,7 +48,7 @@ const db = require("./config/database");
 // Get the Coffees Orders
 // Core
 app.use(cors({
-  origin:"https://p7024.y2022.kinneret.cc"
+  origin:["https://p7024.y2022.kinneret.cc","https://ser.y2022.kinneret.cc"]
 }));
 
 app.use("/search", require("./routes/search"));
@@ -62,6 +62,7 @@ app.use("/gameHistory", require("./routes/gameHistory"));
 app.use("/leaderboards", require("./routes/leaderboards"));
 app.use("/achievements", require("./routes/achievements"));
 app.use("/feedback",require("./routes/termFeedback"));
+app.use("/ai",require("./routes/chatgpt"));
 
 // Set staic folder
 app.use("/Storage", express.static(path.join(__dirname, "Storage")));

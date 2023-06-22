@@ -36,7 +36,7 @@ const handleButtonClick = async () => {
     setButtonDisabled(true);
 
     // Perform your logic here with the form values
-    const concept = await GptApi.sendRequest(termName);
+    const concept = await GptApi.generateDefinitions(termName);
     const parsedConcept = JSON.parse(concept);
 
     // Access the individual values

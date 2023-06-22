@@ -71,7 +71,7 @@ const MainNavbar = ({setTitle,location}) => {
             <img src={logoImg} alt="logo"/>
             </div>
         </Link>
-        <a href="javascript:void(0)" className="hamburger" ref={hamburgerRef}><span/></a>
+        <a href="#" className="hamburger" ref={hamburgerRef}><span/></a>
         <div className="mobile_menu" ref={mobileMenuRef}>
           <Link to={'/'} className="mo_logo">
               <img src={logoImg} alt="logo"/>

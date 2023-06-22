@@ -66,6 +66,7 @@ const getAllFeedback = process.env.React_App_BaseURL + "feedback" + "/" + "term"
 const top10Route = process.env.React_App_BaseURL + "search" + "/" + "get-top10";
 const displayMytermsRoute1 = process.env.React_App_User_Favorite_DISPLAY_MYTERMS;
 const deleteTermFromSearchRoute = process.env.React_App_BaseURL + "user" + "/" + "deleteterm";
+const chatgptRoute =  process.env.React_App_BaseURL + "ai" + "/" + "generate-definitions";
 export {
         // Search Routes
         searchRoute,
@@ -74,6 +75,8 @@ export {
         search_returnAllCategories,
         search_favorites,
         
+        //chatgpt
+        chatgptRoute,
         // Games Routes
         randomRoute,
         updatePointsRoute,
