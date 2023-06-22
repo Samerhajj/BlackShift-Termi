@@ -14,8 +14,7 @@ import GptApi from "../api/GptApi";
 import { LoginContext } from "../components/LoginContext";
 import { CategoriesContext } from "../components/CategoryContext";
 
-import gpt_icon from "./UserSuggestions/gpt_icon.png";
-import "./UserSuggestions/UserSuggestions.css";
+import gpt_icon from "../assets/images/gpt_icon.png";
 
 const SuggestConceptPage = () => {
   const [chatGptConcept, setChatGptConcept] = useState("");

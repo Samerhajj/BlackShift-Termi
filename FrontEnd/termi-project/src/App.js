@@ -7,7 +7,7 @@ import {
   Login,  Register, TermsPage,  ProfilePage,
   ErrorPage, HomePage, GamesPage, ForgotPassword,
   SuggestConceptPage, Favorite, Top10,
-  AdminSuggestionPage, AdminPage, AddTermAdmin, UserSuggestions, ResetPasswordPage, VerifyPage, TestPage,
+  AdminSuggestionPage, AdminPage, AddTermAdmin, ResetPasswordPage, VerifyPage, TestPage,
   ManageUsersPage, FeedBack, ChatGptPage
 } from "./pages/PageIndex";
 
@@ -39,7 +39,6 @@ function App() {
   const WTranslateGame = withAuth(TranslateGame);
   const WProfilePage = withAuth(ProfilePage);
   const WFavorite=withAuth(Favorite);
-  const WUserSuggestions=withAuth(UserSuggestions);
   const WChatPage=withAuth(ChatGptPage);
   const WSuggestConceptPage=withAuth(SuggestConceptPage);
   
@@ -89,7 +88,6 @@ function App() {
             <Route path="/reset-password/:token" element={<DynamicTitleRoute title="Reset Password" element={<ResetPasswordPage/>} />}/>
             <Route path="/favorite" element={<DynamicTitleRoute title="Favorite" element={<WFavorite/>} />}/>
             <Route path="/suggest" element={<DynamicTitleRoute title="Suggest Concept" element={<WSuggestConceptPage/>} />}/>
-            <Route path="/UserSuggestions" element={<DynamicTitleRoute title="User Suggestions" element={<WUserSuggestions/>} />}/>
             
             <Route path="/admin" element={<DynamicTitleRoute title="Admin" element={<WAdminPage/>} />}/>
             <Route path="/admin/suggestions" element={<DynamicTitleRoute title="User Suggestions" element={<WAdminSuggestionPage/>} />}/>

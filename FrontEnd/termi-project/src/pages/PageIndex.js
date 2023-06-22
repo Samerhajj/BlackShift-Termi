@@ -13,7 +13,6 @@ export { default as ManageUsersPage } from"./AdminPage/ManageUsersPage";
 export { default as FeedBack } from"./AdminPage/FeedBack";
 
 
-export { default as UserSuggestions } from"./UserSuggestions/UserSuggestions";
 export { default as ResetPasswordPage } from"./ResetPasswordPage";
 export { default as VerifyPage} from "./VerifyPage";
 export { default as TestPage} from "./TestPage";
