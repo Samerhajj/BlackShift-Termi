@@ -1,17 +1,17 @@
-1687456245805	geckodriver	INFO	Listening on 127.0.0.1:47915
+1688158125492	geckodriver	INFO	Listening on 127.0.0.1:49125
 *** You are running in headless mode.
-1687456246342	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "54107" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile5WCaA1"
+1688158126050	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "39521" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofileMl9cQO"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1687456246811	Marionette	INFO	Marionette enabled
-1687456246815	Marionette	INFO	Listening on port 40163
-Read port: 40163
-WebDriver BiDi listening on ws://127.0.0.1:54107
-1687456246975	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1688158126628	Marionette	INFO	Marionette enabled
+1688158126633	Marionette	INFO	Listening on port 45419
+Read port: 45419
+WebDriver BiDi listening on ws://127.0.0.1:39521
+1688158126845	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
-DevTools listening on ws://127.0.0.1:54107/devtools/browser/8c707e89-dcd0-4a28-a84d-c76366fdbbee
-JavaScript warning: https://p7024.y2022.kinneret.cc/static/js/main.chunk.js, line 6640: unreachable code after return statement
-1687456255347	Marionette	INFO	Stopped listening on port 40163
+DevTools listening on ws://127.0.0.1:39521/devtools/browser/e008858e-b483-42c5-a69e-b45b53f11542
+JavaScript warning: https://p7024.y2022.kinneret.cc/static/js/main.chunk.js, line 6644: unreachable code after return statement
+1688158137140	Marionette	INFO	Stopped listening on port 45419
