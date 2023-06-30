@@ -31,6 +31,18 @@
         "finish":"Finish",
         "finish_message":"Thank you for registering. Please check your email inbox for further instructions on how to validate your email address so that you can log in."
     },
+    "gender":{
+        "gener-option": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+    },
+    "status":{
+        "status-option": "Status",
+        "Student": "Student",
+        "works_in_the_field": "Works in the field",
+        "other": "Other"
+    },
     "forgot_password":{
         "forgot_password":"Forgot Password",
         "text":"Enter your email to reset password.",
