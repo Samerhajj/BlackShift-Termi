@@ -39,7 +39,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 0px;
+    right: 10px;
     font-size: 25px;
     color: #707070;
     cursor: pointer;
@@ -48,16 +48,10 @@
      outline: none;
 }
 
-
-.microphone-button:hover{
-     background-color: #62329e;
-    color: white;
-}
-.search-button:hover{
+.microphone-button:hover, .search-button:hover{
     background-color: #62329e;
     color: white;
 }
-
 
 .autocomplete-box{
     position: absolute;

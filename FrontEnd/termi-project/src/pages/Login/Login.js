@@ -137,12 +137,12 @@ const Login = () => {
                                        {t('login.login')}
                                       </button>
                                 </div>
-                                <div className="form-group d-md-flex mt-3">
-                                      <div className="d-line text-md-right " >
-                                          <Link id="id_forgot_password" to ="/forgotpassword"> {t('login.forgot_password')}</Link>
-                                      </div>
-                                </div>
                                 
+                                <div class="d-flex justify-content-center">
+                                  <div class="p-2 bd-highlight">
+                                      <Link className="link_forgot_password" id="id_forgot_password" to ="/forgotpassword"> {t('login.forgot_password')}</Link>
+                                  </div>
+                                </div>
 
                           </Row>
                       </div>

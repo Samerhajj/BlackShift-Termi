@@ -21,7 +21,7 @@ import Stepper from "./Stepper"
 const Register = () =>{
 const [currentStep, setCurrentStep] = useState(0);
 
-    const [selectedStatus, setSelectedStatus] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState([]);
   
   const navigate = useNavigate();
   const {t, i18n} = useTranslation(); 
@@ -138,6 +138,8 @@ const handleSubmit = async (e) => {
   }
   {currentStep === 1 &&
     <form className="login-form">
+    
+      {/*Phone number*/}
       <div className="form-group my-3">
         <input
           type="text"
@@ -148,19 +150,24 @@ const handleSubmit = async (e) => {
         />
         {errors.phone && <p className="text-danger">{errors.phone}</p>}
       </div>
-      <select
-        style={{ width: 200 }}
-        className={`form-select w-100 ${errors.gender ? 'is-invalid' : ''}`}
-        onChange={(e)=>setData({...data,gender:e.target.value})}
-          value={data.gender}
-      >
-        <option value="" disabled selected>gender</option>
-        <option value="male">male</option>
-        <option value="female">female</option>
-        <option value="other">other</option>
-      </select>
-      <div className="form-group">
-       
+      
+      {/*Gender*/}
+      <div className="form-group my-3">
+          <select
+            style={{ width: 200 }}
+            className={`form-select w-100 ${errors.gender ? 'is-invalid' : ''}`}
+            onChange={(e)=>setData({...data,gender:e.target.value})}
+              value={data.gender}
+          >
+            <option value="" disabled selected>{t('gender.gener-option')}</option>
+            <option value="male">{t('gender.male')}</option>
+            <option value="female">{t('gender.female')}</option>
+            <option value="other">{t('gender.other')}</option>
+          </select>
+      </div>
+      
+      {/*Select category*/}
+      <div className="form-group my-3">
           <select
             style={{ width: 200 }}
             className={`form-select w-100 ${errors.field ? 'is-invalid' : ''}`}
@@ -179,6 +186,10 @@ const handleSubmit = async (e) => {
                 )})
             }
         </select>
+      </div>
+        
+      {/*Language*/}
+      <div className="form-group my-3">
         <select 
             style={{ width: 200}}
            className={`form-select w-100 mt-3 ${errors.language ? 'is-invalid' : ''}`}
@@ -192,17 +203,22 @@ const handleSubmit = async (e) => {
             <option value="English">{t('register.lang_en')}</option>
             <option value="Arabic">{t('register.lang_ar')}</option>
             <option value="Hebrew">{t('register.lang_he')}</option>
-      </select>
-
+        </select>
+      </div>
+    
+      
+    {/*Status*/}
+    <div className="form-group my-3">
       <CheckBox setData={setData}  selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
- <button
-          type="button"
-          className={`form-control ${styles.btn} btn btn-primary rounded submit px-3 mt-5`}
-          onClick={handleStepSubmit}
-        >
-        {t('register.next')}
+          <button
+            type="button"
+            className={`form-control ${styles.btn} btn btn-primary rounded submit px-3 mt-5`}
+            onClick={handleStepSubmit}
+          >
+            {t('register.next')}
         </button>
       </div>
+      
     </form>
   }
   {currentStep === 2 &&

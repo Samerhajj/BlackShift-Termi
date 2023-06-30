@@ -18,3 +18,8 @@ body {
   padding-top: 50px; /* Add extra padding to the top */
   padding-bottom: 50px; /* Add extra padding to the bottom */
 }
+
+.link_forgot_password {
+  font-weight: bold;
+}
+

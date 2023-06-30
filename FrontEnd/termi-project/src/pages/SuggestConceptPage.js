@@ -275,7 +275,8 @@ const validateUrl = async (rule, value) => {
           onFinish={onFinish}
           validateMessages={validateMessages}
         >
-          <div style={{ marginTop: "0px" }}>
+
+          <div style={{ display: "flex", justifyContent: "center",marginTop: "0px",marginBottom:"10px" }}>
             {showChatGptButton && (
               <Button
                 className="chatGptButton"
@@ -285,7 +286,7 @@ const validateUrl = async (rule, value) => {
                 <img
                   src={gpt_icon}
                   alt="GPT Icon"
-                  style={{ width: "30px", height: "30px", marginRight: "10px" }}
+                  style={{ width: "25px", height: "25px", marginRight: "10px" ,marginBottom:"4px"}}
                 />
                 {isLoading
                   ? "ChatGPT Processing.. takes time.."
@@ -293,6 +294,7 @@ const validateUrl = async (rule, value) => {
               </Button>
             )}
           </div>
+          
 
           <Form.Item
             label={t("suggest_concept_page.category_en")}

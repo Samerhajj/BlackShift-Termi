@@ -337,13 +337,13 @@ return (
                 updateInput(e.target.value);
               }}
             />
-            <button
-              className="microphone-button"
-              onClick={handleStartListening}
+            <i
+              className="microphone-button fa"
+              onClick={() => handleStartListening()}
               disabled={listening}
             >
               <FaMicrophone />
-            </button>
+            </i>
 
             <i id="id_search_bar_button"
               className="fa fa-search search-button"
