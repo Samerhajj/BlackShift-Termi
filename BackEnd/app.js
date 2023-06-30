@@ -47,9 +47,13 @@ app.listen(PORT || process.env.PORT, (req, res) => {
 const db = require("./config/database");
 // Get the Coffees Orders
 // Core
+// app.use(cors({
+//   origin:["https://p7024.y2022.kinneret.cc","https://ser.y2022.kinneret.cc"]
+// }));
 app.use(cors({
-  origin:["https://p7024.y2022.kinneret.cc","https://ser.y2022.kinneret.cc"]
+  origin: '*'
 }));
+
 
 app.use("/search", require("./routes/search"));
 app.use("/user", require("./routes/user"));

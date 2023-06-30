@@ -9,9 +9,6 @@ const jwt = require("jsonwebtoken");
 var ObjectID = require('mongodb').ObjectID;
 
 const { addLeaderboardPoints } = require("./leaderboardsController");
-
-
-
 const s3 = new AWS.S3({
  
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -106,43 +103,42 @@ const addFavorite = async (req,res) =>{
   }
 };
 //-------------------------------------------------------------------------------------------------------------------------------------
-const suggestTerm = async (req,res) =>{
-        
-
-        // User.findByIdAndUpdate({_id:req.body._id},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
-        //   if (error) {
-        //     console.log(error);
-        //   }
-        // });
-        
-         const newSuggest = await new Suggest({
-          categories: req.body.selectedCategory,
-          shortDefinition:req.body.shortDefinition,
-          lastEdited: Date.now(),
-          conceptName: req.body.conceptName,
-          suggestedBy: req.body.suggestedBy,
-          longDefinition: req.body.longDefinition,
-          termSuggestedByID: req.body._id,
-          readMore: req.body.readMore
-        }
-        );
-        // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
-
-        // console.log("______________________________")
-        // console.log(newSuggest['_id'].toString());
-        // console.log(response);
-        console.log("______________________________")
-        console.log(newSuggest);
-        console.log("______________________________")
-
-        try{
-            await newSuggest.save();
-            res.send(newSuggest);
-        }
-        catch(err){
-            res.send(err);
-        } 
-}; // The suggestions that the users send.
+// const suggestTerm = async (req,res) =>{
+      
+// {
+//         // User.findByIdAndUpdate({_id:req.body._id},{ $inc: { suggestConceptCounter: 1 }}, function(error,res) {
+//         //   if (error) {
+//         //     console.log(error);
+//         //   }
+//         // });
+// }        
+//         const newSuggest = await new Suggest({
+//           categories: req.body.selectedCategory,
+//           shortDefinition:req.body.shortDefinition,
+//           lastEdited: Date.now(),
+//           conceptName: req.body.conceptName,
+//           suggestedBy: req.body.suggestedBy,
+//           longDefinition: req.body.longDefinition,
+//           termSuggestedByID: req.body._id,
+//           readMore: req.body.readMore
+//         });
+// {        
+//         // const response = await User.findByIdAndUpdate({_id:req.body._id},{ $addToSet: { suggestion: newSuggest['_id'].toString() }},{ new: true });
+//         // console.log("______________________________")
+//         // console.log(newSuggest['_id'].toString());
+//         // console.log(response);
+// }
+//         console.log("______________________________")
+//         console.log(newSuggest);
+//         console.log("______________________________")
+//         try{
+//             await newSuggest.save();
+//             res.send(newSuggest);
+//         }
+//         catch(err){
+//             res.send(err);
+//         } 
+// }; // The suggestions that the users send.
 
 
 
@@ -163,6 +159,57 @@ const suggestTerm = async (req,res) =>{
 // console.log(err);
 // res.send(err);
 // }
+
+const suggestTerm = async (req, res) => {
+  const token = req.headers["x-auth-token"];
+
+  try {
+    // Verify the token here (Example: using JWT)
+    const decodedToken = jwt.verify(token, process.env.SECRET); // Replace "yourSecretKey" with your actual secret key
+
+    if (!decodedToken || !decodedToken.email) {
+      // If the token is invalid or doesn't contain an email
+      return res.status(401).send("Invalid token");
+    }
+
+    const email = decodedToken.email;
+
+    // Find the user in the database based on the email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      // If the user is not found in the database
+      return res.status(404).send("User not found");
+    }
+
+    // Proceed with the logic if the email is valid
+    const newSuggest = await new Suggest({
+      categories: req.body.selectedCategory,
+      shortDefinition: req.body.shortDefinition,
+      lastEdited: Date.now(),
+      conceptName: req.body.conceptName,
+      suggestedBy: req.body.suggestedBy,
+      longDefinition: req.body.longDefinition,
+      termSuggestedByID: req.body._id,
+      readMore: req.body.readMore
+    });
+
+    // Save the suggestion
+    await newSuggest.save();
+
+    // Update the user with the suggestion
+    user.suggestion.push(newSuggest._id);
+    await user.save();
+
+    res.send(newSuggest);
+  } catch (error) {
+    // Token verification failed or error occurred
+    console.error(error);
+    res.status(401).send("Invalid token");
+  }
+};
+
+
 
 // }// Admin delete the selected term. HAS API
 
@@ -186,9 +233,6 @@ const deleteTerm = async (req, res) => {
     res.send(err);
   }
 };
-
-
-
 //-------------------------------------------------------------------------------------------------------------------------------------
 const handleLanguageChange = async(req,res) => {
   try{
@@ -270,7 +314,6 @@ const getAllLogsSearchGames = async (req, res) => {
     res.send(err);
   }
 };
-
 //-------------------------------------------------------------------------------------------------------------------------------------
 // delete all logs
 const deleteLog2 = async (req,res)=>{
@@ -316,9 +359,6 @@ const getAllLogs = async (req, res) => {
     res.send(err);
   }
 };
-
-
-
 //-------------------------------------------------------------------------------------------------------------------------------------
 // const getAllSuggestedTerms = async (req,res) =>{
 //   try{
@@ -361,8 +401,6 @@ const getAllSuggestedTerms = async (req, res) => {
     res.status(500).send(err);
   }
 };
-
-
 //-------------------------------------------------------------------------------------------------------------------------------------
 // const deleteOneSuggest = async (req,res)=>{
 //   try{
@@ -392,7 +430,6 @@ const deleteOneSuggest = async (req, res) => {
     console.log(err);
   }
 };
-
 //-------------------------------------------------------------------------------------------------------------------------------------
 {
 // const addSelectedTerm = async(req,res)=>{
@@ -435,8 +472,6 @@ const deleteOneSuggest = async (req, res) => {
 //   }
 
 }
-
-
 // const addSelectedTerm = async(req,res)=>{
 //   try{
 
@@ -498,7 +533,6 @@ const deleteOneSuggest = async (req, res) => {
 //     res.status(401).json("Internal server error");
 //   } 
 // }// Admin adds the selected term.
-
 const addSelectedTerm = async (req, res) => {
   try {
     console.log("RRRRRR");
@@ -569,11 +603,7 @@ const addSelectedTerm = async (req, res) => {
     res.status(500).json("Internal server error");
   }
 };
-
-
 // Approve the term that the user suggested.
-
-
 //------------------------------------------------------------------------------------------------------------------------------------
 const incrementSearchCount = async (req,res)=>{
   const token = req.headers["x-auth-token"];
@@ -669,10 +699,7 @@ const deleteAllUsers = async (req, res) => {
       res.status(500).send('Internal server error');
   }
 };
-
-
-
-
+//------------------------------------------------------------------------------------------------------------------------------------
 const uploadImage = (req, res) => {
   const { id, fileExtension } = req.body;
   const file = req.file;
