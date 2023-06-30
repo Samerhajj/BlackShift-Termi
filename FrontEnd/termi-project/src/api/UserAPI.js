@@ -90,9 +90,12 @@ const addFavorite = async (termId, userId) => {
 const suggestFromUser = async (values) => {
     try{
         // values.selectedCategory = [selectedCategory];
-        
+         
         console.log(values);
-        const res = await axios.post(suggestUserRoute, values);
+        const res = await axios.post(suggestUserRoute, values, {
+            headers: {
+                'x-auth-token': localStorage.getItem('token')
+        }});
         return {body: res, success: true};
     }
     catch(err){
