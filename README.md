@@ -1,6 +1,6 @@
 # BlackShift-Termi
 
-# [Termi Web App]([(https://p7024.y2022prod.kinneret.cc/])
+# [Termi Web App](https://p7024.y2022prod.kinneret.cc/)
 
 1) In this project we have used **token** for authentication.
 2) The ability to change language (<u>Arabic</u>,<u>English</u>,<u>Hebrew</u>).
