@@ -1,20 +1,20 @@
-1688158138187	geckodriver	INFO	Listening on 127.0.0.1:58353
+1688276407556	geckodriver	INFO	Listening on 127.0.0.1:42403
 *** You are running in headless mode.
-1688158138589	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "43245" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofilepW085u"
+1688276407981	mozrunner::runner	INFO	Running command: "/snap/firefox/current/firefox.launcher" "--marionette" "--remote-debugging-port" "42273" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "/tmp/rust_mozprofile6bINjG"
 *** You are running in headless mode.
 console.warn: services.settings: Ignoring preference override of remote settings server
 console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
 [GFX1-]: glxtest: Unable to open a connection to the X server
-1688158138944	Marionette	INFO	Marionette enabled
-1688158138948	Marionette	INFO	Listening on port 41663
-Read port: 41663
-WebDriver BiDi listening on ws://127.0.0.1:43245
-1688158139114	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1688276408251	Marionette	INFO	Marionette enabled
+1688276408255	Marionette	INFO	Listening on port 43489
+Read port: 43489
+WebDriver BiDi listening on ws://127.0.0.1:42273
+1688276408381	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
 [GFX1-]: RenderCompositorSWGL failed mapping default framebuffer, no dt
 console.error: ({})
-DevTools listening on ws://127.0.0.1:43245/devtools/browser/7aee99b8-3621-4488-af64-e5c46083f983
+DevTools listening on ws://127.0.0.1:42273/devtools/browser/bf87468e-9582-40e1-b28d-c09f11438228
 JavaScript warning: https://p7024.y2022.kinneret.cc/static/js/main.chunk.js, line 6644: unreachable code after return statement
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://p7024.y2022.kinneret.cc."
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://p7024.y2022.kinneret.cc."
 console.warn: LoginRecipes: "Falling back to a synchronous message for: https://p7024.y2022.kinneret.cc."
-1688158148102	Marionette	INFO	Stopped listening on port 41663
+1688276416046	Marionette	INFO	Stopped listening on port 43489
